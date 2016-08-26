@@ -1,7 +1,7 @@
 ---
 layout: index
-title: Minimal Cayman
-description: A responsive theme for your project on GitHub Pages
+title: multiformats
+description: A collection of protocols for future-proofing systems, today.
 ---
 
 # multiformats
@@ -9,8 +9,6 @@ description: A responsive theme for your project on GitHub Pages
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
 [![](https://img.shields.io/badge/project-multiformats-blue.svg?style=flat-square)](http://github.com/multiformats/multiformats)
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
-
-> The main repository for discussing multiformats
 
 Currently, we have the following multiformat protocols:
 
