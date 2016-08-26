@@ -1,6 +1,6 @@
 # Setup
-path:         https://multiformats.github.io/website/
-baseurl:      ""
+path:         https://ipfs.io/ipfs/Qmaw3t2yH9LgkBTRfoGSmeYo6eAJ4do4DMkCdh8VVNojDK/_site
+baseurl:      https://ipfs.io/ipfs/Qmaw3t2yH9LgkBTRfoGSmeYo6eAJ4do4DMkCdh8VVNojDK/_site
 markdown:     kramdown
 google_analytics:
 github:       multiformats/website
