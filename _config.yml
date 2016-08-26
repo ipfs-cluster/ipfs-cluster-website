@@ -6,7 +6,7 @@ google_analytics:
 github:       multiformats/website
 
 # Metadata
-title:        Multiformats
+title:        multiformats
 description:  A collection of protocols for future-proofing systems, today.
 license:      MIT
 

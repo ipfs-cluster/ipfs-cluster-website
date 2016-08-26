@@ -28,8 +28,8 @@ You'll need to replace this, and the logo, with your own images.
 
 ### Checklist for repurposing theme:
 
-- [ ] Edit `_config.yml`.
-- [ ] Edit `index.md`.
+- [x] Edit `_config.yml`.
+- [x] Edit `index.md`.
 - [ ] Replace logo with your own logo.
   - [ ] Remove old logo entirely, from `src/` and `assets`.
 - [ ] Replace favicon with your own favicon.
