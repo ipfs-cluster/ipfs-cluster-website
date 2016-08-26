@@ -1,0 +1,8 @@
+.git/*
+_private/*
+_private
+_site/*
+_site
+serve/*
+.sass-cache
+node_modules

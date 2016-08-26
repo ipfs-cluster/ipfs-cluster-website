@@ -1,0 +1,40 @@
+# Setup
+path:         http://burntfen.com/minimal-cayman
+baseurl:      ""
+markdown:     kramdown
+google_analytics: UA-4124866-28
+github:       RichardLitt/minimal-cayman
+
+# Metadata
+title:        Minimal Cayman
+description:  A responsive theme for your project on GitHub Pages
+license:      MIT
+
+# Logo
+# The type is from OGP. See http://ogp.me
+logo:
+  name:       caiman.png
+  type:       image/png
+  width:      800
+  height:     800
+
+# About/contact
+author:
+  name:       Richard Littauer
+  url:        http://burntfen.com
+
+# Open Source Protocol
+# See http://osprotocol.com
+os:
+  repo:     https://github.com/RichardLitt/minimal-cayman
+  src:      git@github.com:RichardLitt/minimal-cayman.git
+  issues:   https://github.com/RichardLitt/minimal-cayman/issues
+  branch:   gh-pages
+  rcs_type: git
+
+# Maintainer (normally on GitHub)
+maintainer:
+  name: RichardLitt
+  link: https://github.com/RichardLitt
+
+# Gems

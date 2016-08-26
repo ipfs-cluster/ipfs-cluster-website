@@ -1,0 +1,24 @@
+{
+  "name": "minimal-cayman",
+  "version": "1.0.0",
+  "description": "A minimal jekyll theme based on Cayman",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RichardLitt/minimal-cayman.git"
+  },
+  "author": "Richard Littauer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RichardLitt/minimal-cayman/issues"
+  },
+  "homepage": "https://github.com/RichardLitt/minimal-cayman",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-imagemin": "^3.0.1",
+    "imagemin-pngquant": "^5.0.0"
+  }
+}
