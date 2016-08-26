@@ -30,9 +30,9 @@ You'll need to replace this, and the logo, with your own images.
 
 - [x] Edit `_config.yml`.
 - [x] Edit `index.md`.
-- [ ] Replace logo with your own logo.
-  - [ ] Remove old logo entirely, from `src/` and `assets`.
-- [ ] Replace favicon with your own favicon.
+- [~] Replace logo with your own logo.
+  - [x] Remove old logo entirely, from `src/` and `assets`.
+- [x] Replace favicon with your own favicon.
 - [ ] Edit `package.json` if you plan on using semver to save and deploy website.
 - [ ] Remove or edit CNAME.
 - [ ] Deploy!
