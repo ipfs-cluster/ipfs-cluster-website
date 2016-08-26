@@ -1,34 +1,34 @@
 # Setup
-path:         http://burntfen.com/minimal-cayman
+path:         https://multiformats.github.io/website/
 baseurl:      ""
 markdown:     kramdown
-google_analytics: UA-4124866-28
-github:       RichardLitt/minimal-cayman
+google_analytics:
+github:       multiformats/website
 
 # Metadata
-title:        Minimal Cayman
-description:  A responsive theme for your project on GitHub Pages
+title:        Multiformats
+description:  A collection of protocols for future-proofing systems, today.
 license:      MIT
 
 # Logo
 # The type is from OGP. See http://ogp.me
-logo:
-  name:       caiman.png
-  type:       image/png
-  width:      800
-  height:     800
+#logo:
+#  name:       caiman.png
+#  type:       image/png
+#  width:      800
+#  height:     800
 
 # About/contact
 author:
-  name:       Richard Littauer
-  url:        http://burntfen.com
+  name:       Protocol Labs Inc.
+  url:        http://ipfs.io
 
 # Open Source Protocol
 # See http://osprotocol.com
 os:
-  repo:     https://github.com/RichardLitt/minimal-cayman
-  src:      git@github.com:RichardLitt/minimal-cayman.git
-  issues:   https://github.com/RichardLitt/minimal-cayman/issues
+  repo:     https://github.com/multiformats/website
+  src:      git@github.com:multiformats/website.git
+  issues:   https://github.com/multiformats/website/issues
   branch:   gh-pages
   rcs_type: git
 
