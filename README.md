@@ -34,7 +34,7 @@ You'll need to replace this, and the logo, with your own images.
   - [x] Remove old logo entirely, from `src/` and `assets`.
 - [x] Replace favicon with your own favicon.
 - [x] Edit `package.json` if you plan on using semver to save and deploy website.
-- [ ] Remove or edit CNAME.
+- [x] Remove or edit CNAME.
 - [ ] Deploy!
 - [ ] Edit this README to reflect current website.
 
