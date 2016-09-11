@@ -1,6 +1,6 @@
 # Setup
-path:         https://ipfs.io/ipfs/Qmaw3t2yH9LgkBTRfoGSmeYo6eAJ4do4DMkCdh8VVNojDK/_site
-baseurl:      https://ipfs.io/ipfs/Qmaw3t2yH9LgkBTRfoGSmeYo6eAJ4do4DMkCdh8VVNojDK/_site
+path:         https://ipfs.io/ipfs/QmZjEBNi94SBcCAps4t6rQWt5hgfnJKHirvavrHKK4HhTN/_site
+baseurl:      https://ipfs.io/ipfs/QmZjEBNi94SBcCAps4t6rQWt5hgfnJKHirvavrHKK4HhTN/_site
 markdown:     kramdown
 google_analytics:
 github:       multiformats/website
@@ -34,7 +34,7 @@ os:
 
 # Maintainer (normally on GitHub)
 maintainer:
-  name: RichardLitt
-  link: https://github.com/RichardLitt
+  name: The Multiformats Organization
+  link: https://github.com/multiformats
 
 # Gems

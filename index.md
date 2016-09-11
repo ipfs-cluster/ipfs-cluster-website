@@ -6,9 +6,8 @@ description: A collection of protocols for future-proofing systems, today.
 
 # multiformats
 
-[![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
-[![](https://img.shields.io/badge/project-multiformats-blue.svg?style=flat-square)](http://github.com/multiformats/multiformats)
-[![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](http://webchat.freenode.net/?channels=%23ipfs)
+<a class="github-button" href="https://github.com/multiformats/multiformats" data-icon="octicon-star" data-count-href="/multiformats/multiformats/stargazers" data-count-api="/repos/multiformats/multiformats#stargazers_count">Star</a>
+<a class="github-button" href="https://github.com/multiformats/multiformats" data-icon="octicon-git-branch" data-count-href="/multiformats/multiformats/network" data-count-api="/repos/multiformats/multiformats#forks_count">Fork</a>
 
 Currently, we have the following multiformat protocols:
 
@@ -139,3 +138,7 @@ Small note: If editing the README, please conform to the [standard-readme](https
 ## License
 
 This repository is mainly documents. All of these are licensed under the [CC-BY-SA 3.0](https://ipfs.io/ipfs/QmVreNvKsQmQZ83T86cWSjPu2vR3yZHGPm5jnxFuunEB9u) license, copyright Protocol Labs Inc.
+
+## Maintained
+
+<p class="maintainer">This project is maintained by <a href="{{ site.maintainer.link }}">{{ site.maintainer.name }}</a>.</p>
