@@ -13,10 +13,10 @@ Currently, we have the following multiformat protocols:
 
 | Repo | Captain | Status |
 |------|---------|--------|
-| [multiaddr](https://github.com/multiformats/multiaddr)| @jbenet | stable |
-| [multicodec](https://github.com/multiformats/multicodec)| @jbenet | stable |
-| [multihash](https://github.com/multiformats/multihash)| @jbenet | stable |
-| [multistream](https://github.com/multiformats/multistream)| @diasdavid | stable |
+| [multiaddr](https://github.com/multiformats/multiaddr)| [@jbenet](https://github.com/jbenet) | stable |
+| [multicodec](https://github.com/multiformats/multicodec)| [@jbenet](https://github.com/jbenet) | stable |
+| [multihash](https://github.com/multiformats/multihash)| [@jbenet](https://github.com/jbenet) | stable |
+| [multistream](https://github.com/multiformats/multistream)| [@diasdavid](https://github.com/diasdavid) | stable |
 | [multibase](https://github.com/ipfs/specs/issues/130) | | WIP |
 | [multigram](https://github.com/ipfs/specs/pull/123) | | WIP |
 | [multikey](https://github.com/ipfs/specs/issues/58) | | WIP |
@@ -42,7 +42,7 @@ See the project directory, below, for implementations and other related reposito
 ## Background
 
 > "Never going to change" considered harmful.
-> -- @lgierth
+> -- [@lgierth](https://github.com/lgierth)
 
 Every choice in computing has a tradeoff. This includes formats, algorithms, encodings, and so on. And even with a great deal of planning, decisions may lead to breaking changes down the road, or to solutions which are no longer optimal. Allowing systems to evolve and grow is important.
 
@@ -69,7 +69,7 @@ Towards that end, we are encouraging implementations of these protocols; if you 
 
 Multihash is a simple, easy to understand multiformat that shows how the multiformats can be used. Let's take a look at some standard hash functions:
 
-TODO @RichardLitt fill out.
+TODO [@RichardLitt](https://github.com/RichardLitt) fill out.
 
 ### A note on the word Multiformats
 
@@ -89,43 +89,43 @@ As well as specifications, we also have some implementations in the organization
 
 | Repo | Captain |
 |------|-------------------|
-| [go-multiaddr](https://github.com/multiformats/go-multiaddr)| @whyrusleeping |
-| [go-multiaddr-net](https://github.com/multiformats/go-multiaddr-net)| @whyrusleeping |
-| [js-multiaddr](https://github.com/multiformats/js-multiaddr)| @diasdavid |
-| [rust-multiaddr](https://github.com/multiformats/rust-multiaddr)| @dignifiedquire | |
-| [SwiftMultiaddr](https://github.com/multiformats/SwiftMultiaddr)| @NeoTeo | |
+| [go-multiaddr](https://github.com/multiformats/go-multiaddr)| [@whyrusleeping](https://github.com/whyrusleeping) |
+| [go-multiaddr-net](https://github.com/multiformats/go-multiaddr-net)| [@whyrusleeping](https://github.com/whyrusleeping) |
+| [js-multiaddr](https://github.com/multiformats/js-multiaddr)| [@diasdavid](https://github.com/diasdavid) |
+| [rust-multiaddr](https://github.com/multiformats/rust-multiaddr)| [@dignifiedquire](https://github.com/dignifiedquire) | |
+| [SwiftMultiaddr](https://github.com/multiformats/SwiftMultiaddr)| [@NeoTeo](https://github.com/NeoTeo) | |
 
 #### Multihash Implementations
 
 | Repo | Captain |
 |------|-------------------|
-| [c-multihash](https://github.com/multiformats/c-multihash) | @Kubuxu | _Only parsing and encoding, and not hashing._ |
-| [ex_multihash](https://github.com/multiformats/ex_multihash)| @zabirauf | |
-| [go-multihash](https://github.com/multiformats/go-multihash)| @Kubuxu |
-| [js-multihash](https://github.com/multiformats/js-multihash)| @diasdavid |
-| [js-multihashing](https://github.com/multiformats/js-multihashing)| @diasdavid |
-| [php-multihash](https://github.com/multiformats/php-multihash)| @Fil | |
-| [rust-multihash](https://github.com/multiformats/rust-multihash)| @dignifiedquire | |
-| [scala-multihash](https://github.com/multiformats/scala-multihash)| @parkan | |
-| [SwiftMultihash](https://github.com/multiformats/SwiftMultihash)| @NeoTeo | |
-| [MultiHash.Net (fork)](https://github.com/multiformats/MultiHash.Net)| @MCGPPeters | |
+| [c-multihash](https://github.com/multiformats/c-multihash) | [@Kubuxu](https://github.com/Kubuxu) | _Only parsing and encoding, and not hashing._ |
+| [ex_multihash](https://github.com/multiformats/ex_multihash)| [@zabirauf](https://github.com/zabirauf) | |
+| [go-multihash](https://github.com/multiformats/go-multihash)| [@Kubuxu](https://github.com/Kubuxu) |
+| [js-multihash](https://github.com/multiformats/js-multihash)| [@diasdavid](https://github.com/diasdavid) |
+| [js-multihashing](https://github.com/multiformats/js-multihashing)| [@diasdavid](https://github.com/diasdavid) |
+| [php-multihash](https://github.com/multiformats/php-multihash)| [@Fil](https://github.com/Fil) | |
+| [rust-multihash](https://github.com/multiformats/rust-multihash)| [@dignifiedquire](https://github.com/dignifiedquire) | |
+| [scala-multihash](https://github.com/multiformats/scala-multihash)| [@parkan](https://github.com/parkan) | |
+| [SwiftMultihash](https://github.com/multiformats/SwiftMultihash)| [@NeoTeo](https://github.com/NeoTeo) | |
+| [MultiHash.Net (fork)](https://github.com/multiformats/MultiHash.Net)| [@MCGPPeters](https://github.com/MCGPPeters) | |
 
 #### Other Implementations
 
 | Repo | Captain | Note |
 |------|---------|------|
-| [go-multicodec](https://github.com/multiformats/go-multicodec)| @jbenet |
-| [go-multigram](https://github.com/multiformats/go-multigram)| @lgierth |
-| [go-multistream](https://github.com/multiformats/go-multistream)| @whyrusleeping |
-| [js-multistream](https://github.com/multiformats/js-multistream)| @diasdavid |
+| [go-multicodec](https://github.com/multiformats/go-multicodec)| [@jbenet](https://github.com/jbenet) |
+| [go-multigram](https://github.com/multiformats/go-multigram)| [@lgierth](https://github.com/lgierth) |
+| [go-multistream](https://github.com/multiformats/go-multistream)| [@whyrusleeping](https://github.com/whyrusleeping) |
+| [js-multistream](https://github.com/multiformats/js-multistream)| [@diasdavid](https://github.com/diasdavid) |
 
 ### Other Repositories
 
 | Repo | Captain | Note |
 |------|---------|------|
-| [multiformats](https://github.com/multiformats/multiformats)| @RichardLitt | This repository |
-| [specs](https://github.com/multiformats/specs)| @nicola | Specification work regarding multihash, multiaddr, and others. _WIP._ |
-| [unsigned-varint](https://github.com/multiformats/unsigned-varint) | @jbenet | unsigned varint in use in multiformat specs. _WIP._ |
+| [multiformats](https://github.com/multiformats/multiformats)| [@RichardLitt](https://github.com/RichardLitt) | This repository |
+| [specs](https://github.com/multiformats/specs)| [@nicola](https://github.com/nicola) | Specification work regarding multihash, multiaddr, and others. _WIP._ |
+| [unsigned-varint](https://github.com/multiformats/unsigned-varint) | [@jbenet](https://github.com/jbenet) | unsigned varint in use in multiformat specs. _WIP._ |
 
 ## Contribute
 

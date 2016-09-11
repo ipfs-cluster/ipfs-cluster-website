@@ -1,6 +1,6 @@
 # Setup
-path:         https://ipfs.io/ipfs/QmYWcsgQn6ugbJdn7YAyVc2nuHj7R6NMhSrertg1ZMT93A/_site
-baseurl:      https://ipfs.io/ipfs/QmYWcsgQn6ugbJdn7YAyVc2nuHj7R6NMhSrertg1ZMT93A/_site
+path:         https://ipfs.io/ipfs/QmY3CY6H87wQwCQ3Vor9Lh5MSzwQJTuUCtrQ7NxAYnbU8J/_site
+baseurl:      https://ipfs.io/ipfs/QmY3CY6H87wQwCQ3Vor9Lh5MSzwQJTuUCtrQ7NxAYnbU8J/_site
 markdown:     kramdown
 google_analytics:
 github:       multiformats/website
