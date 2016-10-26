@@ -2,7 +2,7 @@
 
 > The multiformats website
 
-Current iteration: https://ipfs.io/ipfs/QmdEGjyBK3WSn2GNXwFQFCsech6eMvkTiaMWKBpJ23iCkx/_site/
+Current iteration: https://ipfs.io/ipfs/QmVhFMu7ryuFyRXm8gpxWmVuSsLR5H9Z91j8YcTrc9GmUL
 
 ## Install
 
