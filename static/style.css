@@ -1,0 +1,47 @@
+body {
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: normal;
+  line-height: 26px;
+  text-transform: none;
+  color: #2c2d30;
+}
+
+header > span, h1, h2, h3, h4, h5, h6 {
+  font-family: "Open Sans", sans-serif;
+  /*font-size: 36px;*/
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: normal;
+  line-height: 46px;
+  text-transform: none;
+  color: #000000;
+}
+
+
+header > img {
+  display: block;
+  float: left;
+}
+
+header > span {
+  font-weight: 700;
+  font-size: 32px;
+  height: 100%;
+  display: block;
+  float: left;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+.col-8.push-2 {
+  margin-left: 17%;
+}
+@media all and (max-width: 699px) {
+  .col-8.push-2 {
+    margin-left: 0;
+    width: 100%;
+  }
+}

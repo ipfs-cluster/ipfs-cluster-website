@@ -7,8 +7,6 @@
 
 > The multiformats website
 
-Current iteration: https://ipfs.io/ipfs/QmVhFMu7ryuFyRXm8gpxWmVuSsLR5H9Z91j8YcTrc9GmUL
-
 ## Install
 
 ```sh
@@ -19,26 +17,22 @@ git clone https://github.com/multiformats/website
 
 #### Build
 
-```
-jekyll build
+```sh
+> hugo
 ```
 
 #### Serve
 
-```
-jsekyll serve
+```sh
+> hugo serve
 ```
 
 #### Deploy
 
 ```sh
-jekyll build
-ipfs add -r .
-# Copy <hash1> for `website` into the appropriate baseurl and path in _config.yml
-ipfs add -r .
-# Then, take the newest hash for `website`
-ipfs pin add <hash2>
-# Then go to https://ipfs.io/ipfs/<hash2>/_site/
+> hugo
+> ipfs add -r public
+> open https://ipfs.io/ipfs/<last hash from above>
 ```
 
 ## Maintainers
