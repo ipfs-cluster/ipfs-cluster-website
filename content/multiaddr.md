@@ -1,5 +1,5 @@
 +++
-title = "/ Multiaddr"
+title = "Multiaddr"
 +++
 
 > ## Self-describing network addresses

@@ -1,5 +1,5 @@
 +++
-title = "/ Multihash"
+title = "Multihash"
 +++
 
 > ## Self-describing hashes
