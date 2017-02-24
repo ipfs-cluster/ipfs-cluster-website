@@ -42,12 +42,12 @@ The Multiformats project began through [the IPFS Project](https://ipfs.io). It i
 
 <ul class="project-list">
 	<li>
-		<a href="https://ipfs.io"><img src="./projects/ipfs.png" />IPFS</a>
+		<a href="https://ipfs.io"><img src="projects/ipfs.png" />IPFS</a>
 		- a peer-to-peer hypermedia protocol and distributed file system.
 	</li>
 	<li>
 		<a href="https://github.com/libp2p/libp2p">
-		<img src="./projects/libp2p.png" />libp2p</a>
+		<img src="projects/libp2p.png" />libp2p</a>
 		- a modular network library for peer-to-peer protocols.
 	</li>
 	<li>
@@ -66,5 +66,5 @@ The Multiformats Project is an Open Source software project. It is built by a la
 Multiformats was started and is sponsored by [Protocol Labs](https://ipn.io).
 
 <a href="http://ipn.io">
-<img src="./protocol-labs-logo.png" height="64px" />
+<img src="protocol-labs-logo.png" height="64px" />
 </a>
