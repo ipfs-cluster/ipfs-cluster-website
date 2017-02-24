@@ -1,0 +1,27 @@
+<style>
+.multihash {
+	margin-top: 50px;
+}
+</style>
+<div class='multihash'>
+	{{ with .Get "input" }}
+	<div>
+		Input: {{ . }}
+	</div>
+	{{ end }}
+	<div>
+		Hashing function: {{ .Get "name" }}
+	</div>
+	<div>
+		Code: {{ .Get "fnCode" }}
+	</div>
+	<div>
+		Length: {{ .Get "length" }}
+	</div>
+	<div>
+		Result: <span class="c-0">{{ .Get "fnCode" }}</span><span class="c-1">{{ .Get "length" }}</span><span class="c-2">{{ .Get "digest" }}</span>
+	</div>
+	<div>
+		Result: {{ .Get "fullHash" }}
+	</div>
+</div>

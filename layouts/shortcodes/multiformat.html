@@ -1,0 +1,49 @@
+{{ $syntax := .Get "syntax" }}
+{{ $labels := .Get "labels" }}
+<style>
+code {
+	display: inline-block;
+	padding: 0px;
+}
+.c-0, .c-1, .c-2 {
+	color: white;
+}
+
+.c-0 {
+	color: #a155c1;
+}
+
+.c-1 {
+	color: #65ac39;
+}
+
+.c-2 {
+	color: #3845aa;
+}
+
+.label {
+	padding: 5px;
+	font-weight: bolder;
+	font-size: 20px;
+}
+
+.example {
+	font-size: 15px;
+	opacity: 0.9;
+	text-align: right;
+}
+</style>
+<div>
+<div class="example">Example: {{ .Get "example" }}</div>
+<div>
+<pre>
+{{ range $i, $e := split $syntax " "  }}<code class="c-{{$i}}">{{ $e }}</code>{{ end }}
+</pre>
+	{{/* <fn-code><length><hash-digest> */}}
+</div>
+<div>
+	{{ range $i, $e := split $labels "|"  }}
+		<div class="label c-{{$i}}">{{ $e }}</div>
+	{{ end }}
+</div>
+</div>
