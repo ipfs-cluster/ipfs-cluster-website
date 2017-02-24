@@ -18,7 +18,7 @@ Currently, we have the following multiformat protocols:
 - [multicodec](https://github.com/multiformats/multicodec) - self-describing <span class="mfc mfc-multicodec">serialization</span>
 - [multistream](https://github.com/multiformats/multistream) - self-describing <span class="mfc mfc-multistream">stream network protocols</span>
 - [multigram](https://github.com/multiformats/multigram) <small>(WIP)</small> - self-describing <span class="mfc mfc-multigram">packet network protocols</span>
-- [multikey](https://github.com/multiformats/multikey) <small>(WIP)</small> - self-describing <span class="mfc mfc-multikey">keys and proofs</span>
+- [multikey](https://github.com/ipfs/specs/issues/58) <small>(WIP)</small> - self-describing <span class="mfc mfc-multikey">keys and proofs</span>
 
 Several of the multiformats have stable specs and stable implementations. We're are working on the others. We prioritize their usage as soon as possible, as what they offer -- protocol interoperability and future-proofing -- has real-world consequences today.
 
