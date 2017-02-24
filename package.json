@@ -1,0 +1,24 @@
+{
+  "name": "multiformats-website",
+  "version": "1.0.0",
+  "description": "multiformats website",
+  "main": "list-multihashes.js",
+  "dependencies": {
+    "multihashes": "^0.4.2",
+    "multihashing": "^0.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/multiformats/website.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/multiformats/website/issues"
+  },
+  "homepage": "https://github.com/multiformats/website#readme"
+}
