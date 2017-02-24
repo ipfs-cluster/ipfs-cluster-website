@@ -13,13 +13,16 @@ header > span, h1, h2, h3, h4, h5, h6 {
   font-family: "Open Sans", sans-serif;
   /*font-size: 36px;*/
   font-style: normal;
-  font-weight: 300;
+  font-weight: 800;
   letter-spacing: normal;
   line-height: 46px;
   text-transform: none;
   color: #000000;
 }
 
+header .title {
+  border-bottom: 0px;
+}
 
 header > img {
   display: block;
@@ -46,6 +49,11 @@ header > span {
   }
 }
 
+
+ul ul, ol ol {
+  margin-left: 30px;
+}
+
 /******
 multiformats
 ******/
@@ -61,15 +69,20 @@ header.title a:hover {
 
 .multihash {
   margin: 30px 0px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
 }
+
 code {
-  display: inline-block;
+  display: inline;
   padding: 0px;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 pre.example-code {
   font-size: 20px;
   margin-bottom: 0px;
+  overflow-wrap: break-word;
+  word-break: break-all;
 }
 pre.example-code.big {
   font-size: 22px;
@@ -117,6 +130,7 @@ pre.example-code.big {
 .example-legend {
   padding: 10px;
   border: 2px solid #eee;
+  margin-bottom: 20px;
 }
 hr {
   margin: 40px 0px;
@@ -139,3 +153,12 @@ hr {
 blockquote:before { content: none; }
 blockquote:after  { content: none; }
 blockquote :last-child { margin-bottom: 0px; }
+
+.project-list li {
+  margin: 10px 0px;
+}
+.project-list img {
+  height: 64px;
+  margin: 5px;
+  vertical-align: middle;
+}
