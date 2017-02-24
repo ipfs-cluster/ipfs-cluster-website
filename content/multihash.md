@@ -53,6 +53,7 @@ These implementations are available:
 - [scala-multihash](//github.com/mediachain/scala-multihash)
 - [php-multihash](//github.com/Fil/php-multihash)
 - [net-ipfs-core](//github.com/richardschneider/net-ipfs-core)
+- [(add yours here)](https://github.com/multiformats/website/blob/master/content/multihash.md)
 
 ## Examples
 

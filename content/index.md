@@ -1,5 +1,5 @@
 +++
-title = "Multiformats"
+title = ""
 +++
 
 > ## Self-describing values for Future-proofing
