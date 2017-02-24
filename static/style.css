@@ -45,3 +45,97 @@ header > span {
     width: 100%;
   }
 }
+
+/******
+multiformats
+******/
+
+header.title a  {
+  color: black;
+  text-decoration: none;
+}
+header.title a:hover {
+  color: #1d74f2;
+  text-decoration: none;
+}
+
+.multihash {
+  margin: 30px 0px;
+  margin-bottom: 100px;
+}
+code {
+  display: inline-block;
+  padding: 0px;
+}
+pre.example-code {
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+pre.example-code.big {
+  font-size: 22px;
+}
+.c-0, .c-1, .c-2 {
+  color: white;
+}
+
+.c-0 {
+  color: #a155c1;
+}
+
+.c-1 {
+  color: #65ac39;
+}
+
+.c-2 {
+  color: #3845aa;
+}
+.label {
+  padding: 1px;
+  font-weight: bolder;
+  font-size: 15px;
+}
+
+.label code {
+  background: none;
+}
+
+.label.c-0 {
+  margin-left: 0px;
+}
+.label.c-1 {
+  margin-left: 25px;
+}
+.label.c-2 {
+  margin-left: 50px;
+}
+
+.example {
+  font-size: 15px;
+  opacity: 0.9;
+  text-align: right;
+}
+.example-legend {
+  padding: 10px;
+  border: 2px solid #eee;
+}
+hr {
+  margin: 40px 0px;
+  color: #eee;
+}
+
+
+.mfc {
+  font-weight: bold;
+}
+
+.mfc-multihash { color: #a155c1; }
+.mfc-multiaddr { color: #1d74f2; }
+.mfc-multibase { color: #3845aa; }
+.mfc-multicodec { color: #65ac39; }
+.mfc-multistream { color: #1e8c99; }
+.mfc-multigram { color: #167f71; }
+.mfc-multikey { color: #a81919; }
+
+blockquote:before { content: none; }
+blockquote:after  { content: none; }
+blockquote :last-child { margin-bottom: 0px; }

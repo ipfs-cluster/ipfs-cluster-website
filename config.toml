@@ -2,3 +2,4 @@ title = "Multiformats"
 description = "A collection of protocols for future-proofing systems, today."
 baseurl = "http://multiformats.io"
 languageCode = "en-us"
+canonifyurls: true
