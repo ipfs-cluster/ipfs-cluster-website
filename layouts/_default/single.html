@@ -25,9 +25,9 @@
 				<img alt="Multiformats Logo" id="logo" src="{{ $basePath}}logo.svg" width="60"/>
 				<span>
         {{ if not $isHomePage }}
-          <a href="{{ $basePath }}">Multiformats</a> /
+          <a href="{{ $basePath }}">Multiformats</a> / </span>
         {{ end }}
-        {{ .Title }}</span>
+        <span class="mfc mfc-{{ .Params.multiformat }}">{{ .Title }}</span>
       </header>
 
       <div class="row">
@@ -45,7 +45,7 @@
      <script>
      var lsymbol = '<span id="link-symbol">#</span>'
      document.querySelectorAll('h1, h2, h3, h4, h5, h6, h7').forEach(function(h) {
-        var link = '<a class="header-link" href="#' + h.id + '">'
+        var link = '<a class="header-link no-decoration" href="#' + h.id + '">'
         h.innerHTML =  link + lsymbol + h.innerHTML + '</a>'
       })
      </script>

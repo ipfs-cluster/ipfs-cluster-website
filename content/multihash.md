@@ -1,5 +1,6 @@
 +++
 title = "Multihash"
+multiformat = "multihash"
 +++
 
 > ## Self-describing hashes
@@ -10,9 +11,15 @@ Multihash is a protocol for differentiating outputs from various well-establishe
 
 Multihash is particularly important in systems which depend on [**cryptographically secure hash functions**](https://en.wikipedia.org/wiki/Cryptographic_hash_function). Attacks [may break](https://en.wikipedia.org/wiki/Hash_function_security_summary) the cryptographic properties of secure hash functions. These [_cryptographic breaks_](https://en.wikipedia.org/wiki/Cryptanalysis) are particularly painful in large tool ecosystems, where tools may have made assumptions about hash values, such as function and digest size. Upgrading becomes a nightmare, as all tools which make those assumptions would have to be upgraded to use the new hash function and new hash digest length. Tools may face serious interoperability problems or error-prone special casing.
 
-> How many tools out there assume a git hash is a sha1 hash? How many scripts assume the hash value digest is **_exactly_** 160 bits?
+> How many programs out there assume a git hash is a sha1 hash?
+>
+> How many scripts assume the hash value digest is **_exactly_** 160 bits?
+>
+> How many tools will break when these values change?
+>
+> How many programs will fail silently when these values change?
 
-**This is precisely where Multihash shines. Upgrading is what it was designed for.**
+**This is precisely where Multihash shines. It was designed for upgrading.**
 
 When using Multihash, a system warns the consumers of its hash values that these may have to be upgraded in case of a break. Even though the system may still only use a single hash function at a time, the use of multihash makes it clear to applications that hash values may use different hash functions or be longer in the future. Tooling, applications, and scripts can avoid making assumptions about the length, and read it from the multihash value instead. This way, the vast majority of tooling -- which may not do any checking of hashes -- would not have to be upgraded at all. This vastly simplifies the upgrade process, avoiding the waste of hundreds or thousands of software engineering hours, deep frustrations, and high blood pressure.
 
@@ -164,3 +171,67 @@ The multihash examples are chosen to show different hash functions and different
   multihash="d0e402100a4ec6f1629e49262d7093e2f82a3278"
 %}}
 
+## F.A.Q.
+
+> #### Q: Why not use `"sha256:<digest>"`?
+
+For three reasons:
+
+- (1) Multihash and all other multiformats endeavor to make the values be "in-band" and to be treated as the original value. The construction `<string-prefix>:<hex-digest>` is human readable and tuned for some outputs. Hashes are stored compactly in their binary representation. Forcing applications to always convert is cumbersome (split on `:`, turn the right hand side into binary, remove the `:`, concat).
+
+- (2) Multihash and all other multiformats endeavor to be as compact as possible, which means a binary packed representation will help save a lot of space in systems that use millions or billions of hashes. For example, a 100 TB file in IPFS may have as many as 400 million subobjects, which would mean 400 million hashes.
+    ```
+    400,000,000 hashes * (7 - 2) bytes = 2 GB
+    ```
+
+- (3) The length is extremely useful when hashes are truncated. This is a type of choice that should be expressed in-band. It is also useful when hashes are concatenated or kept in lists, and when scanning a stream quickly.
+
+> #### Q: Is Multihash only for cryptographic hashes?
+> #### What about non-cryptographic hashes like `murmur3`, `cityhash`, etc?
+
+We decided to make Multihash work for all hash functions, not just cryptographic hash functions. The same kind of choices that people make around
+
+We wanted to be able to include `MD5` and `SHA1`, as they are widely used even now, despite no longer being secure. Ultimately, we could consider these cryptographic hash functions that have transitioned into non-cryptographic hash functions. Perhaps all of them eventually do.
+
+> #### Q: How do I add hash functions to the table?
+
+Three options to add custom hash functions:
+
+- (1) If other applications would benefit from this hash function, propose it at [the multihash repo](https://github.com/multiformats/multihash/issues/)
+- (2) If your function is only for your application, tou can add a hash function to the table in a range reserved specially for this purpose. See the table.
+- (3) If you need to use a completely custom table, most implementations support loading a separate hash function table.
+
+> #### Q. I want to upgrade a large system to use Multihash. Could you help me figure out how?
+
+Sure, ask for help in IRC, github, or other fora. See the [Multiformats Community](../#community) listing.
+
+> #### Q. I wish Multihash would _______. I really hate _______.
+
+Those are not questions. But please leave any and all feedback over in [the Multihash repo](https://github.com/multiformats/multihash/issues/). It will help us improve the project and make sure it addresses our users' needs. Thanks!
+
+## About
+
+### Specification
+
+There is a spec in progress, which we hope to submit to the IETF. It is being worked on [at this pull-request](https://github.com/multiformats/multihash/pull/41).
+
+### Credits
+
+The Multihash format was invented by [@jbenet](https://github.com/jbenet), and refined by the [IPFS Team](https://github.com/ipfs). It is now maintained by the Multiformats community. The Multihash implementations are written by a variety of authors, whose hard work has made future-proofing and upgrading hash functions much easier. Thank you!
+
+### Open Source
+
+The Multihash format (this documentation and the specification) is Open Source software, licensed under the MIT License and patent-free. The multihash implementations listed here are also Open Source software. Please contribute to make them great! Your bug reports, new features, and documentation improvements will benefit everyone.
+
+### Part of the Multiformats Project
+
+Multihash is part of [the Multiformats Project](../), a collection of protocols which aim to future-proof systems, today. [Check out the other multiformats](../#multiformat-protocols). It is also maintained and sponsored by [Protocol Labs](http://ipn.io).
+
+<div class="about-logos">
+<a href="../" class="no-decoration">
+  <img alt="Multiformats Logo" id="logo" src="../logo.svg" width="60" style="vertical-align: middle;" />Multiformats
+</a>
+<a href="http://ipn.io" class="no-decoration">
+  <img src="../protocol-labs-logo.png" height="64px" />
+</a>
+</div>

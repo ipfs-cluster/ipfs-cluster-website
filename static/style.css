@@ -59,13 +59,10 @@ ul li, ol li {
   margin-left: 1em;
 }
 
-.header-link {
-  color: black;
-}
-
-.header-link:hover {
-  color: black;
+a.no-decoration, a.no-decoration:hover,
+a.no-decoration:visited, a.no-decoration:active {
   text-decoration: none;
+  color: black;
 }
 
 .header-link:hover span#link-symbol {
@@ -194,4 +191,17 @@ blockquote :last-child { margin-bottom: 0px; }
   height: 64px;
   margin: 5px;
   vertical-align: middle;
+}
+
+.about-logos {
+  display: flex;
+  justify-content: space-around;
+}
+
+.about-logos a {
+  font-size: 24px;
+  vertical-align: middle;
+  height: 70px;
+  display: inline-block;
+  /*margin: 0px auto;*/
 }
