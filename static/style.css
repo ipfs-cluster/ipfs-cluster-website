@@ -42,13 +42,6 @@ header > span {
 .col-8.push-2 {
   margin-left: 17%;
 }
-@media all and (max-width: 699px) {
-  .col-8.push-2 {
-    margin-left: 0;
-    width: 100%;
-  }
-}
-
 
 ul ul, ol ol {
   margin-left: 30px;
@@ -94,6 +87,13 @@ header.title.home-page img#logo {
 header.title.home-page span {
   font-size: 52px;
   padding-top: 14px;
+}
+
+header.title img#logo {
+  width: 60px;
+}
+header.title span {
+  margin-top: 3px;
 }
 
 .multihash {
@@ -168,7 +168,7 @@ hr {
 
 
 .mfc {
-  font-weight: bold;
+  font-weight: 300;
 }
 
 .mfc-multihash { color: #a155c1; }
@@ -205,4 +205,23 @@ blockquote :last-child { margin-bottom: 0px; }
   min-width: 45%;
   display: inline-block;
   /*margin: 0px auto;*/
+}
+
+@media all and (max-width: 699px) {
+  .col-8.push-2 {
+    margin-left: 0;
+    width: 100%;
+  }
+  header.title.home-page img#logo {
+    width: 80px;
+  }
+
+  header.title.home-page span {
+    font-size: 36px;
+    padding-top: 5px;
+  }
+
+  header.title span {
+    font-size: 23px;
+  }
 }

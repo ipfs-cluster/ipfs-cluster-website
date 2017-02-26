@@ -3,7 +3,7 @@
 {{ $.Scratch.Add "basePath" "../" }}
 
 {{ if $isHomePage }}
-	{{ $.Scratch.Set "basePath" "./" }}
+{{ $.Scratch.Set "basePath" "./" }}
 {{ end  }}
 
 {{ $basePath := $.Scratch.Get "basePath" }}
@@ -11,19 +11,56 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <meta content="IE=edge" http-equiv=X-UA-Compatible>
-    <meta content="width=device-width,initial-scale=1" name=viewport>
-    <title>Multiformats {{ .Title }}</title>
+    <meta content="IE=edge" http-equiv=X-UA-Compatible/>
+    <meta content="width=device-width,initial-scale=1" name=viewport />
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ $basePath }}apple-icon-57x57.png"/>
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ $basePath }}apple-icon-60x60.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ $basePath }}apple-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ $basePath }}apple-icon-76x76.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ $basePath }}apple-icon-114x114.png"/>
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ $basePath }}apple-icon-120x120.png"/>
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ $basePath }}apple-icon-144x144.png"/>
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ $basePath }}apple-icon-152x152.png"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ $basePath }}apple-icon-180x180.png"/>
+    <link rel="icon" type="image/png" sizes="192x192"  href="{{ $basePath }}android-icon-192x192.png"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ $basePath }}favicon-32x32.png"/>
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ $basePath }}favicon-96x96.png"/>
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ $basePath }}favicon-16x16.png"/>
+    <link rel="manifest" href="{{ $basePath }}manifest.json"/>
+    <meta name="msapplication-TileColor" content="#ffffff"/>
+    <meta name="msapplication-TileImage" content="{{ $basePath }}ms-icon-144x144.png"/>
+    <meta name="theme-color" content="#ffffff"/>
+
+    <!--  facebook open graph tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://multiformats.io/" />
+    <meta property="og:title" content="Multiformats" />
+    <meta property="og:description" content="Self-describing values for Future-proofing" />
+    <meta property="og:image" content="https://ipfs.io/ipfs/QmegGyDxdmZwbEvPnEtKXcJ5N72ajzkanN4cZou5WsKSSN" />
+
+    <!-- twitter card tags additive with the og: tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:domain" value="muliformats.io" />
+    <meta name="twitter:title" value="Multiformats" />
+    <meta name="twitter:description" value="Self-describing values for Future-proofing" />
+    <meta name="twitter:image" content="https://ipfs.io/ipfs/QmbsPWzqH9jxh2xkFSsUYPg6psnvSUrwDVvnVzC3k2C3GJ" />
+    <meta name="twitter:url" value="https://multiformat.io" />
+    <meta name="twitter:label1" value="Multihash" />
+    <meta name="twitter:data1" value="Self-describing hashes" />
+    <meta name="twitter:label2" value="Multiaddr" />
+    <meta name="twitter:data2" value="Self-describing network addresses" />
+
+    <title>{{ .Title }}</title>
 		<link href="{{ $basePath }}minimal.css" rel="stylesheet">
 		<link href="{{ $basePath}}style.css" rel="stylesheet"/>
-		<link href="{{ $basePath}}fonts/fonts.css" rel="stylesheet">
+		<link href="{{ $basePath}}fonts/fonts.css" rel="stylesheet"/>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </head>
   <body>
     <div class="container">
       <header class="push-2 col-8 title
         {{ if $isHomePage }}home-page{{ end }}">
-				<img alt="Multiformats Logo" id="logo" src="{{ $basePath}}logo.svg" width="60"/>
+				<img alt="Multiformats Logo" id="logo" src="{{ $basePath}}logo.svg"/>
         {{ if not $isHomePage }}
         <span>
           <a href="{{ $basePath }}">Multiformats</a> /
