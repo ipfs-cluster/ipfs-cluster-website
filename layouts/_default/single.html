@@ -31,6 +31,25 @@
     <meta name="msapplication-TileImage" content="{{ $basePath }}ms-icon-144x144.png"/>
     <meta name="theme-color" content="#ffffff"/>
 
+    <!--  facebook open graph tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://multiformats.io/" />
+    <meta property="og:title" content="Multiformats" />
+    <meta property="og:description" content="Self-describing values for Future-proofing" />
+    <meta property="og:image" content="https://ipfs.io/ipfs/QmegGyDxdmZwbEvPnEtKXcJ5N72ajzkanN4cZou5WsKSSN" />
+
+    <!-- twitter card tags additive with the og: tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:domain" value="muliformats.io" />
+    <meta name="twitter:title" value="Multiformats" />
+    <meta name="twitter:description" value="Self-describing values for Future-proofing" />
+    <meta name="twitter:image" content="https://ipfs.io/ipfs/QmbsPWzqH9jxh2xkFSsUYPg6psnvSUrwDVvnVzC3k2C3GJ" />
+    <meta name="twitter:url" value="https://multiformat.io" />
+    <meta name="twitter:label1" value="Multihash" />
+    <meta name="twitter:data1" value="Self-describing hashes" />
+    <meta name="twitter:label2" value="Multiaddr" />
+    <meta name="twitter:data2" value="Self-describing network addresses" />
+
     <title>{{ .Title }}</title>
 		<link href="{{ $basePath }}minimal.css" rel="stylesheet">
 		<link href="{{ $basePath}}style.css" rel="stylesheet"/>
