@@ -8,6 +8,19 @@ stars = "multiformats/multihash"
 
 Multihash is a protocol for differentiating outputs from various well-established hash functions, addressing size + encoding considerations. It is useful to write applications that future-proof their use of hashes, and allow multiple hash functions to coexist.
 
+<!-- manual toc unfortunately. dont want all qs printed here -->
+
+- [Safer, easier cryptographic hash function upgrades](#safer-easier-cryptographic-hash-function-upgrades)
+- [The Multihash Format](#the-multihash-format)
+- [Implementations](#implementations)
+- [Examples](#examples)
+- [F.A.Q.](#f-a-q)
+- [About](#about)
+  - [Specification](#specification)
+  - [Credits](#credits)
+  - [Open Source](#open-source)
+  - [Part of the Multiformats Project](#part-of-the-multiformats-project)
+
 ### Safer, easier cryptographic hash function upgrades
 
 Multihash is particularly important in systems which depend on [**cryptographically secure hash functions**](https://en.wikipedia.org/wiki/Cryptographic_hash_function). Attacks [may break](https://en.wikipedia.org/wiki/Hash_function_security_summary) the cryptographic properties of secure hash functions. These [_cryptographic breaks_](https://en.wikipedia.org/wiki/Cryptanalysis) are particularly painful in large tool ecosystems, where tools may have made assumptions about hash values, such as function and digest size. Upgrading becomes a nightmare, as all tools which make those assumptions would have to be upgraded to use the new hash function and new hash digest length. Tools may face serious interoperability problems or error-prone special casing.
@@ -174,6 +187,22 @@ The multihash examples are chosen to show different hash functions and different
 
 ## F.A.Q.
 
+> #### Q: Why have digest length as a separate number?
+
+Because combining hash function code and hash digest length ends up with a function code really meaning "function-and-digest-size-code". Makes using custom digest sizes annoying, and much less flexible. We would need hundreds of codes for all the combinations people would want to use.
+
+> #### Q: Why varints (variable integers)?
+
+So that we have no limitation on functions or lengths.
+
+> #### Q: What kind of varints?
+
+A Most Significant Bit unsigned varint, as defined by the [multiformats/unsigned-varint](https://github.com/multiformats/unsigned-varint) doc.
+
+> #### Q: Don't we have to agree on a table of functions?
+
+Yes, but we already have to agree on functions, so this is not hard. The table even leaves some room for custom function codes.
+
 > #### Q: Why not use `"sha256:<digest>"`?
 
 For three reasons:
@@ -204,7 +233,7 @@ Three options to add custom hash functions:
 
 > #### Q. I want to upgrade a large system to use Multihash. Could you help me figure out how?
 
-Sure, ask for help in IRC, github, or other fora. See the [Multiformats Community](../#community) listing.
+Sure, ask for help in IRC, github, or other fora. See the [Multiformats Community](../#contribute-community) listing.
 
 > #### Q. I wish Multihash would _______. I really hate _______.
 
