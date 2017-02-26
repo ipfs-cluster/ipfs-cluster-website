@@ -54,6 +54,11 @@ ul ul, ol ol {
   margin-left: 30px;
 }
 
+ul li, ol li {
+  list-style-position: outside;
+  margin-left: 1em;
+}
+
 /******
 multiformats
 ******/
@@ -79,7 +84,7 @@ code {
   word-break: break-all;
 }
 pre.example-code {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 0px;
   overflow-wrap: break-word;
   word-break: break-all;
