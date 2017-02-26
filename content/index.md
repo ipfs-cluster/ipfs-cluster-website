@@ -1,5 +1,6 @@
 +++
 title = "Multiformats"
+stars = "multiformats/multiformats"
 +++
 
 > ## Self-describing values for Future-proofing

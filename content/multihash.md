@@ -1,6 +1,7 @@
 +++
 title = "Multihash"
 multiformat = "multihash"
+stars = "multiformats/multihash"
 +++
 
 > ## Self-describing hashes
@@ -228,10 +229,14 @@ The Multihash format (this documentation and the specification) is Open Source s
 Multihash is part of [the Multiformats Project](../), a collection of protocols which aim to future-proof systems, today. [Check out the other multiformats](../#multiformat-protocols). It is also maintained and sponsored by [Protocol Labs](http://ipn.io).
 
 <div class="about-logos">
-<a href="../" class="no-decoration">
-  <img alt="Multiformats Logo" id="logo" src="../logo.svg" width="60" style="vertical-align: middle;" />Multiformats
-</a>
-<a href="http://ipn.io" class="no-decoration">
-  <img src="../protocol-labs-logo.png" height="64px" />
-</a>
+  <div>
+    <a href="../" class="no-decoration">
+      <img alt="Multiformats Logo" id="logo" src="../logo.svg" width="60" style="vertical-align: middle;" />Multiformats
+    </a>
+  </div>
+  <div>
+    <a href="http://ipn.io" class="no-decoration">
+      <img src="../protocol-labs-logo.png" height="64px" />
+    </a>
+  </div>
 </div>

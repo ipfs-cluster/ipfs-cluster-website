@@ -194,14 +194,15 @@ blockquote :last-child { margin-bottom: 0px; }
 }
 
 .about-logos {
-  display: flex;
-  justify-content: space-around;
+  /*display: flex;*/
+  /*justify-content: space-around;*/
 }
 
-.about-logos a {
+.about-logos > div {
   font-size: 24px;
   vertical-align: middle;
   height: 70px;
+  min-width: 45%;
   display: inline-block;
   /*margin: 0px auto;*/
 }
