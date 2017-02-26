@@ -14,11 +14,11 @@ Multihash is particularly important in systems which depend on [**cryptographica
 
 **This is precisely where Multihash shines. Upgrading is what it was designed for.**
 
-When using Multihash, a system warns the consumers of its hash values that these may have to be upgradied in case of a break. Even though the system may still only use a single hash function at a time, the use of multihash makes it clear to applications that hash values may use different hash functions or be longer in the future. Tooling, applications, and scripts can avoid making assumptions about the length, and read it from the multihash value instead. This way, the vast majority of tooling -- which may not do any checking of hashes -- would not have to be upgraded at all. This vastly simplifies the upgrade process, avoiding the waste of hundreds or thousands of software engineering hours, deep frustrations, and high blood pressue.
+When using Multihash, a system warns the consumers of its hash values that these may have to be upgraded in case of a break. Even though the system may still only use a single hash function at a time, the use of multihash makes it clear to applications that hash values may use different hash functions or be longer in the future. Tooling, applications, and scripts can avoid making assumptions about the length, and read it from the multihash value instead. This way, the vast majority of tooling -- which may not do any checking of hashes -- would not have to be upgraded at all. This vastly simplifies the upgrade process, avoiding the waste of hundreds or thousands of software engineering hours, deep frustrations, and high blood pressure.
 
 ## The Multihash Format
 
-A multihash follows a `TLV` (type-length-value) pattern.
+A multihash follows the `TLV` (type-length-value) pattern.
 
 - the _type_ <code class="c-0">\<hash-func-type></code> is an [unsigned variable integer](https://github.com/multiformats/unsigned-varint) identifying the hash function. There is a default table, and it is configurable. The default table is [the multihash table](https://github.com/multiformats/multihash/blob/master/hashtable.csv).
 - the _length_ <code class="c-1">\<digest-length></code> is an [unsigned variable integer](https://github.com/multiformats/unsigned-varint) counting the length of the digest, in bytes

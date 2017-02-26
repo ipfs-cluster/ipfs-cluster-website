@@ -59,6 +59,26 @@ ul li, ol li {
   margin-left: 1em;
 }
 
+.header-link {
+  color: black;
+}
+
+.header-link:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.header-link:hover span#link-symbol {
+  display: block;
+}
+
+.header-link span#link-symbol {
+  float: left;
+  margin-left: -35px;
+  color: #999;
+  display: none;
+}
+
 /******
 multiformats
 ******/
@@ -70,6 +90,13 @@ header.title a  {
 header.title a:hover {
   color: #1d74f2;
   text-decoration: none;
+}
+header.title.home-page img#logo {
+  width: 100px;
+}
+header.title.home-page span {
+  font-size: 52px;
+  padding-top: 14px;
 }
 
 .multihash {
@@ -160,7 +187,8 @@ blockquote:after  { content: none; }
 blockquote :last-child { margin-bottom: 0px; }
 
 .project-list li {
-  margin: 10px 0px;
+  margin: 10px 1em;
+  list-style-position: outside;
 }
 .project-list img {
   height: 64px;

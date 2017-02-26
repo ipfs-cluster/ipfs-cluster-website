@@ -20,8 +20,9 @@
   </head>
   <body>
     <div class="container">
-      <header class="push-2 col-8 title">
-				<img alt="Multiformats Logo" src="{{ $basePath}}logo.svg" width="60"/>
+      <header class="push-2 col-8 title
+        {{ if $isHomePage }}home-page{{ end }}">
+				<img alt="Multiformats Logo" id="logo" src="{{ $basePath}}logo.svg" width="60"/>
 				<span>
         {{ if not $isHomePage }}
           <a href="{{ $basePath }}">Multiformats</a> /
@@ -42,8 +43,10 @@
      </div>
 
      <script>
-      $('h1, h2, h3, h4, h5, h6, h7').each(function() {
-        $(this).prepend('<a href=#' + $(this).context.id + '>:link: </a>')
+     var lsymbol = '<span id="link-symbol">#</span>'
+     document.querySelectorAll('h1, h2, h3, h4, h5, h6, h7').forEach(function(h) {
+        var link = '<a class="header-link" href="#' + h.id + '">'
+        h.innerHTML =  link + lsymbol + h.innerHTML + '</a>'
       })
      </script>
 

@@ -18,7 +18,10 @@ Currently, we have the following multiformat protocols:
 - [multicodec](https://github.com/multiformats/multicodec) - self-describing <span class="mfc mfc-multicodec">serialization</span>
 - [multistream](https://github.com/multiformats/multistream) - self-describing <span class="mfc mfc-multistream">stream network protocols</span>
 - [multigram](https://github.com/multiformats/multigram) <small>(WIP)</small> - self-describing <span class="mfc mfc-multigram">packet network protocols</span>
+
+<!--
 - [multikey](https://github.com/ipfs/specs/issues/58) <small>(WIP)</small> - self-describing <span class="mfc mfc-multikey">keys and proofs</span>
+ -->
 
 Several of the multiformats have stable specs and stable implementations. We're are working on the others. We prioritize their usage as soon as possible, as what they offer -- protocol interoperability and future-proofing -- has real-world consequences today.
 
@@ -57,13 +60,13 @@ The Multiformats project began through [the IPFS Project](https://ipfs.io). It i
 
 ### Community
 
-The Multiformats Project is an Open Source software project. It is built by a large community of contributors.
+<a href="/">The Multiformats Project</a> is an Open Source software project. It is built by a large community of contributors.
 
 - [Github Project](https://github.com/multiformats/multiformats)
 - [Website Repository](https://github.com/multiformats/website)
 - IRC Channel: `#ipfs` on irc.freenode.org
 
-Multiformats was started and is sponsored by [Protocol Labs](https://ipn.io).
+Multiformats was started and is sponsored by:
 
 <a href="http://ipn.io">
 <img src="protocol-labs-logo.png" height="64px" />
