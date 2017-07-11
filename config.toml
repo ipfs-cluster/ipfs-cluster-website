@@ -1,5 +1,11 @@
-title = "Multiformats"
-description = "A collection of protocols for future-proofing systems, today."
 languageCode = "en-us"
 relativeURLs = true
 sourceRelativeLinksEval = true
+
+[params]
+  name = "Multiformats"
+  title = "Multiformats"
+  description = "A collection of protocols for future-proofing systems, today."
+  author = "Protocol Labs"
+  github = "https://github.com/multiformats/multiformats"
+  specifications = "https://github.com/multiformats/specs"

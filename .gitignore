@@ -1,2 +1,6 @@
 public
 node_modules
+package-lock.json
+static/css
+dev.pid
+auth.token

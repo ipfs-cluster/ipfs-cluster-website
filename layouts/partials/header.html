@@ -1,0 +1,20 @@
+{{ $isHomePage := eq .Title .Site.Title }}
+{{ $basePath := $.Scratch.Get "basePath" }}
+
+<header class="{{ if $isHomePage }}home-page{{ end }}">
+  <div class="header-section">
+    <img alt="Multiformats Logo" id="logo" src="{{ $basePath}}logo.svg"/>
+    <span class="header-title">
+      {{ if not $isHomePage }}
+        <span><a href="{{ $basePath }}">Multiformats</a> /</span>
+      {{ end }}
+      <span class="mfc mfc-{{ .Params.multiformat }}">{{ .Title }}</span>
+    </span>
+  </div>
+  <nav class="header-section right">
+    <a href="#multiformat-protocols" class="nav-link">Protocols</a>
+    <a target="_blank" href="https://github.com/{{ .Page.Params.stars }}" class="nav-link">Github</a>
+    <a target="_blank" href="{{ .Site.Params.specifications }}" class="nav-link hide-ns">Specs</a>
+    <a target="_blank" href="{{ .Site.Params.specifications }}" class="nav-link show-ns">Specifications</a>
+  </nav>
+</header>

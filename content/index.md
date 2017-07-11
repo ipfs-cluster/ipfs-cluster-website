@@ -80,9 +80,3 @@ The Multiformats project began through [the IPFS Project](https://ipfs.io). It i
 - IRC Channel: `#ipfs` on irc.freenode.org
 - [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md)
 - [Contributing Guide](https://github.com/multiformats/multiformats/blob/master/contributing.md)
-
-Multiformats was started and is sponsored by:
-
-<a href="http://ipn.io">
-<img src="protocol-labs-logo.png" height="64px" />
-</a>
