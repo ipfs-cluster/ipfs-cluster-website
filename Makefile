@@ -2,7 +2,6 @@ IPFSLOCAL="http://localhost:8080/ipfs/"
 IPFSGATEWAY="https://ipfs.io/ipfs/"
 OUTPUTDIR=public
 NPMBIN=./node_modules/.bin
-PIDFILE=dev.pid
 
 ifeq ($(DEBUG), true)
 	PREPEND=
@@ -26,7 +25,6 @@ help:
 	@echo '   make lint                           Check your CSS is ok                                               '
 	@echo '   make css                            Compile the *.css to ./static/css                                  '
 	@echo '   make dev                            Start a hot-reloding dev server on http://localhost:1313           '
-	@echo '   make dev-stop                       Stop the dev server                                                '
 	@echo '   make deploy                         Add the website to your local IPFS node                            '
 	@echo '   make publish-to-domain              Update $(DOMAIN) DNS record to the ipfs hash from the last deploy  '
 	@echo '   make clean                          remove the generated files                                         '
@@ -53,15 +51,10 @@ serve: install lint css
 	$(PREPEND)hugo server
 
 dev: install css
-	$(PREPEND)[ ! -f $(PIDFILE) ] || rm $(PIDFILE) ; \
-	touch $(PIDFILE) ; \
-	$(NPMBIN)/nodemon --watch layouts/css --exec "$(NPMBIN)/lessc --clean-css --autoprefix layouts/less/main.less static/css/main.css" & echo $$! >> $(PIDFILE) ; \
-	hugo server -w & echo $$! >> $(PIDFILE)
-
-dev-stop:
-	$(PREPEND)touch $(PIDFILE) ; \
-	[ -z "`(cat $(PIDFILE))`" ] || kill `(cat $(PIDFILE))` ; \
-	rm $(PIDFILE)
+	$(PREPEND)( \
+		$(NPMBIN)/nodemon --watch layouts/css --exec "$(NPMBIN)/lessc --clean-css --autoprefix layouts/less/main.less static/css/main.css" & \
+		hugo server -w \
+	)
 
 deploy:
 	$(PREPEND)ipfs swarm peers >/dev/null || (echo "ipfs daemon must be online to publish" && exit 1)
