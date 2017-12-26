@@ -228,7 +228,7 @@ We wanted to be able to include `MD5` and `SHA1`, as they are widely used even n
 Three options to add custom hash functions:
 
 - (1) If other applications would benefit from this hash function, propose it at [the multihash repo](https://github.com/multiformats/multihash/issues/)
-- (2) If your function is only for your application, tou can add a hash function to the table in a range reserved specially for this purpose. See the table.
+- (2) If your function is only for your application, you can add a hash function to the table in a range reserved specially for this purpose. See the table.
 - (3) If you need to use a completely custom table, most implementations support loading a separate hash function table.
 
 > #### Q. I want to upgrade a large system to use Multihash. Could you help me figure out how?
