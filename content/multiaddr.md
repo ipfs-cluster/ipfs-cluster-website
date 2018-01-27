@@ -92,6 +92,7 @@ These implementations are available:
 - [py-multiaddr](https://github.com/sbuss/py-multiaddr) - alpha
 - [rust-multiaddr](https://github.com/multiformats/rust-multiaddr) - draft
 - [cs-multiaddress](https://github.com/tabrath/cs-multiaddress) - alpha
+- [erlang-multiaddr](https://github.com/helium/erlang-multiaddr) - alpha
 - [net-ipfs-core](https://github.com/richardschneider/net-ipfs-core) - stable
 - [(add yours here)](https://github.com/multiformats/website/blob/master/content/multiaddr.md)
 
