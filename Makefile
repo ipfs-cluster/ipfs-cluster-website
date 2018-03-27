@@ -1,3 +1,5 @@
+DOMAIN="cluster.ipfs.io"
+
 IPFSLOCAL="http://localhost:8080/ipfs/"
 IPFSGATEWAY="https://ipfs.io/ipfs/"
 OUTPUTDIR=public
@@ -71,7 +73,7 @@ deploy:
 		echo "- make publish-to-domain"; \
 
 publish-to-domain: versions/current
-	DNSSIMPLE_TOKEN="$(shell if [ -f auth.token ]; then cat auth.token; else cat $$HOME/.protocol/dnsimple.token; fi)"; \
-	./dnslink.sh $(DOMAIN) $(shell cat versions/current)
+	DNSIMPLE_TOKEN="$(shell if [ -f auth.token ]; then cat auth.token; else cat $$HOME/.protocol/dnsimple.token; fi)" \
+        ./dnslink.sh $(DOMAIN) $(shell cat versions/current)
 
 .PHONY: build help install lint css serve deploy publish-to-domain clean
