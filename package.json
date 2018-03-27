@@ -1,12 +1,8 @@
 {
-  "name": "multiformats-website",
+  "name": "ipfs-cluster-website",
   "version": "1.0.0",
-  "description": "multiformats website",
-  "main": "list-multihashes.js",
-  "dependencies": {
-    "multihashes": "^0.4.2",
-    "multihashing": "^0.3.0"
-  },
+  "description": "ipfs-cluster website",
+  "dependencies": {},
   "devDependencies": {
     "less": "^2.7.2",
     "less-plugin-autoprefix": "^1.5.1",
@@ -18,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/multiformats/website.git"
+    "url": "git+https://github.com/ipfs/ipfs-cluster-website.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/multiformats/website/issues"
+    "url": "https://github.com/ipfs/ipfs-cluster-website/issues"
   },
-  "homepage": "https://github.com/multiformats/website#readme"
+  "homepage": "https://github.com/ipfs/ipfs-cluster-website#readme"
 }

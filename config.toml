@@ -3,9 +3,8 @@ relativeURLs = true
 sourceRelativeLinksEval = true
 
 [params]
-  name = "Multiformats"
-  title = "Multiformats"
-  description = "A collection of protocols for future-proofing systems, today."
+  name = "IPFS Cluster"
+  title = "IPFS Cluster"
+  description = "Collective pinning and composition for IPFS"
   author = "Protocol Labs"
-  github = "https://github.com/multiformats/multiformats"
-  specifications = "https://github.com/multiformats/specs"
+  github = "https://github.com/ipfs/ipfs-cluster"

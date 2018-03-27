@@ -1,25 +1,25 @@
-# The Multiformats website
+# The ipfs-cluster website
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
-[![](https://img.shields.io/badge/project-multiformats-blue.svg?style=flat-square)](https://github.com/multiformats/multiformats)
+[![](https://img.shields.io/badge/project-ipfs-blue.svg?style=flat-square)](https://github.com/ipfs/ipfs)
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](https://webchat.freenode.net/?channels=%23ipfs)
 [![](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-> Official website for Multiformats http://multiformats.io
+> Official website for ipfs-cluster http://cluster.ipfs.io
 
-This repository contains the source code for the Multiformats website available at http://multiformats.io
+This repository contains the source code for the ipfs-cluster website available at http://cluster.ipfs.io
 
-This project builds out a static site to explain Multiformats, ready for deployment on ipfs. It uses `hugo` to glue the html together. It provides an informative, public-facing website. The most important things are the words, concepts and links it presents.
+This project builds out a static site to explain ipfs-cluster, ready for deployment on ipfs. It uses `hugo` to glue the html together. It provides an informative, public-facing website. The most important things are the words, concepts and links it presents.
 
 ## Install
 
 ```sh
-git clone https://github.com/multiformats/website
+git clone https://github.com/ipfs/ipfs-cluster-website
 ```
 
 ## Usage
 
-To deploy the site multiformats.io, run:
+To deploy the site cluster.ipfs.io, run:
 
 ```sh
 # Build out the optimised site to ./public, where you can check it locally.
@@ -31,7 +31,7 @@ make deploy
 # Save your dnsimple api token as auth.token
 cat "<api token here>" > auth.token
 
-# Update the dns record for multiformats.io to point to the new ipfs hash.
+# Update the dns record for cluster.ipfs.io to point to the new ipfs hash.
 make publish-to-domain
 ```
 
@@ -67,66 +67,18 @@ make publish-to-domain DOMAIN=tableflip.io
 
 See the `Makefile` for the full list or run `make help` in the project root. You can pass the env var `DEBUG=true` to increase the verbosity of your chosen command.
 
-## Contribute
-
-Please do! Check out [the issues](https://github.com/ipld/website/issues), or open a PR!
-
-Check out our [contributing document](https://github.com/ipld/ipld/blob/master/contributing.md) for more information on how we work, and about contributing in general. Please be aware that all interactions related to IPLD are subject to the IPFS [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md).
-
-Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
-
-## License
-
-[MIT](LICENSE) © 2016 Protocol Labs Inc.
-
-
-## Install
-
-```sh
-git clone https://github.com/multiformats/website
-```
-
-## Usage
-
-#### Build
-
-```sh
-> hugo
-```
-
-#### Serve
-
-```sh
-> hugo serve
-```
-
-#### Deploy
-
-```sh
-> hugo
-> ipfs add -r public
-> open https://ipfs.io/ipfs/<last hash from above>
-```
-
-## Dependencies
-
-* `hugo` to build website
-* `Node.js` and `npm` for build tools
-* `ipfs` to deploy changes
-* `dnslink-deploy` to deploy changes
-
 ## Maintainers
 
-[@victorbjelkholm](https://github.com/victorbjelkholm)
+The ipfs-cluster team.
 
 ## Contribute
 
-Please do! Check out the [issues](https://github.com/multiformats/website/issues), or open a PR!
+Please do! Check out the [issues](https://github.com/ipfs/ipfs-cluster-website/issues), or open a PR!
 
-Check out our [contributing document](https://github.com/multiformats/multiformats/blob/master/contributing.md) for more information on how we work, and about contributing in general. Please be aware that all interactions related to multiformats are subject to the IPFS [Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md).
+Check out our [contributing document](https://github.com/ipfs/ipfs-cluster/blob/master/contribute.md) for more information on how we work, and about contributing in general.
 
 Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
 ## License
 
-[MIT](LICENSE) © 2016 Protocol Labs Inc.
+[MIT](LICENSE) © 2018 Protocol Labs Inc.
