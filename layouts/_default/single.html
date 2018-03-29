@@ -24,7 +24,7 @@
 
     <!--  facebook open graph tags -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="{{ .Site.BaseURL }}" />
+    <meta property="og:url" content="{{ .Site.Params.BaseURL }}" />
     <meta property="og:title" content="{{ .Title }}" />
     <meta property="og:description" content="{{ .Site.Params.Description }}" />
     <meta property="og:image" content="{{ .Site.Params.Og_Image }}" />
@@ -37,7 +37,7 @@
     <meta name="twitter:title" value="{{ .Title }}" />
     <meta name="twitter:description" value="{{ .Site.Params.Description }}" />
     <meta name="twitter:image" content="{{ .Site.Params.Og_Image }}" />
-    <meta name="twitter:url" value="{{ .Site.BaseURL }}" />
+    <meta name="twitter:url" value="{{ .Site.Params.BaseURL }}" />
 
     <title>{{ .Title }}</title>
 		<link href="/css/main.css" rel="stylesheet"/>
