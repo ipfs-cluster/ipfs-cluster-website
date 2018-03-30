@@ -6,13 +6,12 @@
     <img alt="ipfs-cluster logo" id="logo" src="{{ $basePath }}android-chrome-192x192.png"/>
     <span class="header-title">
       {{ if not $isHomePage }}
-        <span><a href="{{ $basePath }}">ipfs-cluster</a> /</span>
+        <span><a href="{{ $basePath }}">{{ .Site.Title }}</a> /</span>
       {{ end }}
       <span class="cluster cluster-{{ .Params.cluster }}">{{ .Title }}</span>
     </span>
   </div>
   <nav class="header-section right">
-    <a href="#docs" class="nav-link">Documentation</a>
-    <a target="_blank" href="https://github.com/{{ .Params.stars }}" class="nav-link">Github</a>
+    {{ partial "nav.html" . }}
   </nav>
 </header>

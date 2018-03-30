@@ -1,6 +1,21 @@
 /* Reset */
 * { margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
+@background: #05052e;
+@color: #ffffff;
+@cluster-blue1: #e1fafb;
+@cluster-blue2: #c3eaef;
+@cluster-blue3: #9ddde3;
+@cluster-blue4: #46a0af;
+@cluster-blue5: #3c8da0;
+@cluster-blue6: #20738c;
+@cluster-blue7: #20738c;
+@link: #eeeeee;
+@hover: @cluster-blue4;
+@active: @cluster-blue6;
+
+
+
 /* HTML Primitives */
 body {
   font-family: Roboto, sans-serif;
@@ -10,8 +25,8 @@ body {
   letter-spacing: normal;
   line-height: 26px;
   text-transform: none;
-  color: #ffffff;
-  background-color: #05052e;
+  color: @color;
+  background-color: @background;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -24,13 +39,30 @@ h1, h2, h3, h4, h5, h6 {
   color: #000000;
 }
 
-p { margin-bottom: 20px; }
+h1,h2 {
+    margin-bottom: 15px;
+}
 
-a { color: #dddddd; text-decoration: none }
-a:hover, a:focus { color: #888888; text-decoration: underline; }
-a:active { color: #ffffff; }
+h2,h3,h4,h5,h6 {
+    margin-left: 20px;
+}
 
-ul { margin-bottom: 20px; list-style-position:inside; }
+
+p {
+    margin-left: 20px;
+    margin-bottom: 15px;
+    line-height: 30px;
+}
+
+a { color: @link; text-decoration: none }
+a:hover, a:focus { color: @hover; text-decoration: underline; }
+a:active { color: @active; }
+
+ul {
+   margin-bottom: 20px;
+   list-style-position:inside;
+   margin-left: 40px;
+}
 ol { margin-bottom: 20px; list-style-position:inside; }
 ul ul, ol ol { margin-bottom:0; }
 ul ul, ol ol {
@@ -60,11 +92,11 @@ blockquote {
 a.no-decoration, a.no-decoration:hover,
 a.no-decoration:visited, a.no-decoration:active {
   text-decoration: none;
-  color: #eeeeee;
+  color: @link;
 }
 
 pre, code {
-  background-color: #eee;
+  background-color: black;
   display:block;
   padding:10px;
 }
@@ -120,6 +152,7 @@ header {
 
 .header-title {
   margin-left: 10px;
+  margin-right: 20px;
   font-weight: 700;
   font-size: 32px;
   display: inline-block;
@@ -128,15 +161,15 @@ header {
   font-style: normal;
   letter-spacing: normal;
   line-height: 46px;
-  color: #eeeeee;
+  color: @link;
  
   a {
-    color: #eeeeee;
+    color: @link;
     cursor: pointer;
     text-decoration: none;
 
     &:hover {
-      color: #888888;      
+      color: @hover;      
     }
   }
 }
@@ -174,7 +207,7 @@ footer {
   padding-top: 1.5rem;
 
   a {
-    color: #eeeeee;  
+    color: @link;  
     cursor: pointer;
     text-decoration: underline;
   }
@@ -187,12 +220,12 @@ footer {
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: #eeeeee;
+  color: @link;
   cursor: pointer;
   margin-left: 20px;
 
   &:hover {
-    color: #888888;
+    color: @hover;
   }
   &:first-child {
     margin-left: 0;

@@ -11,3 +11,4 @@ sourceRelativeLinksEval = true
   github = "https://github.com/ipfs/ipfs-cluster"
   domain = "cluster.ipfs.io"
   og_image = "https://cluster.ipfs.io/og-image.jpg"
+  download = "https://dist.ipfs.io/#ipfs-cluster-service"
