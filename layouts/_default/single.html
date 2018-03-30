@@ -1,17 +1,12 @@
 {{ $isHomePage := eq .Title .Site.Title }}
-
 {{ $.Scratch.Add "basePath" "../" }}
-
-{{ if $isHomePage }}
-{{ $.Scratch.Set "basePath" "./" }}
-{{ end  }}
-
+{{ if $isHomePage }}{{ $.Scratch.Set "basePath" "./" }}{{ end  }}
 {{ $basePath := $.Scratch.Get "basePath" }}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <meta content="IE=edge" http-equiv=X-UA-Compatible/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
     <meta content="width=device-width,initial-scale=1" name=viewport />
 
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">

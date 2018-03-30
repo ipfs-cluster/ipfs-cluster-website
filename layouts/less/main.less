@@ -52,11 +52,26 @@ p {
     margin-left: 20px;
     margin-bottom: 15px;
     line-height: 30px;
+
+    strong {
+        font-weight: bold;
+    }
 }
 
-a { color: @link; text-decoration: none }
-a:hover, a:focus { color: @hover; text-decoration: underline; }
-a:active { color: @active; }
+a {
+    color: @link;
+    text-decoration: underline;
+}
+
+
+a:hover, a:focus {
+    color: @hover;
+    text-decoration: underline;
+}
+
+a:active {
+    color: @active;
+}
 
 ul {
    margin-bottom: 20px;
@@ -224,7 +239,8 @@ footer {
   color: @link;
   cursor: pointer;
   margin-left: 20px;
-
+  text-decoration: none;
+  
   &:hover {
     color: @hover;
   }
