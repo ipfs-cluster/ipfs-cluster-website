@@ -47,7 +47,7 @@ These are the currently observed main problems and things lacking in ipfs-cluste
 
 * As of now, IPFS Cluster does not support **collaborative pinning** where it random individuals to subscribe to a pinset and thus contribute their disk space to store interesting data.
 * Bad UX for large pins (or things that take long time to pin). Not possible to cancel an ongoing pin.
-* Unclear about the escalability limits:
+* Unclear about the scalability limits:
   * Tested with 10 cluster peers on a global setup:
     * Repository size of around 70 GB/each
     * ~2000 pins/peer
