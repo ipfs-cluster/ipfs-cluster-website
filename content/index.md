@@ -45,7 +45,7 @@ The latest stable release of IPFS Cluster includes the following features:
 
 These are the currently observed main problems and things lacking in ipfs-cluster (from what people expect). Be sure to check our [Roadmap](/roadmap) to see how and when we are planning to address them:
 
-* As of now, IPFS Cluster does not support **collaborative pinning** where it random individuals to subscribe to a pinset and thus contribute their disk space to store interesting data.
+* As of now, IPFS Cluster does not support **collaborative pinning** with random individuals subscribing to a pinset and thus contributing their disk space to store interesting data.
 * Bad UX for large pins (or things that take long time to pin). Not possible to cancel an ongoing pin.
 * Unclear about the scalability limits:
   * Tested with 10 cluster peers on a global setup:
