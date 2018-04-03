@@ -4,11 +4,11 @@ title = "Documentation"
 
 # Documentation
 
-Welcome to the IPFS Cluster documentation. This is where you will find user documentation, guides, tutorial, architecture documents and other information about how to use and develop ipfs-cluster.
+Welcome to the IPFS Cluster documentation. This is where you will find user documentation, guides, tutorials, architecture documents and other information about how to use and develop ipfs-cluster.
 
 <center>
 
-> ### Updated to version `0.3.5`
+> ### Updated to version `0.3.5` (actually not, site under construction!)
 
 </center>
 
