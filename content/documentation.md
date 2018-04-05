@@ -15,13 +15,15 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 ## User documentation
 
 * [IPFS Cluster Overview](overview)
-* [Installation](installation)
+* [Download](download)
 * [Configuration](configuration)
+* [Deployment](deployment)
+* [Troubleshooting](troubleshooting)
 * [Upgrades](upgrades)
 * [Internals](internals)
 * [ipfs-cluster-ctl](ipfs-cluster-ctl)
 * [ipfs-cluster-service](ipfs-cluster-service)
-
+* [Security](security)
 
 ## User guides
 

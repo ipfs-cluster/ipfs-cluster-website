@@ -3,8 +3,7 @@ title = "Installation"
 +++
 
 
-# Download and Installation
-
+# Download
 
 ## Binary distribution
 
@@ -23,7 +22,7 @@ The prebuilt-binaries are only updated on new releases (with occasional release 
 We have automatic docker builds (https://hub.docker.com/r/ipfs/ipfs-cluster/) to create a minimal container that runs `ipfs-cluster-service` by default. You can obtain it with:
 
 ```
-docker pull ipfs/ipfs-cluster:<tag>
+docker pull ipfs/ipfs-cluster:\<tag\>
 ```
 
 where `<tag>` is either `latest` or a tagged version of cluster (i.e. `v0.3.5`). The latest build is built from `master`.
@@ -39,7 +38,7 @@ If no `/data/ipfs-cluster/service.json` file can be found, the container's entry
   * `api/restapi/http_listen_multiaddress` will be set to use `0.0.0.0` instead of `127.0.0.1`.
   * `ipfs_connector/ipfshttp/proxy_listen_multiaddress` will be set to use `0.0.0.0` instead of `127.0.0.1`.
 
-Read the [Configuration documentation](configuration) for more information on how to configure IPFS Cluster.
+Read the [Configuration documentation](/documentation/configuration) for more information on how to configure IPFS Cluster.
 
 
 ## Snaps
@@ -71,3 +70,7 @@ make install
 After the dependencies have been downloaded, `ipfs-cluster-service` and `ipfs-cluster-ctl` will be installed to your `$GOPATH/bin` (it uses `go install`).
 
 If you rather have them built locally, use `make build` instead. You can run `make clean` to remove any generated artifacts and rewrite the import paths to their original form.
+
+
+## Next steps: [Configuration](/documentation/configuration)
+
