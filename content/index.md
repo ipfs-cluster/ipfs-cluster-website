@@ -28,7 +28,7 @@ While IPFS Cluster is used by Protocol Labs to maintain and replicate a vast pin
 
 The latest stable release of IPFS Cluster includes the following features:
 
-* Every IPFS Cluster peer can control the cluster, modify the pinset and perform any operations. The consensus layer (Raft) ensures that all peers share the exact same state and that modifications obtain consistent results.
+* Every IPFS Cluster peer can control the cluster, modify the pinset and perform any operations. The consensus layer (Raft) ensures that all peers share the exact same state and that modifications obtain consistent results, provides high availability and protection against network splits.
 * Pin replication is controlled by a maximum and minimum replication factor.
 * Automatic re-pinning on downtime events.
 * Evenly-distributed pins according to repository space of each IPFS daemon.
