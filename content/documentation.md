@@ -21,8 +21,9 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 * [Troubleshooting](troubleshooting)
 * [Upgrades](upgrades)
 * [Internals](internals)
-* [ipfs-cluster-ctl](ipfs-cluster-ctl)
+* [Composite Clusters](composite-clusters)
 * [ipfs-cluster-service](ipfs-cluster-service)
+* [ipfs-cluster-ctl](ipfs-cluster-ctl)
 * [Security](security)
 
 ## User guides
@@ -32,7 +33,7 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 
 ## Developer documentation
 
-* [ipfs-cluster architecture overview](architecture)
+* [ipfs-cluster architecture overview](/developer/architecture)
 * [Godoc](https://godoc.org/github.com/ipfs/ipfs-cluster)
 * REST API reference
 

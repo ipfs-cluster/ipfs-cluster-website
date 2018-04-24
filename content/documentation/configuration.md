@@ -72,9 +72,9 @@ The *default* configuration file looks as follows:
       "read_header_timeout": "5s",
       "write_timeout": "1m0s",
       "idle_timeout": "2m0s",
-      "basic_auth_credentials": [      // Leave null to disable basic auth.
+      "basic_auth_credentials": {      // Leave null to disable basic auth.
         "user": "pass"
-      ]
+      }
     }
   },
   "ipfs_connector": { // IPFS Connector interacts with the IPFS daemon
