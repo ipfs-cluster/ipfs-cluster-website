@@ -15,7 +15,7 @@ This section is dedicated to the task of deploying an IPFS Cluster and running i
 
 Make sure you are familiar with the [Configuration](/documentation/configuration) section first.
 
-> **Important**: All the IPFS Cluster peers in a cluster must be running the **same version** of `ipfs-cluster-service`.
+<div class="tipbox warning">All the IPFS Cluster peers in a cluster must be running the **same version** of `ipfs-cluster-service`.</div>
 
 ## Deployment methods
 
@@ -118,7 +118,7 @@ The bootstrapped peer should not have pre-existing state data (`ipfs-cluster-ser
 * The new peer's configuration `peers` will be updated with the multiaddresses from all cluster peers
 * The new peer's multiaddress(es) will be added to the `peers` configuration value of all other peers
 
-> **Important**: Adding peers only works on healthy clusters, with all their peers online. Remove any unhealthy peers before adding new ones.
+<div class="tipbox warning">Adding peers only works on healthy clusters, with all their peers online. Remove any unhealthy peers before adding new ones.</div>
 
 #### Removing peers
 
@@ -136,7 +136,7 @@ A *peer ID* looks like `QmQHKLBXfS7hf8o2acj7FGADoJDLat3UazucbHrgxqisim`. Removin
 * The removed peer will be automatically erased from the `peers` configuration value for the rest of peers.
 * `peers rm` also works with offline peers. **Offline peers should not be restarted after being removed**.
 
-> **Tip**: the [`leave_on_shutdown` option](/documentation/configuration/#leave-on-shutdown) triggers automatic removal on clean shutdowns.
+<div class="tipbox tip">The <a href="/documentation/configuration/#leave-on-shutdown">`leave_on_shutdown` option</a> triggers automatic removal on clean shutdowns.</div>
 
 ## Data persistence and backups
 

@@ -1,22 +1,12 @@
 +++
-title = "IPFS Cluster"
+title = "IPFS CLUSTER"
 +++
 
-<center>
+# Pinset orchestration for IPFS
 
-<img src="cluster/svg/IPFS_Cluster_color_transparent.svg" alt="ipfs-cluster-logo" width="250" height="250" />
+<div class="tipbox warning">THIS WEBSITE IS UNDER CONSTRUCTION. Any information here might be incorrect.</div>
 
-<a class="github-button" href="https://github.com/ipfs/ipfs-cluster" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ipfs/ipfs-cluster on GitHub">Star</a>
-<a class="github-button" href="https://github.com/ipfs/ipfs-cluster/subscription" data-icon="octicon-eye" data-size="large" aria-label="Watch ipfs/ipfs-cluster on GitHub">Watch</a>
-<a class="github-button" href="https://github.com/ipfs/ipfs-cluster/issues" data-icon="octicon-issue-opened" data-size="large" aria-label="Issue ipfs/ipfs-cluster on GitHub">Issues</a>
-
-</center>
-
-> ## Collective pinning and composition for IPFS
-
-THIS WEBSITE IS UNDER CONSTRUCTION. Any information here might be incorrect.
-
-IPFS Cluster is a stand-alone application (`ipfs-cluster-service`) and a CLI client (`ipfs-cluster-ctl`) that work hand-in-hand with an IPFS daemon in order to allocate, replicate and track *CIDs* or *Content IDentifiers* on IPFS (commonly referred as **Pins**).
+IPFS Cluster is a stand-alone application (`ipfs-cluster-service`) and a CLI client (`ipfs-cluster-ctl`) to allocate, replicate and track *CIDs* or *Content IDentifiers* on IPFS (commonly referred as **Pins**) across several IPFS daemons.
 
 A cluster is formed by a number of *Peers*, each of them associated to one IPFS daemon. The peers share a *pinset* (also known as *shared state*) which lists the *CIDs* which are cluster-pinned and their properties (allocations, replication factor etc.).
 
@@ -60,4 +50,4 @@ These are the currently observed main problems and things lacking in ipfs-cluste
 
 ## Documentation and guides
 
-This website provides the official documentation for IPFS Cluster. Please see the [Documentation](/documentation) section.
+This website provides the official documentation for IPFS Cluster. Please see the [Documentation section](/documentation).

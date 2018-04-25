@@ -14,17 +14,17 @@ IPFS Cluster peers are run with the `ipfs-cluster-service` command. This subsect
 
 ### The `service.json` configuration file
 
-> **Tip**: `ipfs-cluster-service -c <path>` sets the location of the configuration folder. This is also controlled by the `IPFS_CLUSTER_PATH` environment variable.
+<div class="tipbox tip"> `ipfs-cluster-service -c <path>` sets the location of the configuration folder. This is also controlled by the `IPFS_CLUSTER_PATH` environment variable.</div>
 
 The ipfs-cluster configuration file is usually found at `~/.ipfs-cluster/service.json`. It holds all the configurable options for cluster and its different components. The configuration file is divided in sections. Each section represents a component. Each item inside the section represents an implementation of that component and contains specific options.
 
 The `cluster` section of the configuration stores a `secret`: a 32 byte (hex-encoded).
 
-> **Important**: The `secret` **must be shared by all cluster peers**.
+<div class="tipbox warning"> Important: The `secret` must be shared by all cluster peers.</div>
 
 Using an empty key has security implications (see [Security](documentation/security)). Using **different keys will prevent different peers from talking to each other**.
 
-> **Tip**: Usually, configurations for all cluster peers are identical with the exception of the `id` and `private_key` values.
+<div class="tipbox tip">Usually, configurations for all cluster peers are identical with the exception of the `id` and `private_key` values.</div>
 
 The *default* configuration file looks as follows:
 
@@ -134,7 +134,7 @@ The configuration folder will be created if it doesn't exist and a default valid
 
 You can launch a single-peer cluster using this file, but launching a multi-peer cluster will require that all peers **share the same secret**.
 
-> **Tip**: If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.
+<div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
 
 #### Manually generating a cluster secret
@@ -166,7 +166,7 @@ When using the `raft` consensus implementation (our default and only one), it is
 
 The two options are explained below.
 
-> **Tip**: if both `peers` and `bootstrap` are empty in your configuration, the peer will be launched in *single peer mode*.
+<div class="tipbox tip">If both `peers` and `bootstrap` are empty in your configuration, the peer will be launched in *single peer mode*.</div>
 
 #### Using `peers`
 
@@ -189,14 +189,14 @@ Thus, you will want to fill in your `peers` configuration value when:
 * Working with an automated deployment tools
 * You are able to trigger start/stop/restarts for all peers in the cluster with ease
 
-> **Tip**: Except for `private_key` and `id`, you can re-use the same configuration for all your cluster peers. This is very useful on automated deployments.
+<div class="tipbox tip">Except for `private_key` and `id`, you can re-use the same configuration for all your cluster peers. This is very useful on automated deployments.</div>
 
 Once the peers have booted for the first time, the current *peerset* will be maintaned by the consensus component and can only be updated by:
 
 * adding new peers, using the bootstrap method
 * removing new peers, using the `ipfs-cluster-ctl peers rm` method
 
-> **Important**: Do not manually modify the `peers` (by adding or removing peers) key after the cluster has been sucessfully started for the first time. This will result startup errors.
+<div class="tipbox warning">Do not manually modify the `peers` (by adding or removing peers) key after the cluster has been sucessfully started for the first time. This will result startup errors.</div>
 
 #### Using `bootstrap`
 
@@ -209,14 +209,14 @@ This method consists in leaving the `peers` key empty and providing one or sever
 * Bootstrap can only be performed with a clean cluster state (`ipfs-cluster-service state clean` does it)
 * Bootstrap can only be performed when all the existing cluster-peers are running
 
-> **Important**: Avoid bootstrapping to different cluster peers at the same time.
+<div class="tipbox warning">Avoid bootstrapping to different cluster peers at the same time.</div>
 
 You will want to use `bootstrap` when:
 
 * You are building your cluster manually, starting one single-cluster peer first and boostrapping each node consecutively to it
 * You don't know the IPs or ports your peers will listen to (other than the first)
 
-> **Important**: Do not manually modify the `peers` (by adding or removing peers) key after the peer has been sucessfully bootstrapped. This will result in startup errors.
+<div class="tipbox warning">Do not manually modify the `peers` (by adding or removing peers) key after the peer has been sucessfully bootstrapped. This will result in startup errors.</div>
 
 #### `leave_on_shutdown`
 

@@ -4,9 +4,9 @@ sourceRelativeLinksEval = true
 
 [params]
   baseurl = "https://cluster.ipfs.io"
-  name = "IPFS Cluster"
-  title = "IPFS Cluster"
-  description = "Collective pinning and composition for IPFS"
+  name = "IPFS CLUSTER"
+  title = "IPFS CLUSTER"
+  description = "Pinset orchestration for IPFS"
   author = "Protocol Labs"
   github = "https://github.com/ipfs/ipfs-cluster"
   domain = "cluster.ipfs.io"

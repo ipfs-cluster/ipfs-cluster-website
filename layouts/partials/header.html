@@ -6,12 +6,35 @@
     <img alt="ipfs-cluster logo" id="logo" src="/{{ $basePath }}android-chrome-192x192.png"/>
     <span class="header-title">
       {{ if not $isHomePage }}
-        <span><a href="{{ $basePath }}">{{ .Site.Title }}</a> /</span>
+        <span><a href="{{ $basePath }}"><strong>IPFS</strong>&nbsp;CLUSTER</a> /</span>
+        <span>{{ .Title }}</span>
+      {{ else }}
+        <span><a href="{{ $basePath }}"><strong>IPFS</strong>&nbsp;CLUSTER</a></span>
       {{ end }}
-      <span class="cluster cluster-{{ .Params.cluster }}">{{ .Title }}</span>
+      
     </span>
   </div>
   <nav class="header-section right">
     {{ partial "nav.html" . }}
   </nav>
 </header>
+
+{{ if $isHomePage }}
+<div id="frontpage-title">
+  <div id="frontpage-title-text">
+  <span class="frontpage-title-text-big">
+  IPFS Cluster is a stand-alone application and a CLI Client
+  </span>
+  <span class="frontpage-title-text-normal">
+  to allocate, replicate and track Pins across a cluster of IPFS daemons.
+  </span>
+
+  <a class="github-button" href="https://github.com/ipfs/ipfs-cluster" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ipfs/ipfs-cluster on GitHub">Star</a>
+  <a class="github-button" href="https://github.com/ipfs/ipfs-cluster/subscription" data-icon="octicon-eye" data-size="large" aria-label="Watch ipfs/ipfs-cluster on GitHub">Watch</a>
+  <a class="github-button" href="https://github.com/ipfs/ipfs-cluster/issues" data-icon="octicon-issue-opened" data-size="large" aria-label="Issue ipfs/ipfs-cluster on GitHub">Issues</a>
+
+  </div>
+  <img id="cluster-illustration" src="/cluster/svg/cluster_cube_illustr.svg" alt="cluster-illustration" width="329" height="552" />
+</div>
+
+{{ end }}

@@ -34,10 +34,10 @@
     <meta name="twitter:image" content="{{ .Site.Params.Og_Image }}" />
     <meta name="twitter:url" value="{{ .Site.Params.BaseURL }}" />
 
-    <title>{{ .Title }}</title>
-		<link href="/css/main.css" rel="stylesheet"/>
-		<link href="/fonts/fonts.css" rel="stylesheet"/>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>{{ .Title }} - {{ .Site.Params.Description }}</title>
+    <link href="/css/main.css" rel="stylesheet"/>
+    <link href="/fonts/fonts.css" rel="stylesheet"/>
+    <script async defer src="buttons.js"></script>
   </head>
   <body>
     {{ partial "header.html" . }}

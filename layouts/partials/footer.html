@@ -1,14 +1,14 @@
-<footer class="white pa3">
-  <div class="footer-section">
-    <div>ipfs-cluster was started and is sponsored by</div>
+<footer>
+  <nav>
+    {{ partial "nav.html" . }}
+  </nav>    
+  <div id="sponsored">IPFS Cluster was started and is sponsored by</div>
+  <div id="footer-logo-div">
     <a href="https://protocol.ai/">
       <img id="footer-logo" src="/protocol-labs-logo.png">
     </a>
-  </div>
-  <div class="footer-section right">
-    <nav>
-      {{ partial "nav.html" . }}
-    </nav>    
-    <div class="copyright">© <a href="https://protocol.ai/" target="_blank">Protocol Labs</a> | Except as <a href="https://protocol.ai/legal/">noted</a>, content licensed <a href="" target="_blank">CC-BY 3.0</a></div>
+    </div>
+  <div class="copyright">
+    © <a href="https://protocol.ai/" target="_blank">Protocol Labs</a> | Except as <a href="https://protocol.ai/legal/">noted</a>, content licensed <a href="" target="_blank">CC-BY 3.0</a></div>
   </div>
 </footer>

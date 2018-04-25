@@ -8,7 +8,7 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 
 <center>
 
-> ### Updated to version `0.3.5` (actually not, site under construction!)
+<div class="tipbox warning">Updated to version 0.3.5 (actually not, site under construction!)</div>
 
 </center>
 

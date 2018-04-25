@@ -14,6 +14,7 @@ and has resolved a few issues already included in the last release.
 Secondly, we have been working very hard on implementing the "sharding RFC" that I mentioned in my last update. @zenground0 has made very significant progress on this front. Sharding will be a unique feature of ipfs-cluster and will help to drive the adoption of ipfs by being able tu support huge datasets distributed among different nodes. We hope that the first "sharding" prototype is ready in the upcoming weeks.
 
 Thirdly, we have made 3 releases (the latest being `0.3.5`) which bring a diverse set of features and some bugfixes. Some of the major ones are these:
+
   * `ipfs-cluster-ctl healht graph` generates a `.dot` file which allows to quickly have an overview of connectivity among the peers in the cluster.
   * The `refs` pinning method allows to download dags in parallel and pin only when they content is already on the disk.
   * The Rest API now exposes the HTTP endpoints through libp2p. By using a libp2p host to communicate with it, users get an encrypted connection without having to setup SSL certificates.
@@ -55,6 +56,8 @@ The first live setup has shown nevertheless that some things were missing. For e
 Parallel to all this, @zenground0 has been working on state migrations. The cluster's consensus state is stored on disk via snapshots in certain format. This format might evolve in the future and we need a way to migrate between versions without losing all the state data. In the new approach, we are able to extract the state from Raft snapshots, migrate it, and create a new snapshot with the new format so that the next time cluster starts everything works. This has been a complex feature but a very important step to providing a production grade release of ipfs-cluster.
 
 Last but not least, the next release will include useful things like pin-names (a string associated to every pin) and peer names. This will allow to easily identify pins and peers by other than their multihash. They have been contributed by @te0d, who is working on https://github.com/te0d/js-ipfs-cluster-api, a JS Rest API client for our REST API, and https://github.com/te0d/bunker, a web interface to manage ipfs-cluster.
+
+---
 
 ## 20171115 | @hsanjuan
 
