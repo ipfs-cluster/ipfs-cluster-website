@@ -200,9 +200,12 @@ code {
 }
 
 header, footer {
-  width: 90%;
-  max-width: 1366px;
-  margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
+
+    .container {
+        display: table;
+    }
 }
 
 header {
@@ -212,15 +215,15 @@ header {
     padding-right: 111px;
     
     border-bottom: 1px solid #ddd;
-    display: table;
 
     &.home-page {
         background-color: @header-background;
         border-bottom: none;
-        width: 100%;
-        max-width: 100%;
         a {
             color: @header-color1;
+            &:hover {
+                color: @header-color2;
+            }
         }
     }
 }
