@@ -1,5 +1,5 @@
 public
 node_modules
 package-lock.json
-static/css
+static/css/main.css
 auth.token
