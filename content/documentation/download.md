@@ -27,19 +27,7 @@ docker pull ipfs/ipfs-cluster:\<tag\>
 
 where `<tag>` is either `latest` or a tagged version of cluster (i.e. `v0.3.5`). The latest build is built from `master`.
 
-### ipfs-cluster-service and docker
-
-When running `ipfs-cluster-service` using the docker container, it is recommended to use a external volume and provide the configuration and data folder: `/data/ipfs-cluster` (this is usually done passing `-v <your_local_path>:/data/ipfs-cluster` to `docker run`).
-
-If no `/data/ipfs-cluster/service.json` file can be found, the container's entrypoint script will:
-
-* run `ipfs-cluster-service init`
-* make the following changes to the default configuration:
-  * `api/restapi/http_listen_multiaddress` will be set to use `0.0.0.0` instead of `127.0.0.1`.
-  * `ipfs_connector/ipfshttp/proxy_listen_multiaddress` will be set to use `0.0.0.0` instead of `127.0.0.1`.
-
-Read the [Configuration documentation](/documentation/configuration) for more information on how to configure IPFS Cluster.
-
+<div class="tipbox tip">Make sure to read the <a href="/documentation/deployment#deployment-using-docker>Deployment using Docker section</a> of the documentation.</div>
 
 ## Snaps
 
