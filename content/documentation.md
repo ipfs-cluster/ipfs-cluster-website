@@ -1,16 +1,17 @@
 +++
 title = "Documentation"
+aliases = [
+    "/developer/",
+    "/guides/"
+]
 +++
 
 # Documentation
 
 Welcome to the IPFS Cluster documentation. This is where you will find user documentation, guides, tutorials, architecture documents and other information about how to use and develop ipfs-cluster.
 
-<center>
+<div class="tipbox tip">Updated to version <a href="/documentation/changelog">0.3.5 (see the Changelog)</a>.</div>
 
-<div class="tipbox warning">Updated to version 0.3.5 (actually not, site under construction!)</div>
-
-</center>
 
 ## User documentation
 
@@ -25,18 +26,30 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 * [ipfs-cluster-service](ipfs-cluster-service)
 * [ipfs-cluster-ctl](ipfs-cluster-ctl)
 * [Security](security)
+* [FAQ](faq)
 
 ## User guides
 
-* [FAQ](faq)
-* Bootstrapping, enlarging and shrinking a cluster
+* [Quickstart: Starting, enlarging and shrinking a cluster](/guides/quickstart)
 
 ## Developer documentation
 
-* [ipfs-cluster architecture overview](/developer/architecture)
-* [Godoc](https://godoc.org/github.com/ipfs/ipfs-cluster)
-* REST API reference
+* [Contribution guidelines](/developer/contribute)
+* [Project Architecture's overview](/developer/architecture)
+* [Go API (Godoc)](https://godoc.org/github.com/ipfs/ipfs-cluster)
+* [HTTP API reference](/developer/api)
+* [RFCs](/developer/rfcs)
 
 ## Documentation bugs
 
 Please open issues and submit PRs to this documentation in the [ipfs-cluster-website repository](https://github.com/ipfs/ipfs-cluster-website/issues).
+
+## Support
+
+We are happy to support you, answer questions and help you using IPFS Cluster.
+
+You can reach out to the team and the community:
+
+* By opening [issues](https://github.com/ipfs/ipfs-cluster/issues) in the repository
+* By joining the IRC [\#ipfs-cluster](http://webchat.freenode.net/?channels=%23ipfs-cluster) channel on Freenode.
+* By opening a topic at https://discuss.ipfs.io/ .

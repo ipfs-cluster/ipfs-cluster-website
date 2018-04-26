@@ -4,7 +4,7 @@ title = "Roadmap"
 
 # Roadmap
 
-**THIS IS A DRAFT**
+<div class="tipbox warning">This roadmap is a draft</div>
 
 This is the IPFS Cluster Roadmap for the next months. Note that this is a declaration of our best intentions but it is very difficult to make compromises. We will keep this page updated.
 

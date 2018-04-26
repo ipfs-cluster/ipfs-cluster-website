@@ -2,7 +2,7 @@
 * { margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 @background: #ffffff;
-@color: #1a1a1a;
+@color: #0b0b0b;
 @altcolor: #bbbbbb;
 @warn-background: #f9a035;
 @tip-background: #399b3c;
@@ -55,7 +55,7 @@ h3 {
 }
 
 h4, h5, h6 {
-
+    font-weight: 200;
 }
 
 
@@ -101,7 +101,7 @@ ul ul, ol ol {
 ul li, ol li {
   list-style-position: outside;
   margin-left: 1em;
-  line-height: 24px;
+  line-height: 26px;
 }
 
 blockquote {
@@ -116,7 +116,7 @@ blockquote {
   border-left: 5px solid #ddd;
   quotes: "\201C" "\201D";
   font-size: 13px;
-  
+
   p, a {
       font-family: 'Source Code Pro', monospace;
       margin: 0;
@@ -149,6 +149,9 @@ blockquote {
         &:before {
             content: "ⓘ ";
             font-weight: bold;
+        }
+        a {
+          color: @header-color1;
         }
     }
 }
@@ -199,24 +202,24 @@ code {
   word-break: break-all;
 }
 
-header, footer {
+.table-container {
+    display: table;
     width: 100%;
-    margin: 0 auto;
+}
 
-    .container {
-        display: table;
-    }
+header, footer {
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 header {
     padding-top: 20px;
     padding-bottom: 20px;
-    padding-left: 111px;
-    padding-right: 111px;
-    
+
     border-bottom: 1px solid #ddd;
 
     &.home-page {
+        padding-top: 30px;
         background-color: @header-background;
         border-bottom: none;
         a {
@@ -252,17 +255,17 @@ header {
     letter-spacing: normal;
     line-height: 46px;
     color: @link;
- 
+
     a {
         color: @link;
         cursor: pointer;
         text-decoration: none;
-        
+
         &:hover {
-            color: @hover;      
+            color: @hover;
         }
     }
-    
+
     strong {
         font-weight: 700;
     }
@@ -280,45 +283,50 @@ header {
 
 div#frontpage-title {
     background-color: @header-background;
-    padding-bottom: 66px;
     margin-bottom: 30px;
+
+
+    .frontpage-section {
+        display: table-cell;
+        vertical-align: middle;
+
+        &.right {
+            margin-left: 10px;
+            text-align: center;
+        }
+
+        &.left {
+            margin-right: 35px;
+            width: 50%;
+        }
+    }
+
     
     img#cluster-illustration {
-        float: right;
         height: 552px;
-        margin-right: 190px;
-        overflow: hidden;
     }
-        
-    div#frontpage-title-text {
-        padding-top: 50px;
-        margin-right: 35px;
-        width: 551px;
-        vertical-align: top;
-        display: inline-block;
 
-        span.frontpage-title-text-normal {
-            display: block;
-            color: @header-color2;
-            font-size: 24px;
-            line-height: 33px;
-            font-weight: 400;
-            padding-bottom: 30px;
-        }
-        
-        span.frontpage-title-text-big {
-            display: block;
-            color: @header-color1;
-            font-size: 60px;
-            line-height: 67px;
-            font-weight: 700;
-            padding-bottom: 30px;
-            text-transform: uppercase;
-        }
+    span.frontpage-title-text-normal {
+        display: block;
+        color: @header-color2;
+        font-size: 24px;
+        line-height: 33px;
+        font-weight: 400;
+        padding-bottom: 30px;
+    }
 
-        .github-button {
-            margin-top: 20px;
-        }
+    span.frontpage-title-text-big {
+        display: block;
+        color: @header-color1;
+        font-size: 60px;
+        line-height: 67px;
+        font-weight: 700;
+        padding-bottom: 30px;
+        text-transform: uppercase;
+    }
+
+    .github-button {
+        margin-top: 20px;
     }
 }
 
@@ -343,7 +351,7 @@ footer {
 
     #footer-logo-div {
         text-align: center;
-    
+
         #footer-logo {
             height:48px;
             vertical-align: middle;
@@ -367,7 +375,7 @@ footer {
   cursor: pointer;
   margin-left: 20px;
   text-decoration: none;
-  
+
   &:hover {
     color: @hover;
   }

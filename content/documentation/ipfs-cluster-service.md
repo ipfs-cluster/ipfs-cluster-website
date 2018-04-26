@@ -3,7 +3,7 @@ title = "ipfs-cluster-service"
 +++
 
 
-# `ipfs-cluster-service`
+# ipfs-cluster-service
 
 
 `ipfs-cluster-service` is the application that runs the IPFS Cluster peer.

@@ -43,7 +43,8 @@ The *default* configuration file looks as follows:
     "replication_factor_min": -1,      // Replication factor minimum threshold. -1 == all
     "replication_factor_max": -1,      // Replication factor maximum threshold. -1 == all
     "monitor_ping_interval": "15s"     // Time between alive-pings. See monitoring section
-    "peer_watch_interval": "5s"        // Time between checking & updating "peers" value
+    "peer_watch_interval": "5s",       // Time between checking & updating "peers" value
+    "disable_repinning": false         // Do not attempt to re-allocate pins when a peer is down
   },
   "consensus": { // Consensus maintains the shared state (pinset) across the cluster
     "raft": {
@@ -222,7 +223,7 @@ You will want to use `bootstrap` when:
 
 The `cluster.leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly:
 
-* The state will be cleaned up automatically.
+* The state will be cleaned up automatically when the peer is cleanly shutdown.
 * All known peers will be set as `bootstrap` values and `peers` will be emptied. Thus, the peer can be started and it will attempt to re-join the cluster it left by bootstrapping to one of the previous peers.
 
 

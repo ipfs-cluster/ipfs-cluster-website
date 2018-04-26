@@ -69,8 +69,20 @@ make install
 
 After the dependencies have been downloaded, `ipfs-cluster-service` and `ipfs-cluster-ctl` will be installed to your `$GOPATH/bin` (it uses `go install`).
 
-If you rather have them built locally, use `make build` instead. You can run `make clean` to remove any generated artifacts and rewrite the import paths to their original form.
+If you would rather have them built locally, use `make build` instead. You can run `make clean` to remove any generated artifacts and rewrite the import paths to their original form.
 
+### Building the docker image
+
+This is as easily as running:
+
+```
+docker build . -t ipfs-cluster
+```
+
+in the repository root.
+
+## Changelog
+
+The project Changelog is available [here](/documentation/changelog).
 
 ## Next steps: [Configuration](/documentation/configuration)
-

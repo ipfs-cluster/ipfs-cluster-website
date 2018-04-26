@@ -7,11 +7,11 @@ title = "Deployment"
 
 This section is dedicated to the task of deploying an IPFS Cluster and running it in a stable fashion. It describes:
 
-* Deployment methods
-* Configuration tweaks for each environment
-* `go-ipfs` tips
-* Adding and removing peers
-* Troubleshooting deployment issues
+* [Deployment methods](#deployment-methods)
+* [Running in production: Configuration tweaks for each environment](#running-ipfs-cluster-in-production)
+* [Adding and removing peers](#modifying-the-peerset-adding-and-removing-peers)
+* [Monitoring and automatic re-pinning](#monitoring-and-automatic-re-pinning)
+* [Data persistence and backups](#data-persistence-and-backups)
 
 Make sure you are familiar with the [Configuration](/documentation/configuration) section first.
 
@@ -43,7 +43,7 @@ The configuration file contains a few options which should be tweaked according 
 
 
 * When dealing with large amount of pins, increase the `cluster.state_sync_interval` and `cluster.ipfs_sync_interval`.
-* Consider increasing the `cluster.monitor_ping_interval` and `monitor.monbasic.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and trigger repins). Repinning might be a very expensive in your cluster. Thus, you may want to set this a bit high (several minutes). You can use same value for both.
+* Consider increasing the `cluster.monitor_ping_interval` and `monitor.monbasic.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and trigger re-pins). Re-pinning might be a very expensive in your cluster. Thus, you may want to set this a bit high (several minutes). You can use same value for both.
 * Set `raft.wait_for_leader_timeout` to something that gives ample time for all your peers to be restarted and come online without . Usually `30s` or `1m`.
 * If your network is very unstable you can try increasing `raft.commit_retries`, `raft.commit_retry_delay`. Note: more retries and higher delays imply slower failures.
 * Raft options:
@@ -137,6 +137,23 @@ A *peer ID* looks like `QmQHKLBXfS7hf8o2acj7FGADoJDLat3UazucbHrgxqisim`. Removin
 * `peers rm` also works with offline peers. **Offline peers should not be restarted after being removed**.
 
 <div class="tipbox tip">The <a href="/documentation/configuration/#leave-on-shutdown">`leave_on_shutdown` option</a> triggers automatic removal on clean shutdowns.</div>
+
+## Monitoring and automatic re-pinning
+
+IPFS Cluster includes a basic monitoring component which gathers metrics and triggers alerts when a metric is no longer renewed. There are currently two types of metrics:
+
+* `informer` metrics are used to decide on allocations when a pin request arrives. Different "informers" can be configured. The default is the disk informer, which extracts `repo stat` information from IPFS and sends a freespace metric.
+* a `ping` metric is used to regularly signal that a peer is alive.
+
+Every metric carries a Time-To-Live associated with it. This TTL can be configued in the `informer` configuration section. The `ping` metric TTL is determined by the [`cluster.monitoring_ping_interval`](/documentation/configuration/#the-service-json-configuration-file), and is equal to 2x its value.
+
+Every IPFS Cluster peer pushes metrics to the cluster Leader regularly. This happens TTL/2 intervals for the informer metrics and in `cluster.monitoring_ping_interval` for the ping metric.
+
+When a metric for an existing cluster peer stops arriving and previous metrics have outlived their Time-To-Live, the monitoring component triggers an alert for that metric. `monbasic.check_interval` determines how often the monitoring component checks for expired TTLs and sends these alerts. If you wish to detect expired metrics more quickly, decrease this interval. Otherwise, increase it.
+
+The IPFS Cluster peer will react to ping metrics alerts by searching for pins allocated to the alerting peer and triggering re-pinning requests for them, unless `cluster.disable_repinning` is set to true. These re-pinning requests may result in re-allocations if the the CID's allocation factor crosses the `replication_factor_min` boundary. Otherwise, the current allocations are maintained.
+
+The monitoring and failover system in cluster is very basic and requires improvements. Failover is likely to not work properly when several nodes go offline at once (specially if the current Leader is affected). Manual re-pinning can be triggered with `ipfs-cluster-ctl pin <cid>`. `ipfs-cluster-ctl pin ls <CID>` can be used to inspect the current list of peers allocated to a CID.
 
 ## Data persistence and backups
 
