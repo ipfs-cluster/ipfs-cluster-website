@@ -73,7 +73,7 @@ In the documentation, we have stressed the importance of the consensus data and 
 
 I'm also happy to announce that we now build and publish "snaps". [Snaps](https://snapcraft.io/) are "universal Linux packages designed to be secure, sandboxed, containerised applications isolated from the underlying system and from other applications". We are still testing them. For the moment we publish a new snap on every master build.
 
-You are welcome to check the [changelog](CHANGELOG.md) for a detailed list of other new features and bugfixes.
+You are welcome to check the [changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md) for a detailed list of other new features and bugfixes.
 
 Our upcoming work will be focused on setting up a live ipfs-cluster and run it in a "production" fashion, as well as adding more capabilities to manage the internal cluster state while offline (migrate, export, import) etc.
 
@@ -87,7 +87,7 @@ We have now started the final quarter of 2017 with renewed energy and plans for 
 * To start looking into the handling of "big datasets", including IPLD integration
 * To provide users with a delightful experience with a focus in documentation and support
 
-The `v0.2.0` marks the start of this cycle and includes. Check the [changelog](CHANGELOG.md) for a list of features and bugfixes. Among them, the new configuration options in the consensus component options will allow our users to experiment in environments with larger latencies than usual.
+The `v0.2.0` marks the start of this cycle and includes. Check the [changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md) for a list of features and bugfixes. Among them, the new configuration options in the consensus component options will allow our users to experiment in environments with larger latencies than usual.
 
 Finally, coming up in the pipeline we have:
 

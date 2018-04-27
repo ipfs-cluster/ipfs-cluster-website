@@ -71,6 +71,6 @@ in the repository root.
 
 ## Changelog
 
-The project Changelog is available [here](/documentation/changelog).
+The project Changelog is available [here](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md).
 
 ## Next steps: [Configuration](/documentation/configuration)

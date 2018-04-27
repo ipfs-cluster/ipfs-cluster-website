@@ -18,7 +18,7 @@ IPFS Cluster adopts the existing guidelines in the IPFS community:
 
 To check what's going on in the project, check:
 
-- the [Changelog](/documentation/changelog)
+- the [Changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md)
 - the [News](/news)
 - the [Waffle board](https://waffle.io/ipfs/ipfs-cluster)
 - the [Roadmap](/roadmap)
