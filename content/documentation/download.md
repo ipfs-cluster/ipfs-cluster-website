@@ -27,7 +27,7 @@ docker pull ipfs/ipfs-cluster:\<tag\>
 
 where `<tag>` is either `latest` or a tagged version of cluster (i.e. `v0.3.5`). The latest build is built from `master`.
 
-<div class="tipbox tip">Make sure to read the <a href="/documentation/deployment#deployment-using-docker>Deployment using Docker section</a> of the documentation.</div>
+<div class="tipbox tip">Make sure to read the <a href="/documentation/deployment#deployment-using-docker">Deployment using Docker section</a> of the documentation.</div>
 
 ## Snaps
 
