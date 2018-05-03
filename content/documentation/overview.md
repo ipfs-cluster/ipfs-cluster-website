@@ -27,7 +27,7 @@ The latest stable release of IPFS Cluster includes the following features:
 * Runs independently from IPFS, using the go-ipfs API (usually on tcp/5001) to control the IPFS daemon.
 * Existing documentation and guides are up-to-date.
 
-## Current shortnesses
+## Current limitations
 
 These are the currently observed main problems and things lacking in ipfs-cluster (from what people expect). Be sure to check our [Roadmap](/roadmap) to see how and when we are planning to address them:
 
