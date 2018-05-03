@@ -22,7 +22,7 @@ The `cluster` section of the configuration stores a `secret`: a 32 byte (hex-enc
 
 <div class="tipbox warning"> Important: The `secret` must be shared by all cluster peers.</div>
 
-Using an empty key has security implications (see [Security](documentation/security)). Using **different keys will prevent different peers from talking to each other**.
+Using an empty key has security implications (see [Security](documentation/security)). **Different peers must share the same secret key to be able to talk to each other**.
 
 <div class="tipbox tip">Usually, configurations for all cluster peers are identical with the exception of the `id` and `private_key` values.</div>
 
