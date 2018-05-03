@@ -35,7 +35,7 @@ help:
 
 clean:
 	$(PREPEND)[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR) && \
-	[ ! -d static/css ] || rm -rf static/css/*.css
+	[ ! -d static/css ] || rm -rf static/css/main.css
 
 node_modules:
 	$(PREPEND)npm i $(APPEND)
