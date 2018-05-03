@@ -43,3 +43,5 @@ These are the currently observed main problems and things lacking in ipfs-cluste
 * `ipfs repo stat` is very slow on large repositories and hammers the disk, meaning collecting free-space metrics is slow and expensive too.
 * No peer autodiscovery. Peers must be specified in the configuration or be added to a known cluster peer (bootstrapping).
 * Lack of documentation on how to run a IPFS Cluster in production.
+
+## Next steps: [Download](/documentation/download)
