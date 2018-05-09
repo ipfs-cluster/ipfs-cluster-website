@@ -6,7 +6,7 @@ title = "IPFS CLUSTER"
 
 <div class="tipbox warning">THIS WEBSITE IS UNDER CONSTRUCTION. Any information here might be incorrect.</div>
 
-The IPFS Cluster aims to facilitate adoption of IPFS by:
+The IPFS Cluster project aims to facilitate adoption of IPFS by:
 
 * Providing support for production deployments of IPFS in the datacenter
 * Facilitating the conservation and replication of data (pinsets) across multiple nodes
