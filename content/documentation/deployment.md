@@ -82,18 +82,21 @@ The configuration file contains a few options which should be tweaked according 
 
 ### `go-ipfs` configuration tweaks
 
-* Initialize ipfs using the `server` profile: `ipfs init --profile=server`
-* For larger repos, enable the Badger datastore ([source](https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#basic-usage-2)):
+* Initialize ipfs using the `server` profile: `ipfs init --profile=server` or `ipfs config profile apply server` if the configuration already exists.
+* For very large repos, enable the Badger datastore ([source](https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#basic-usage-2)):
 
 ```
 [BACKUP ~/.ipfs]
-ipfs config profile apply badgerds
-$ ipfs-ds-convert convert
+$ ipfs config profile apply badgerds # or ipfs init --profile=server,badgerds
+$ ipfs-ds-convert convert # Make sure you have enough disk space for the conversion.
+$ ipfs-ds-convert cleanup # removes the backup data
 ```
+
+Make sure you have enough space for the conversion.
 
 * Do not enable automatic GC if using the `refs` pinning method
 * Increase the `Swarm.ConnMgr.Highwater` (maximum number of connections) and reduce `GracePeriod` to `20s`.
-* Increase `Datastore.BloomFilterSize` according to your repo size (in bytes).
+* Increase `Datastore.BloomFilterSize` according to your repo size (in bytes): `1048576` (1MB) is a good value (more info [here](https://github.com/ipfs/go-ipfs/blob/master/docs/config.md#datastore))
 * Set `Datastore.StorageMax` to a value according to the disk you want to dedicate for the ipfs repo.
 * The `IPFS_FD_MAX` environment variable controls the FD `ulimit` value that `go-ipfs` sets for itself. Depending on your `Highwater` value, you may want to increase it to `4096`.
 
