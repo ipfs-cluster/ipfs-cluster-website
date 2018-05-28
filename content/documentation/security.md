@@ -10,7 +10,7 @@ There are four types of endpoins in IPFS Cluster to be taken into account when p
 
 ## Internal endpoints
 
-IPFS Cluster peers communicate with each others using LibP2P-encrypted streams (`secio`). This streams are by default protected by a shared *cluster secret* (using the LibP2P *private networks* feature).
+IPFS Cluster peers communicate with each others using libp2p-encrypted streams (`secio`). This streams are by default protected by a shared *cluster secret* (using the libp2p *private networks* feature).
 
 The endpoint is controlled by the `cluster.listen_multiaddress` configuration key, defaults to `/ip4/0.0.0.0/tcp/9096` and represents the listening address to establish communication with other peers (via Remote RPC calls and consensus protocol).
 
@@ -20,13 +20,15 @@ If the `secret` configuration value is empty, then **nothing prevents anyone fro
 
 ## HTTP API endpoints
 
-IPFS Cluster peers provide by default an **HTTP API endpoint** which can be configured with SSL. It also provides a **LibP2P API endpoint**, disabled by default, which re-uses either the Cluster peer or a specifically configured LibP2P host.
+IPFS Cluster peers provide by default an **HTTP API endpoint** which can be configured with SSL. It also provides a **libp2p API endpoint**, which re-uses either the Cluster libp2p host or a specifically configured libp2p host.
 
 These endpoints are controlled by the `restapi.http_listen_multiaddress` (default `/ip4/127.0.0.1/tcp/9094`) and the `restapi.libp2p_listen_multiaddress` (if a specific `private_key` and `id` are configured in the `restapi` section).
 
-Both endpoints support **Basic Authentication** but are unauthenticated by default. Both endpoints can run at the same time, but any one of them can be disabled (but not the two).
+Note that when the Cluster libp2p host is re-used to provide the libp2p API endpoint (which listens on `0.0.0.0`) the endpoint is automatically authenticated by the *cluster secret*.
 
-Access to these endpoints allow to fully control IPFS Cluster, so they should be adecuately protected when they are opened up to other than `localhost`. The secure channel provided by the configurable SSL or LibP2P endpoint, along with Basic Authentication, allow to safely use these endpoints for remote administration.
+Both endpoints support **Basic Authentication** but are unauthenticated by default.
+
+Access to these endpoints allow to fully control IPFS Cluster, so they should be adecuately protected when they are opened up to other than `localhost`. The secure channel provided by the configurable SSL or libp2p endpoint, along with Basic Authentication, allow to safely use these endpoints for remote administration.
 
 ## IPFS and IPFS Proxy endpoints
 

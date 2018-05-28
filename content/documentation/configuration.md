@@ -7,28 +7,66 @@ title = "Configuration"
 
 All IPFS Cluster configurations and persistent data can be found, by default, at the `~/.ipfs-cluster` folder. This section will describe the configuration of peers and clients. For more information about the persistent data in this folder, see the [Upgrades](/documentation/upgrades) section.
 
-
 ## ipfs-cluster-service
 
-IPFS Cluster peers are run with the `ipfs-cluster-service` command. This subsection describes the configuration file used by this command, which dictates the clusters behaviour.
+IPFS Cluster peers are run with the `ipfs-cluster-service` command. This subsection describes the configuration file used by this command (`service.json`), which dictates the clusters behaviour, along with the `peerstore` file, which stores the peers multiaddresses.
 
 ### The `service.json` configuration file
 
-<div class="tipbox tip"> `ipfs-cluster-service -c <path>` sets the location of the configuration folder. This is also controlled by the `IPFS_CLUSTER_PATH` environment variable.</div>
+<div class="tipbox tip"> <code>ipfs-cluster-service -c &lt;path&gt;</code> sets the location of the configuration folder. This is also controlled by the <code>IPFS_CLUSTER_PATH</code> environment variable.</div>
 
 The ipfs-cluster configuration file is usually found at `~/.ipfs-cluster/service.json`. It holds all the configurable options for cluster and its different components. The configuration file is divided in sections. Each section represents a component. Each item inside the section represents an implementation of that component and contains specific options.
 
-The `cluster` section of the configuration stores a `secret`: a 32 byte (hex-encoded).
+<div class="tipbox warning"> Important: The <code>cluster</code> section of the configuration stores a 32 byte hex-encoded <code>secret</code> which secures communication among all cluster peers. The <code>secret</code> must be shared by all cluster peers. Using an empty secret has security implications (see <a href="/documentation/security">Security</a>).</div>
 
-<div class="tipbox warning"> Important: The `secret` must be shared by all cluster peers.</div>
+<div class="tipbox tip">Usually, configurations for all cluster peers are identical with the exception of the <code>id</code> and <code>private_key</code> values.</div>
 
-Using an empty key has security implications (see [Security](documentation/security)). **Different peers must share the same secret key to be able to talk to each other**.
+### Initializing a *default* configuration file
 
-<div class="tipbox tip">Usually, configurations for all cluster peers are identical with the exception of the `id` and `private_key` values.</div>
+If you wish to generate a default configuration, with a randomly generated *id/private key* and *cluster secret* just run:
 
-#### The *default* configuration file
+```
+ipfs-cluster-service init
+```
 
-Here you can access a [default `service.json` configuration file](/0.4.0_service.json).
+The configuration folder will be created if it doesn't exist and a default valid `service.json` file will be placed in it.
+
+You can launch a single-peer cluster using this file, but launching a multi-peer cluster will require that all peers **share the same secret**.
+
+<div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
+
+As an example, [this is a default `service.json` configuration file](/0.4.0_service.json).
+
+The file looks like:
+
+```js
+{
+  "cluster": {...},
+  "consensus": {
+    "raft": {...},
+  },
+  "api": {
+    "restapi": {...}
+  },
+  "ipfs_connector": {
+    "ipfshttp": {...}
+  },
+  "pin_tracker": {
+    "maptracker": {...}
+  },
+  "monitor": {
+    "monbasic": {...},
+    "pubsubmon": {...}
+  },
+  "informer": {
+    "disk": {...},
+    "numpin": {...}
+  }
+}
+```
+
+The different sections and subsections are documented in detail below.
+
 
 #### The `cluster` main section
 
@@ -40,15 +78,36 @@ The main `cluster` section of the configuration file configures the core compone
 |`peername`| `"<hostname>"` | A human name for this peer. |
 |`private_key`|`"<randomly generated>"`|The peer's libp2p private key (must match the `id`). |
 |`secret`|`"<randomly generated>"` | The Cluster secret (must be the same in all peers).|
-|[`leave_on_shutudown`](#leave-on-shutdown)| `false` | The peer will remove itself from the cluster peerset on shutdown. |
+|`leave-on-shutdown`| `false` | The peer will remove itself from the cluster peerset on shutdown. |
 |`listen_multiaddress`| `"/ip4/0.0.0.0/tcp/9096"` | The peers Cluster-RPC listening endpoint. |
 |`state_sync_interval`| `"1m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.StateSync). |
 |`ipfs_sync_interval`| `"2m10s"` | Interval between automatic triggers of [`SyncAllLocal`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.SyncAllLocal). |
 |`replication_factor_min` | `-1` | Specifies the default minimum number of peers that should be pinning an item. -1 == all. |
 |`replication_factor_max` | `-1` | Specifies the default maximum number of peers that should be pinning an item. -1 == all. |
 |`monitor_ping_interval` | `"15s"` | Interval for sending a `ping` (used to detect downtimes). |
-|`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset, and storing it in the `peerset` file. |
+|`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset, and storing peers addresses in the `peerstore` file. |
 |`disable_repinning` | `false` | Do not automatically re-pin all items allocated to an unhealthy peer. |
+
+The `leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly. This means that, for any subsequent starts, the peer will need to be [bootstrapped](/documentation/starting/#bootstrapping-a-peer) to the existing Cluster in order to re-join it.
+
+##### Manually generating a cluster secret
+
+You can obtain a 32-bit hex encoded random string with:
+
+```
+export CLUSTER_SECRET=$(od  -vN 32 -An -tx1 /dev/urandom | tr -d ' \n')
+```
+
+##### Manually generating a private key and peer ID
+
+When automating a deployment or creating configurations for several peers, it might be handy to generate peer IDs and private keys manually.
+
+You can obtain a valid peer ID and its associated *private key* in the format expected by the configuration using [`ipfs-key`](https://github.com/whyrusleeping/ipfs-key) as follows:
+
+```
+ipfs-key | base64 -w 0
+```
+
 
 #### The `consensus` section
 
@@ -74,6 +133,19 @@ This is the default (and only) consensus implementation available.
 |`snapshot_interval` | `"2m0s"` |  See https://godoc.org/github.com/hashicorp/raft#Config . |
 |`snapshot_threshold` | `8192` |  See https://godoc.org/github.com/hashicorp/raft#Config . |
 |`leader_lease_timeout` | `"500ms"` |  See https://godoc.org/github.com/hashicorp/raft#Config . |
+
+Raft stores and maintains the peerset internally but the cluster configuration offers the option to manually provide the peerset for the first start of a peer using the `init_peerset` key in the `raft` section of the configuration. For example:
+
+```
+"init_peerset": [
+  "QmPQD6NmQkpWPR1ioXdB3oDy8xJVYNGN9JcRVScLAqxkLk",
+  "QmcDV6Tfrc4WTTGQEdatXkpyFLresZZSMD8DgrEhvZTtYY",
+  "QmWXkDxTf17MBUs41caHVXWJaz1SSAD79FVLbBYMTQSesw",
+  "QmWAeBjoGph92ktdDb5iciveKuAX3kQbFpr5wLWnyjtGjb"
+]
+```
+
+This will allow you to start a Cluster from scratch with already fixed peerset. See the [Starting multiple peers with a fixed peerset](/documentation/starting/#starting-multiple-peers-with-a-fixed-peerset) section.
 
 #### The `api` section
 
@@ -136,7 +208,7 @@ The `maptracker` implements a pintracker which keeps the local state in memory.
 
 #### The `monitor` section
 
-The `monitor` section contains configurations for the implementations of the Peer Monitor component, which are meant to distribute and collects monitoring information (informer metrics, pings) to and from other peers, and trigger alerts.
+The `monitor` section contains configurations for the implementations of the Peer Monitor component, which are meant to distribute and collects monitoring information (informer metrics, pings) to and from other peers, and trigger alerts. See the [monitoring and automatic re-pinning section](/documentation/deployment/#monitoring-and-automatic-re-pinning) for more information.
 
 ##### > `monbasic`
 
@@ -177,119 +249,31 @@ The `numpin` informer uses the total number of pins as metric, which collects at
 |:---|:-------|:-----------|
 |`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
 
-### Initializing a default configuration
-
-If you wish to generate a default configuration, with a randomly generated *id/private key* and *cluster secret* just run:
-
-```
-ipfs-cluster-service init
-```
-
-The configuration folder will be created if it doesn't exist and a default valid `service.json` file will be placed in it.
-
-You can launch a single-peer cluster using this file, but launching a multi-peer cluster will require that all peers **share the same secret**.
-
-<div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
 
-#### Manually generating a cluster secret
+###  The `peerstore` file
 
-You can obtain a 32-bit hex encoded random string with:
+The IPFS daemon uses a fixed list of bootstrap servers to connect and eventually discover other peers. Since IPFS Cluster does not rely on externally-provided services for discovery, it does maintain its own peerset (a list of peers multiaddresses) in a `peerstore` file (usually found at `~/.ipfs-cluster/peerstore`).
+
+The `peerstore` file is a list of multiaddresses for peers (1 per line). For example:
 
 ```
-export CLUSTER_SECRET=$(od  -vN 32 -An -tx1 /dev/urandom | tr -d ' \n')
+/dns4/cluster001/tcp/9096/ipfs/QmPQD6NmQkpWPR1ioXdB3oDy8xJVYNGN9JcRVScLAqxkLk
+/dns4/cluster002/tcp/9096/ipfs/QmcDV6Tfrc4WTTGQEdatXkpyFLresZZSMD8DgrEhvZTtYY
+/dns4/cluster003/tcp/9096/ipfs/QmWXkDxTf17MBUs41caHVXWJaz1SSAD79FVLbBYMTQSesw
+/ip4/192.168.1.10/tcp/9096/ipfs/QmWAeBjoGph92ktdDb5iciveKuAX3kQbFpr5wLWnyjtGjb
 ```
 
-#### Manually generating a private key and peer ID
+**Unless your peer is [bootstrapping to an existing (and running) cluster peer](/documentation/starting/#bootstrapping-a-peer), you should create and fill-in this file with your peers' multiaddresses**, so that the peer knows how to reach the other peers. You can include multiple multiaddresses for the same peer.
 
-When automating a deployment or creating configurations for several peers, it might be handy to generate peer IDs and private keys manually.
+When running, your peer will update the `peerstore` file as needed, automatically including multiaddresses for newly-added peers and deleting them for removed peers.
 
-You can obtain a valid peer ID and its associated *private key* in the format expected by the configuration using [`ipfs-key`](https://github.com/whyrusleeping/ipfs-key) as follows:
+Note that, when a `/dns/` multiaddress is known, the other addresses are for that peer will not be stored.
 
-```
-ipfs-key | base64 -w 0
-```
-
-### Configuring the cluster peerset
-
-The *peerset* is the list of peers that make the cluster. For some consensus implementations (`raft`), it is very important to build and maintain the *peerset*, so it can only be modified orderly. This subsection explains how the peerset is defined in the cluster configuration.
-
-#### Raft consensus
-
-When using the `raft` consensus implementation (our default and only one), it is necessary that each peer knows about the *location* and *peer IDs* of the rest of the cluster peers. There are two ways to achieve this:
-
-* Provide multiaddresses for all peers in the configurations for each peer
-* Bootstrap to a known peer which is up and running.
-
-The two options are explained below.
-
-<div class="tipbox tip">If both `peers` and `bootstrap` are empty in your configuration, the peer will be launched in *single peer mode*.</div>
-
-#### Using `peers`
-
-In this method, you provide multiaddresses for all the cluster peers in the `peers` configuration key:
-
-* Each entry is a valid peer multiaddress like `/ip4/192.168.1.103/tcp/9096/ipfs/QmQHKLBXfS7hf8o2acj7FGADoJDLat3UazucbHrgxqisim`
-* You need to know all your cluster peer IDs and locations in advance
-* The majority of cluster peers need to be started within `raft.wait_for_leader_timeout` or boot will fail
-* Configuration for all peers must have addresses for all other peers
-* Multiple multiaddresses for the same peer are allowed
-* The peer's own multiaddresses are allowed, but will be removed after a successful start.
-* If `peers` is not empty, `bootstrap` will be ignored
-* The entries in `peers` is automatically updated when:
-  * The cluster has correctly started (new alternative multiaddresses for peers may be added)
-  * Adding or removing cluster peers will add or remove their multiaddresses
-
-Thus, you will want to fill in your `peers` configuration value when:
-
-* Working with stable cluster peers, running in known locations
-* Working with an automated deployment tools
-* You are able to trigger start/stop/restarts for all peers in the cluster with ease
-
-<div class="tipbox tip">Except for `private_key` and `id`, you can re-use the same configuration for all your cluster peers. This is very useful on automated deployments.</div>
-
-Once the peers have booted for the first time, the current *peerset* will be maintaned by the consensus component and can only be updated by:
-
-* adding new peers, using the bootstrap method
-* removing new peers, using the `ipfs-cluster-ctl peers rm` method
-
-<div class="tipbox warning">Do not manually modify the `peers` (by adding or removing peers) key after the cluster has been sucessfully started for the first time. This will result startup errors.</div>
-
-#### Using `bootstrap`
-
-This method consists in leaving the `peers` key empty and providing one or several `bootstrap` peers instead:
-
-* Usually one bootstrap address should be enough.
-* Each entry is a valid peer multiaddress like `/ip4/192.168.1.103/tcp/9096/ipfs/QmQHKLBXfS7hf8o2acj7FGADoJDLat3UazucbHrgxqisim`
-* Bootstrap will be attempted in order to each of the provided address
-* A successful bootstrap will autofill the `peers` key. Next start will thus use the `peers` method. All existing cluster peers will be updated accordingly.
-* Bootstrap can only be performed with a clean cluster state (`ipfs-cluster-service state clean` does it)
-* Bootstrap can only be performed when all the existing cluster-peers are running
-
-<div class="tipbox warning">Avoid bootstrapping to different cluster peers at the same time.</div>
-
-You will want to use `bootstrap` when:
-
-* You are building your cluster manually, starting one single-cluster peer first and boostrapping each node consecutively to it
-* You don't know the IPs or ports your peers will listen to (other than the first)
-
-<div class="tipbox warning">Do not manually modify the `peers` (by adding or removing peers) key after the peer has been sucessfully bootstrapped. This will result in startup errors.</div>
-
-#### `leave_on_shutdown`
-
-The `cluster.leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly:
-
-* The state will be cleaned up automatically when the peer is cleanly shutdown.
-* All known peers will be set as `bootstrap` values and `peers` will be emptied. Thus, the peer can be started and it will attempt to re-join the cluster it left by bootstrapping to one of the previous peers.
-
-
-### Configuration tweaks for running in production
-
-Please check the [Deployment section](/documentation/deployment/#service-json-configuration-tweaks) for some more tips on what values to adapt for real-world clusters.
 
 ## ipfs-cluster-ctl
 
 Currently, there is no configuration file for `ipfs-cluster-ctl`, but we are [working on it](https://github.com/ipfs/ipfs-cluster/issues/367).
 
 
-## Next steps: [Deployment](/documentation/deployment)
+## Next steps: [Starting the Cluster](/documentation/starting)

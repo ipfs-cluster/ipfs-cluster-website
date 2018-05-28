@@ -13,7 +13,7 @@ IPFS Cluster peers include an API component which provides HTTP-based access to 
 This table provides a quick summary of methods available:
 
 |Method      |Endpoint              |Comment                          |
-|------------|----------------------|---------------------------------|
+|:-----------|:---------------------|:--------------------------------|
 |`GET`       |`/id`                 |Cluster peer information         |
 |`GET`       |`/version`            |Cluster version|
 |`GET`       |`/peers`              |Cluster peers|

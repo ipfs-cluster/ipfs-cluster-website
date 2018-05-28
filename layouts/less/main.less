@@ -2,7 +2,7 @@
 * { margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 @background: #ffffff;
-@color: #0b0b0b;
+@color: #070707;
 @altcolor: #bbbbbb;
 @warn-background: #f9a035;
 @tip-background: #399b3c;
@@ -131,6 +131,10 @@ ul li, ol li {
   list-style-position: outside;
   margin-left: 1em;
   line-height: 26px;
+
+  ul {
+      margin-top: 0px;
+  } 
 }
 
 blockquote {
@@ -210,6 +214,8 @@ pre, code {
     background-color: @code-background;
     display:block;
     padding:10px;
+    white-space:pre;
+    overflow: auto;
 }
 
 pre {

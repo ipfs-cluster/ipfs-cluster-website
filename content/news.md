@@ -39,7 +39,7 @@ In the same way, a peer going offline, will not trigger a re-allocation of the C
 
 Of course, the previous behaviour can still be obtained by setting both the max and the min to the same values.
 
-Finally, it is very important to remark that we recently finished the [Sharding RFC draft](https://github.com/ipfs/ipfs-cluster/blob/master/docs/dag-sharding-rfc.md). This document outlines how we are going to approach the implementation of one of the most difficult but important features upcoming in cluster: the ability to distribute a single CID (tree) among several nodes. This will allow to use cluster to store files or archives too big for a single ipfs node. Input from the community on this draft can be provided at https://github.com/ipfs/notes/issues/278.
+Finally, it is very important to remark that we recently finished the [Sharding RFC draft](/developer/rfcs/dag-sharding-rfc/). This document outlines how we are going to approach the implementation of one of the most difficult but important features upcoming in cluster: the ability to distribute a single CID (tree) among several nodes. This will allow to use cluster to store files or archives too big for a single ipfs node. Input from the community on this draft can be provided at https://github.com/ipfs/notes/issues/278.
 
 ---
 
@@ -47,7 +47,7 @@ Finally, it is very important to remark that we recently finished the [Sharding 
 
 During the last weeks we've been working hard on making the first "live" deployment of IPFS Cluster. I am happy to announce that a 10-peer cluster runs on ipfs-gateway nodes, maintaining a >2000-length pinset.
 
-The nodes are distributed, run a vanilla IPFS Cluster docker container mounting a volume with a customized [cluster configuration](https://github.com/ipfs/infrastructure/blob/master/ipfs-cluster/service.json.tpl) which uses higher-than-default timeouts and intervals. The injection of the pin-set took a while, but enventually every pin in every node became PINNED. In one occassion, a single IPFS node hanged while pinning. After re-starting the IPFS node in question, all pins in the queue became PIN_ERRORs, but they could easily be fixed with a `recover` operation.
+The nodes are distributed, run a vanilla IPFS Cluster docker container mounting a volume with a customized cluster configuration, which uses higher-than-default timeouts and intervals. The injection of the pin-set took a while, but enventually every pin in every node became PINNED. In one occassion, a single IPFS node hanged while pinning. After re-starting the IPFS node in question, all pins in the queue became PIN_ERRORs, but they could easily be fixed with a `recover` operation.
 
 Additionally, the [IPFS IRC Pinbot](https://github.com/ipfs/pinbot-irc) now supports cluster-pinning, by using the IPFS Cluster proxy to ipfs, which intercepts pin requests and performs them in cluster. This allowed us to re-use the `go-ipfs-api` library to interact with cluster.
 
@@ -63,7 +63,7 @@ Last but not least, the next release will include useful things like pin-names (
 
 This update comes as our `0.3.0` release is about to be published. This release includes quite a few bug fixes, but the main change is the upgrade of the underlying Raft libraries to a recently published version.
 
-Raft 1.0.0 hardens the management of peersets and makes it more difficult to arrive to situations in which cluster peers have different, inconsistent states. These issues are usually very confusing for new users, as they manifest themselves with lots of error messages with apparently cryptic meanings, coming from Raft and LibP2P. We have embraced the new safeguards and made documentation and code changes to stress the workflows that should be followed when altering the cluster peerset. These can be summarized with:
+Raft 1.0.0 hardens the management of peersets and makes it more difficult to arrive to situations in which cluster peers have different, inconsistent states. These issues are usually very confusing for new users, as they manifest themselves with lots of error messages with apparently cryptic meanings, coming from Raft and libp2p. We have embraced the new safeguards and made documentation and code changes to stress the workflows that should be followed when altering the cluster peerset. These can be summarized with:
 
 * `--bootstrap` is the method to add a peer to a running cluster as it ensures that no diverging state exists during first boot.
 * The `ipfs-cluster-data` folder is renamed whenever a peer leaves the cluster, resulting on a clean state for the next start. Peers with a dirty state will not be able to join a cluster.
@@ -103,12 +103,12 @@ Unfortunately, I have not thought of updating the Captain's log for some months.
 
 As a summary, since my last update, we have:
 
-* [A guide to running IPFS Cluster](docs/ipfs-cluster-guide.md), with detailed information on how cluster works, what behaviours to expect and why. It should answer many questions which are not covered by the getting-started-quickly guides.
+* *A guide to running IPFS Cluster*, with detailed information on how cluster works, what behaviours to expect and why. It should answer many questions which are not covered by the getting-started-quickly guides.
 * Added sharness tests, which make sure that `ìpfs-cluster-ctl` and `ipfs-cluster-service` are tested and not broken in obvious ways at least and complement our testing pipeline.
 * Pushed the [kubernetes-ipfs](https://github.com/ipfs/kubernetes-ipfs) project great lengths, adding a lot of features to its DSL and a bunch of highly advanced IPFS Cluster tests. The goal is to be able to test deployments layouts which are closer to reality, including escalability tests.
 * The extra tests uncovered and allowed us to fix a number of nasty bugs, usually around the IPFS Cluster behaviour when peers go down or stop responding.
 * Added CID re-allocation on peer removal.
-* Added "Private Networks" support to IPFS Cluster. Private Networks is a libp2p feature which allows to secure a libp2p connection with a key. This means that inter-peer communication is now protected and isolated with a `cluster_secret`. This brings a significant reduction on the security pitfalls of running IPFS Cluster: default setup does not allow anymore remote control of a cluster peer. More information on security can be read on the [guide](docs/ipfs-cluster-guide.md).
+* Added "Private Networks" support to IPFS Cluster. Private Networks is a libp2p feature which allows to secure a libp2p connection with a key. This means that inter-peer communication is now protected and isolated with a `cluster_secret`. This brings a significant reduction on the security pitfalls of running IPFS Cluster: default setup does not allow anymore remote control of a cluster peer. More information on security can be read on the guide.
 * Added HTTPs support for the REST API endpoint. This facilitates exposing the API endpoints directly and is a necessary preamble to supporting basic authentication (in the works).
 
 All the above changes are about to crystallize in the `v0.1.0` release, which we'll publish in the next days.
@@ -229,4 +229,4 @@ The rest of the quarter will be focused on 4 main issues:
 * Generate real end to end tests
 * Make IPFS Cluster stable
 
-These endaevours will be reflected on the [ROADMAP](roadmap).
+These endaevours will be reflected on the [ROADMAP](/roadmap).

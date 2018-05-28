@@ -12,7 +12,7 @@ IPFS Cluster adopts the existing guidelines in the IPFS community:
 * The [go-ipfs contributing guidelines](https://github.com/ipfs/go-ipfs/blob/master/contribute.md), which builds upon:
 * The [IPFS Community Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md)
 * The [IFPS community contributing notes](https://github.com/ipfs/community/blob/master/contributing.md)
-* The [Go contribution guidelines](https://github.com/ipfs/community/blob/master/go-contribution-guidelines.md)
+* The [Go contribution guidelines](https://github.com/ipfs/community/blob/master/go-code-guidelines.md)
 
 ## Getting oriented
 
@@ -52,7 +52,7 @@ In practice, these are our soft standards:
 
   These trailers mean that the author agrees with the 
   [developer certificate of origin](/developer-certificate-of-origin.txt)
-  and with licensing the work under the [MIT license](docs/LICENSE).
+  and with licensing the work under the [MIT license](https://github.com/ipfs/ipfs-cluster/blob/master/LICENSE).
 
   To help you automatically add these trailers, you can run the
   [setup_commit_msg_hook.sh](https://raw.githubusercontent.com/ipfs/community/master/dev/hooks/setup_commit_msg_hook.sh)
