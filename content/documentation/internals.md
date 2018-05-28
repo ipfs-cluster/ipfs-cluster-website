@@ -10,7 +10,7 @@ This sections provides insights into the IPFS cluster internals. It explain how 
 
 IPFS Cluster was designed with the thought that it should eventually support different consensus algorithm implementations. The consensus layer takes care of two things:
 
-* Maintaining a consistent view of the `pinset`, which we refer to as the `shared state`, accross all cluster peers. This involves controlling how updates to the state are performed, making sure that all participating peers share exactly the same pinset.
+* Maintaining a consistent view of the `pinset`, which we refer to as the `shared state`, across all cluster peers. This involves controlling how updates to the state are performed, making sure that all participating peers share exactly the same pinset.
 * Maintaining a consistent view of the `peerset`, that is, which peers are part of the cluster. In some consensus implementations, having a clearly defined `peerset` and updating it with consistency guarantees is as importance as keeping the rest of the shared state.
 
 Regardless of the considerations above, we leave the definition of what a `consistent` view of the state is quite open, as different consensus layer implementations may respond to different needs for consistency, or provide different approaches towards it. Some consensus approaches may also not worry about keeping a `peerset` as others do.
@@ -50,7 +50,7 @@ In normal operation, all three states are in sync, as updates to the *shared sta
 
 * `ipfs-cluster-ctl status` shows information about the *local state* in every cluster peer. It does so by aggregating local state information received from every cluster member.
 
-`ipfs-cluster-ctl sync` makes sure that the *local state* matches the *ipfs state*. In other words, it makes sure that what cluster expects to be pinned is actually pinned in ipfs. As mentioned, this also happens automatically. Every sync operations triggers an `ipfs pin ls --type=recursive` call to the local node.
+* `ipfs-cluster-ctl sync` makes sure that the *local state* matches the *ipfs state*. In other words, it makes sure that what cluster expects to be pinned is actually pinned in ipfs. As mentioned, this also happens automatically. Every sync operations triggers an `ipfs pin ls --type=recursive` call to the local node.
 
 As a final note, the *local state* may show items in *error*. This happens when an item took too long to pin/unpin, or the ipfs daemon became unavailable. `ipfs-cluster-ctl recover <cid>` can be used to rescue these items. See the "Pinning an item" section below for more information.
 
