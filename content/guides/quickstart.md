@@ -66,7 +66,7 @@ node1> export CLUSTER_SECRET=<copy from node0>
 node1> ipfs-cluster-service init
 INFO     config: Saving configuration config.go:311
 ipfs-cluster-service configuration written to /home/hector/.ipfs-cluster/service.json
-node1> ipfs-cluster-service --bootstrap /ip4/192.168.1.2/tcp/9096/ipfs/QmZjSoXUQgJ9tutP1rXjjNYwTrRM9QPhmD9GHVjbtgWxEn
+node1> ipfs-cluster-service daemon --bootstrap /ip4/192.168.1.2/tcp/9096/ipfs/QmZjSoXUQgJ9tutP1rXjjNYwTrRM9QPhmD9GHVjbtgWxEn
 INFO    cluster: IPFS Cluster v0.3.0 listening on: cluster.go:91
 INFO    cluster:         /ip4/127.0.0.1/tcp/10096/ipfs/QmYFYwnFUkjFhJcSJJGN72wwedZnpQQ4aNpAtPZt8g5fCd cluster.go:93
 INFO    cluster:         /ip4/192.168.1.3/tcp/10096/ipfs/QmYFYwnFUkjFhJcSJJGN72wwedZnpQQ4aNpAtPZt8g5fCd cluster.go:93
