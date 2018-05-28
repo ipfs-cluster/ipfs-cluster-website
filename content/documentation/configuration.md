@@ -202,7 +202,9 @@ export CLUSTER_SECRET=$(od  -vN 32 -An -tx1 /dev/urandom | tr -d ' \n')
 
 #### Manually generating a private key and peer ID
 
-You can manually obtain a valid peer ID and its associated *private key* in the format expected by the configuration using [`ipfs-key`](https://github.com/whyrusleeping/ipfs-key) as follows:
+When automating a deployment or creating configurations for several peers, it might be handy to generate peer IDs and private keys manually.
+
+You can obtain a valid peer ID and its associated *private key* in the format expected by the configuration using [`ipfs-key`](https://github.com/whyrusleeping/ipfs-key) as follows:
 
 ```
 ipfs-key | base64 -w 0
