@@ -36,26 +36,55 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: normal;
     line-height: 44px;
     color: @color;
+
+    code {
+        background-color: @background;
+    }
 }
 
 h1 {
     font-size: 36px;
     margin-bottom: 50px;
     margin-top: 50px;
+
+    code {
+        font-size: 30px;
+    }
 }
 
 h2 {
     font-weight: 200;
-    font-size: 24px;
+    font-size: 26px;
+
+    code {
+        font-size: 26px;
+    }
 }
 
 h3 {
     font-weight: 200;
-    font-size: 20px;
+    font-size: 22px;
+
+    code {
+        font-size: 22px;
+    }
 }
 
-h4, h5, h6 {
+h4 {
     font-weight: 200;
+    font-size: 20px;
+
+    code {
+        font-size: 17px;
+    }
+}
+
+h5, h6 {
+    font-weight: 200;
+
+    code {
+        font-size: 15px;
+    }
 }
 
 
@@ -405,4 +434,27 @@ footer {
   margin-left: -35px;
   color: #999;
   display: none;
+}
+
+table {
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    border-bottom: 1px solid @altcolor;
+    width: 100%;
+    
+    code {
+        white-space: nowrap;
+    }
+    
+    td {
+        vertical-align: top;
+        padding-right: 10px;
+    }
+    
+    th {
+        border-bottom: 1px solid @altcolor;
+        font-weight: 400;
+        padding: 3px;
+        margin: 0;
+    }
 }

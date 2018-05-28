@@ -26,102 +26,156 @@ Using an empty key has security implications (see [Security](documentation/secur
 
 <div class="tipbox tip">Usually, configurations for all cluster peers are identical with the exception of the `id` and `private_key` values.</div>
 
-The *default* configuration file looks as follows:
+#### The *default* configuration file
 
-```js
-{
-  "cluster": {                         // main cluster component configuration
-    "id": "QmZyXksFG3vmLdAnmkXreMVZvxc4sNi1u21VxbRdNa2S1b", // peer ID
-    "private_key": "<base64 representation of the key>",
-    "secret": "<32-bit hex encoded secret>",
-    "peers": [],                       // List of peers' multiaddresses
-    "bootstrap": [],                   // List of bootstrap peers' multiaddresses
-    "leave_on_shutdown": false,        // Abandon cluster on shutdown
-    "listen_multiaddress": "/ip4/0.0.0.0/tcp/9096", // Cluster RPC listen
-    "state_sync_interval": "1m0s",     // Time between state syncs
-    "ipfs_sync_interval": "2m10s",     // Time between ipfs-state syncs
-    "replication_factor_min": -1,      // Replication factor minimum threshold. -1 == all
-    "replication_factor_max": -1,      // Replication factor maximum threshold. -1 == all
-    "monitor_ping_interval": "15s"     // Time between alive-pings. See monitoring section
-    "peer_watch_interval": "5s",       // Time between checking & updating "peers" value
-    "disable_repinning": false         // Do not attempt to re-allocate pins when a peer is down
-  },
-  "consensus": { // Consensus maintains the shared state (pinset) across the cluster
-    "raft": {
-      "wait_for_leader_timeout": "15s",// How long to wait for a leader when there is none
-      "network_timeout": "10s",        // Network operation timeout
-      "commit_retries": 1,             // How many retries before giving up on commit
-      "commit_retry_delay": "200ms",   // How long to wait between commit retries
-      "heartbeat_timeout": "1s",  // Here and below: Raft options.
-      "election_timeout": "1s",   // See https://godoc.org/github.com/hashicorp/raft#Config
-      "commit_timeout": "50ms",
-      "max_append_entries": 64,
-      "trailing_logs": 10240,
-      "snapshot_interval": "2m0s",
-      "snapshot_threshold": 8192,
-      "leader_lease_timeout": "500ms"
-    }
-  },
-  "api": { // API provides external endpoints to control the cluster
-    "restapi": {
-      "listen_multiaddress": "/ip4/127.0.0.1/tcp/9094", // API listen
-      "ssl_cert_file": "path_to_cert", // Path to SSL public certificate.
-                                       // Unless absolute, relative to config folder
-      "ssl_key_file": "path_to_key",   // Path to SSL private key.
-                                       //Unless absolute, relative to config folder
-      "read_timeout": "30s",           // Here and below, timeouts for network operations
-      "read_header_timeout": "5s",
-      "write_timeout": "1m0s",
-      "idle_timeout": "2m0s",
-      "basic_auth_credentials": {      // Leave null to disable basic auth.
-        "user": "pass"
-      }
-    }
-  },
-  "ipfs_connector": { // IPFS Connector interacts with the IPFS daemon
-    "ipfshttp": {
-      "proxy_listen_multiaddress": "/ip4/127.0.0.1/tcp/9095", // ipfs-proxy listen address
-      "node_multiaddress": "/ip4/127.0.0.1/tcp/5001", // ipfs-node API location
-      "connect_swarms_delay": "7s",    // delay to swarm-connect ipfs peers after boot
-      "proxy_read_timeout": "10m0s",   // Here and below, timeouts for network operations
-      "proxy_read_header_timeout": "5s",
-      "proxy_write_timeout": "10m0s",
-      "proxy_idle_timeout": "1m0s",
-      "pin_method": "pin"              // Supports "pin" and "refs".
-                                       // "refs" will fetch content before pinning.
-                                       // Use refs when auto-GC is disabled on ipfs.
-                                       // Increase maptracker.concurrent_pins to
-                                       // take advantange of "refs" method concurrency.
-    }
-  },
-  "pin_tracker": { // Pin tracker provides status tracking for the pinset
-    "maptracker": {
-      "pinning_timeout": "1h0m0s",     // If not pinned after this, mark as error
-      "unpinning_timeout": "5m0s",     // If not unpinned after this, mark as error
-      "max_pin_queue_size": 4096,      // How many pins to hold in the pinning queue
-      "concurrent_pins": 1             // How many concurrent pin requests we can perform.
-                                       // Only useful with ipfshttp.pin_method set to "refs"
-    }
-  }
-  "monitor": { // Monitor gathers, maintains metrics and triggers alerts when they expire
-    "monbasic": {
-    "check_interval": "15s"            // How often to check for expired metrics and trigger
-                                       // alerts if a peer is down.
-    }
-  },
-  "informer": { // Informer provides the metrics that decide pin allocations
-    "disk": {                          // Used when using the disk informer (default)
-      "metric_ttl": "30s",             // Amount of time this metric is valid.
-                                       // Will be polled at TTL/2.
-      "metric_type": "freespace"       // or "reposize": type of metric
-    },
-    "numpin": {                        // Used when using the numpin informer
-      "metric_ttl": "10s"              // Amount of time this metric is valid.
-                                       // Will be polled at TTL/2.
-    }
-  }
-}
-```
+Here you can access a [default `service.json` configuration file](/0.4.0_service.json).
+
+#### The `cluster` main section
+
+The main `cluster` section of the configuration file configures the core component and contains the following keys:
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`id`|`"<randomly generated>"`| The peer's libp2p-host peer ID (must match the `private_key`). |
+|`peername`| `"<hostname>"` | A human name for this peer. |
+|`private_key`|`"<randomly generated>"`|The peer's libp2p private key (must match the `id`). |
+|`secret`|`"<randomly generated>"` | The Cluster secret (must be the same in all peers).|
+|[`leave_on_shutudown`](#leave-on-shutdown)| `false` | The peer will remove itself from the cluster peerset on shutdown. |
+|`listen_multiaddress`| `"/ip4/0.0.0.0/tcp/9096"` | The peers Cluster-RPC listening endpoint. |
+|`state_sync_interval`| `"1m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.StateSync). |
+|`ipfs_sync_interval`| `"2m10s"` | Interval between automatic triggers of [`SyncAllLocal`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.SyncAllLocal). |
+|`replication_factor_min` | `-1` | Specifies the default minimum number of peers that should be pinning an item. -1 == all. |
+|`replication_factor_max` | `-1` | Specifies the default maximum number of peers that should be pinning an item. -1 == all. |
+|`monitor_ping_interval` | `"15s"` | Interval for sending a `ping` (used to detect downtimes). |
+|`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset, and storing it in the `peerset` file. |
+|`disable_repinning` | `false` | Do not automatically re-pin all items allocated to an unhealthy peer. |
+
+#### The `consensus` section
+
+The `consensus` contains configuration objects for the different implementations of the consensus component.
+
+##### > `raft`
+
+This is the default (and only) consensus implementation available.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`init_peerset`| `[]` | An array of peer IDs specifying the initial peerset when no raft state exists. |
+|`wait_for_leader_timeout` | `"15s"` | How long to wait for a Raft leader to be elected before throwing an error. |
+|`network_timeout` | `"10s"` | How long before Raft protocol network operations timeout. |
+|`commit_retries` | `1` | How many times to retry committing an entry to the Raft log on failure. |
+|`commit_retry_delay` | `"200ms"` | How long to wait before commit retries. |
+|`backups_rotate` | `6` | How many backup copies on the state to keep when it's cleaned up. |
+|`heartbeat_timeout` | `"1s"` | See https://godoc.org/github.com/hashicorp/raft#Config . |
+|`election_timeout` | `"1s"` |  See https://godoc.org/github.com/hashicorp/raft#Config . |
+|`commit_timeout` | `"50ms"` |  See https://godoc.org/github.com/hashicorp/raft#Config . |
+|`max_append_entries` | `64` |  See https://godoc.org/github.com/hashicorp/raft#Config . |
+|`trailing_logs` | `10240` |  See https://godoc.org/github.com/hashicorp/raft#Config . |
+|`snapshot_interval` | `"2m0s"` |  See https://godoc.org/github.com/hashicorp/raft#Config . |
+|`snapshot_threshold` | `8192` |  See https://godoc.org/github.com/hashicorp/raft#Config . |
+|`leader_lease_timeout` | `"500ms"` |  See https://godoc.org/github.com/hashicorp/raft#Config . |
+
+#### The `api` section
+
+The `api` section contains configurations for the implementations of the API component, which are meant to provide endpoints for the interaction with Cluster.
+
+##### > `restapi`
+
+This is the default and only API implementation available. It provides a REST API to interact with Cluster.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`http_listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9094"` | The API HTTP listen endpoint. Set empty to disable the HTTP endpoint. |
+|`ssl_cert_file` | `""` | Path to an x509 certificate file. Enables SSL on the HTTP endpoint. Unless an absolute path, relative to config folder. |
+|`ssl_key_file` | `""` | Path to a SSL private key file. Enables SSL on the HTTP endpoint. Unless an absolute path, relative to config folder. |
+|`read_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`read_header_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`write_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`idle_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`libp2p_listen_multiaddress` | `""` | A listen multiaddress for the alternative libp2p host. See below. |
+|`id` | `""` | A peer ID for the alternative libp2p host (must match `private_key`). See below. |
+|`private_key` | `""` | A private key for the alternative libp2p host (must match `id`). See below. |
+|`basic_auth_credentials` | `null` | An object mapping `"username"` to `"password"`. It enables Basic Authentication for the API. Should be used with SSL-enabled or libp2p-endpoints. |
+
+The REST API component automatically, and additionally, exposes the HTTP API as a libp2p service on the main libp2p cluster Host (which listens on port `9096`). Exposing the HTTP API as a libp2p service allows users to benefit from the channel encryption provided by libp2p. Alternatively, the API supports specifying a fully separate libp2p Host by providing `id`, `private_key` and `libp2p_listen_multiaddress`. When using a separate Host, it is not necessary for an API consumer to know the cluster secret. Both the HTTP and the libp2p endpoints are supported by the [API Client](https://godoc.org/github.com/ipfs/ipfs-cluster/api/rest/client) and by [`ipfs-cluster-ctl`](/documentation/ipfs-cluster-ctl/).
+
+#### The `ipfs_connector` section
+
+The `ipfs_connector` section contains configurations for the implementations of the IPFS Connector component, which are meant to provide a way for the Cluster peer to interact with an IPFS daemon.
+
+##### > `ipfshttp`
+
+This is the default and only IPFS Connector implementation. It provides a gateway to the IPFS daemon API and an IPFS HTTP Proxy.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`proxy_listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | IPFS Proxy listen multiaddress. |
+|`node_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | The IPFS daemon HTTP API endpoint. This is the daemon that the peer uses to pin content. |
+|`connect_swarms_delay` | `"30s"` | On start, the Cluster Peer will run `ipfs swarm connect` to the IPFS daemons of others peers. This sets the delay after starting up. |
+|`proxy_read_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`proxy_read_header_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`proxy_write_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`proxy_idle_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`pin_method` | `"refs"` | `refs` or `pin`. `refs` allows to fetch pins in parallel, but it's incompatible with automatic GC. `refs` only makes sense with `concurrent_pins` set to something > 1 in the `pin_tracker` section. `pin` only allows to fetch one thing at a time. |
+|`ipfs_request_timeout` | `"5m0s"` | Specifies a timeout on general requests to the IPFS daemon. |
+|`pin_timeout` | `"24h0m0s"` | Specifies the timeout for `pin/add` requests to the IPFS daemon. |
+|`unpin_timeout` | `"3h0m0s"` | Specifies the timeout for `pin/rm` requests to the IPFS daemon. |
+
+#### The `pin_tracker` section
+
+The `pin_tracker` section contains configurations for the implementations of the Pin Tracker component, which are meant to ensure that the content in IPFS matches the allocations as decided by IPFS Cluster.
+
+##### > `maptracker`
+
+The `maptracker` implements a pintracker which keeps the local state in memory.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`max_pin_queue_size` | `4096` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. |
+|`concurrent_pins` | `10` | How many parallel pin or unpin requests we make to IPFS. Only makes sense with `pin_method` set to `refs` in the `ipfs_connector` section. |
+
+#### The `monitor` section
+
+The `monitor` section contains configurations for the implementations of the Peer Monitor component, which are meant to distribute and collects monitoring information (informer metrics, pings) to and from other peers, and trigger alerts.
+
+##### > `monbasic`
+
+The `monbasic` implementation collects and broadcasts metrics to all peers using Cluster's internal RPC endpoints.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`check_interval` | `"15s"` | The interval between checks making sure that no metrics are expired for any peers in the peerset. If an expired metric is detected, an alert is triggered. This may trigger repinning of items. |
+
+
+##### > `pubsubmon`
+
+The `pubsubmon` implementation collects and broadcasts metrics using libp2p's pubsub. This will provide a more efficient and scalable approach for metric distribution.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`check_interval` | `"15s"` | The interval between checks making sure that no metrics are expired for any peers in the peerset. If an expired metric is detected, an alert is triggered. This may trigger repinning of items. |
+
+
+#### The `informer` section
+
+The `informer` section contains configuration for Informers. Informers fetch the metrics which are used to allocate content to the different peers.
+
+##### > `disk`
+
+The `disk` informer collects disk-related metrics at intervals.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
+|`metric_type` | `"freespace"` | `freespace` or `reposize`. The informer will report the free space in the ipfs daemon repository (`StorageMax-RepoSize`) or the `RepoSize`.
+
+##### > `numpin`
+
+The `numpin` informer uses the total number of pins as metric, which collects at intervals.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
 
 ### Initializing a default configuration
 
