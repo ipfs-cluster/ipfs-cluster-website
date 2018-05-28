@@ -40,7 +40,7 @@ When running a cluster peer, **it is very important that the consensus data fold
 It is important to understand that ipfs-cluster deals with three types of states, regardless of the consensus implementation used:
 
 * The **shared state** is maintained by the consensus algorithm and a copy is kept in every cluster peer. The shared state stores the list of CIDs which are tracked by ipfs-cluster, their allocations (peers which are pinning them), their replication factor, names and any other relevant information for cluster.
-* The **local state** is maintained separately by every peer and represents the state of CIDs tracked by cluster for that specific peer: status in ipfs (pinned or not), modification time etc. The *local state* may opportunistically be built from the *ipfs state* as needed.
+* The **local state** is maintained separately by every peer and represents the state of CIDs tracked by cluster and allocated to that specific peer: status in ipfs (pinned or not), modification time etc. The *local state* may opportunistically be built from the *ipfs state* as needed.
 * The **ipfs state** is the actual state in ipfs (`ipfs pin ls`) which is maintained by the ipfs daemon.
 
 In normal operation, all three states are in sync, as updates to the *shared state* cascade to the local and the ipfs states. Additionally, syncing operations are regularly triggered by ipfs-cluster. Unpinning cluster-pinned items directly from ipfs will, for example, cause a mismatch between the local and the ipfs state. Luckily, there are ways to inspect every state:
