@@ -6,12 +6,12 @@ title = "News"
 
 ## 20180329 | @hsanjuan
 
-In the last two months many things have happened in the ipfs-cluster project.
+In the last two months many things have happened in the IPFS Cluster project.
 
 First, we have welcomed a new team member: @lanzafame has already started contributing
 and has resolved a few issues already included in the last release.
 
-Secondly, we have been working very hard on implementing the "sharding RFC" that I mentioned in my last update. @zenground0 has made very significant progress on this front. Sharding will be a unique feature of ipfs-cluster and will help to drive the adoption of ipfs by being able tu support huge datasets distributed among different nodes. We hope that the first "sharding" prototype is ready in the upcoming weeks.
+Secondly, we have been working very hard on implementing the "sharding RFC" that I mentioned in my last update. @zenground0 has made very significant progress on this front. Sharding will be a unique feature of IPFS Cluster and will help to drive the adoption of ipfs by being able tu support huge datasets distributed among different nodes. We hope that the first "sharding" prototype is ready in the upcoming weeks.
 
 Thirdly, we have made 3 releases (the latest being `0.3.5`) which bring a diverse set of features and some bugfixes. Some of the major ones are these:
 
@@ -19,7 +19,7 @@ Thirdly, we have made 3 releases (the latest being `0.3.5`) which bring a divers
   * The `refs` pinning method allows to download dags in parallel and pin only when they content is already on the disk.
   * The Rest API now exposes the HTTP endpoints through libp2p. By using a libp2p host to communicate with it, users get an encrypted connection without having to setup SSL certificates.
 
-We have also started working on the ipfs-cluster website, which we will use to provide a central and well organized place for documentation, roadmaps and other information related to the project.
+We have also started working on the IPFS Cluster website, which we will use to provide a central and well organized place for documentation, roadmaps and other information related to the project.
 
 Happy pinning!
 
@@ -45,17 +45,17 @@ Finally, it is very important to remark that we recently finished the [Sharding 
 
 ## 20171211 | @hsanjuan
 
-During the last weeks we've been working hard on making the first "live" deployment of ipfs-cluster. I am happy to announce that a 10-peer cluster runs on ipfs-gateway nodes, maintaining a >2000-length pinset.
+During the last weeks we've been working hard on making the first "live" deployment of IPFS Cluster. I am happy to announce that a 10-peer cluster runs on ipfs-gateway nodes, maintaining a >2000-length pinset.
 
-The nodes are distributed, run a vanilla ipfs-cluster docker container mounting a volume with a customized [cluster configuration](https://github.com/ipfs/infrastructure/blob/master/ipfs-cluster/service.json.tpl) which uses higher-than-default timeouts and intervals. The injection of the pin-set took a while, but enventually every pin in every node became PINNED. In one occassion, a single IPFS node hanged while pinning. After re-starting the IPFS node in question, all pins in the queue became PIN_ERRORs, but they could easily be fixed with a `recover` operation.
+The nodes are distributed, run a vanilla IPFS Cluster docker container mounting a volume with a customized [cluster configuration](https://github.com/ipfs/infrastructure/blob/master/ipfs-cluster/service.json.tpl) which uses higher-than-default timeouts and intervals. The injection of the pin-set took a while, but enventually every pin in every node became PINNED. In one occassion, a single IPFS node hanged while pinning. After re-starting the IPFS node in question, all pins in the queue became PIN_ERRORs, but they could easily be fixed with a `recover` operation.
 
-Additionally, the [IPFS IRC Pinbot](https://github.com/ipfs/pinbot-irc) now supports cluster-pinning, by using the ipfs-cluster proxy to ipfs, which intercepts pin requests and performs them in cluster. This allowed us to re-use the `go-ipfs-api` library to interact with cluster.
+Additionally, the [IPFS IRC Pinbot](https://github.com/ipfs/pinbot-irc) now supports cluster-pinning, by using the IPFS Cluster proxy to ipfs, which intercepts pin requests and performs them in cluster. This allowed us to re-use the `go-ipfs-api` library to interact with cluster.
 
 The first live setup has shown nevertheless that some things were missing. For example, we added `--local` flags to Sync, Status and Recover operations (and allowed a local RecoverAll). They are handy when a single node is at fault and you want to fix the pins on that specific node. We will also work on a `go-ipfs-cluster-api` library which provides a REST API client which allows to programatically interact with cluster more easily.
 
-Parallel to all this, @zenground0 has been working on state migrations. The cluster's consensus state is stored on disk via snapshots in certain format. This format might evolve in the future and we need a way to migrate between versions without losing all the state data. In the new approach, we are able to extract the state from Raft snapshots, migrate it, and create a new snapshot with the new format so that the next time cluster starts everything works. This has been a complex feature but a very important step to providing a production grade release of ipfs-cluster.
+Parallel to all this, @zenground0 has been working on state migrations. The cluster's consensus state is stored on disk via snapshots in certain format. This format might evolve in the future and we need a way to migrate between versions without losing all the state data. In the new approach, we are able to extract the state from Raft snapshots, migrate it, and create a new snapshot with the new format so that the next time cluster starts everything works. This has been a complex feature but a very important step to providing a production grade release of IPFS Cluster.
 
-Last but not least, the next release will include useful things like pin-names (a string associated to every pin) and peer names. This will allow to easily identify pins and peers by other than their multihash. They have been contributed by @te0d, who is working on https://github.com/te0d/js-ipfs-cluster-api, a JS Rest API client for our REST API, and https://github.com/te0d/bunker, a web interface to manage ipfs-cluster.
+Last but not least, the next release will include useful things like pin-names (a string associated to every pin) and peer names. This will allow to easily identify pins and peers by other than their multihash. They have been contributed by @te0d, who is working on https://github.com/te0d/js-ipfs-cluster-api, a JS Rest API client for our REST API, and https://github.com/te0d/bunker, a web interface to manage IPFS Cluster.
 
 ---
 
@@ -75,13 +75,13 @@ I'm also happy to announce that we now build and publish "snaps". [Snaps](https:
 
 You are welcome to check the [changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md) for a detailed list of other new features and bugfixes.
 
-Our upcoming work will be focused on setting up a live ipfs-cluster and run it in a "production" fashion, as well as adding more capabilities to manage the internal cluster state while offline (migrate, export, import) etc.
+Our upcoming work will be focused on setting up a live IPFS Cluster and run it in a "production" fashion, as well as adding more capabilities to manage the internal cluster state while offline (migrate, export, import) etc.
 
 ---
 
 ## 20171023 | @hsanjuan
 
-We have now started the final quarter of 2017 with renewed energy and plans for ipfs-cluster. The team has grown and come up with a set of priorities for the next weeks and months. The gist of these is:
+We have now started the final quarter of 2017 with renewed energy and plans for IPFS Cluster. The team has grown and come up with a set of priorities for the next weeks and months. The gist of these is:
 
 * To make cluster stable and run it on production ourselves
 * To start looking into the handling of "big datasets", including IPLD integration
@@ -105,10 +105,10 @@ As a summary, since my last update, we have:
 
 * [A guide to running IPFS Cluster](docs/ipfs-cluster-guide.md), with detailed information on how cluster works, what behaviours to expect and why. It should answer many questions which are not covered by the getting-started-quickly guides.
 * Added sharness tests, which make sure that `ìpfs-cluster-ctl` and `ipfs-cluster-service` are tested and not broken in obvious ways at least and complement our testing pipeline.
-* Pushed the [kubernetes-ipfs](https://github.com/ipfs/kubernetes-ipfs) project great lengths, adding a lot of features to its DSL and a bunch of highly advanced ipfs-cluster tests. The goal is to be able to test deployments layouts which are closer to reality, including escalability tests.
-* The extra tests uncovered and allowed us to fix a number of nasty bugs, usually around the ipfs-cluster behaviour when peers go down or stop responding.
+* Pushed the [kubernetes-ipfs](https://github.com/ipfs/kubernetes-ipfs) project great lengths, adding a lot of features to its DSL and a bunch of highly advanced IPFS Cluster tests. The goal is to be able to test deployments layouts which are closer to reality, including escalability tests.
+* The extra tests uncovered and allowed us to fix a number of nasty bugs, usually around the IPFS Cluster behaviour when peers go down or stop responding.
 * Added CID re-allocation on peer removal.
-* Added "Private Networks" support to ipfs-cluster. Private Networks is a libp2p feature which allows to secure a libp2p connection with a key. This means that inter-peer communication is now protected and isolated with a `cluster_secret`. This brings a significant reduction on the security pitfalls of running ipfs-cluster: default setup does not allow anymore remote control of a cluster peer. More information on security can be read on the [guide](docs/ipfs-cluster-guide.md).
+* Added "Private Networks" support to IPFS Cluster. Private Networks is a libp2p feature which allows to secure a libp2p connection with a key. This means that inter-peer communication is now protected and isolated with a `cluster_secret`. This brings a significant reduction on the security pitfalls of running IPFS Cluster: default setup does not allow anymore remote control of a cluster peer. More information on security can be read on the [guide](docs/ipfs-cluster-guide.md).
 * Added HTTPs support for the REST API endpoint. This facilitates exposing the API endpoints directly and is a necessary preamble to supporting basic authentication (in the works).
 
 All the above changes are about to crystallize in the `v0.1.0` release, which we'll publish in the next days.
@@ -119,7 +119,7 @@ All the above changes are about to crystallize in the `v0.1.0` release, which we
 
 The last weeks were spent on improving go-ipfs/libp2p/multiformats documentation as part of the [documentation sprint](https://github.com/ipfs/pm/issues/357) mentioned earlier.
 
-That said, a few changes have made it to ipfs-cluster:
+That said, a few changes have made it to IPFS Cluster:
 
 * All components have now been converted into submodules. This clarifies
 the project layout and actually makes the component borders explicit.
@@ -132,7 +132,7 @@ cluster know each others.
 big the IPFS repository is. Pins will be allocated to peers with lower
 repository sizes.
 
-I will be releasing new builds/release for ipfs-cluster in the following days.
+I will be releasing new builds/release for IPFS Cluster in the following days.
 
 ---
 
@@ -140,9 +140,9 @@ I will be releasing new builds/release for ipfs-cluster in the following days.
 
 This week has been mostly spent on making IPFS Cluster easy to install, writing end-to-end tests as part of the Test Lab Sprint and bugfixing:
 
-* There is now an ipfs-cluster docker container, which should be part of the ipfs docker hub very soon
+* There is now an IPFS Cluster docker container, which should be part of the ipfs docker hub very soon
 * IPFS Cluster builds are about to appear in dist.ipfs.io
-* I shall be publishing some Ansible roles to deploy ipfs+ipfs-cluster
+* I shall be publishing some Ansible roles to deploy ipfs+IPFS Cluster
 * There are now some tests using [kubernetes-ipfs](https://github.com/ipfs/kubernetes-ipfs)with new docker container. These tests are the first automated tests that are truly end-to-end, using a real IPFS-daemon under the hood.
 * I have added replication-factor-per-pin support. Which means that for every pinned item, it can be specified what it's replication factor should be, and this factor can be updated. This allows to override the global configuration option for replication factor.
 * Bugfixes: one affecting re-pinning+replication and some others in ipfs-cluster-ctl output.
@@ -198,7 +198,7 @@ The next days will be spent on implementing [replication factors](https://github
 
 Friday is from now on the Captain Log entry day.
 
-Last week, was the first week out of three the current ipfs-cluster *sprintino* (https://github.com/ipfs/pm/issues/353). The work has focused on addressing ["rough edges"](https://github.com/ipfs/ipfs-cluster/milestone/1), most of which came from @jbenet's feedback (#14). The result has been significant changes and improvements to ipfs-cluster:
+Last week, was the first week out of three the current IPFS Cluster *sprintino* (https://github.com/ipfs/pm/issues/353). The work has focused on addressing ["rough edges"](https://github.com/ipfs/ipfs-cluster/milestone/1), most of which came from @jbenet's feedback (#14). The result has been significant changes and improvements to IPFS Cluster:
 
 * I finally nailed down the use of multicodecs in `go-libp2p-raft` and `go-libp2p-gorpc` and the whole dependency tree is now Gx'ed.
 * It seems for the moment we have settled for `ipfs-cluster-service` and `ipfs-cluster-ctl` as names for the cluster tools.
@@ -212,7 +212,7 @@ The `Peers()` endpoint retrieves this information from all Peers so it is easy t
 * The IPFS proxy is now intercepting `pin add`, `pin rm` and `pin ls` and doing Cluster pinning operations instead. This not only allows
 replacing an IPFS daemon by a Cluster peer, but also enables compositing cluster peers with other clusters (pointing `ipfs_node_multiaddress` to a different Cluster proxy endpoint).
 
-The changes above include a large number of API renamings, re-writings and re-organization of the code, but ipfs-cluster has grown more solid as a result.
+The changes above include a large number of API renamings, re-writings and re-organization of the code, but IPFS Cluster has grown more solid as a result.
 
 Next week, the work will focus on making it easy to [add and remove peers from a running cluster](https://github.com/ipfs/ipfs-cluster/milestone/2).
 
@@ -227,6 +227,6 @@ The rest of the quarter will be focused on 4 main issues:
 * Simplify the process of adding and removing cluster peers
 * Implement a replication-factor-based pinning strategy
 * Generate real end to end tests
-* Make ipfs-cluster stable
+* Make IPFS Cluster stable
 
 These endaevours will be reflected on the [ROADMAP](roadmap).
