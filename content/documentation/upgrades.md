@@ -34,7 +34,7 @@ Another way to perform an update is to sequentially remove the peers of the clus
 
 Steps:
 
-1. Run `ipfs-cluster-ctl peer rm <pid>` for each cluster peer, except the last (a single-peer cluster will not remove its only peer).
+1. Run `ipfs-cluster-ctl peer rm <peerID>` for each cluster peer, except the last (a single-peer cluster will not remove its only peer).
 2. This will shutdown the removed peers and clean their states
 3. Shutdown the remaining peer, upgrade the `ipfs-cluster-service` and `ipfs-cluster-ctl` binaries
 4. Run `ipfs-cluster-service state upgrade` and restart the peer (or simply restart it with `ipfs-cluster-service daemon --upgrade`)
