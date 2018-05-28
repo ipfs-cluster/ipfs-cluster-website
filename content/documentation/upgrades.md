@@ -16,7 +16,7 @@ any deployment automation tools or with docker.
 
 For this method to work it is required that:
 
-* `remove_on_shutdown` is set to `false`
+* `leave_on_shutdown` is set to `false`
 * `wait_for_leader_timeout` is sufficiently high to account for the restart of all peers (default should be ok in most cases)
 
 Steps:
