@@ -4,8 +4,6 @@ title = "IPFS CLUSTER"
 
 # Pinset orchestration for IPFS
 
-<div class="tipbox warning">THIS WEBSITE IS UNDER CONSTRUCTION. Any information here might be incorrect.</div>
-
 The IPFS Cluster project aims to facilitate adoption of IPFS by:
 
 * Providing support for production deployments of IPFS in the datacenter

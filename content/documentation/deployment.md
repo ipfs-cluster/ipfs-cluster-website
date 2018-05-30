@@ -1,9 +1,9 @@
 +++
-title = "Deployment"
+title = "Production deployments"
 +++
 
 
-# Deployment
+# Production deployments
 
 This section is dedicated to the task of deploying an IPFS Cluster and running it in a stable fashion. It describes:
 
@@ -66,7 +66,8 @@ The configuration file contains a few options which should be tweaked according 
 
 
 * When dealing with large amount of pins, increase the `cluster.state_sync_interval` and `cluster.ipfs_sync_interval`.
-* Consider increasing the `cluster.monitor_ping_interval` and `monitor.monbasic.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and trigger re-pins). Re-pinning might be a very expensive in your cluster. Thus, you may want to set this a bit high (several minutes). You can use same value for both.
+* Consider increasing the `cluster.monitor_ping_interval` and `monitor.*.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and trigger re-pins). Re-pinning might be a very expensive in your cluster. Thus, you may want to set this a bit high (several minutes). You can use same value for both.
+* Under the same consideration, you might want to set `cluster.disable_repinning` to true if you don't wish repinnings to be triggered at all on peer downtime.
 * Set `raft.wait_for_leader_timeout` to something that gives ample time for all your peers to be restarted and come online without . Usually `30s` or `1m`.
 * If your network is very unstable you can try increasing `raft.commit_retries`, `raft.commit_retry_delay`. Note: more retries and higher delays imply slower failures.
 * Raft options:
@@ -82,18 +83,21 @@ The configuration file contains a few options which should be tweaked according 
 
 ### `go-ipfs` configuration tweaks
 
-* Initialize ipfs using the `server` profile: `ipfs init --profile=server`
-* For larger repos, enable the Badger datastore ([source](https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#basic-usage-2)):
+* Initialize ipfs using the `server` profile: `ipfs init --profile=server` or `ipfs config profile apply server` if the configuration already exists.
+* For very large repos, enable the Badger datastore ([source](https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#basic-usage-2)):
 
 ```
 [BACKUP ~/.ipfs]
-ipfs config profile apply badgerds
-$ ipfs-ds-convert convert
+$ ipfs config profile apply badgerds # or ipfs init --profile=server,badgerds
+$ ipfs-ds-convert convert # Make sure you have enough disk space for the conversion.
+$ ipfs-ds-convert cleanup # removes the backup data
 ```
+
+Make sure you have enough space for the conversion.
 
 * Do not enable automatic GC if using the `refs` pinning method
 * Increase the `Swarm.ConnMgr.Highwater` (maximum number of connections) and reduce `GracePeriod` to `20s`.
-* Increase `Datastore.BloomFilterSize` according to your repo size (in bytes).
+* Increase `Datastore.BloomFilterSize` according to your repo size (in bytes): `1048576` (1MB) is a good value (more info [here](https://github.com/ipfs/go-ipfs/blob/master/docs/config.md#datastore))
 * Set `Datastore.StorageMax` to a value according to the disk you want to dedicate for the ipfs repo.
 * The `IPFS_FD_MAX` environment variable controls the FD `ulimit` value that `go-ipfs` sets for itself. Depending on your `Highwater` value, you may want to increase it to `4096`.
 
@@ -126,22 +130,7 @@ The downside is that Raft requires strict procedures when updating the cluster *
 
 #### Adding peers
 
-Adding peers should always be performed by **bootstrapping** the new peers to one of the peers in the existing cluster. There are two ways to bootstrap a new peer:
-
-* The first method is to fill in the `bootstrap` configuration key as explained in the [Configuration documentation](documentation/configuration/#using-bootstrap)
-* The second method is by starting the new peer with:
-
-```
-ipfs-cluster-service --bootstrap <existing_cluster_peer_multiaddress>
-```
-
-The bootstrapped peer should not have pre-existing state data (`ipfs-cluster-service state clean` backs it up and removes it). Upon joining the cluster successfully:
-
-* The new peer will receive the last known state from the Raft leader
-* The new peer's configuration `peers` will be updated with the multiaddresses from all cluster peers
-* The new peer's multiaddress(es) will be added to the `peers` configuration value of all other peers
-
-<div class="tipbox warning">Adding peers only works on healthy clusters, with all their peers online. Remove any unhealthy peers before adding new ones.</div>
+Adding peers should always be performed by **bootstrapping** as explained [here](/documentation/starting/#bootstrapping-a-peer).
 
 #### Removing peers
 
@@ -159,22 +148,22 @@ A *peer ID* looks like `QmQHKLBXfS7hf8o2acj7FGADoJDLat3UazucbHrgxqisim`. Removin
 * The removed peer will be automatically erased from the `peers` configuration value for the rest of peers.
 * `peers rm` also works with offline peers. **Offline peers should not be restarted after being removed**.
 
-<div class="tipbox tip">The <a href="/documentation/configuration/#leave-on-shutdown">`leave_on_shutdown` option</a> triggers automatic removal on clean shutdowns.</div>
+<div class="tipbox tip">The <a href="/documentation/configuration/#the-cluster-main-section">`leave_on_shutdown` option</a> triggers automatic removal on clean shutdowns.</div>
 
 ## Monitoring and automatic re-pinning
 
-IPFS Cluster includes a basic monitoring component which gathers metrics and triggers alerts when a metric is no longer renewed. There are currently two types of metrics:
+IPFS Cluster includes a monitoring component which gathers metrics and triggers alerts when a metric is no longer renewed. There are currently two types of metrics:
 
-* `informer` metrics are used to decide on allocations when a pin request arrives. Different "informers" can be configured. The default is the disk informer, which extracts `repo stat` information from IPFS and sends a freespace metric.
+* `informer` metrics are used to decide on allocations when a pin request arrives. Different "informers" can be configured. The default is the [`disk` informer](/documentation/configuration/#disk), which extracts `repo stat` information from IPFS and sends a freespace metric.
 * a `ping` metric is used to regularly signal that a peer is alive.
 
-Every metric carries a Time-To-Live associated with it. This TTL can be configued in the `informer` configuration section. The `ping` metric TTL is determined by the [`cluster.monitoring_ping_interval`](/documentation/configuration/#the-service-json-configuration-file), and is equal to 2x its value.
+Every metric carries a Time-To-Live associated with it. This TTL can be configued in the `informer` configuration section. The `ping` metric TTL is determined by the [`cluster.monitoring_ping_interval`](/documentation/configuration/#the-cluster-main-section), and is equal to 2x its value.
 
-Every IPFS Cluster peer pushes metrics to the cluster Leader regularly. This happens TTL/2 intervals for the informer metrics and in `cluster.monitoring_ping_interval` for the ping metric.
+Every IPFS Cluster peer broadcasts metrics regularly to all other peers. This happens TTL/2 intervals for the informer metrics and in `cluster.monitoring_ping_interval` for the ping metric.
 
 When a metric for an existing cluster peer stops arriving and previous metrics have outlived their Time-To-Live, the monitoring component triggers an alert for that metric. `monbasic.check_interval` determines how often the monitoring component checks for expired TTLs and sends these alerts. If you wish to detect expired metrics more quickly, decrease this interval. Otherwise, increase it.
 
-The IPFS Cluster peer will react to ping metrics alerts by searching for pins allocated to the alerting peer and triggering re-pinning requests for them, unless `cluster.disable_repinning` is set to true. These re-pinning requests may result in re-allocations if the the CID's allocation factor crosses the `replication_factor_min` boundary. Otherwise, the current allocations are maintained.
+The IPFS Cluster peer will react to ping metrics alerts by searching for pins allocated to the alerting peer and triggering re-pinning requests for them, unless the `cluster.disable_repinning` option is `true`. These re-pinning requests may result in re-allocations if the the CID's allocation factor crosses the `replication_factor_min` boundary. Otherwise, the current allocations are maintained.
 
 The monitoring and failover system in cluster is very basic and requires improvements. Failover is likely to not work properly when several nodes go offline at once (specially if the current Leader is affected). Manual re-pinning can be triggered with `ipfs-cluster-ctl pin <cid>`. `ipfs-cluster-ctl pin ls <CID>` can be used to inspect the current list of peers allocated to a CID.
 
@@ -182,11 +171,11 @@ The monitoring and failover system in cluster is very basic and requires improve
 
 Backups are never a bad thing. This subsection explains what IPFS Cluster does to make sure your pinset is not lost in a disaster event, and what further measures you can take.
 
-When we speak of backups, we are normally referring to the `~/.ipfs-cluster/ipfs-cluster-data` folder (*state folder*), which effectively contains the cluster's *pinset* and other consensus-specific information.
+When we speak of backups, we are normally referring to the `~/.ipfs-cluster/raft` folder (*state folder*), which effectively contains the cluster's *pinset* and other consensus-specific information.
 
-When a peer is removed from the cluster, or when the user runs `ipfs-cluster-service state clean`, the *state folder* is **not removed**. Instead, it is renamed to `ipfs-cluster-data.old.X`, with the newest copy being `ipfs-cluster-data.old.0`. Up to 5 copies of the state are kept around, the older ones being removed.
+When a peer is removed from the cluster, or when the user runs `ipfs-cluster-service state clean`, the *state folder* is **not removed**. Instead, it is renamed to `raft.old.X`, with the newest copy being `raft.old.0`. The number of copies kept around is configurable ([`raft.backups_rotate`](/documentation/configuration/#raft)).
 
-`raft` takes regular snapshots of the *pinset* (which means it is fully persisted to disk). This is also performed on a clean shutdown of the peers.
+On the other side, `raft` additionally takes regular snapshots of the *pinset* (which means it is fully persisted to disk). This is also performed on a clean shutdown of the peers.
 
 When the peer is not running, the last persisted state can be manually exported with:
 
@@ -204,4 +193,3 @@ ipfs-cluster-service state import
 
 
 ## Next steps: [Troubleshooting](/documentation/troubleshooting)
-

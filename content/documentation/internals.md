@@ -4,11 +4,11 @@ title = "Internals"
 
 # Internals
 
-This sections provides insights into the IPFS cluster internals. It explain how cluster works on the inside, what happens when a pin request it received and how the project code is organized.
+This sections provides insights into the IPFS cluster internals. It explains how cluster works on the inside, what happens when a pin request is received and how the project code is organized.
 
 ## The consensus algoritm
 
-IPFS Cluster was designed with the thought that it should eventually support different consensus algorithm implementations. The consensus layer takes care of two things:
+IPFS Cluster was designed with the idea that it should eventually support different consensus algorithm implementations. The consensus layer takes care of two things:
 
 * Maintaining a consistent view of the `pinset`, which we refer to as the `shared state`, across all cluster peers. This involves controlling how updates to the state are performed, making sure that all participating peers share exactly the same pinset.
 * Maintaining a consistent view of the `peerset`, that is, which peers are part of the cluster. In some consensus implementations, having a clearly defined `peerset` and updating it with consistency guarantees is as importance as keeping the rest of the shared state.
@@ -21,7 +21,7 @@ The Raft consensus implementation was chosen as the default consensus layer for 
 
 * It is simple to understand and reliable in the small clusters that would be typical for datacenter deployments
 * It provides strong consistency and protection against network splits
-* The `hashicorp/raft` implementation of the algoritm was easy to wrap onto the `go-libp2p-consensus` interface, and a supported plugging in a `libp2p` transport without much difficulties.
+* The `hashicorp/raft` implementation of the algoritm was easy to wrap onto the `go-libp2p-consensus` interface, and a supported plugging-in a `libp2p` transport.
 
 Raft works by commiting log entries to a "distributed log" which every peer follows. In IPFS Cluster, every "Pin" and "Unpin" requests are log entries in that log. When a peer receives a log "Pin" operation, it updates its local copy of the shared state to indicate that the CID is now pinned.
 
@@ -31,7 +31,7 @@ For example, a commit operation to the log is triggered with  `ipfs-cluster-ctl 
 
 The "peer add" and "peer remove" operations also trigger log entries (internal to Raft) and depend too on a healthy consensus status. Modifying the cluster peers is a tricky operation because it requires informing every peer of the new peer's multiaddresses. If a peer is down during this operation, the operation will fail, as otherwise that peer will not know how to contact the new member. Thus, it is recommended remove and bootstrap any peer that is offline before making changes to the peerset.
 
-By default, the consensus data is stored in the `ipfs-cluster-data` subfolder, next to the main configuration file. This folder stores two types of information: the **boltDB** database storing the Raft log, and the state snapshots. Snapshots from the log are performed regularly when the log grows too big (see the `raft` configuration section for options). When a peer is far behind in catching up with the log, Raft may opt to send a snapshot directly, rather than to send every log entry that makes up the state individually. This data is initialized on the first start of a cluster peer and maintained throughout its life. Removing or renaming the `ipfs-cluster-data` folder effectively resets the peer to a clean state. Only peers with a clean state should bootstrap to already running clusters.
+By default, the consensus data is stored in the `raft` subfolder, next to the main configuration file. This folder stores two types of information: the **boltDB** database storing the Raft log, and the state snapshots. Snapshots from the log are performed regularly when the log grows too big (see the `raft` configuration section for options). When a peer is far behind in catching up with the log, Raft may opt to send a snapshot directly, rather than to send every log entry that makes up the state individually. This data is initialized on the first start of a cluster peer and maintained throughout its life. Removing or renaming the `raft` folder effectively resets the peer to a clean state. Only peers with a clean state should bootstrap to already running clusters.
 
 When running a cluster peer, **it is very important that the consensus data folder does not contain any data from a different cluster setup**, or data from diverging logs. What this essentially means is that different Raft logs should not be mixed. On clean shutdowns, ipfs-cluster peers will also create a Raft snapshot. This snapshot is the state copy that can be used for exporting or upgrading the state format.
 
@@ -40,7 +40,7 @@ When running a cluster peer, **it is very important that the consensus data fold
 It is important to understand that ipfs-cluster deals with three types of states, regardless of the consensus implementation used:
 
 * The **shared state** is maintained by the consensus algorithm and a copy is kept in every cluster peer. The shared state stores the list of CIDs which are tracked by ipfs-cluster, their allocations (peers which are pinning them), their replication factor, names and any other relevant information for cluster.
-* The **local state** is maintained separately by every peer and represents the state of CIDs tracked by cluster for that specific peer: status in ipfs (pinned or not), modification time etc. The *local state* may opportunistically be built from the *ipfs state* as needed.
+* The **local state** is maintained separately by every peer and represents the state of CIDs tracked by cluster and allocated to that specific peer: status in ipfs (pinned or not), modification time etc. The *local state* may opportunistically be built from the *ipfs state* as needed.
 * The **ipfs state** is the actual state in ipfs (`ipfs pin ls`) which is maintained by the ipfs daemon.
 
 In normal operation, all three states are in sync, as updates to the *shared state* cascade to the local and the ipfs states. Additionally, syncing operations are regularly triggered by ipfs-cluster. Unpinning cluster-pinned items directly from ipfs will, for example, cause a mismatch between the local and the ipfs state. Luckily, there are ways to inspect every state:
@@ -50,7 +50,7 @@ In normal operation, all three states are in sync, as updates to the *shared sta
 
 * `ipfs-cluster-ctl status` shows information about the *local state* in every cluster peer. It does so by aggregating local state information received from every cluster member.
 
-* `ipfs-cluster-ctl sync` makes sure that the *local state* matches the *ipfs state*. In other words, it makes sure that what cluster expects to be pinned is actually pinned in ipfs. As mentioned, this also happens automatically. Every sync operations triggers an `ipfs pin ls --type=recursive` call to the local node.
+* `ipfs-cluster-ctl sync` makes sure that the *local state* matches the *ipfs state*. In other words, it makes sure that what cluster expects to be pinned is actually pinned in ipfs, or otherwise marks items with an error. As mentioned, this also happens automatically. Every sync operations triggers an `ipfs pin ls --type=recursive` call to the local node.
 
 As a final note, the *local state* may show items in *error*. This happens when an item took too long to pin/unpin, or the ipfs daemon became unavailable. `ipfs-cluster-ctl recover <cid>` can be used to rescue these items. See the "Pinning an item" section below for more information.
 
@@ -82,7 +82,7 @@ Default replication factors are specified in the configuration, but every Pin ob
 
 In order to check the status of a pin, use `ipfs-cluster-ctl status <cid>`. Retries for pins in error state can be triggered with `ipfs-cluster-ctl recover <cid>`.
 
-The reason pins (and unpin) requests are queued is because ipfs only performs one pin at a time, while any other requests are hanging in the meantime. All in all, pinning items which are unavailable in the network may create significants bottlenecks (this is a problem that comes from ipfs), as the pin request takes very long to time out. Facing this problem involves restarting the ipfs node.
+The reason pins (and unpin) requests are queued is to not perform too many requests to ipfs (i.e. when ingesting many pins at once).
 
 
 ## Unpinning an item

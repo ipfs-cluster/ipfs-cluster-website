@@ -2,11 +2,11 @@
 * { margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
 @background: #ffffff;
-@color: #0b0b0b;
+@color: #070707;
 @altcolor: #bbbbbb;
 @warn-background: #f9a035;
 @tip-background: #399b3c;
-@code-background: #e2e4e4;
+@code-background: #f0f2f2;
 @header-background: #15154f;
 @header-color1: #caf2f5;
 @header-color2: #6ec5cf;
@@ -36,26 +36,55 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: normal;
     line-height: 44px;
     color: @color;
+
+    code {
+        background-color: @background;
+    }
 }
 
 h1 {
     font-size: 36px;
     margin-bottom: 50px;
     margin-top: 50px;
+
+    code {
+        font-size: 30px;
+    }
 }
 
 h2 {
     font-weight: 200;
-    font-size: 24px;
+    font-size: 26px;
+
+    code {
+        font-size: 26px;
+    }
 }
 
 h3 {
     font-weight: 200;
-    font-size: 20px;
+    font-size: 22px;
+
+    code {
+        font-size: 22px;
+    }
 }
 
-h4, h5, h6 {
+h4 {
     font-weight: 200;
+    font-size: 20px;
+
+    code {
+        font-size: 17px;
+    }
+}
+
+h5, h6 {
+    font-weight: 200;
+
+    code {
+        font-size: 15px;
+    }
 }
 
 
@@ -102,6 +131,10 @@ ul li, ol li {
   list-style-position: outside;
   margin-left: 1em;
   line-height: 26px;
+
+  ul {
+      margin-top: 0px;
+  } 
 }
 
 blockquote {
@@ -181,6 +214,8 @@ pre, code {
     background-color: @code-background;
     display:block;
     padding:10px;
+    white-space:pre;
+    overflow: auto;
 }
 
 pre {
@@ -405,4 +440,27 @@ footer {
   margin-left: -35px;
   color: #999;
   display: none;
+}
+
+table {
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    border-bottom: 1px solid @altcolor;
+    width: 100%;
+    
+    code {
+        white-space: nowrap;
+    }
+    
+    td {
+        vertical-align: top;
+        padding-right: 10px;
+    }
+    
+    th {
+        border-bottom: 1px solid @altcolor;
+        font-weight: 400;
+        padding: 3px;
+        margin: 0;
+    }
 }

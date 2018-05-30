@@ -24,7 +24,7 @@ Before running `ipfs-cluster-service` for the first time, initialize a [configur
 $ ipfs-cluster-service init
 ```
 
-`init` will randomly generate a `cluster_secret` (unless specified by the `CLUSTER_SECRET` environment variable or running with `--custom-secret`, which will prompt it interactively).
+`init` will randomly generate a `secret` (unless specified by the `CLUSTER_SECRET` environment variable or running with `--custom-secret`, which will prompt it interactively).
 
 **All peers in a cluster must share the same cluster secret**. Using an empty secret may compromise the security of your cluster.
 
@@ -34,7 +34,7 @@ Please check the [Configuration section](/documentation/configuration) for more 
 
 ## Running the peer
 
-You can start the peer by running `ipfs-cluster-service daemon`.
+You can start the peer by running `ipfs-cluster-service daemon`. Make sure to read the [Starting the Cluster](/documentation/starting) section for instructions on how to start a full cluster correctly, specially during the first boot.
 
 ## State tools
 

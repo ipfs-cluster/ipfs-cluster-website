@@ -23,10 +23,10 @@ IPFS Cluster consists of:
     * **IPFSConnector**: a component which talks to the IPFS daemon and provides a proxy to it. Default: `ipfshttp`
     * **State**: a component which keeps a list of Pins (maintained by the Consensus component). Default: `mapstate`
     * **PinTracker**: a component which tracks the pin set, makes sure that it is persisted by IPFS daemon as intended. Default: `maptracker`
-    * **PeerMonitor**: a component to log metrics and detect peer failures. Default: `basic`
+    * **PeerMonitor**: a component to log metrics and detect peer failures. Default: `pubsubmon`
     * **PinAllocator**: a component to decide which peers should pin a CID given some metrics. Default: `descendalloc`
     * **Informer**: a component to collect metrics which are used by the `PinAllocator` and the `PeerMonitor`. Default: `disk`
-  * The **Consensus** component. The consensus component uses `go-libp2p-raft` via `go-libp2p-consensus`. While it is attempted to be agnostic from the underlying consensus implementation, it is not possible in all places. These places are however well marked (everything that calls `Leader()`).
+  * The **Consensus** component. The consensus component uses `go-libp2p-raft` via `go-libp2p-consensus`. While it is attempted to be agnostic from the underlying consensus implementation, it is not possible in all places. These places are however well marked (everything that calls `Leader()`). Default: `raft`.
 
 Components perform a number of functions and need to be able to communicate with eachothers: i.e.:
 
