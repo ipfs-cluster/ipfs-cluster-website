@@ -4,6 +4,16 @@ title = "News"
 
 # News
 
+## 20180604 | The 0.4.0 release | @hsanjuan
+
+Last week we released IPFS Cluster v0.4.0.
+
+We bumped the minor version number to make explicit not only that we brought on a lot of new things, but that this release also included a number of breaking changes, mostly in regards to the configuration file.
+
+The [changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md) gives an overview of what's new (a lot of things!), but we will also take time to explore and explain the changes in more detail right in this news section, in separate upcoming entries.
+
+For the moment, this release is a solid milestone and provides essential features and fixes for production deployments. It is so far running very smoothly in our storage cluster. This website and [the documentation pages](/documentation), on which we have put  significant efforts, should help users install, configure, deploy and tune their Clusters. If you encounter a problem or need help, just reach out!
+
 ## 20180329 | @hsanjuan
 
 In the last two months many things have happened in the IPFS Cluster project.
@@ -15,7 +25,7 @@ Secondly, we have been working very hard on implementing the "sharding RFC" that
 
 Thirdly, we have made 3 releases (the latest being `0.3.5`) which bring a diverse set of features and some bugfixes. Some of the major ones are these:
 
-  * `ipfs-cluster-ctl healht graph` generates a `.dot` file which allows to quickly have an overview of connectivity among the peers in the cluster.
+  * `ipfs-cluster-ctl health graph` generates a `.dot` file which allows to quickly have an overview of connectivity among the peers in the cluster.
   * The `refs` pinning method allows to download dags in parallel and pin only when they content is already on the disk.
   * The Rest API now exposes the HTTP endpoints through libp2p. By using a libp2p host to communicate with it, users get an encrypted connection without having to setup SSL certificates.
 
