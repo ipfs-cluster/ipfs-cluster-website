@@ -6,7 +6,7 @@ title = "News"
 
 ## 20180615 | PinTracker Revamp | @lanzafame
 
-In this post, I am going to cover how the IPFS Cluster's PinTracker component used to work, what some of the issues with that implementation, how we fixed them, and where to go next.
+In this post, I am going to cover how the IPFS Cluster's PinTracker component used to work, what some of the issues with that implementation were, how we fixed them, and where to go next.
 
 #### How the PinTracker worked
 First, the purpose of the pintracker: the pintracker serves the role of ferrying the appropriate state from IPFS Cluster's shared state to a peer's ipfs daemon state.
@@ -48,7 +48,7 @@ With the increased visibility into the queue of operations that have been reques
 
 ####  Where to go next
 Currently in [PR](https://github.com/ipfs/ipfs-cluster/pull/460), there is a stateless implementation of the pintracker interface. This implementation removes the duplication of state and potential for stale PinInfos in the pintracker itself. The stateless pintracker relies directly on the shared state provided by the consensus component and the state provided by the ipfs node.
-The main benefit is for clusters with a very large number of pins, as the status of all those pins will not be held in  
+The main benefit is for clusters with a very large number of pins, as the status of all those pins will not be held in memory. 
 
 ---
 
