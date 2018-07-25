@@ -19,6 +19,10 @@ git clone https://github.com/ipfs/ipfs-cluster-website
 
 ## Usage
 
+Known issue:
+
+This website uses Hugo v0.31.1 or earlier, which is not the latest version. You will need to grab the correct binary from [this Hugo release list](https://github.com/gohugoio/hugo/releases/tag/v0.31.1) and install by copying to your `/usr/local/bin`. If you want to run more than one version of Hugo, you will need to rename each executable accordingly. [More instructions on intalling Hugo from a tarball.](https://gohugo.io/getting-started/installing/#step-2-download-the-tarball)
+
 To deploy the site cluster.ipfs.io, run:
 
 ```sh
