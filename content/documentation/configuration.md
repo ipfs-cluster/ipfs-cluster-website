@@ -182,7 +182,7 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 |Key|Default|Description|
 |:---|:-------|:-----------|
 |`proxy_listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | IPFS Proxy listen multiaddress. |
-|`node_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | The IPFS daemon HTTP API endpoint. This is the daemon that the peer uses to pin content. |
+|`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The IPFS daemon HTTP API endpoint. This is the daemon that the peer uses to pin content. |
 |`connect_swarms_delay` | `"30s"` | On start, the Cluster Peer will run `ipfs swarm connect` to the IPFS daemons of others peers. This sets the delay after starting up. |
 |`proxy_read_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
 |`proxy_read_header_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
