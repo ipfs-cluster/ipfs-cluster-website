@@ -1,4 +1,4 @@
-{{ $isHomePage := eq .Title .Site.Title }}
+{{ $isHomePage := eq .Title .Site.Params.Title }}
 {{ $.Scratch.Add "basePath" "../" }}
 {{ if $isHomePage }}{{ $.Scratch.Set "basePath" "./" }}{{ end  }}
 {{ $basePath := $.Scratch.Get "basePath" }}
