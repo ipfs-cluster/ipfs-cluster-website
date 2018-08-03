@@ -52,7 +52,7 @@ $ ipfs-cluster-service daemon
 will start the cluster peer:
 
 * `raft` will be initialized with the `init_peerset`.
-* all peers will know how to talk to the others thanks to the addresses in the `peerstore`.
+* all peers will know how to talk to the others thanks to the addresses in the `peerstore` or using a DHT service for service discovery.
 * Peers will elect a Raft Leader and then become `Ready`.
 * upon error, you can always re-run `ipfs-cluster-service daemon`.
 
@@ -62,7 +62,7 @@ will start the cluster peer:
 A different, more flexible approach is to start a single peer and then *bootstrap* other peers to it. As they are bootstrapped, the Cluster will grow with the new peers. This is mostly useful when:
 
 * You are building your cluster manually, or you are adding new peers to it
-* You don't know the IPs or ports your peers will listen to (other than the first). Note that `/dns/` addresses in the `peerset` file are supported though.
+* You don't know the IPs or ports your peers will listen to (other than the first). Note that `/dns4/` and `/dns6` addresses in the `peerstore` file are supported.
 
 <div class="tipbox tip">This method is demonstrated in the <a href="/guides/quickstart">Quickstart guide</a>.</div>
 

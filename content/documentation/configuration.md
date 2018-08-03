@@ -274,11 +274,11 @@ The `peerstore` file is a list of multiaddresses for peers (1 per line). For exa
 /ip4/192.168.1.10/tcp/9096/ipfs/QmWAeBjoGph92ktdDb5iciveKuAX3kQbFpr5wLWnyjtGjb
 ```
 
-**Unless your peer is [bootstrapping to an existing (and running) cluster peer](/documentation/starting/#bootstrapping-a-peer), you should create and fill-in this file with at least one of the other peers' multiaddresses**. Once the peer knows how to reach another member of the Cluster, it will potentially be able to discover all the other peers as necessary.
+**Unless your peer is [bootstrapping to an existing (and running) cluster peer](/documentation/starting/#bootstrapping-a-peer), you should create and fill-in this file with at least one of the other peers' multiaddresses**. Once the peer knows how to reach another member of the Cluster, it will be able to discover the rest of peers as necessary. You can include several multiaddresses for the same peer.
 
-When running, your peer will update the `peerstore` on shutdown, automatically including new multiaddresses so that they are persisted for the next boot.
+Your peer will update the `peerstore` on shutdown, automatically including new multiaddresses so that they are persisted for the next boot.
 
-Note that, when a `/dns/` multiaddress is known, the other addresses are for that peer will not be stored.
+Note that, when a `/dns4/`/`/dns6/` multiaddress is known for a peer, other non-dns addresses are for that peer will not be stored.
 
 
 ## ipfs-cluster-ctl
