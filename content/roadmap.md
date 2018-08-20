@@ -9,12 +9,11 @@ This is the IPFS Cluster Roadmap for the next months. Note that this is a declar
 ## Short term (Q3 2018)
 
 * DAG Sharding support (ongoing)
-* Key functionality extraction from go-ipfs / importers (ongoing)
 * First metrics are exposed (ongoing)
 * Live large-storage cluster operated and maintained by us (IPFS) consolidates all our pinsets. (ongoing)
 * Discussions and collaborations started with players in the "large dataset" space.
-* Research and testing on adding and moving data with cluster
-* UX improvements (filters)
+* Research and testing on adding and moving data with cluster (ongoing)
+* UX improvements (filters) (ongoing)
 
 ## Mid term (6-8 months horizon)
 

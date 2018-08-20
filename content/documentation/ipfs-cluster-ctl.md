@@ -22,6 +22,7 @@ You can also obtain command-specific help with `ipfs-cluster-ctl help [cmd]`. Th
 $ ipfs-cluster-ctl id                                                       # show cluster peer and ipfs daemon information
 $ ipfs-cluster-ctl peers ls                                                 # list cluster peers
 $ ipfs-cluster-ctl peers rm <peerid>                                        # remove a cluster peer
+$ ipfs-cluster-ctl add myfile.txt http://domain.com/file.txt                # adds content to the cluster
 $ ipfs-cluster-ctl pin add Qma4Lid2T1F68E3Xa3CpE6vVJDLwxXLD8RfiB9g1Tmqp58   # pins a CID in the cluster
 $ ipfs-cluster-ctl pin rm Qma4Lid2T1F68E3Xa3CpE6vVJDLwxXLD8RfiB9g1Tmqp58    # unpins a CID from the clustre
 $ ipfs-cluster-ctl pin ls [CID]                                             # list tracked CIDs (shared state)
@@ -46,7 +47,11 @@ In order to have `ipfs-cluster-ctl` use a libp2p endpoint, provide the `--host` 
 
 `ipfs-cluster-ctl --host /ip4/<ip>/ipfs/<peerID> ...`
 
-If the peer you're contacting is using a *cluster secret* (a private networks key), you will also need to provide `--secret <32 byte-hex-encoded key>` to the command.
+or
+
+`ipfs-cluster-ctl --host /dnsaddr/mydomain.com ...` (setting a `_dnsaddr TXT dnsaddr=peer_multiaddress` field in your dns).
+
+If the libp2p peer you're contacting is using a *cluster secret* (a private networks key), you will also need to provide `--secret <32 byte-hex-encoded key>` to the command.
 
 We recommend that you alias the `ipfs-cluster-ctl` command in your shell.
 

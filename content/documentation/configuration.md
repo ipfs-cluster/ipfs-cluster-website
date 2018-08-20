@@ -80,12 +80,12 @@ The main `cluster` section of the configuration file configures the core compone
 |`secret`|`"<randomly generated>"` | The Cluster secret (must be the same in all peers).|
 |`leave-on-shutdown`| `false` | The peer will remove itself from the cluster peerset on shutdown. |
 |`listen_multiaddress`| `"/ip4/0.0.0.0/tcp/9096"` | The peers Cluster-RPC listening endpoint. |
-|`state_sync_interval`| `"1m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.StateSync). |
+|`state_sync_interval`| `"10m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.StateSync). |
 |`ipfs_sync_interval`| `"2m10s"` | Interval between automatic triggers of [`SyncAllLocal`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.SyncAllLocal). |
 |`replication_factor_min` | `-1` | Specifies the default minimum number of peers that should be pinning an item. -1 == all. |
 |`replication_factor_max` | `-1` | Specifies the default maximum number of peers that should be pinning an item. -1 == all. |
 |`monitor_ping_interval` | `"15s"` | Interval for sending a `ping` (used to detect downtimes). |
-|`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset, and storing peers addresses in the `peerstore` file. |
+|`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset and detect if this peer was removed from the cluster. |
 |`disable_repinning` | `false` | Do not automatically re-pin all items allocated to an unhealthy peer. |
 
 The `leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly. This means that, for any subsequent starts, the peer will need to be [bootstrapped](/documentation/starting/#bootstrapping-a-peer) to the existing Cluster in order to re-join it.
@@ -160,9 +160,9 @@ This is the default and only API implementation available. It provides a REST AP
 |`http_listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9094"` | The API HTTP listen endpoint. Set empty to disable the HTTP endpoint. |
 |`ssl_cert_file` | `""` | Path to an x509 certificate file. Enables SSL on the HTTP endpoint. Unless an absolute path, relative to config folder. |
 |`ssl_key_file` | `""` | Path to a SSL private key file. Enables SSL on the HTTP endpoint. Unless an absolute path, relative to config folder. |
-|`read_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`read_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
 |`read_header_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
-|`write_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`write_timeout` | `"00s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
 |`idle_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
 |`libp2p_listen_multiaddress` | `""` | A listen multiaddress for the alternative libp2p host. See below. |
 |`id` | `""` | A peer ID for the alternative libp2p host (must match `private_key`). See below. |
@@ -184,10 +184,10 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 |`proxy_listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | IPFS Proxy listen multiaddress. |
 |`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The IPFS daemon HTTP API endpoint. This is the daemon that the peer uses to pin content. |
 |`connect_swarms_delay` | `"30s"` | On start, the Cluster Peer will run `ipfs swarm connect` to the IPFS daemons of others peers. This sets the delay after starting up. |
-|`proxy_read_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
-|`proxy_read_header_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
-|`proxy_write_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
-|`proxy_idle_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`proxy_read_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . |
+|`proxy_read_header_timeout` | `"5s"` | Parameters for https://godoc.org/net/http#Server . |
+|`proxy_write_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . |
+|`proxy_idle_timeout` | `"1m"` | Parameters for https://godoc.org/net/http#Server . |
 |`pin_method` | `"refs"` | `refs` or `pin`. `refs` allows to fetch pins in parallel, but it's incompatible with automatic GC. `refs` only makes sense with `concurrent_pins` set to something > 1 in the `pin_tracker` section. `pin` only allows to fetch one thing at a time. |
 |`ipfs_request_timeout` | `"5m0s"` | Specifies a timeout on general requests to the IPFS daemon. |
 |`pin_timeout` | `"24h0m0s"` | Specifies the timeout for `pin/add` requests to the IPFS daemon. |
@@ -203,7 +203,17 @@ The `maptracker` implements a pintracker which keeps the local state in memory.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`max_pin_queue_size` | `4096` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. |
+|`max_pin_queue_size` | `50000` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. |
+|`concurrent_pins` | `10` | How many parallel pin or unpin requests we make to IPFS. Only makes sense with `pin_method` set to `refs` in the `ipfs_connector` section. |
+
+##### > `stateless`
+
+The `stateless` tracker implements a pintracker which relies on ipfs and the shared state, thus reducing
+the memory usage in comparison to the `maptracker`.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`max_pin_queue_size` | `50000` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. |
 |`concurrent_pins` | `10` | How many parallel pin or unpin requests we make to IPFS. Only makes sense with `pin_method` set to `refs` in the `ipfs_connector` section. |
 
 #### The `monitor` section
@@ -264,9 +274,9 @@ The `peerstore` file is a list of multiaddresses for peers (1 per line). For exa
 /ip4/192.168.1.10/tcp/9096/ipfs/QmWAeBjoGph92ktdDb5iciveKuAX3kQbFpr5wLWnyjtGjb
 ```
 
-**Unless your peer is [bootstrapping to an existing (and running) cluster peer](/documentation/starting/#bootstrapping-a-peer), you should create and fill-in this file with your peers' multiaddresses**, so that the peer knows how to reach the other peers. You can include multiple multiaddresses for the same peer.
+**Unless your peer is [bootstrapping to an existing (and running) cluster peer](/documentation/starting/#bootstrapping-a-peer), you should create and fill-in this file with at least one of the other peers' multiaddresses**. Once the peer knows how to reach another member of the Cluster, it will potentially be able to discover all the other peers as necessary.
 
-When running, your peer will update the `peerstore` file as needed, automatically including multiaddresses for newly-added peers and deleting them for removed peers.
+When running, your peer will update the `peerstore` on shutdown, automatically including new multiaddresses so that they are persisted for the next boot.
 
 Note that, when a `/dns/` multiaddress is known, the other addresses are for that peer will not be stored.
 

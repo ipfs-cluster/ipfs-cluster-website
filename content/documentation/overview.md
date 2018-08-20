@@ -16,16 +16,19 @@ While IPFS Cluster is used by Protocol Labs to maintain and replicate a vast pin
 
 The latest stable release of IPFS Cluster includes the following features:
 
-* Every IPFS Cluster peer can control the cluster, modify the pinset and perform any operations. The consensus layer (Raft) ensures that all peers share the exact same state and that modifications obtain consistent results, provides high availability and protection against network splits.
-* Pin replication is controlled by a maximum and minimum replication factor.
+* Directly adding, replicating and pinning content to multiple IPFS peers at once, via Cluster.
+* Fetching and pinning content in multiple IPFS peers via Cluster.
+* Raft-based consensus layer with protection against network splits and automatic leader redirection: Every IPFS Cluster peer can control the cluster, modify the pinset and perform any operations.
+* Maximum and minimum replication factor for content pinned in IPFS Cluster.
 * Automatic re-pinning on downtime events.
 * Evenly-distributed pins according to repository space of each IPFS daemon.
 * Comprehensive configuration options, allowing for high-latency clusters (world-wide peers).
 * Painless migration process between stable versions (with state format upgrades when necessary).
 * Pin-set exports and imports (i.e. useful when moving data to a new cluster)
 * Clusters can grow (new peers can be added) and decrease (peers can be removed) without need of downtime.
-* RESTful API and offical Go API client provided. HTTPS, basic authentication and libp2p endpoint natively supported.
-* The IPFS-proxy endpoint allows to drop-in cluster in place of the ipfs API. Some requests (like pin/add) are transmuted into cluster-pin requests.
+* RESTful API exposed both on HTTP and libp2p endpoints (http tunneled on libp2p). HTTPs and basic authentication supported.
+* Go API client with full support of all API endpoints and modes.
+* IPFS-proxy, and HTTP endpoint allows to drop-in IPFS Cluster in place of the ipfs API. Some requests are intercepted and trigger cluster operations (like pin/add).
 * Runs independently from IPFS, using the go-ipfs API (usually on tcp/5001) to control the IPFS daemon.
 * Extensive, up to date documentation and guides, including documentation focused on production deployments of IPFS and IPFS Cluster.
 
@@ -41,7 +44,6 @@ These are the currently observed main problems and things lacking in ipfs-cluste
   * Tested with 5 cluster peers on a regional setup
     * 44 TB disk
     * ~2400 entries in pinset
-* `ipfs repo stat` is very slow on large repositories and hammers the disk, meaning collecting free-space metrics is slow and expensive too ([PR with fix](https://github.com/ipfs/go-ipfs/pull/5010)).
-* No peer autodiscovery. Peers must be specified in a `peerset` file or be added to a known cluster peer (bootstrapping).
+* No public bootstrappers. New peers need to bootstrap to an existing Cluster peer.
 
 ## Next steps: [Download](/documentation/download)
