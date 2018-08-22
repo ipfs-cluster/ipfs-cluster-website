@@ -120,6 +120,16 @@ ul, ol {
     margin-left: 20px;
 }
 
+ul {
+    list-style: none;
+    li::before {
+        color: @link;
+        content: "○";
+        font-size: 1em;
+        padding-right: 1.1225em;
+    }
+}
+
 ul ul, ol ol {
     margin-bottom:0;
 }

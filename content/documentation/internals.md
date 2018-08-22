@@ -33,17 +33,17 @@ The "peer add" and "peer remove" operations also trigger log entries (internal t
 
 By default, the consensus data is stored in the `raft` subfolder, next to the main configuration file. This folder stores two types of information: the **boltDB** database storing the Raft log, and the state snapshots. Snapshots from the log are performed regularly when the log grows too big (see the `raft` configuration section for options). When a peer is far behind in catching up with the log, Raft may opt to send a snapshot directly, rather than to send every log entry that makes up the state individually. This data is initialized on the first start of a cluster peer and maintained throughout its life. Removing or renaming the `raft` folder effectively resets the peer to a clean state. Only peers with a clean state should bootstrap to already running clusters.
 
-When running a cluster peer, **it is very important that the consensus data folder does not contain any data from a different cluster setup**, or data from diverging logs. What this essentially means is that different Raft logs should not be mixed. On clean shutdowns, ipfs-cluster peers will also create a Raft snapshot. This snapshot is the state copy that can be used for exporting or upgrading the state format.
+When running a cluster peer, **it is very important that the consensus data folder does not contain any data from a different cluster setup**, or data from diverging logs. What this essentially means is that different Raft logs should not be mixed. On clean shutdowns, IPFS Cluster peers will also create a Raft snapshot. This snapshot is the state copy that can be used for exporting or upgrading the state format.
 
 ## The shared state, the local state and the ipfs state
 
-It is important to understand that ipfs-cluster deals with three types of states, regardless of the consensus implementation used:
+It is important to understand that IPFS Cluster deals with three types of states, regardless of the consensus implementation used:
 
-* The **shared state** is maintained by the consensus algorithm and a copy is kept in every cluster peer. The shared state stores the list of CIDs which are tracked by ipfs-cluster, their allocations (peers which are pinning them), their replication factor, names and any other relevant information for cluster.
+* The **shared state** is maintained by the consensus algorithm and a copy is kept in every cluster peer. The shared state stores the list of CIDs which are tracked by IPFS Cluster, their allocations (peers which are pinning them), their replication factor, names and any other relevant information for cluster.
 * The **local state** is maintained separately by every peer and represents the state of CIDs tracked by cluster and allocated to that specific peer: status in ipfs (pinned or not), modification time etc. The *local state* may opportunistically be built from the *ipfs state* as needed.
 * The **ipfs state** is the actual state in ipfs (`ipfs pin ls`) which is maintained by the ipfs daemon.
 
-In normal operation, all three states are in sync, as updates to the *shared state* cascade to the local and the ipfs states. Additionally, syncing operations are regularly triggered by ipfs-cluster. Unpinning cluster-pinned items directly from ipfs will, for example, cause a mismatch between the local and the ipfs state. Luckily, there are ways to inspect every state:
+In normal operation, all three states are in sync, as updates to the *shared state* cascade to the local and the ipfs states. Additionally, syncing operations are regularly triggered by IPFS Cluster. Unpinning cluster-pinned items directly from ipfs will, for example, cause a mismatch between the local and the ipfs state. Luckily, there are ways to inspect every state:
 
 
 * `ipfs-cluster-ctl pin ls` shows information about the *shared state*. The result of this command is produced locally, directly from the state copy stored the peer.
@@ -57,14 +57,14 @@ As a final note, the *local state* may show items in *error*. This happens when 
 
 ## Pinning an item
 
-`ipfs-cluster-ctl pin add <cid>` will tell ipfs-cluster to pin (or re-pin) a CID.
+`ipfs-cluster-ctl pin add <cid>` will tell IPFS Cluster to pin (or re-pin) a CID.
 
 When using the Raft consensus implementation, this involves:
 
 * Deciding which peers will be allocated the CID (that is, which cluster peers will ask ipfs to pin the CID). This depends on the replication factor (min and max) and the allocation strategy (more details below).
 * Forwarding the pin request to the Raft Leader.
 * Commiting the pin entry to the log.
-* *At this point, a success/failure is returned to the user, but ipfs-cluster has more things to do.*
+* *At this point, a success/failure is returned to the user, but cluster has more things to do.*
 * Receiving the log update and modifying the *shared state* accordingly.
 * Updating the local state.
 * If the peer has been allocated the content, then:
@@ -87,10 +87,22 @@ The reason pins (and unpin) requests are queued is to not perform too many reque
 
 ## Unpinning an item
 
-`ipfs-cluster-ctl pin rm <cid>` will tell ipfs-cluster to unpin a CID.
+`ipfs-cluster-ctl pin rm <cid>` will tell IPFS Cluster to unpin a CID.
 
 The process is very similar to the "Pinning an item" described above. Removed pins are wiped from the shared and local states. When requesting the local `status` for a given CID, it will show as `UNPINNED`. Errors will be reflected as `UNPIN_ERROR` in the pin local status.
 
+## Adding an item
+
+`ipfs-cluster-ctl add <args>` will add content to cluster. This is supported from version `0.5.0`. Cluster uses the same libraries as go-ipfs to chunk and create the DAGs (including the unixfs). It also provides similar options for configuring how the process is performed.
+
+Just like ipfs, the files to be added are uploaded using a multipart request to the `/add` API endpoint.
+
+Cluster implements adding using an `adder` module. The adder module can make use of custom `ClusterDAGService`s as a way to intercept all blocks as they are stored and perform cluster operations with them. We provide two modules which are also implementations of `ipld.DAGService`:
+
+* The `local` cluster DAG service is used to add content locally to multiple IPFS daemons in the Cluster.
+* The `sharding` cluster DAG service is used to shard content (or DAGs) across multiple IPFS daemons in the Cluster. Unlike the local, a daemon will end up holding a partial DAG.
+
+For example, the `local` DAGService is notified everytime an IPFS block is produced in the process of chunking and building the DAG. This module then performs an IPFSBlockPut broadcast call to multiple cluster peers (allocations) and sends the block to those peer's IPFS Connector component. After the importing process is finalized, it triggers a Cluster `Pin` request.
 
 
 ## Next steps: [Composite Clusters](/documentation/composite-clusters)

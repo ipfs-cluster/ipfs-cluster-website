@@ -36,9 +36,9 @@ This is the recommended way to start a cluster for the first time. This is mostl
 
 * `ipfs-cluster-service` and `ipfs` are installed in all your hosts.
 * `ipfs` is running (or is started at the same time).
-* The [`peerstore`](/documentation/configuration/#the-peerstore-file) file has been created in all peers, containing the multiaddresses for the rest of the peers.
-* The [`init_peerset`](/documentation/configuration/#raft) configuration key lists all the peers in the cluster.
-* The `peerstore` file and the value of `init_peerset` should be the same in all peers.
+* The [`peerstore`](/documentation/configuration/#the-peerstore-file) file has been created in all peers, containing the multiaddress of at least one other peer.
+* The [`init_peerset`](/documentation/configuration/#raft) configuration key lists all the peer-IDs in the cluster (not multiaddresses).
+* The value of `init_peerset` should be the same in all peers.
 * You can start the majority of the peers within `raft.wait_for_leader_timeout`. Otherwise startup will fail.
 
 #### Procedure

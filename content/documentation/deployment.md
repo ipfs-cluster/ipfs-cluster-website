@@ -65,7 +65,7 @@ This subsection provides useful information for running `go-ipfs` and `IPFS Clus
 The configuration file contains a few options which should be tweaked according to your environment, capacity and requirements:
 
 
-* When dealing with large amount of pins, increase the `cluster.state_sync_interval` and `cluster.ipfs_sync_interval`.
+* When dealing with large amount of pins, you may further increase the `cluster.state_sync_interval` and `cluster.ipfs_sync_interval` if sync operations become expensive.
 * Consider increasing the `cluster.monitor_ping_interval` and `monitor.*.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and trigger re-pins). Re-pinning might be a very expensive in your cluster. Thus, you may want to set this a bit high (several minutes). You can use same value for both.
 * Under the same consideration, you might want to set `cluster.disable_repinning` to true if you don't wish repinnings to be triggered at all on peer downtime.
 * Set `raft.wait_for_leader_timeout` to something that gives ample time for all your peers to be restarted and come online without . Usually `30s` or `1m`.
@@ -73,13 +73,12 @@ The configuration file contains a few options which should be tweaked according 
 * Raft options:
   * For high-latency clusters (like having peers around the world), you can try increasing `heartbeat_timeout`, `election_timeout`, `commit_timeout` and `leader_lease_timeout`, although defaults are quite big already. For low-latency clusters, these can all be decreased (at least by half).
   * For very large pinsets, increase `snapshot_interval`. If your cluster performs many operations, increase `snapshot_threshold`.
-* Adjust the `api.restapi` network timeouts depending on your API usage. Note that usually there are client-side timeouts too.
-* Adjust the `ipfs_connector.ipfshttp` network timeouts if you are using the ipfs proxy.
-* Set the `pin_method` to `refs`, but make sure auto-GC is not enabled in `go-ipfs` (this is the default)
+* Adjust the `api.restapi` network timeouts depending on your API usage. This may protect against misuse of the API or DDoS attacks. Note that there are usually client-side timeouts that can be modified too.
+* Adjust the `ipfs_connector.ipfshttp` network timeouts if you are using the ipfs proxy in the same fashion.
+* Set the `pin_method` to `refs` (now the default), but make sure auto-GC is not enabled in `go-ipfs` (this is the default)
 * If you are ingesting a large volume of pins, increase `pin_tracker.maptracker.max_pin_queue_size`. This is the number of things that can be queued for pinning at a given moment.
 * If using `refs` for `pin_method`, increase `pin_tracker.maptracker.concurrent_pins`. The value depends on how many things you would like to have ipfs download at the same time. `3` to `15` should be ok.
-* Increase `informer.disk.metric_ttl`. Depending on the size of your ipfs datastore. It is good to set it to `5m` and more for large repos. If using `-1` for replication factor, set to a very high number, since the informers are not used in that case.
-
+* You may increase `informer.disk.metric_ttl`, although starting at `go-ipfs` 0.4.17, it should be possible to obtain updated disk metrics quickly and efficiently.
 
 ### `go-ipfs` configuration tweaks
 

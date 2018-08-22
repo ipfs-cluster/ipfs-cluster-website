@@ -18,6 +18,7 @@ This table provides a quick summary of methods available:
 |`GET`       |`/version`            |Cluster version|
 |`GET`       |`/peers`              |Cluster peers|
 |`DELETE`    |`/peers/{peerID}`     |Remove a peer|
+|`POST`      |`/add`                |Add content to the cluster|
 |`GET`       |`/allocations`        |List of pins and their allocations (pinset)|
 |`GET`       |`/allocations/{cid}`  |Show a single pin and its allocations (from the pinset)|
 |`GET`       |`/pins`               |Local status of all tracked CIDs|

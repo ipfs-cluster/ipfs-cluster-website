@@ -32,7 +32,7 @@ When your peer is not starting:
 * Are all the listen addresses free or are they used by a different process?
 * Are other peers of the cluster reachable?
 * Is the `cluster.secret` the same for all peers?
-* Double-check that the [`peerstore`](/documentation/configuration/#the-peerstore-file) file has the right contents and that you've followed one of the methods in the [Starting the Cluster section](/documentation/starting).
+* Double-check that the [`peerstore`](/documentation/configuration/#the-peerstore-file) file has the right content and that you've followed one of the methods in the [Starting the Cluster section](/documentation/starting).
 * Double-check that the rest of the cluster is in a healthy state.
 * In some cases, it may help to run `ipfs-cluster-service state clean` (specially if the reason for not starting is a mismatch between the raft state and the cluster peers). Assuming that the cluster is healthy, this will allow the non-starting peer to pull a clean state from the cluster Leader when bootstrapping.
 
