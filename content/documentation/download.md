@@ -52,8 +52,8 @@ The following requirements apply to the installation from source:
 In order to build and install IPFS Cluster in Unix systems follow the steps:
 
 ```
-git clone https://github.com/ipfs/ipfs-cluster.git $GOPATH/github.com/ipfs/ipfs-cluster
-cd $GOPATH/github.com/ipfs/ipfs-cluster
+git clone https://github.com/ipfs/ipfs-cluster.git $GOPATH/src/github.com/ipfs/ipfs-cluster
+cd $GOPATH/src/github.com/ipfs/ipfs-cluster
 make install
 ```
 
