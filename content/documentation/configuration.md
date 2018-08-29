@@ -11,6 +11,8 @@ All IPFS Cluster configurations and persistent data can be found, by default, at
 
 IPFS Cluster peers are run with the `ipfs-cluster-service` command. This subsection describes the configuration file used by this command (`service.json`), which dictates the clusters behaviour, along with the `peerstore` file, which stores the peers multiaddresses.
 
+<center><img alt="A Cluster peer" title="A Cluster peer" src="/cluster/diagrams/png/peer.png" width="500px" /></center>
+
 ### The `service.json` configuration file
 
 <div class="tipbox tip"> <code>ipfs-cluster-service -c &lt;path&gt;</code> sets the location of the configuration folder. This is also controlled by the <code>IPFS_CLUSTER_PATH</code> environment variable.</div>
