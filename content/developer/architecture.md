@@ -15,6 +15,9 @@ IPFS Cluster architecture attempts to be as modular as possible, with interfaces
 
 ## Components
 
+<center><img alt="A Cluster peer" title="A Cluster peer" src="/cluster/diagrams/png/peer.png" width="500px" /></center>
+
+
 IPFS Cluster consists of:
 
   * The definitions of components and their interfaces and related types (`ipfscluster.go`)

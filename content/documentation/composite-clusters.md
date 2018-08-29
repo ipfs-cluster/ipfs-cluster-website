@@ -37,6 +37,8 @@ Note that the intercepted endpoints aim to mimic the format and response code fr
 
 ## A Cluster of Clusters
 
-As mentioned above, the Proxy endpoint allows to create a *cluster of clusters*. This functionality is, however, not fully tested and the particular usecases not fully developed.
+As mentioned above, the Proxy endpoint allows to create a *cluster of clusters*. This would be one of the common topologies that can be achieved, with the main cluster in the middle and 3 sub-clusters attached:
+
+<center><img alt="Cluster composition" title="Cluster composition" src="/cluster/diagrams/png/composition.png" width="500px" /></center>
 
 ## Next steps: [`ipfs-cluster-service`](/documentation/ipfs-cluster-service)
