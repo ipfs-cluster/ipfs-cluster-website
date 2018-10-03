@@ -4,6 +4,7 @@ title = "News"
 
 # News
 
+* [20181003 | The 0.6.0 release | @hsanjuan](20181003_0.6.0_release)
 * [20180829 | Deep dive: RPC-Components in IPFS Cluster  | @hsanjuan](cluster_rpc_components)
 * [20180824 | The 0.5.0 release: adding content with IPFS Cluster | @hsanjuan](20180824_0.5.0_release)
 * [20180615 | PinTracker Revamp | @lanzafame](20180615_pintracker_revamp)

@@ -6,7 +6,7 @@ title = "Upgrades"
 
 This section describes the upgrade procedure for IPFS Cluster. There are several considerations:
 
-* All the cluster peers need to run the same cluster version (`X.X.X`, including the patch number)
+* All the cluster peers need to run the same cluster `major.minor` (but they can have different patch numbers). i.e.: `0.6.x` or `0.7.x`.
 * If the state format changes, a state upgrade is needed (with the peer offline)
 
 ## Standard upgrade procedure
