@@ -1,4 +1,4 @@
-{{ $isHomePage := eq .Title .Site.Title }}
+{{ $isHomePage := eq .Title .Site.Params.Title }}
 {{ $basePath := $.Scratch.Get "basePath" }}
 
 <header class="{{ if $isHomePage }}home-page{{ end }}">
