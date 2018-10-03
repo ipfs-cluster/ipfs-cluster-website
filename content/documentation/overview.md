@@ -12,7 +12,7 @@ An IPFS Cluster is formed by a number of *Peers*, each of them associated to one
 
 Cluster peers communicate using [libp2p](https://libp2p.io) (cluster swarm), similarly to IPFS, but separately from it. Thus, every cluster peer needs its own Private Key (different from the one used by the IPFS daemon) and has its own *Peer ID*. All peers share an additional *secret* key which ensures they can only communicate with known parties.
 
-While IPFS Cluster is used by Protocol Labs to maintain and replicate a vast pinset, it is still software in **early stages of development**, and may suffer from bugs, usability, stability and documentation issues.
+IPFS Cluster is used by Protocol Labs to maintain and replicate a large pinset, via integrations like the [IRC IPFS Pinbot](https://github.com/ipfs/pinbot-irc).
 
 ## Current features
 
@@ -28,6 +28,7 @@ The latest stable release of IPFS Cluster includes the following features:
 * Painless migration process between stable versions (with state format upgrades when necessary).
 * Pin-set exports and imports (i.e. useful when moving data to a new cluster)
 * Clusters can grow (new peers can be added) and decrease (peers can be removed) without need of downtime.
+* DHT-routing for Cluster peers. DNS-multiaddresses support.
 * RESTful API exposed both on HTTP and libp2p endpoints (http tunneled on libp2p). HTTPs and basic authentication supported.
 * Go API client with full support of all API endpoints and modes.
 * IPFS-proxy, and HTTP endpoint allows to drop-in IPFS Cluster in place of the ipfs API. Some requests are intercepted and trigger cluster operations (like pin/add).
@@ -36,7 +37,7 @@ The latest stable release of IPFS Cluster includes the following features:
 
 ## Current limitations
 
-These are the currently observed main problems and things lacking in ipfs-cluster (from what people expect). Be sure to check our [Roadmap](/roadmap) to see how and when we are planning to address them:
+These are the currently observed main problems and things lacking in IPFS Cluster (from what people expect). Be sure to check our [Roadmap](/roadmap) to see how and when we are planning to address them:
 
 * As of now, IPFS Cluster does not support **collaborative pinning** with random individuals subscribing to a pinset and thus contributing their disk space to store interesting data.
 * Unclear about the scalability limits:
@@ -45,7 +46,7 @@ These are the currently observed main problems and things lacking in ipfs-cluste
     * ~2000 pins/peer
   * Tested with 5 cluster peers on a regional setup
     * 44 TB disk
-    * ~2400 entries in pinset
+    * ~5000 entries in pinset
 * No public bootstrappers. New peers need to bootstrap to an existing Cluster peer.
 
 ## Next steps: [Download](/documentation/download)

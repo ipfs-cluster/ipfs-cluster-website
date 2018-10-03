@@ -15,7 +15,7 @@ This section is dedicated to the task of deploying an IPFS Cluster and running i
 
 Make sure you are familiar with the [Configuration](/documentation/configuration) section first.
 
-<div class="tipbox warning">All the IPFS Cluster peers in a cluster must be running the **same version** of `ipfs-cluster-service`.</div>
+<div class="tipbox warning">All the IPFS Cluster peers in a cluster must be running the **minor.major** of `ipfs-cluster-service`: any peer in `0.6.x` will work together, but `0.6.x` will not work with `0.7.x` peers.</div>
 
 ## Deployment methods
 

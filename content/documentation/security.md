@@ -6,9 +6,19 @@ title = "Security"
 
 This section explores some security considerations when running IPFS Cluster.
 
-There are four types of endpoins in IPFS Cluster to be taken into account when protecting access to the system.
+There are four types of endpoins in IPFS Cluster to be taken into account when protecting access to the system. Exposing an unprotected endpoint might give anyone control of the cluster. Cluster configuration uses sensible defaults.
 
-## Internal endpoints
+## Quick overview
+
+  * Cluste swarm: `tcp:9096` is used by the Cluster swarm and protected by the *shared secret*. It is OK to expose this port, as the secret acts as password to interact with it.
+  * HTTP API: `tcp:9094` can be exposed when [enabling SSL and setting up basic authentication](https://cluster.ipfs.io/documentation/configuration/#restapi)
+  * libp2p-HTTP API: when using an alternative [libp2p host](https://cluster.ipfs.io/documentation/configuration/#restapi), for the api, the `libp2p_listen_multiaddress` can be exposed when basic authentication is enabled.
+  * IPFS API: `tcp:5001` is the API of the IPFS daemon and should not be exposed to other than `localhost`.
+  * IPFS Proxy endpoint: `tcp:9095` should not be exposed without an authentication mechanism. By default it provides no authentication nor encryption (similar to IPFS's `tcp:5001`)
+
+Read the sections below to get a more detailed explanation.
+
+## Cluster swarm endpoints
 
 IPFS Cluster peers communicate with each others using libp2p-encrypted streams (`secio`). This streams are by default protected by a shared *cluster secret* (using the libp2p *private networks* feature).
 
@@ -24,7 +34,7 @@ IPFS Cluster peers provide by default an **HTTP API endpoint** which can be conf
 
 These endpoints are controlled by the `restapi.http_listen_multiaddress` (default `/ip4/127.0.0.1/tcp/9094`) and the `restapi.libp2p_listen_multiaddress` (if a specific `private_key` and `id` are configured in the `restapi` section).
 
-Note that when the Cluster libp2p host is re-used to provide the libp2p API endpoint (which listens on `0.0.0.0`) the endpoint is automatically authenticated by the *cluster secret*.
+Note that when no additional libp2p host is configured, the Cluster's peer libp2p host (which listens on `0.0.0.0`) is re-used to provide the libp2p API endpoint. As explained, this endpoint is protected by the *cluster secret*.
 
 Both endpoints support **Basic Authentication** but are unauthenticated by default.
 
@@ -36,4 +46,4 @@ IPFS Cluster peers communicate with the IPFS daemon (usually running on localhos
 
 IPFS Cluster peers also provide an unauthenticated HTTP IPFS Proxy endpoint, controlled by the `ipfshttp.proxy_listen_multiaddress` option which defaults to `/ip4/127.0.0.1/tcp/9095`.
 
-Access to any of these endpoints imply control of the IPFS daemon and of IPFS Cluster to a certain extent. Thus they run on `localhost` by default.
+Access to any of these two endpoints imply control of the IPFS daemon and of IPFS Cluster to a certain extent. Thus they run on `localhost` by default.

@@ -1,0 +1,14 @@
+{{ define "content" }}
+<div class="container">
+  {{ .Content }}
+
+  <ul>
+    {{ range .Paginator.Pages.ByDate.Reverse }}
+    <li>
+      <a href="{{ .URL }}">
+        {{ .Date.Format "2006-01-02" }} - {{ .Title }} | {{ .Params.author }}
+      </a>
+    </li>
+  {{ end }}
+</div>
+{{ end }}

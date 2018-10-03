@@ -1,5 +1,8 @@
 +++
 title = "RPC Components in IPFS Cluster"
+date = 2018-08-22
+publishdate = 2018-08-22
+author = "@hsanjuan"
 +++
 
 ## RPC Components in IPFS Cluster | @hsanjuan
