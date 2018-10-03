@@ -38,7 +38,7 @@ bin/hugo:
 	$(PREPEND)rm -rf tmp_hugo $(APPEND)
 
 build: clean install lint css
-	$(PREPEND)hugo && \
+	$(PREPEND)$(HUGO_BINARY) && \
 	echo "" && \
 	echo "Site built out to ./public dir"
 
