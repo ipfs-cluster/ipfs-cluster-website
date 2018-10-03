@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width,initial-scale=1" name=viewport />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#15154f">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--  facebook open graph tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ .Site.Params.BaseURL }}" />
+    <meta property="og:title" content="{{ .Title }}" />
+    <meta property="og:description" content="{{ .Site.Params.Description }}" />
+    <meta property="og:image" content="{{ .Site.Params.Og_Image }}" />
+    <meta property="og:image:width" content="279">
+    <meta property="og:image:height" content="279">
+
+    <!-- twitter card tags additive with the og: tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:domain" value="{{ .Site.Params.Domain }}" />
+    <meta name="twitter:title" value="{{ .Title }}" />
+    <meta name="twitter:description" value="{{ .Site.Params.Description }}" />
+    <meta name="twitter:image" content="{{ .Site.Params.Og_Image }}" />
+    <meta name="twitter:url" value="{{ .Site.Params.BaseURL }}" />
+
+    <title>{{ .Title }} - {{ .Site.Params.Description }}</title>
+    <link href="/css/main.css" rel="stylesheet"/>
+    <link href="/fonts/fonts.css" rel="stylesheet"/>
+    <script async defer src="/buttons.js"></script>
+  </head>
+  <body>
+    {{ partial "header.html" . }}
+
+    {{ block "content" . }}{{ end }}
+
+    {{ partial "footer.html" . }}
+
+    <script>
+     var lsymbol = '<span id="link-symbol">#</span>'
+     document.querySelectorAll('h1, h2, h3, h4, h5, h6, h7').forEach(function(h) {
+        var link = '<a class="header-link no-decoration" href="#' + h.id + '">'
+        h.innerHTML =  link + lsymbol + h.innerHTML + '</a>'
+      })
+    </script>
+  </body>
+</html>

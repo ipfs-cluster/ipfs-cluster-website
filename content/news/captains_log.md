@@ -1,5 +1,8 @@
 +++
 title = "Old captain's log"
+date = 2017-01-23
+publishdate = 2017-01-23
+author = "@hsanjuan"
 +++
 
 

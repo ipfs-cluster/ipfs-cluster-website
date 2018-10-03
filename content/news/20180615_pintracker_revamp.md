@@ -1,5 +1,8 @@
 +++
 title = "PinTracker revamp"
+date = 2018-06-15
+publishdate = 2018-06-15
+author = "@lanzafame"
 +++
 
 ## 20180615 | PinTracker Revamp | @lanzafame
