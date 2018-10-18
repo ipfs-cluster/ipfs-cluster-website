@@ -43,7 +43,7 @@ We currently do not provide stable snaps.
 
 The following requirements apply to the installation from source:
 
-* Go 1.10+
+* Go 1.11+
 * Git
 * IPFS or internet connectivity (to download depedencies).
 
@@ -60,6 +60,8 @@ make install
 After the dependencies have been downloaded, `ipfs-cluster-service` and `ipfs-cluster-ctl` will be installed to your `$GOPATH/bin` (it uses `go install`).
 
 If you would rather have them built locally, use `make build` instead. You can run `make clean` to remove any generated artifacts and rewrite the import paths to their original form.
+
+Note that when the ipfs daemon is running locally on its default ports, the build process will use it to fetch `gx`, `gx-go` and all the needed dependencies directly from IPFS.
 
 ### Windows and manual installation
 
