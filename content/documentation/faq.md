@@ -15,4 +15,8 @@ Yes, the `consensus.raft` section of the [Configuration](/documentation/configur
 
 ## I have trouble running the ipfs/ipfs-cluster Docker container
 
-Check the [Deployment using Docker](/documentation/deployment#deployment-using-docker) section of the documentation. The `ipfs-cluster` container **does not run IPFS**, so you need to run it separately and adjust the `service.json` configuration according to your Docker networking choices.
+Check the [Docker](/documentation/deployment/docker) documentation section section. The `ipfs-cluster` container **does not run IPFS**, so you need to run it separately and adjust the `service.json` configuration according to your Docker networking choices.
+
+## Do you have a `docker-compose.yml` I can use?
+
+Yes, check the [Docker](/documentation/deployment/docker) documentation section section. We have an example `docker-compose` template to run a small cluster.

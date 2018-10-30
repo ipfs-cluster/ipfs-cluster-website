@@ -19,37 +19,11 @@ Make sure you are familiar with the [Configuration](/documentation/configuration
 
 ## Deployment methods
 
-This subsection provides different strategies to deploy an IPFS Cluster.
+This subsection provides different resources to automate the deployment of an IPFS Cluster:
 
-### Deploying using Ansible
-
-If you have some hosts and would like to run a stable deployment if IPFS Cluster on them, you can use these [Ansible roles](https://github.com/hsanjuan/ansible-ipfs-cluster). They provide:
-
-* Roles to install `go-ipfs` and IPFS Cluster binary distributions.
-* Templated configurations for both `ipfs-cluster-service` and `go-ipfs`
-* systemd service files to manage the lifecycle
-
-### Deployment using Docker
-
-If you want to run the `/ipfs/ipfs-cluster` Docker container, you will need to pay attention to several considerations:
-
-* The container does not run `go-ipfs`. You should run the IPFS daemon separetly, for example, using the `ipfs/go-ipfs` Docker container.
-* We recommend mounting the `/data/ipfs-cluster` folder to provide a custom, working configuration, as well as persistency for the cluster data. This is usually achieved by passing `-v <your_local_path>:/data/ipfs-cluster` to `docker run`).
-
-When starting the `ipfs-cluster` Docker container, if no `/data/ipfs-cluster/service.json` file can be found, the default entrypoint script will:
-
-* run `ipfs-cluster-service init`
-* and make the following changes to the default configuration:
-  * `api/restapi/http_listen_multiaddress` will be set to use `0.0.0.0` instead of `127.0.0.1`.
-  * `ipfs_connector/ipfshttp/proxy_listen_multiaddress` will be set to use `0.0.0.0` instead of `127.0.0.1`.
-  * `ipfs_connector/ipfshttp/node_multiaddress` will be set to the value of the `$IPFS_API` environment value.
-
-<div class="tipbox warning">Unless you run docker with <code>--net=host</code>, you will need to set <code>$IPFS_API</code> or make sure the configuration has the correct <code>node_multiaddress</code>.</div>
-
-Make sure you read the [Configuration documentation](/documentation/configuration) for more information on how to configure IPFS Cluster.
-
-<div class="tipbox tip">You can pass any custom arguments and subcommands for <code>ipfs-cluster-service</code> when running <code>docker run ipfs/ipfs-cluster</code>. By default it runs with <code>daemon --upgrade</code>.</div>
-
+* [Ansible roles](https://github.com/hsanjuan/ansible-ipfs-cluster)
+* [Docker containers and Docker compose](/documentation/deployment/docker)
+* Kubernetes and EKS (TODO)
 
 
 ### Help completing this section

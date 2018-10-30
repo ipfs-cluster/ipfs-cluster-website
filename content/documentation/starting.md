@@ -27,7 +27,7 @@ Raft stores and maintains the *peerset* internally, so once the first start has 
 This is the recommended way to start a cluster **for the first time**. This is mostly useful when:
 
 * Working with stable cluster peers, running in known locations
-* Working with an [automated deployments](/documentation/deployment)
+* Working with some [automated deployments](/documentation/deployment)
 * You are able to trigger start for all peers in the cluster with ease
 
 <div class="tipbox warning"> Important: Do not use this method when you need a new peer to join an already running Cluster. If the new peer is not part of the running Cluster's peerset, use the <code>--bootstrap</code> method to add it.</div>
