@@ -5,7 +5,7 @@ title = "Starting the Cluster"
 
 # Starting the Cluster
 
-Starting an IPFS Cluster peers is a simple process but it must be we well understood as it is one of the places where most mistakes happen.
+Starting a IPFS Cluster peers for the first time is a simple process but it must be we well understood as it is one of the places where most mistakes happen.
 
 <div class="tipbox tip"><code>ipfs-cluster-service daemon</code> starts a cluster peer, but we have to make sure the peer correctly participates and is seen by the rest of the Cluster.</div>
 
@@ -24,7 +24,7 @@ Raft stores and maintains the *peerset* internally, so once the first start has 
 
 ### Starting multiple peers with a fixed peerset
 
-This is the recommended way to start a cluster for the first time. This is mostly useful when:
+This is the recommended way to start a cluster **for the first time**. This is mostly useful when:
 
 * Working with stable cluster peers, running in known locations
 * Working with an [automated deployments](/documentation/deployment)
@@ -59,13 +59,14 @@ will start the cluster peer:
 
 ### Starting a single peer and bootstrapping the rest to it
 
-A different, more flexible approach is to start a single peer and then *bootstrap* other peers to it. As they are bootstrapped, the Cluster will grow with the new peers. This is mostly useful when:
+A different, more flexible approach is to start a single peer and then *bootstrap* other peers to it. As they are bootstrapped, the Cluster will grow with the new peers. This bootstrapping needs to happen the first time the other peers are started for them to become part of the same cluster.
+
+This is mostly useful when:
 
 * You are building your cluster manually, or you are adding new peers to it
 * You don't know the IPs or ports your peers will listen to (other than the first). Note that `/dns4/` and `/dns6` addresses in the `peerstore` file are supported.
 
 <div class="tipbox tip">This method is demonstrated in the <a href="/guides/quickstart">Quickstart guide</a>.</div>
-
 
 #### Requirements
 
@@ -100,12 +101,14 @@ This will bootstrap the peer to an existing one:
 * The Cluster state is received by the new peer.
 * When the full state has been received, the new peer becomes `Ready`.
 
-<div class="tipbox warning">Adding peers only works on healthy clusters, with all their peers online. Remove any unhealthy peers before adding new ones.</div>
+<div class="tipbox warning">Adding peers only works on healthy clusters, with most of their peers online.</div>
+
+Note that once your peer has bootstrapped once to the cluster, you can just start it normally with `ipfs-cluster-service daemon` the next time.
 
 
 ### Restarting clusters and peers
 
-Once your peers have been running and Futher starts are restarts are as simple as running
+Once your peers have been running restarts are as simple as running:
 
 ```
 $ ipfs-cluster-service daemon

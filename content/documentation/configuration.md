@@ -54,7 +54,8 @@ The file looks like:
     "ipfshttp": {...}
   },
   "pin_tracker": {
-    "maptracker": {...}
+    "maptracker": {...},
+    "stateless": {...}
   },
   "monitor": {
     "monbasic": {...},
@@ -69,6 +70,10 @@ The file looks like:
 
 The different sections and subsections are documented in detail below.
 
+### Using environment variables to overwrite configuration values
+
+The options in the main configuration section (`cluster`) can be overwritten by setting environment variables. i.e. `CLUSTER_SECRET` will overwrite the `secret` value and `CLUSTER_LEAVEONSHUTDOWN` will overwrite the `leave_on_shutdown` value.
+
 
 #### The `cluster` main section
 
@@ -80,7 +85,7 @@ The main `cluster` section of the configuration file configures the core compone
 |`peername`| `"<hostname>"` | A human name for this peer. |
 |`private_key`|`"<randomly generated>"`|The peer's libp2p private key (must match the `id`). |
 |`secret`|`"<randomly generated>"` | The Cluster secret (must be the same in all peers).|
-|`leave-on-shutdown`| `false` | The peer will remove itself from the cluster peerset on shutdown. |
+|`leave_on_shutdown`| `false` | The peer will remove itself from the cluster peerset on shutdown. |
 |`listen_multiaddress`| `"/ip4/0.0.0.0/tcp/9096"` | The peers Cluster-RPC listening endpoint. |
 |`state_sync_interval`| `"10m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.StateSync). |
 |`ipfs_sync_interval`| `"2m10s"` | Interval between automatic triggers of [`SyncAllLocal`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.SyncAllLocal). |
@@ -170,6 +175,7 @@ This is the default and only API implementation available. It provides a REST AP
 |`id` | `""` | A peer ID for the alternative libp2p host (must match `private_key`). See below. |
 |`private_key` | `""` | A private key for the alternative libp2p host (must match `id`). See below. |
 |`basic_auth_credentials` | `null` | An object mapping `"username"` to `"password"`. It enables Basic Authentication for the API. Should be used with SSL-enabled or libp2p-endpoints. |
+|`headers` | GET * CORS Headers | A key-values map of headers the API endpoint should return with each response. i.e. `"headers": {"header_name": [ "v1", "v2" ] }`. It comes initialized by default to support CORs values so that things like the IPFS GUI can interact with Cluster too.
 
 The REST API component automatically, and additionally, exposes the HTTP API as a libp2p service on the main libp2p cluster Host (which listens on port `9096`). Exposing the HTTP API as a libp2p service allows users to benefit from the channel encryption provided by libp2p. Alternatively, the API supports specifying a fully separate libp2p Host by providing `id`, `private_key` and `libp2p_listen_multiaddress`. When using a separate Host, it is not necessary for an API consumer to know the cluster secret. Both the HTTP and the libp2p endpoints are supported by the [API Client](https://godoc.org/github.com/ipfs/ipfs-cluster/api/rest/client) and by [`ipfs-cluster-ctl`](/documentation/ipfs-cluster-ctl/).
 
