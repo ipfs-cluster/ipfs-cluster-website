@@ -11,7 +11,7 @@
 @header-color1: #caf2f5;
 @header-color2: #6ec5cf;
 @link: #084eb9;
-@hover: @header-background;
+@hover: @header-color2;
 @active: #20738c;
 
 
@@ -87,7 +87,6 @@ h5, h6 {
     }
 }
 
-
 strong {
     font-weight: 400;
 }
@@ -102,7 +101,6 @@ a {
     color: @link;
     text-decoration: underline;
 }
-
 
 a:hover, a:focus {
     color: @hover;
@@ -204,7 +202,6 @@ blockquote {
     }
 }
 
-
 hr {
     border: 0;
     height: 1px;
@@ -263,22 +260,9 @@ header, footer {
 }
 
 header {
-    padding-top: 20px;
-    padding-bottom: 20px;
-
-    border-bottom: 1px solid #ddd;
-
-    &.homepage {
-        padding-top: 30px;
-        background-color: @header-background;
-        border-bottom: none;
-        a {
-            color: @header-color1;
-            &:hover {
-                color: @header-color2;
-            }
-        }
-    }
+    background-color: @header-background;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 /* Header */
@@ -304,10 +288,9 @@ header {
     font-style: normal;
     letter-spacing: normal;
     line-height: 46px;
-    color: @link;
 
     a {
-        color: @link;
+        color: @header-color1;
         cursor: pointer;
         text-decoration: none;
 
@@ -324,11 +307,7 @@ header {
 #logo {
   display: inline-block;
   vertical-align: middle;
-  height: 60px;
-}
-
-.homepage #logo {
-  height: 90px
+  height: 90px;
 }
 
 div#frontpage-title {
@@ -421,7 +400,7 @@ footer {
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: @link;
+  color: @header-color1;
   cursor: pointer;
   margin-left: 20px;
   text-decoration: none;
