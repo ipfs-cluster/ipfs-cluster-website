@@ -14,7 +14,7 @@ This guide will show you how to:
 * Bootstrap more peers to it (increase the size of the cluster)
 * Remove peers from the cluster.
 
-Note that it assumes that you have IPFS daemons running in your hosts and IPFS Cluster has been correctly [installed](/documentation/download).
+Note that it assumes that you have IPFS daemons running in your hosts and IPFS Cluster has been correctly [installed](/download).
 
 If you want to run this in the same computer, you will need to:
 

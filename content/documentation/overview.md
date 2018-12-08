@@ -49,4 +49,4 @@ These are the currently observed main problems and things lacking in IPFS Cluste
     * ~5000 entries in pinset
 * No public bootstrappers. New peers need to bootstrap to an existing Cluster peer.
 
-## Next steps: [Download](/documentation/download)
+## Next steps: [Download](/download)
