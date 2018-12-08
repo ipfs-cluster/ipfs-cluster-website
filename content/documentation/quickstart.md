@@ -1,5 +1,8 @@
 +++
 title = "Cluster quickstart"
+aliases = [
+    "/guides/quickstart"
+]
 +++
 
 
