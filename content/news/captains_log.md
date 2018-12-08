@@ -41,7 +41,7 @@ In the same way, a peer going offline, will not trigger a re-allocation of the C
 
 Of course, the previous behaviour can still be obtained by setting both the max and the min to the same values.
 
-Finally, it is very important to remark that we recently finished the [Sharding RFC draft](/developer/rfcs/dag-sharding-rfc/). This document outlines how we are going to approach the implementation of one of the most difficult but important features upcoming in cluster: the ability to distribute a single CID (tree) among several nodes. This will allow to use cluster to store files or archives too big for a single ipfs node. Input from the community on this draft can be provided at https://github.com/ipfs/notes/issues/278.
+Finally, it is very important to remark that we recently finished the [Sharding RFC draft](/documentation/developer/rfcs/dag-sharding-rfc/). This document outlines how we are going to approach the implementation of one of the most difficult but important features upcoming in cluster: the ability to distribute a single CID (tree) among several nodes. This will allow to use cluster to store files or archives too big for a single ipfs node. Input from the community on this draft can be provided at https://github.com/ipfs/notes/issues/278.
 
 ---
 
@@ -232,4 +232,3 @@ The rest of the quarter will be focused on 4 main issues:
 * Make IPFS Cluster stable
 
 These endaevours will be reflected on the [ROADMAP](/roadmap).
-
