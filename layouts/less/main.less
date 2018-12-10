@@ -27,16 +27,11 @@
 /* Color Variables */
 
 @primary: @dark-blue;
-
 @background: @white;
+@code-background: @haze;
 @color: @very-dark-gray;
 @altcolor: @silver;
-
-@code-background: @haze;
-@header-color1: @sky;
-@header-color2: @arctic-teal;
-@link: @dark-teal;
-@hover: @header-color2;
+@hover: @arctic-teal;
 @active: @dark-teal;
 
 /* Other Variables */
@@ -133,7 +128,7 @@ p {
 }
 
 a {
-    color: @link;
+    color: @dark-teal;
     text-decoration: underline;
 }
 
@@ -150,16 +145,6 @@ ul, ol {
     margin-bottom: @padding;
     margin-left: calc(@padding * 2);
 }
-
-// ul {
-//     list-style: none;
-//     li::before {
-//         color: @link;
-//         content: "○";
-//         font-size: 1em;
-//         padding-right: 1.1225em;
-//     }
-// }
 
 ul ul, ol ol {
     margin-bottom: 0;
@@ -322,7 +307,7 @@ header {
     line-height: 46px;
 
     a {
-        color: @header-color1;
+        color: @sky;
         cursor: pointer;
         text-decoration: none;
 
@@ -369,7 +354,7 @@ div#frontpage-title {
 
     span.frontpage-title-text-normal {
         display: block;
-        color: @header-color2;
+        color: @arctic-teal;
         font-size: 24px;
         line-height: 33px;
         font-weight: 400;
@@ -378,7 +363,7 @@ div#frontpage-title {
 
     span.frontpage-title-text-big {
         display: block;
-        color: @header-color1;
+        color: @sky;
         font-size: 60px;
         line-height: 67px;
         font-weight: 700;
@@ -428,7 +413,7 @@ footer {
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: @header-color1;
+  color: @sky;
   cursor: pointer;
   margin-left: 20px;
   text-decoration: none;
