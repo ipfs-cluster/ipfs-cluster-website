@@ -393,35 +393,32 @@ div#frontpage-title {
 
 /* Footer */
 footer {
-    padding-top: 4em;
-    color: @link;
+    color: @primary;
     font-size: 11px;
+    padding-top: 4em;
     margin-bottom: 10px;
+    text-align: center;
 
     nav {
-        text-align: center;
+        border-top: 1px solid @arctic-teal;
         margin-left: auto;
         margin-right: auto;
-        border-bottom: 1px solid @link;
-    }
-
-    #sponsored {
+        padding-top: @padding;
+        padding-bottom: @padding;
         text-align: center;
     }
 
-    #footer-logo-div {
-        text-align: center;
-
-        #footer-logo {
-            height:48px;
-            vertical-align: middle;
-            margin-top: 5px;
-        }
+    p {
+      margin-bottom: 3px;
     }
 
-    .copyright {
-        text-align: center;
+    .nav-link {
+      color: @primary;
     }
+}
+
+.footer-logo {
+    height: 48px;
 }
 
 /* Nav-links */
