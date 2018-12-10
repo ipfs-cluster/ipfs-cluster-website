@@ -18,8 +18,7 @@
 @grass: #399b3c;
 
 
-
-/* Color Variables*/
+/* Color Variables */
 
 @primary: @dark-blue;
 
@@ -32,7 +31,7 @@
 @code-background: @haze;
 @header-color1: @sky;
 @header-color2: @arctic-teal;
-@link: @cobalt;
+@link: @dark-teal;
 @hover: @header-color2;
 @active: @dark-teal;
 
@@ -41,22 +40,19 @@
 /* HTML Primitives */
 body {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: normal;
-  line-height: 26px;
   text-transform: none;
   color: @color;
   background-color: @background;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin-top: 20px;
     font-style: normal;
     font-weight: 400;
     letter-spacing: normal;
-    line-height: 44px;
     color: @color;
 
     code {
@@ -65,9 +61,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 36px;
-    margin-bottom: 50px;
+    font-size: 42px;
+    font-weight: 700;
     margin-top: 50px;
+    margin-bottom: 26px;
 
     code {
         font-size: 30px;
@@ -75,8 +72,10 @@ h1 {
 }
 
 h2 {
-    font-weight: 200;
-    font-size: 26px;
+    font-weight: 700;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 14px;
 
     code {
         font-size: 26px;
@@ -110,13 +109,12 @@ h5, h6 {
 }
 
 strong {
-    font-weight: 400;
+    font-weight: 700;
 }
 
 p {
-    font-weight: 400;
-    margin-bottom: 15px;
-    line-height: 22px;
+    line-height: 24px;
+    margin-bottom: 18px;
 }
 
 a {
@@ -126,7 +124,7 @@ a {
 
 a:hover, a:focus {
     color: @hover;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 a:active {
@@ -134,8 +132,6 @@ a:active {
 }
 
 ul, ol {
-    font-weight: 400;
-    margin-top: 20px;
     margin-bottom: 20px;
     list-style-position:inside;
     margin-left: 20px;
@@ -195,8 +191,8 @@ blockquote {
 .tipbox {
     background-color: @warn-background;
     padding: 10px;
-    margin-top: 15px;
-    margin-bottom: 35px;
+    //margin-top: 15px;
+    //margin-bottom: 35px;
     color: white;
     font-weight: 400;
 
