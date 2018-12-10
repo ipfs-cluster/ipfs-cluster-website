@@ -87,8 +87,10 @@ h2 {
 }
 
 h3 {
-    font-weight: 200;
+    font-weight: 400;
     font-size: 22px;
+    margin-top: 30px;
+    margin-bottom: 14px;
 
     code {
         font-size: 22px;
@@ -96,8 +98,10 @@ h3 {
 }
 
 h4 {
-    font-weight: 200;
-    font-size: 20px;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 10px;
 
     code {
         font-size: 17px;
@@ -105,7 +109,10 @@ h4 {
 }
 
 h5, h6 {
-    font-weight: 200;
+    color: @cobalt;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 6px;
 
     code {
         font-size: 15px;
@@ -193,8 +200,7 @@ blockquote {
 .tipbox {
     background-color: @warn-background;
     padding: 10px;
-    //margin-top: 15px;
-    //margin-bottom: 35px;
+    margin-bottom: @padding;
     color: white;
     font-weight: 400;
 
@@ -467,13 +473,17 @@ table {
 
     td {
         vertical-align: top;
+        padding-top: 6px;
         padding-right: 10px;
+        padding-bottom: 6px;
     }
 
     th {
         border-bottom: 1px solid @altcolor;
+        font-size: 12px;
         font-weight: 400;
         padding: 3px;
         margin: 0;
+        text-transform: uppercase;
     }
 }
