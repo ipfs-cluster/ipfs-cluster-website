@@ -1,18 +1,40 @@
 /* Reset */
 * { margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
-@background: #ffffff;
-@color: #070707;
-@altcolor: #bbbbbb;
-@warn-background: #f9a035;
-@tip-background: #399b3c;
-@code-background: #f0f2f2;
-@header-background: #15154f;
-@header-color1: #caf2f5;
-@header-color2: #6ec5cf;
-@link: #084eb9;
+/* Colors */
+
+@white: #ffffff;
+@very-dark-gray: #070707;
+@silver: #bbbbbb;
+@haze: #f0f2f2;
+
+@dark-blue: #15154f;
+@cobalt: #084eb9;
+@sky: #caf2f5;
+@arctic-teal: #6ec5cf;
+@dark-teal: #20738c;
+
+@pumpkin: #f9a035;
+@grass: #399b3c;
+
+
+
+/* Color Variables*/
+
+@primary: @dark-blue;
+
+@background: @white;
+@color: @very-dark-gray;
+@altcolor: @silver;
+
+@warn-background: @pumpkin;
+@tip-background: @grass;
+@code-background: @haze;
+@header-color1: @sky;
+@header-color2: @arctic-teal;
+@link: @cobalt;
 @hover: @header-color2;
-@active: #20738c;
+@active: @dark-teal;
 
 
 
@@ -212,7 +234,7 @@ hr {
 a.no-decoration, a.no-decoration:hover,
 a.no-decoration:visited, a.no-decoration:active {
   text-decoration: none;
-  color: @link;
+  color: @primary;
 }
 
 pre, code {
@@ -260,7 +282,7 @@ header, footer {
 }
 
 header {
-    background-color: @header-background;
+    background-color: @primary;
     padding-top: 30px;
     padding-bottom: 30px;
 }
@@ -311,7 +333,7 @@ header {
 }
 
 div#frontpage-title {
-    background-color: @header-background;
+    background-color: @primary;
     margin-bottom: 30px;
 
 
