@@ -11,11 +11,17 @@
 @dark-blue: #15154f;
 @cobalt: #084eb9;
 @sky: #caf2f5;
+@azure-white: #d7f2f4;
+@flash-white: #effdff;
 @arctic-teal: #6ec5cf;
 @dark-teal: #20738c;
 
 @pumpkin: #f9a035;
+@pale-gold: #ffead1;
+@floral-white: #fff9f2;
+
 @grass: #399b3c;
+@moss: #b1ddbc;
 
 
 /* Color Variables */
@@ -26,8 +32,6 @@
 @color: @very-dark-gray;
 @altcolor: @silver;
 
-@warn-background: @pumpkin;
-@tip-background: @grass;
 @code-background: @haze;
 @header-color1: @sky;
 @header-color2: @arctic-teal;
@@ -198,32 +202,34 @@ blockquote {
 }
 
 .tipbox {
-    background-color: @warn-background;
     padding: 10px;
-    margin-bottom: @padding;
-    color: white;
-    font-weight: 400;
-
-    code {
-        background-color: #666666;
-    }
+    margin: auto @padding @padding @padding;
 
     &.warning {
-        background-color: @warn-background;
+        background-color: @pale-gold;
+        border-left: 5px solid @pumpkin;
+
         &:before {
             content: "⚠ ";
-            font-weight: bold;
+            font-weight: 700;
+        }
+
+        code {
+            background-color: @floral-white;
         }
     }
 
     &.tip {
-        background-color: @tip-background;
+        background-color: @azure-white;
+        border-left: 5px solid @arctic-teal;
+
         &:before {
             content: "ⓘ ";
-            font-weight: bold;
+            font-weight: 700;
         }
-        a {
-          color: @header-color1;
+
+        code {
+            background-color: @flash-white;
         }
     }
 }
