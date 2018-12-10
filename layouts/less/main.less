@@ -35,6 +35,10 @@
 @hover: @header-color2;
 @active: @dark-teal;
 
+/* Other Variables */
+
+@line-height: 1.4;
+@padding: 18px;
 
 
 /* HTML Primitives */
@@ -113,8 +117,8 @@ strong {
 }
 
 p {
-    line-height: 24px;
-    margin-bottom: 18px;
+    line-height: @line-height;
+    margin-bottom: @padding;
 }
 
 a {
@@ -132,32 +136,30 @@ a:active {
 }
 
 ul, ol {
-    margin-bottom: 20px;
-    list-style-position:inside;
-    margin-left: 20px;
+    margin-bottom: @padding;
+    margin-left: calc(@padding * 2);
 }
 
-ul {
-    list-style: none;
-    li::before {
-        color: @link;
-        content: "○";
-        font-size: 1em;
-        padding-right: 1.1225em;
-    }
-}
+// ul {
+//     list-style: none;
+//     li::before {
+//         color: @link;
+//         content: "○";
+//         font-size: 1em;
+//         padding-right: 1.1225em;
+//     }
+// }
 
 ul ul, ol ol {
-    margin-bottom:0;
+    margin-bottom: 0;
 }
+
 ul ul, ol ol {
     margin-left: 30px;
 }
 
 ul li, ol li {
-  list-style-position: outside;
-  margin-left: 1em;
-  line-height: 26px;
+  line-height: @line-height;
 
   ul {
       margin-top: 0px;
@@ -381,8 +383,7 @@ div#frontpage-title {
 footer {
     padding-top: 4em;
     color: @link;
-    font-size:11px;
-    line-height:26px;
+    font-size: 11px;
     margin-bottom: 10px;
 
     nav {
