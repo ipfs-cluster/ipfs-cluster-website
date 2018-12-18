@@ -1,5 +1,5 @@
-<a href="/news" class="nav-link">News</a>
-<a href="/roadmap" class="nav-link">Roadmap</a>
-<a href="/documentation" class="nav-link">Documentation</a>
-<a href="/documentation/download" class="nav-link">Download</a>
+{{ $currentPage := . }}
+{{ range .Site.Menus.main }}
+<a class="nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}" href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+{{ end }}
 <a target="_blank" href="{{ .Site.Params.Github }}" class="nav-link">Github</a>

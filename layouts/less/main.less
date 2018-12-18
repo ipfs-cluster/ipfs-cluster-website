@@ -1,40 +1,61 @@
 /* Reset */
 * { margin: 0; padding: 0; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 
-@background: #ffffff;
-@color: #070707;
-@altcolor: #bbbbbb;
-@warn-background: #f9a035;
-@tip-background: #399b3c;
-@code-background: #f0f2f2;
-@header-background: #15154f;
-@header-color1: #caf2f5;
-@header-color2: #6ec5cf;
-@link: #084eb9;
-@hover: @header-background;
-@active: #20738c;
+/* Colors */
 
+@white: #ffffff;
+@very-dark-gray: #070707;
+@silver: #bbbbbb;
+@haze: #f0f2f2;
+
+@dark-blue: #15154f;
+@cobalt: #084eb9;
+@sky: #caf2f5;
+@azure-white: #d7f2f4;
+@flash-white: #effdff;
+@arctic-teal: #6ec5cf;
+@dark-teal: #20738c;
+
+@pumpkin: #f9a035;
+@pale-gold: #ffead1;
+@floral-white: #fff9f2;
+
+@grass: #399b3c;
+@moss: #b1ddbc;
+
+
+/* Color Variables */
+
+@primary: @dark-blue;
+@background: @white;
+@code-background: @haze;
+@color: @very-dark-gray;
+@altcolor: @silver;
+@hover: @arctic-teal;
+@active: @dark-teal;
+
+/* Other Variables */
+
+@line-height: 1.4;
+@padding: 18px;
 
 
 /* HTML Primitives */
 body {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: normal;
-  line-height: 26px;
   text-transform: none;
   color: @color;
   background-color: @background;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin-top: 20px;
     font-style: normal;
     font-weight: 400;
     letter-spacing: normal;
-    line-height: 44px;
     color: @color;
 
     code {
@@ -43,9 +64,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 36px;
-    margin-bottom: 50px;
+    font-size: 42px;
+    font-weight: 700;
     margin-top: 50px;
+    margin-bottom: 26px;
 
     code {
         font-size: 30px;
@@ -53,8 +75,10 @@ h1 {
 }
 
 h2 {
-    font-weight: 200;
-    font-size: 26px;
+    font-weight: 700;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 14px;
 
     code {
         font-size: 26px;
@@ -62,8 +86,10 @@ h2 {
 }
 
 h3 {
-    font-weight: 200;
+    font-weight: 400;
     font-size: 22px;
+    margin-top: 30px;
+    margin-bottom: 14px;
 
     code {
         font-size: 22px;
@@ -71,8 +97,10 @@ h3 {
 }
 
 h4 {
-    font-weight: 200;
-    font-size: 20px;
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: 30px;
+    margin-bottom: 10px;
 
     code {
         font-size: 17px;
@@ -80,33 +108,33 @@ h4 {
 }
 
 h5, h6 {
-    font-weight: 200;
+    color: @cobalt;
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 6px;
 
     code {
         font-size: 15px;
     }
 }
 
-
 strong {
-    font-weight: 400;
+    font-weight: 700;
 }
 
 p {
-    font-weight: 400;
-    margin-bottom: 15px;
-    line-height: 22px;
+    line-height: @line-height;
+    margin-bottom: @padding;
 }
 
 a {
-    color: @link;
+    color: @dark-teal;
     text-decoration: underline;
 }
 
-
 a:hover, a:focus {
     color: @hover;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 a:active {
@@ -114,34 +142,20 @@ a:active {
 }
 
 ul, ol {
-    font-weight: 400;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    list-style-position:inside;
-    margin-left: 20px;
-}
-
-ul {
-    list-style: none;
-    li::before {
-        color: @link;
-        content: "○";
-        font-size: 1em;
-        padding-right: 1.1225em;
-    }
+    margin-bottom: @padding;
+    margin-left: calc(@padding * 2);
 }
 
 ul ul, ol ol {
-    margin-bottom:0;
+    margin-bottom: 0;
 }
+
 ul ul, ol ol {
     margin-left: 30px;
 }
 
 ul li, ol li {
-  list-style-position: outside;
-  margin-left: 1em;
-  line-height: 26px;
+  line-height: @line-height;
 
   ul {
       margin-top: 0px;
@@ -173,37 +187,37 @@ blockquote {
 }
 
 .tipbox {
-    background-color: @warn-background;
     padding: 10px;
-    margin-top: 15px;
-    margin-bottom: 35px;
-    color: white;
-    font-weight: 400;
-
-    code {
-        background-color: #666666;
-    }
+    margin: auto @padding @padding @padding;
 
     &.warning {
-        background-color: @warn-background;
+        background-color: @pale-gold;
+        border-left: 5px solid @pumpkin;
+
         &:before {
             content: "⚠ ";
-            font-weight: bold;
+            font-weight: 700;
+        }
+
+        code {
+            background-color: @floral-white;
         }
     }
 
     &.tip {
-        background-color: @tip-background;
+        background-color: @azure-white;
+        border-left: 5px solid @arctic-teal;
+
         &:before {
             content: "ⓘ ";
-            font-weight: bold;
+            font-weight: 700;
         }
-        a {
-          color: @header-color1;
+
+        code {
+            background-color: @flash-white;
         }
     }
 }
-
 
 hr {
     border: 0;
@@ -215,7 +229,7 @@ hr {
 a.no-decoration, a.no-decoration:hover,
 a.no-decoration:visited, a.no-decoration:active {
   text-decoration: none;
-  color: @link;
+  color: @primary;
 }
 
 pre, code {
@@ -263,22 +277,9 @@ header, footer {
 }
 
 header {
-    padding-top: 20px;
-    padding-bottom: 20px;
-
-    border-bottom: 1px solid #ddd;
-
-    &.home-page {
-        padding-top: 30px;
-        background-color: @header-background;
-        border-bottom: none;
-        a {
-            color: @header-color1;
-            &:hover {
-                color: @header-color2;
-            }
-        }
-    }
+    background-color: @primary;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 /* Header */
@@ -304,10 +305,9 @@ header {
     font-style: normal;
     letter-spacing: normal;
     line-height: 46px;
-    color: @link;
 
     a {
-        color: @link;
+        color: @sky;
         cursor: pointer;
         text-decoration: none;
 
@@ -324,15 +324,11 @@ header {
 #logo {
   display: inline-block;
   vertical-align: middle;
-  height: 60px;
-}
-
-.home-page #logo {
-  height: 90px
+  height: 90px;
 }
 
 div#frontpage-title {
-    background-color: @header-background;
+    background-color: @primary;
     margin-bottom: 30px;
 
 
@@ -358,7 +354,7 @@ div#frontpage-title {
 
     span.frontpage-title-text-normal {
         display: block;
-        color: @header-color2;
+        color: @arctic-teal;
         font-size: 24px;
         line-height: 33px;
         font-weight: 400;
@@ -367,7 +363,7 @@ div#frontpage-title {
 
     span.frontpage-title-text-big {
         display: block;
-        color: @header-color1;
+        color: @sky;
         font-size: 60px;
         line-height: 67px;
         font-weight: 700;
@@ -382,36 +378,32 @@ div#frontpage-title {
 
 /* Footer */
 footer {
+    color: @primary;
+    font-size: 11px;
     padding-top: 4em;
-    color: @link;
-    font-size:11px;
-    line-height:26px;
     margin-bottom: 10px;
+    text-align: center;
 
     nav {
-        text-align: center;
+        border-top: 1px solid @arctic-teal;
         margin-left: auto;
         margin-right: auto;
-        border-bottom: 1px solid @link;
-    }
-
-    #sponsored {
+        padding-top: @padding;
+        padding-bottom: @padding;
         text-align: center;
     }
 
-    #footer-logo-div {
-        text-align: center;
-
-        #footer-logo {
-            height:48px;
-            vertical-align: middle;
-            margin-top: 5px;
-        }
+    p {
+      margin-bottom: 3px;
     }
 
-    .copyright {
-        text-align: center;
+    .nav-link {
+      color: @primary;
     }
+}
+
+.footer-logo {
+    height: 48px;
 }
 
 /* Nav-links */
@@ -421,7 +413,7 @@ footer {
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: @link;
+  color: @sky;
   cursor: pointer;
   margin-left: 20px;
   text-decoration: none;
@@ -432,6 +424,10 @@ footer {
   &:first-child {
     margin-left: 0;
   }
+}
+
+.nav-link_active {
+  color: @hover;
 }
 
 /* Body */
@@ -465,13 +461,17 @@ table {
 
     td {
         vertical-align: top;
+        padding-top: 6px;
         padding-right: 10px;
+        padding-bottom: 6px;
     }
 
     th {
         border-bottom: 1px solid @altcolor;
+        font-size: 12px;
         font-weight: 400;
         padding: 3px;
         margin: 0;
+        text-transform: uppercase;
     }
 }

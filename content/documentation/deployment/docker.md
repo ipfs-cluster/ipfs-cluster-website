@@ -2,11 +2,11 @@
 title = "Docker"
 +++
 
-IPFS Cluster provides official dockerized releases at https://hub.docker.com/r/ipfs/ipfs-cluster/  along with a example template for `docker-compose`.
+# Docker
+
+<div class="tipbox tip">IPFS Cluster provides official dockerized releases at <a href="https://hub.docker.com/r/ipfs/ipfs-cluster/">https://hub.docker.com/r/ipfs/ipfs-cluster/</a> along with an example template for <code>docker-compose</code>.</div>
 
 Below are some information and considerations to be taken into account when running Clusters using Docker.
-
-# Docker
 
 If you want to run one of the [`/ipfs/ipfs-cluster`](https://hub.docker.com/r/ipfs/ipfs-cluster/tags/) Docker containers, it is important to know that:
 
@@ -28,7 +28,7 @@ Make sure you read the [Configuration documentation](/documentation/configuratio
 <div class="tipbox tip">You can pass any custom arguments and subcommands for <code>ipfs-cluster-service</code> when running <code>docker run ipfs/ipfs-cluster</code>. By default it runs with <code>daemon --upgrade</code>.</div>
 
 
-# Docker compose
+## Docker compose
 
 We also provide an example [`docker-compose.yml`](https://github.com/ipfs/ipfs-cluster/blob/master/docker-compose.yml) which is able to launch an IPFS Cluster with two cluster peers and two ipfs daemons running.
 

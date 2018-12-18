@@ -1,5 +1,6 @@
 +++
 title = "Documentation"
+weight = 20
 aliases = [
     "/developer/",
     "/guides/"
@@ -31,15 +32,15 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 
 ## User guides
 
-* [Quickstart: Starting, enlarging and shrinking a cluster](/guides/quickstart)
+* [Quickstart: Starting, enlarging and shrinking a cluster](quickstart)
 
 ## Developer documentation
 
-* [Contribution guidelines](/developer/contribute)
-* [Project Architecture's overview](/developer/architecture)
+* [Contribution guidelines](developer/contribute)
+* [Project Architecture's overview](developer/architecture)
 * [Go API (Godoc)](https://godoc.org/github.com/ipfs/ipfs-cluster)
-* [HTTP API reference](/developer/api)
-* [RFCs](/developer/rfcs)
+* [HTTP API reference](developer/api)
+* [RFCs](developer/rfcs)
 
 ## Documentation bugs
 

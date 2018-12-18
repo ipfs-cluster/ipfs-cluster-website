@@ -1,5 +1,6 @@
 +++
 title = "News"
+weight = -10
 +++
 
 # News

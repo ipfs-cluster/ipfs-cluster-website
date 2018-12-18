@@ -66,7 +66,7 @@ This is mostly useful when:
 * You are building your cluster manually, or you are adding new peers to it
 * You don't know the IPs or ports your peers will listen to (other than the first). Note that `/dns4/` and `/dns6` addresses in the `peerstore` file are supported.
 
-<div class="tipbox tip">This method is demonstrated in the <a href="/guides/quickstart">Quickstart guide</a>.</div>
+<div class="tipbox tip">This method is demonstrated in the <a href="/documentation/quickstart">Quickstart guide</a>.</div>
 
 #### Requirements
 
