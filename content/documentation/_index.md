@@ -33,6 +33,7 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 ## User guides
 
 * [Quickstart: Starting, enlarging and shrinking a cluster](quickstart)
+* [Deploying IPFS Cluster to Kubernetes](k8s)
 
 ## Developer documentation
 
