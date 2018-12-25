@@ -17,7 +17,7 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 ## User documentation
 
 * [IPFS Cluster Overview](overview)
-* [Download](download)
+* [Download](../download)
 * [Configuration](configuration)
 * [Starting the Cluster](starting)
 * [Deployment](deployment)
