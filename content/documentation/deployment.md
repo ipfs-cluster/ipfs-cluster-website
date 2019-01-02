@@ -23,7 +23,7 @@ This subsection provides different resources to automate the deployment of an IP
 
 * [Ansible roles](https://github.com/hsanjuan/ansible-ipfs-cluster)
 * [Docker containers and Docker compose](/documentation/deployment/docker)
-* Kubernetes and EKS (TODO)
+* [Kubernetes deployment Guide](/documentations/k8s)
 
 
 ### Help completing this section
