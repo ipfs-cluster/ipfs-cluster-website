@@ -5,7 +5,7 @@ ignoreFiles = [ "\\.less$" ]
 sectionPagesMenu = "main"
 
 [params]
-  baseurl = "https://cluster.ipfs.io"
+  # baseurl = "https://cluster.ipfs.io"
   name = "IPFS CLUSTER"
   title = "IPFS CLUSTER"
   description = "Pinset orchestration for IPFS"
