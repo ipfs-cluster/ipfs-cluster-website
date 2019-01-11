@@ -37,7 +37,7 @@ The IPFS Cluster API can be configured with Basic Authentication support.
 
 `ipfs-cluster-ctl --basic-auth <username:password>` will use the given credentials to perform the request.
 
-Note that unless `--force-http` is passed, using `basic-auth` is only supported on requests with `--https` or using the libp2p API endpoint.
+Note that unless `--force-http` is passed, using `basic-auth` is only supported on HTTPS requests or using the libp2p API endpoint (which uses an encrypted channel).
 
 #### Using the libp2p API endpoint
 
