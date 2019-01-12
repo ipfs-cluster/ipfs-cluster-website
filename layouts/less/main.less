@@ -39,6 +39,15 @@
 @line-height: 1.4;
 @padding: 18px;
 
+@smol: 320px;
+@medium: 768px;
+@large: 1024px;
+
+@sizes: {
+  smol: @smol;
+  medium: @medium;
+  large: @large;
+}
 
 /* HTML Primitives */
 body {
@@ -186,6 +195,152 @@ blockquote {
   h1,h2,h3,h4,h5 { margin: 0; }
 }
 
+/* Layout */
+.container {
+  display: flex;
+  justify-content: center;
+  background-color: @primary;
+    //TODO need to add a conditional so this
+    //only is true for homepage and nav
+}
+
+.50-left {
+    grid-area: 50-left;
+}
+
+.50-right {
+    grid-area: 50-right;
+}
+
+header {
+    grid-area: header;
+}
+
+footer {
+    grid-area: footer;
+}
+
+.content {
+  grid-area: content;
+}
+
+.grid {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-areas:
+     "header"
+     "50-right"
+     "50-left"
+     "content"
+     "footer"
+}
+
+@media only screen and (min-width: 500px) {
+  .grid {
+      grid-template-columns: 2fr 2fr;
+      grid-template-areas:
+      "header header"
+      "50-left 50-right"
+      "content content"
+      "footer footer";
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .grid {
+      //grid-gap: 20px;
+      grid-template-columns: 2fr 2fr;
+      grid-template-areas:
+      "header header"
+      "50-left 50-right"
+      "content content"
+      "footer footer";
+      //max-width: @large;
+  }
+}
+
+header {
+    background-color: @primary;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+
+/* Header */
+
+.header-section {
+    display: table-cell;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    &.right {
+        padding-top: 10px;
+        margin-left: 10px;
+        text-align: right;
+    }
+}
+
+.header-title {
+    margin-left: 10px;
+    margin-right: 20px;
+    font-weight: 400;
+    font-size: 32px;
+    display: inline-block;
+    vertical-align: middle;
+    font-style: normal;
+    letter-spacing: normal;
+    line-height: 46px;
+
+    a {
+        color: @sky;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+            color: @hover;
+        }
+    }
+
+    strong {
+        font-weight: 700;
+    }
+}
+
+#logo {
+  display: inline-block;
+  vertical-align: middle;
+  height: 90px;
+}
+
+.homepage {
+  h1 {
+    color: @sky;
+    font-size: 60px;
+    line-height: 67px;
+    font-weight: 700;
+    padding-bottom: 30px;
+    font-variant: small-caps;
+    //text-transform: uppercase;
+  }
+  h2 {
+    color: @arctic-teal;
+    font-size: 24px;
+    line-height: 33px;
+    font-weight: 400;
+    padding-bottom: 30px;
+  }
+}
+
+.cluster-illustration {
+    max-height: 552px;
+}
+
+.github-button {
+    margin-top: 20px;
+}
+
+
+
 .tipbox {
     padding: 10px;
     margin: auto @padding @padding @padding;
@@ -271,110 +426,17 @@ code {
     width: 100%;
 }
 
-header, footer {
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-header {
-    background-color: @primary;
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-
-/* Header */
-.header-section {
-    display: table-cell;
-    white-space: nowrap;
-    vertical-align: middle;
-
-    &.right {
-        padding-top: 10px;
-        margin-left: 10px;
-        text-align: right;
-    }
-}
-
-.header-title {
-    margin-left: 10px;
-    margin-right: 20px;
-    font-weight: 400;
-    font-size: 32px;
-    display: inline-block;
-    vertical-align: middle;
-    font-style: normal;
-    letter-spacing: normal;
-    line-height: 46px;
-
-    a {
-        color: @sky;
-        cursor: pointer;
-        text-decoration: none;
-
-        &:hover {
-            color: @hover;
-        }
-    }
-
-    strong {
-        font-weight: 700;
-    }
-}
-
-#logo {
-  display: inline-block;
-  vertical-align: middle;
-  height: 90px;
-}
-
-div#frontpage-title {
-    background-color: @primary;
-    margin-bottom: 30px;
 
 
-    .frontpage-section {
-        display: table-cell;
-        vertical-align: middle;
-
-        &.right {
-            margin-left: 10px;
-            text-align: center;
-        }
-
-        &.left {
-            margin-right: 35px;
-            width: 50%;
-        }
-    }
+// .navbar {
+//   display: block;
+//
+//   @media (min-width: @sizes[tablet]) {
+//     display: inline-block;
+//   }
+// }
 
 
-    img#cluster-illustration {
-        height: 552px;
-    }
-
-    span.frontpage-title-text-normal {
-        display: block;
-        color: @arctic-teal;
-        font-size: 24px;
-        line-height: 33px;
-        font-weight: 400;
-        padding-bottom: 30px;
-    }
-
-    span.frontpage-title-text-big {
-        display: block;
-        color: @sky;
-        font-size: 60px;
-        line-height: 67px;
-        font-weight: 700;
-        padding-bottom: 30px;
-        text-transform: uppercase;
-    }
-
-    .github-button {
-        margin-top: 20px;
-    }
-}
 
 /* Footer */
 footer {
@@ -428,13 +490,6 @@ footer {
 
 .nav-link_active {
   color: @hover;
-}
-
-/* Body */
-.container {
-  width: 1366px;
-  max-width: 90%;
-  margin: 0 auto;
 }
 
 /* Header links */

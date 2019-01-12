@@ -36,18 +36,24 @@
     <script async defer src="/buttons.js"></script>
   </head>
   <body>
-    {{ partial "header.html" . }}
+    <div class="container">
+      <div class="grid">
 
-    {{ block "content" . }}{{ end }}
+        {{ partial "header.html" . }}
 
-    {{ partial "footer.html" . }}
+        {{ block "content" . }}{{ end }}
 
-    <script>
-     var lsymbol = '<span id="link-symbol">#</span>'
-     document.querySelectorAll('h1, h2, h3, h4, h5, h6, h7').forEach(function(h) {
-        var link = '<a class="header-link no-decoration" href="#' + h.id + '">'
-        h.innerHTML =  link + lsymbol + h.innerHTML + '</a>'
-      })
-    </script>
+        {{ partial "footer.html" . }}
+
+        <!-- <script>
+         var lsymbol = '<span id="link-symbol">#</span>'
+         document.querySelectorAll('h1, h2, h3, h4, h5, h6, h7').forEach(function(h) {
+            var link = '<a class="header-link no-decoration" href="#' + h.id + '">'
+            h.innerHTML =  link + lsymbol + h.innerHTML + '</a>'
+          })
+        </script> -->
+
+      </div>
+    </div>
   </body>
 </html>

@@ -1,25 +1,19 @@
 {{ define "content" }}
-  <div id="frontpage-title">
-    <div class="container">
-      <div class="table-container">
-        <div class="frontpage-section left">
-          <span class="frontpage-title-text-big">
-            IPFS Cluster is a stand-alone application and a CLI Client
-          </span>
-          <span class="frontpage-title-text-normal">
-            to allocate, replicate and track Pins across a cluster of IPFS daemons.
-          </span>
-          <a class="github-button" href="https://github.com/ipfs/ipfs-cluster" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ipfs/ipfs-cluster on GitHub">Star</a>
-          <a class="github-button" href="https://github.com/ipfs/ipfs-cluster/subscription" data-icon="octicon-eye" data-size="large" aria-label="Watch ipfs/ipfs-cluster on GitHub">Watch</a>
-          <a class="github-button" href="https://github.com/ipfs/ipfs-cluster/issues" data-icon="octicon-issue-opened" data-size="large" aria-label="Issue ipfs/ipfs-cluster on GitHub">Issues</a>
-        </div>
-        <div class="frontpage-section right">
-          <img id="cluster-illustration" src="/cluster/svg/cluster_cube_illustr.svg" alt="cluster-illustration" width="329" height="552" />
-        </div>
-      </div>
+
+    <div class="50-left homepage">
+      <h1>IPFS Cluster is a stand-alone application and CLI Client.</h1>
+      <h2>It allocates, replicates, and tracks pins across a cluster of IPFS daemons.</h2>
+      <a class="github-button" href="https://github.com/ipfs/ipfs-cluster" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ipfs/ipfs-cluster on GitHub">Star</a>
+      <a class="github-button" href="https://github.com/ipfs/ipfs-cluster/subscription" data-icon="octicon-eye" data-size="large" aria-label="Watch ipfs/ipfs-cluster on GitHub">Watch</a>
+      <a class="github-button" href="https://github.com/ipfs/ipfs-cluster/issues" data-icon="octicon-issue-opened" data-size="large" aria-label="Issue ipfs/ipfs-cluster on GitHub">Issues</a>
     </div>
-  </div>
-  <div class="container">
-    {{ .Content }}
-  </div>
+
+    <div class="50-right">
+      <img class="cluster-illustration" src="/cluster/svg/cluster_cube_illustr.svg" alt="cluster-illustration" />
+    </div>
+
+    <div class="content">
+      {{ .Content }}
+    </div>
+
 {{ end }}

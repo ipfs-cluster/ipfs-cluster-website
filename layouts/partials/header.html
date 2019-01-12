@@ -4,18 +4,14 @@
 {{ $basePath := $.Scratch.Get "basePath" }}
 
 <header>
-  <div class="container">
-    <div class="table-container">
-      <div class="header-section left">
-        <img alt="ipfs-cluster logo" id="logo" src="/android-chrome-192x192.png"/>
-        <span class="header-title">
-          <!-- <span><a href="{{ $basePath }}"><strong>IPFS</strong>&nbsp;CLUSTER</a></span> -->
-          <span><a href="{{ .Site.BaseURL }}"><strong>IPFS</strong>&nbsp;CLUSTER</a></span>
-        </span>
-      </div>
-      <nav class="header-section right">
-        {{ partial "nav.html" . }}
-      </nav>
-    </div>
+  <div class="header-section left">
+    <img alt="ipfs-cluster logo" id="logo" src="/android-chrome-192x192.png"/>
+    <span class="header-title">
+      <!-- <span><a href="{{ $basePath }}"><strong>IPFS</strong>&nbsp;CLUSTER</a></span> -->
+      <span><a href="{{ .Site.BaseURL }}"><strong>IPFS</strong>&nbsp;CLUSTER</a></span>
+    </span>
   </div>
+  <nav class="header-section right">
+    {{ partial "nav.html" . }}
+  </nav>
 </header>
