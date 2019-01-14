@@ -51,7 +51,7 @@
       "headers": {},
       "cors_allowed_origins": [
         "*"
-      ,]
+      ],
       "cors_allowed_methods": [
         "GET"
       ],
