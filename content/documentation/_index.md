@@ -42,6 +42,7 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 * [Go API (Godoc)](https://godoc.org/github.com/ipfs/ipfs-cluster)
 * [HTTP API reference](developer/api)
 * [RFCs](developer/rfcs)
+* [Release process](developer/release)
 
 ## Documentation bugs
 
