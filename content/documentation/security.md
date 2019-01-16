@@ -40,6 +40,9 @@ Both endpoints support **Basic Authentication** but are unauthenticated by defau
 
 Access to these endpoints allow to fully control IPFS Cluster, so they should be adecuately protected when they are opened up to other than `localhost`. The secure channel provided by the configurable SSL or libp2p endpoint, along with Basic Authentication, allow to safely use these endpoints for remote administration.
 
+The `restapi` configuration offers a number of variables to configure `CORS` headers. By default, `Allow-Origin` is set to `*` and `Allow-Methods` to `GET`. You should verify
+that this configuration is suitable for your needs, application and environment.
+
 ## IPFS and IPFS Proxy endpoints
 
 IPFS Cluster peers communicate with the IPFS daemon (usually running on localhost) via plain, unauthenticated HTTP, using the IPFS HTTP API (by default on `/ip4/127.0.0.1/tcp/9095`.
@@ -47,3 +50,5 @@ IPFS Cluster peers communicate with the IPFS daemon (usually running on localhos
 IPFS Cluster peers also provide an unauthenticated HTTP IPFS Proxy endpoint, controlled by the `ipfshttp.proxy_listen_multiaddress` option which defaults to `/ip4/127.0.0.1/tcp/9095`.
 
 Access to any of these two endpoints imply control of the IPFS daemon and of IPFS Cluster to a certain extent. Thus they run on `localhost` by default.
+
+The IPFS Proxy will attempt to mimic CORS configuration from the IPFS daemon. If your application security depends on CORS, you should configure the IPFS daemon first, and then verify that the responses from hijacked endpoints in the proxy look as expected. `OPTIONS` requests are always proxied to IPFS.
