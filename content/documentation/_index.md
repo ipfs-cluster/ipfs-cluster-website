@@ -11,7 +11,7 @@ aliases = [
 
 Welcome to the IPFS Cluster documentation. This is where you will find user documentation, guides, tutorials, architecture documents and other information about how to use and develop ipfs-cluster.
 
-<div class="tipbox tip">Updated to version <a href="https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md">0.8.0 (see the Changelog)</a>.</div>
+<div class="tipbox tip">Updated to version <a href="https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md">0.9.0 (see the Changelog)</a>.</div>
 
 
 ## User documentation
