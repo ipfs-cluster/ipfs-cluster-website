@@ -65,6 +65,10 @@ The file looks like:
   "informer": {
     "disk": {...},
     "numpin": {...}
+  },
+  "observations": {
+    "metrics": {...},
+    "tracing": {...}
   }
 }
 ```
@@ -288,6 +292,31 @@ The `numpin` informer uses the total number of pins as metric, which collects at
 |:---|:-------|:-----------|
 |`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
 
+
+#### The `observations` section
+
+The `observations` section contains configuration for application distributed tracing and metrics collection.
+
+##### > `metrics`
+
+The `metrics` component configures the OpenCensus metrics endpoint for scraping of metrics by Prometheus.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`enable_stats` | `false` | Whether metrics should be enabled. |
+|`prometheus_endpoint` | `/ip4/0.0.0.0/tcp/8888` | Publish collected metrics to endpoint for scraping by Prometheus. |
+|`reporting_interval` | `"2s"` | How often to report on collected metrics. |
+
+##### > `tracing`
+
+The `tracing` component configures the Jaeger tracing client for use by OpenCensus.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`enable_tracing` | `false` | Whether tracing should be enabled. |
+|`jaeger_agent_endpoint` | `/ip4/0.0.0.0/udp/6831` | Multiaddress to send traces to. |
+|`sampling_prob` | `0.3` | How often to be sampling traces. |
+|`service_name` | `cluster-daemon` | Service name that will be associated with cluster traces. |
 
 
 ###  The `peerstore` file
