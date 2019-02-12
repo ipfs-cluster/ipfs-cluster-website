@@ -34,6 +34,7 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 
 * [Quickstart: Starting, enlarging and shrinking a cluster](quickstart)
 * [Deploying IPFS Cluster to Kubernetes](k8s)
+* [Running Cluster with OpenCensus Tracing and Metrics](opencensus)
 
 ## Developer documentation
 
