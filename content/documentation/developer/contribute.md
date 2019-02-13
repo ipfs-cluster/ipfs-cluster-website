@@ -1,5 +1,8 @@
 +++
 title = "Guidelines for contributing"
+aliases = [
+    "/developer/contribute"
+]
 +++
 
 
