@@ -47,5 +47,6 @@ The `ipfs-cluster-service state` subcommands offers access to utilities to `expo
 * `--debug` enables debug logging from the `ipfs-cluster`, `go-libp2p-raft` and `go-libp2p-rpc` layers. This will be a very verbose log output, but at the same time it is the most informative.
 * `--loglevel` sets the log level (`[error, warning, info, debug]`) for the `ipfs-cluster` only, allowing to get an overview of the what cluster is doing. The default log-level is `info`.
 
+By default, logs are coloured. To disable log colours set the `IPFS_LOGGING_FMT` environment variable to `nocolor`.
 
 ## Next steps: [`ipfs-cluster-ctl`](/documentation/ipfs-cluster-ctl)
