@@ -4,6 +4,7 @@
 [![](https://img.shields.io/badge/project-ipfs-blue.svg?style=flat-square)](https://github.com/ipfs/ipfs)
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](https://webchat.freenode.net/?channels=%23ipfs)
 [![](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
+[![build status](https://img.shields.io/circleci/project/github/ipfs/ipfs-cluster-website/master.svg?style=flat-square)](https://circleci.com/gh/ipfs/ipfs-cluster-website)
 
 > Official website for ipfs-cluster http://cluster.ipfs.io
 
