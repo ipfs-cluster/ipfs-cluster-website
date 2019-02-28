@@ -1,5 +1,4 @@
 DOMAIN="cluster.ipfs.io"
-
 IPFSLOCAL="http://localhost:8080/ipfs/"
 IPFSGATEWAY="https://ipfs.io/ipfs/"
 OUTPUTDIR=public
