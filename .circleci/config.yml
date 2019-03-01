@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: ipfs/ci-websites
         environment:
-          DEBUG: "true"
+#          DEBUG: "true"
     steps:
       - checkout
       - run:
