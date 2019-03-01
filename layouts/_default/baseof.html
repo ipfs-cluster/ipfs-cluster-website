@@ -34,13 +34,7 @@
     <link href="/css/main.css" rel="stylesheet"/>
     <link href="/fonts/fonts.css" rel="stylesheet"/>
     <script async defer src="/buttons.js"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-96910779-7"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-96910779-7');
-    </script>
+    {{ template "_internal/google_analytics.html" . }}
   </head>
   <body>
     {{ partial "header.html" . }}

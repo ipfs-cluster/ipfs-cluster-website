@@ -3,6 +3,12 @@ relativeURLs = true
 sourceRelativeLinksEval = true
 ignoreFiles = [ "\\.less$" ]
 sectionPagesMenu = "main"
+googleAnalytics = "UA-96910779-7"
+
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = true
+    respectDoNotTrack = true
 
 [params]
   # baseurl = "https://cluster.ipfs.io"
