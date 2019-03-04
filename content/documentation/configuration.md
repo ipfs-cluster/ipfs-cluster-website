@@ -77,11 +77,21 @@ The different sections and subsections are documented in detail below.
 
 ### Using environment variables to overwrite configuration values
 
-The options in the main configuration section (`cluster`) and the REST API section (`restapi`) can be overwritten by setting environment variables. i.e. `CLUSTER_SECRET` will overwrite the `secret` value; `CLUSTER_LEAVEONSHUTDOWN` will overwrite the `leave_on_shutdown` value; `CLUSTER_RESTAPI_CORSALLOWEDORIGINS` will overwrite the `restapi.cors_allowed_origins` value.
+All the options in the configuration file can be can be overridden by setting
+environment variables. i.e. `CLUSTER_SECRET` will overwrite the `secret`
+value; `CLUSTER_LEAVEONSHUTDOWN` will overwrite the `leave_on_shutdown` value;
+`CLUSTER_RESTAPI_CORSALLOWEDORIGINS` will overwrite the
+`restapi.cors_allowed_origins` value.
+
+In general the environment variable takes the form
+`CLUSTER_<COMPONENTNAME>_KEYWITHOUTSPACES=value`. Environment variables will
+be applied to the resultant configuration file when generating it with
+`ipfs-cluster-service init`.
 
 #### The `cluster` main section
 
-The main `cluster` section of the configuration file configures the core component and contains the following keys:
+The main `cluster` section of the configuration file configures the core
+component and contains the following keys:
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
@@ -99,7 +109,11 @@ The main `cluster` section of the configuration file configures the core compone
 |`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset and detect if this peer was removed from the cluster. |
 |`disable_repinning` | `false` | Do not automatically re-pin all items allocated to an unhealthy peer. |
 
-The `leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly. This means that, for any subsequent starts, the peer will need to be [bootstrapped](/documentation/starting/#bootstrapping-a-peer) to the existing Cluster in order to re-join it.
+The `leave_on_shutdown` option allows a peer to remove itself from the
+*peerset* when shutting down cleanly. This means that, for any subsequent
+starts, the peer will need to be
+[bootstrapped](/documentation/starting/#bootstrapping-a-peer) to the existing
+Cluster in order to re-join it.
 
 ##### Manually generating a cluster secret
 

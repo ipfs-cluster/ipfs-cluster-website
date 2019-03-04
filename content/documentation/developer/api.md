@@ -25,7 +25,9 @@ This table provides a quick summary of methods available:
 |`POST`      |`/pins/sync`          |Sync local status from IPFS|
 |`GET`       |`/pins/{cid}`         |Local status of single CID|
 |`POST`      |`/pins/{cid}`         |Pin a CID|
+|`POST`      |`/pins/{ipfs|ipns|ipld}/<path>|Pin an IPFS path|
 |`DELETE`    |`/pins/{cid}`         |Unpin a CID|
+|`DELETE`    |`/pins/{ipfs|ipns|ipld}/<path>|Unpin an IPFS path|
 |`POST`      |`/pins/{cid}/sync`    |Sync a CID|
 |`POST`      |`/pins/{cid}/recover` |Recover a CID|
 |`POST`      |`/pins/recover`       |Recover all pins in the receiving Cluster peer|
