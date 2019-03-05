@@ -84,7 +84,7 @@ value; `CLUSTER_LEAVEONSHUTDOWN` will overwrite the `leave_on_shutdown` value;
 `restapi.cors_allowed_origins` value.
 
 In general the environment variable takes the form
-`CLUSTER_<COMPONENTNAME>_KEYWITHOUTSPACES=value`. Environment variables will
+`CLUSTER_<COMPONENTNAME>_KEYWITHOUTUNDERSCORES=value`. Environment variables will
 be applied to the resultant configuration file when generating it with
 `ipfs-cluster-service init`.
 

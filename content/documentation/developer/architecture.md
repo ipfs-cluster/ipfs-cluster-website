@@ -22,7 +22,7 @@ IPFS Cluster consists of:
 
   * The definitions of components and their interfaces and related types (`ipfscluster.go`)
   * The **Cluster** main-component which binds together the whole system and offers the Go API (`cluster.go`). This component takes an arbitrary:
-    * **API** (multiple): a component which offers a public facing API. Default: `restapi`, `ipfsproxy`
+    * **API** (multiple): components which offer a public-facing APIs. Default: `restapi`, `ipfsproxy`
     * **IPFSConnector**: a component which talks to the IPFS daemon and provides a proxy to it. Default: `ipfshttp`
     * **PinTracker**: a component which tracks the pin set, makes sure that it is persisted by IPFS daemon as intended. Default: `maptracker`
     * **PeerMonitor**: a component to log metrics and detect peer failures. Default: `pubsubmon`
