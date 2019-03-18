@@ -1,6 +1,7 @@
 +++
 title = "Download"
 weight = 30
+aliases = ["/documentation/download/"]
 +++
 
 
