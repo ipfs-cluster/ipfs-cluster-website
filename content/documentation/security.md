@@ -10,7 +10,7 @@ There are four types of endpoins in IPFS Cluster to be taken into account when p
 
 ## Quick overview
 
-  * Cluste swarm: `tcp:9096` is used by the Cluster swarm and protected by the *shared secret*. It is OK to expose this port, as the secret acts as password to interact with it.
+  * Cluster swarm: `tcp:9096` is used by the Cluster swarm and protected by the *shared secret*. It is OK to expose this port, as the secret acts as password to interact with it.
   * HTTP API: `tcp:9094` can be exposed when [enabling SSL and setting up basic authentication](https://cluster.ipfs.io/documentation/configuration/#restapi)
   * libp2p-HTTP API: when using an alternative [libp2p host](https://cluster.ipfs.io/documentation/configuration/#restapi), for the api, the `libp2p_listen_multiaddress` can be exposed when basic authentication is enabled.
   * IPFS API: `tcp:5001` is the API of the IPFS daemon and should not be exposed to other than `localhost`.
