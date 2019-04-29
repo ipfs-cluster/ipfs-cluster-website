@@ -1,19 +1,18 @@
 {{ define "content" }}
 
-    <div class="50-left homepage">
-      <h1>IPFS Cluster is a stand-alone application and CLI Client.</h1>
-      <h2>It allocates, replicates, and tracks pins across a cluster of IPFS daemons.</h2>
+    <div class="pb3 pb4-ns pt4 pt5-ns fl-l w-50-l">
+      <h1 class="f2 fw6 f1-ns lh-1_1 measure mt0 sky">
+        IPFS Cluster is a stand-alone application and a CLI Client.
+      </h1>
+      <h2 class="f4 f4-ns fw4 lh-1_3 b measure dib-m lh-copy arctic-teal">
+        It allocates, replicates, and tracks pins across a cluster of IPFS daemons.
+      </h2>
       <a class="github-button" href="https://github.com/ipfs/ipfs-cluster" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ipfs/ipfs-cluster on GitHub">Star</a>
       <a class="github-button" href="https://github.com/ipfs/ipfs-cluster/subscription" data-icon="octicon-eye" data-size="large" aria-label="Watch ipfs/ipfs-cluster on GitHub">Watch</a>
       <a class="github-button" href="https://github.com/ipfs/ipfs-cluster/issues" data-icon="octicon-issue-opened" data-size="large" aria-label="Issue ipfs/ipfs-cluster on GitHub">Issues</a>
     </div>
-
-    <div class="50-right">
-      <img class="cluster-illustration" src="/cluster/svg/cluster_cube_illustr.svg" alt="cluster-illustration" />
-    </div>
-
-    <div class="content">
-      {{ .Content }}
+    <div class="fl-l w-50-l tl tc-ns">
+      <img class="cluster-illustration" src="/cluster/svg/cluster_cube_illustr.svg" alt="Cluster Illustration" />
     </div>
 
 {{ end }}

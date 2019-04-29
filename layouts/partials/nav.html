@@ -1,5 +1,26 @@
-{{ $currentPage := . }}
-{{ range .Site.Menus.main }}
-<a class="nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}" href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
-{{ end }}
-<a target="_blank" href="{{ .Site.Params.Github }}" class="nav-link">Github</a>
+
+
+<!-- <nav class="nav-test">
+    <ul>
+        <li><a href="#">Page 1</a></li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3 is longer</a></li>
+        <li class="push-right"><a href="#">Page 4</a></li>
+    </ul>
+
+    <a href="#">Page 1</a>
+    <a href="#">Page 2</a>
+    <a href="#">Page 3 is longer</a>
+    <a href="#">Page 4</a>
+</nav> -->
+
+
+<!-- <nav>
+  <ul class="nav-ul">
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main }}
+    <li><a class="nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}" href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a></li>
+    {{ end }}
+    <li class="push-right"><a target="_blank" href="{{ .Site.Params.Github }}" class="nav-link">Github</a></li>
+  </ul>
+</nav> -->

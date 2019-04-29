@@ -36,25 +36,131 @@
     <link rel="stylesheet" href="/fonts/fonts.css"/>
     <script async defer src="/buttons.js"></script>
   </head>
-  <body>
-    <div class="container">
-      <div class="grid">
 
-        {{ partial "header.html" . }}
+<body class="w-100 bg-dark_blue">
 
-        {{ block "content" . }}{{ end }}
+  {{ partial "header.html" . }}
+  
+  <div class="ph3 ph5-ns">
+    <div class="cf mw9 center tc-m">
+      <!--<div class="fl w-100 overflow-auto v-top">
+        block content
+      </div>-->
+      {{ block "content" . }}{{ end }}
+    </div>
+  </div>
 
-        {{ partial "footer.html" . }}
+  <article class="bt b--black-10 bg-washed-blue black-70 ph3 ph5-ns pv4 pv5-ns" id="getting-started">
+    <div class="mw9 center">
+    <h1 class="mt0 f5 f3-ns">Getting Started</h1>
+    <p class="f5 measure lh-copy">
+      Copy the line of code below and paste it in the head of the html file(s) you want to include tachyons in.
+    </p>
+  <pre class="pre black-70" style="overflow: auto"><code class="code f6 dib pa2 bg-black-70 washed-green" style="font-size: 14px;">&lt;link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/&gt;</code></pre>
+  <p class="mt4"><b>or</b> install via npm</p>
+  <pre class="pre black-70" style="overflow: auto"><code class="code f6 dib pa2 bg-black-70 washed-green" style="font-size: 14px;">npm install --save-dev tachyons@4.10.0</code></pre>
+  <p class="mt4"><b>or</b> grab all the source files and build+develop locally</p>
+  <pre class="pre" style="overflow: auto"><code class="code f6 dib pa2 bg-black-70 washed-green" style="font-size: 14px;">git clone git@github.com:tachyons-css/tachyons.git
+  cd tachyons
+  npm install &amp;&amp; npm start
+  </code></pre>
+  <h3 class="f5 f3-ns mt4 fw6">Prototyping template</h3>
+  <p class="lh-copy measure f6">
+    This template is always linked to the most up to date version of Tachyons.
+    Save this file to your computer to start prototyping right away without worrying
+    about setting up a dev environment. You can open the file in a web browser and view
+    your changes.
+  </p>
+  <div class="overflow-auto">
+  <code class="pre f6">
+  &lt;!DOCTYPE html&gt;
+  &lt;html lang="en"&gt;
+    &lt;title&gt; &lt;/title&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    &lt;link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css"&gt;
+    &lt;body&gt;
 
-        <!-- <script>
-         var lsymbol = '<span id="link-symbol">#</span>'
-         document.querySelectorAll('h1, h2, h3, h4, h5, h6, h7').forEach(function(h) {
-            var link = '<a class="header-link no-decoration" href="#' + h.id + '">'
-            h.innerHTML =  link + lsymbol + h.innerHTML + '</a>'
-          })
-        </script> -->
+    &lt;/body&gt;
+  &lt;/html&gt;
+  </code>
+  </div>
 
+  <section class="bt b--black-10 pv5 mt5 cf">
+    <div class="fl-l w-100 w-50-l pr4-ns">
+      <h3 class="f5 f3-ns mt0">Start a New Project</h3>
+      <p class="f6 f5-ns measure lh-copy mb4 mt0">
+        Get setup and running with this ~7 minute screencast. Download the
+        project and learn how to customize the tachyons source files and
+        recompile the css using the postcss build system.
+      </p>
+    </div>
+    <div class="fl-l w-100 w-50-l">
+      <div class="aspect-ratio aspect-ratio--8x5">
+        <iframe class="aspect-ratio--object" src="https://player.vimeo.com/video/174698456" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
       </div>
     </div>
-  </body>
+  </section>
+  </div>
+            </article>
+            <div class="tl bt b--black-10 pa3 pa5-ns bg-lightest-blue navy" id="principles">
+              <div class="mw9 center">
+                <h1 class="f5 ttu tracked fw6">Principles</h1>
+                <section class="lh-copy">
+                  <div class="cf">
+                    <article class="fl pv2 w-100 w-third-l pr4-l">
+                      <h2 class="f5 f4-ns fw6 mb0">Responsive</h2>
+                      <p class="f6 f5-ns measure lh-copy mt0">
+                        Everything should be 100% responsive. Your website should work regardless of a user’s
+                        device or screensize.
+                      </p>
+                    </article>
+                    <article class="pv2 fl w-100 w-third-l ph3-l">
+                      <h2 class="f5 f4-ns fw6 mb0">Readable</h2>
+                      <p class="f6 f5-ns measure lh-copy mt0">
+                        No matter the lighting, or the device, font-sizes should be
+                        large enough and contrast should be high enough for your
+                        users to easily read your content.
+                      </p>
+                    </article>
+                    <article class="pv2 fl w-100 w-third-l pl4-l">
+                      <h2 class="f5 f4-ns  fw6 mb0">
+                        Modular
+                      </h2>
+                      <p class="f6 f5-ns measure lh-copy mt0">
+                        Tachyons isn’t just a monolithic framework. It’s a collection of small modules
+                        that can be mixed and matched or used independently. Use what you need. Leave the rest.
+                      </p>
+                    </article>
+  </div>
+  <div class="cf w-100">
+                    <article class="pv2 fl w-100 w-third-l pl0 pr4-l">
+                      <h2 class="f5 f4-ns fw6 mb0">Accessible</h2>
+                      <p class="f6 f5-ns measure lh-copy mt0">
+                        Accessibility is important to us. Throughout both the css
+                        and the documentation we provide numerous tools and methods for making it
+                        easier to maximize the accessibility of your site.
+                      </p>
+                    </article>
+                    <article class="pv2 fl w-100 w-third-l ph3-l">
+                      <h2 class="f5 f4-ns  fw6 mb0">Performant</h2>
+                      <p class="f6 f5-ns measure lh-copy mt0">
+                        Code should be optimized for performance.
+                      </p>
+                    </article>
+                    <article class="pv2 fl w-100 w-third-l pl4-l">
+                      <h2 class="f5 f4-ns fw6 mb0">
+                        Reusable
+                      </h2>
+                      <p class="f6 f5-ns measure lh-copy mt0">
+                        Clear documentation helps create a shared understanding of design patterns amongst your team.
+                        This helps promote reuse and reduces the amount of redundancy in a codebase.
+                      </p>
+                    </article>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+
+</body>
 </html>
