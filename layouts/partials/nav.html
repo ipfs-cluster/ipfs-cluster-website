@@ -1,26 +1,9 @@
-
-
-<!-- <nav class="nav-test">
-    <ul>
-        <li><a href="#">Page 1</a></li>
-        <li><a href="#">Page 2</a></li>
-        <li><a href="#">Page 3 is longer</a></li>
-        <li class="push-right"><a href="#">Page 4</a></li>
-    </ul>
-
-    <a href="#">Page 1</a>
-    <a href="#">Page 2</a>
-    <a href="#">Page 3 is longer</a>
-    <a href="#">Page 4</a>
-</nav> -->
-
-
-<!-- <nav>
-  <ul class="nav-ul">
+<nav class="db dtc-l v-mid w-100 tl tr-ns mt2 mt0-ns">
+  <ul class="mb0 ml0 list">
     {{ $currentPage := . }}
     {{ range .Site.Menus.main }}
-    <li><a class="nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}" href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a></li>
+    <li class="dib nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}"><a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a></li>
     {{ end }}
-    <li class="push-right"><a target="_blank" href="{{ .Site.Params.Github }}" class="nav-link">Github</a></li>
+    <li class="dib nav-link"><a target="_blank" href="{{ .Site.Params.Github }}">Github</a></li>
   </ul>
-</nav> -->
+</nav>

@@ -15,14 +15,6 @@
           </div>
         </a>
       </div>
-      <nav class="db dtc-l v-mid w-100 tl tr-ns mt2 mt0-ns">
-        <ul class="mb0 ml0 list">
-          {{ $currentPage := . }}
-          {{ range .Site.Menus.main }}
-          <li class="dib nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}"><a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a></li>
-          {{ end }}
-          <li class="dib nav-link"><a target="_blank" href="{{ .Site.Params.Github }}">Github</a></li>
-        </ul>
-      </nav>
+      {{ partial "nav.html" . }}
     </div>
   </header>
