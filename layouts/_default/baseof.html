@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
 
+<!-- This file is for defining anything that is an unchanging 'shell' for all pages -->
+<!-- Changing sections/layout/content will appear in the MAIN block -->
+
   <head>
     <meta charset="UTF-8"/>
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
@@ -42,22 +45,6 @@
     {{ partial "header.html" . }}
 
     {{ block "main" . }}
-
-      <div class="ph3 ph5-ns">
-        <div class="cf mw9 center tc-m">
-          {{ block "content" . }}{{ end }}
-        </div>
-      </div> <!-- END HERO -->
-
-      <div class="bt b--black-10 bg-washed-blue black-70 ph3 ph5-ns pv4 pv5-ns">
-        <div class="mw9 center">
-
-          {{ .Content }}
-
-          {{ partial "footer.html" . }}
-
-        </div>
-      </div>
 
     {{ end }}
 
