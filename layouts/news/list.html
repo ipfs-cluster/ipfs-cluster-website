@@ -1,14 +1,23 @@
-{{ define "content" }}
-<div class="container">
-  {{ .Content }}
+{{ define "main" }}
 
-  <ul>
-    {{ range .Paginator.Pages.ByDate.Reverse }}
-    <li>
-      <a href="{{ .URL }}">
-        {{ .Date.Format "2006-01-02" }} - {{ .Title }} | {{ .Params.author }}
-      </a>
-    </li>
-  {{ end }}
+<div class="bt b--black-10 bg-washed-blue black-70 ph3 ph5-ns pb4 pb5-ns">
+  <div class="mw9 center">
+
+    {{ .Content }}
+
+    <ul>
+      {{ range .Paginator.Pages.ByDate.Reverse }}
+      <li>
+        <a href="{{ .URL }}">
+          {{ .Date.Format "2006-01-02" }} - {{ .Title }} | {{ .Params.author }}
+        </a>
+      </li>
+      {{ end }}
+    </ul>
+
+    {{ partial "footer.html" . }}
+
+  </div>
 </div>
+
 {{ end }}
