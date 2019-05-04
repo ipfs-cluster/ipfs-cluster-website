@@ -1,5 +1,8 @@
 +++
 title = "Guidelines for contributing"
+aliases = [
+    "/developer/contribute"
+]
 +++
 
 
@@ -40,24 +43,6 @@ In practice, these are our soft standards:
 * Code coverage must be stable or increase
 * We prefer meaningul branch names: `feat/`, `fix/`...
 * We prefer commit messages which reference an issue `fix #999: ...`
-* The commit message should end with the following trailers :
-
-  ```
-  License: MIT
-  Signed-off-by: User Name <email@address>
-  ```
-
-  where "User Name" is the author's real (legal) name and
-  email@address is one of the author's valid email addresses.
-
-  These trailers mean that the author agrees with the 
-  [developer certificate of origin](/developer-certificate-of-origin.txt)
-  and with licensing the work under the [MIT license](https://github.com/ipfs/ipfs-cluster/blob/master/LICENSE).
-
-  To help you automatically add these trailers, you can run the
-  [setup_commit_msg_hook.sh](https://raw.githubusercontent.com/ipfs/community/master/dev/hooks/setup_commit_msg_hook.sh)
-  script which will setup a Git commit-msg hook that will add the above
-  trailers to all the commit messages you write.
 
 
 These are just guidelines. We are friendly people and are happy to help :)

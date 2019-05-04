@@ -3,9 +3,15 @@ relativeURLs = true
 sourceRelativeLinksEval = true
 ignoreFiles = [ "\\.less$" ]
 sectionPagesMenu = "main"
+googleAnalytics = "UA-96910779-7"
+
+[privacy]
+  [privacy.googleAnalytics]
+    anonymizeIP = true
+    respectDoNotTrack = true
 
 [params]
-  baseurl = "https://cluster.ipfs.io"
+  # baseurl = "https://cluster.ipfs.io"
   name = "IPFS CLUSTER"
   title = "IPFS CLUSTER"
   description = "Pinset orchestration for IPFS"
