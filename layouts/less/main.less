@@ -164,6 +164,12 @@ a:active {
   color: @active;
 }
 
+a.no-decoration, a.no-decoration:hover,
+a.no-decoration:visited, a.no-decoration:active {
+  text-decoration: none;
+  color: @primary;
+}
+
 ul, ol {
   margin-bottom: @padding;
   margin-left: calc(@padding * 2);
@@ -209,6 +215,13 @@ blockquote {
   h1,h2,h3,h4,h5 { margin: 0; }
 }
 
+hr {
+    border: 0;
+    height: 1px;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+
 code, pre {
   font-family: 'Source Code Pro',monospace;
   font-size: 13px;
@@ -234,69 +247,45 @@ pre {
   margin-bottom: 20px;
   margin-left: 20px;
   margin-right: 20px;
-  white-space: pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
-  word-wrap: break-word;
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
   font-size: 13px;
   line-height: 18px;
 }
 
+table {
+    border-collapse: collapse;
+    margin-bottom: 30px;
+    border-bottom: 1px solid @altcolor;
+    width: 100%;
 
-/* Layout */
-.container {
-  display: flex;
-  justify-content: center;
+    td {
+        vertical-align: top;
+        padding-top: 6px;
+        padding-right: 10px;
+        padding-bottom: 6px;
+    }
+
+    th {
+        border-bottom: 1px solid @altcolor;
+        font-size: 12px;
+        font-weight: 400;
+        padding: 3px;
+        margin: 0;
+        text-transform: uppercase;
+    }
 }
 
-.grid {
-    display: grid;
-    grid-gap: 1em;
-    grid-template-columns: 1fr 14fr 1fr;
-    grid-template-areas:
-     ". header ."
-     ". intro-words ."
-     ". intro-illustration ."
-     ". content ."
-     ". footer ."
-}
-
-@media only screen and (min-width: 500px) {
-  .grid {
-      grid-template-columns: 1fr 7fr 7fr 1fr;
-      grid-template-areas:
-        ". header header ."
-        ". intro-words intro-illustration ."
-        ". content content ."
-        ". footer footer .";
-  }
-}
-
-.header {
-  grid-area: header;
-}
-
-.intro-words {
-    grid-area: intro-words;
-}
-
-.intro-illustration {
-    grid-area: intro-illustration;
-}
-
-.content {
-  grid-area: content;
-}
-
-footer {
-    grid-area: footer;
+.table-container {
+    display: table;
+    width: 100%;
 }
 
 /* Header */
-
 header {
-    display: flex;
     align-items: center;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -322,7 +311,6 @@ header {
 }
 
 /* Nav */
-
 .nav-ul {
   list-style: none;
   margin-bottom: 0;
@@ -345,16 +333,13 @@ header {
   color: @hover;
 }
 
-
 /* Homepage */
-
 .homepage {
   h1 {
     color: @sky;
     font-size: 60px;
     line-height: 1.1;
     font-weight: 700;
-    //text-transform: uppercase;
   }
 
   h2 {
@@ -374,6 +359,7 @@ header {
     margin-top: 20px;
 }
 
+/* Modules */
 .tipbox {
     padding: 10px;
     margin: auto @padding @padding @padding;
@@ -407,32 +393,6 @@ header {
     }
 }
 
-hr {
-    border: 0;
-    height: 1px;
-    background: #333;
-    background-image: linear-gradient(to right, #ccc, #333, #ccc);
-}
-
-a.no-decoration, a.no-decoration:hover,
-a.no-decoration:visited, a.no-decoration:active {
-  text-decoration: none;
-  color: @primary;
-}
-
-pre {
-  white-space: pre-wrap;       /* css-3 */
-  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-  white-space: -pre-wrap;      /* Opera 4-6 */
-  white-space: -o-pre-wrap;    /* Opera 7 */
-  word-wrap: break-word;       /* Internet Explorer 5.5+ */
-}
-
-.table-container {
-    display: table;
-    width: 100%;
-}
-
 /* Footer */
 footer {
     border-top: 1px solid @arctic-teal;
@@ -445,28 +405,5 @@ footer {
 
     .nav-link {
       color: @primary;
-    }
-}
-
-table {
-    border-collapse: collapse;
-    margin-bottom: 30px;
-    border-bottom: 1px solid @altcolor;
-    width: 100%;
-
-    td {
-        vertical-align: top;
-        padding-top: 6px;
-        padding-right: 10px;
-        padding-bottom: 6px;
-    }
-
-    th {
-        border-bottom: 1px solid @altcolor;
-        font-size: 12px;
-        font-weight: 400;
-        padding: 3px;
-        margin: 0;
-        text-transform: uppercase;
     }
 }
