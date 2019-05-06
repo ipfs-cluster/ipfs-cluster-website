@@ -11,7 +11,7 @@ aliases = [
 
 Welcome to the IPFS Cluster documentation. This is where you will find user documentation, guides, tutorials, architecture documents and other information about how to use and develop ipfs-cluster.
 
-<div class="tipbox tip">Updated to version <a href="https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md">0.7.0 (see the Changelog)</a>.</div>
+<div class="tipbox tip">Updated to version <a href="https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md">0.10.1 (see the Changelog)</a>.</div>
 
 
 ## User documentation
@@ -34,6 +34,7 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 
 * [Quickstart: Starting, enlarging and shrinking a cluster](quickstart)
 * [Deploying IPFS Cluster to Kubernetes](k8s)
+* [Running Cluster with OpenCensus Tracing and Metrics](opencensus)
 
 ## Developer documentation
 
@@ -42,6 +43,7 @@ Welcome to the IPFS Cluster documentation. This is where you will find user docu
 * [Go API (Godoc)](https://godoc.org/github.com/ipfs/ipfs-cluster)
 * [HTTP API reference](developer/api)
 * [RFCs](developer/rfcs)
+* [Release process](developer/release)
 
 ## Documentation bugs
 

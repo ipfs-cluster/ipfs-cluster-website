@@ -37,7 +37,7 @@ You can launch a single-peer cluster using this file, but launching a multi-peer
 
 <div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
-As an example, [this is a default `service.json` configuration file](/0.4.0_service.json).
+As an example, [this is a default `service.json` configuration file](/0.8.0_service.json).
 
 The file looks like:
 
@@ -48,6 +48,7 @@ The file looks like:
     "raft": {...},
   },
   "api": {
+    "ipfsproxy": {...},
     "restapi": {...}
   },
   "ipfs_connector": {
@@ -64,6 +65,10 @@ The file looks like:
   "informer": {
     "disk": {...},
     "numpin": {...}
+  },
+  "observations": {
+    "metrics": {...},
+    "tracing": {...}
   }
 }
 ```
@@ -72,12 +77,21 @@ The different sections and subsections are documented in detail below.
 
 ### Using environment variables to overwrite configuration values
 
-The options in the main configuration section (`cluster`) can be overwritten by setting environment variables. i.e. `CLUSTER_SECRET` will overwrite the `secret` value and `CLUSTER_LEAVEONSHUTDOWN` will overwrite the `leave_on_shutdown` value.
+All the options in the configuration file can be can be overridden by setting
+environment variables. i.e. `CLUSTER_SECRET` will overwrite the `secret`
+value; `CLUSTER_LEAVEONSHUTDOWN` will overwrite the `leave_on_shutdown` value;
+`CLUSTER_RESTAPI_CORSALLOWEDORIGINS` will overwrite the
+`restapi.cors_allowed_origins` value.
 
+In general the environment variable takes the form
+`CLUSTER_<COMPONENTNAME>_KEYWITHOUTUNDERSCORES=value`. Environment variables will
+be applied to the resultant configuration file when generating it with
+`ipfs-cluster-service init`.
 
 #### The `cluster` main section
 
-The main `cluster` section of the configuration file configures the core component and contains the following keys:
+The main `cluster` section of the configuration file configures the core
+component and contains the following keys:
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
@@ -95,7 +109,11 @@ The main `cluster` section of the configuration file configures the core compone
 |`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset and detect if this peer was removed from the cluster. |
 |`disable_repinning` | `false` | Do not automatically re-pin all items allocated to an unhealthy peer. |
 
-The `leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly. This means that, for any subsequent starts, the peer will need to be [bootstrapped](/documentation/starting/#bootstrapping-a-peer) to the existing Cluster in order to re-join it.
+The `leave_on_shutdown` option allows a peer to remove itself from the
+*peerset* when shutting down cleanly. This means that, for any subsequent
+starts, the peer will need to be
+[bootstrapped](/documentation/starting/#bootstrapping-a-peer) to the existing
+Cluster in order to re-join it.
 
 ##### Manually generating a cluster secret
 
@@ -160,7 +178,7 @@ The `api` section contains configurations for the implementations of the API com
 
 ##### > `restapi`
 
-This is the default and only API implementation available. It provides a REST API to interact with Cluster.
+This is the component which provides the REST API implementation to interact with Cluster.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
@@ -169,15 +187,40 @@ This is the default and only API implementation available. It provides a REST AP
 |`ssl_key_file` | `""` | Path to a SSL private key file. Enables SSL on the HTTP endpoint. Unless an absolute path, relative to config folder. |
 |`read_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
 |`read_header_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
-|`write_timeout` | `"00s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
+|`write_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
 |`idle_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
 |`libp2p_listen_multiaddress` | `""` | A listen multiaddress for the alternative libp2p host. See below. |
 |`id` | `""` | A peer ID for the alternative libp2p host (must match `private_key`). See below. |
 |`private_key` | `""` | A private key for the alternative libp2p host (must match `id`). See below. |
 |`basic_auth_credentials` | `null` | An object mapping `"username"` to `"password"`. It enables Basic Authentication for the API. Should be used with SSL-enabled or libp2p-endpoints. |
-|`headers` | GET * CORS Headers | A key-values map of headers the API endpoint should return with each response. i.e. `"headers": {"header_name": [ "v1", "v2" ] }`. It comes initialized by default to support CORs values so that things like the IPFS GUI can interact with Cluster too.
+|`headers` | `null` | A `key: [values]` map of headers the API endpoint should return with each response to `GET`, `POST`, `DELETE` requests. i.e. `"headers": {"header_name": [ "v1", "v2" ] }`. Do not place CORS headers here, as they are fully handled by the options below. |
+|`cors_allowed_origins`| `["*"]` | CORS Configuration: values for `Access-Control-Allow-Origin`. |
+|`cors_allowed_methods`| `["GET"]` | CORS Configuration: values for `Access-Control-Allow-Methods`. |
+|`cors_allowed_headers`| `[]` | CORS Configuration: values for `Access-Control-Allow-Headers`. |
+|`cors_exposed_headers`| `["Content-Type", "X-Stream-Output", "X-Chunked-Output", "X-Content-Length"]` | CORS Configuration: values for `Access-Control-Expose-Headers`. |
+|`cors_allow_credentials`|  `true` | CORS Configuration: value for `Access-Control-Allow-Credentials`. |
+|`cors_max_age`|  `"0s"` | CORS Configuration: value for `Access-Control-Max-Age`. |
 
 The REST API component automatically, and additionally, exposes the HTTP API as a libp2p service on the main libp2p cluster Host (which listens on port `9096`). Exposing the HTTP API as a libp2p service allows users to benefit from the channel encryption provided by libp2p. Alternatively, the API supports specifying a fully separate libp2p Host by providing `id`, `private_key` and `libp2p_listen_multiaddress`. When using a separate Host, it is not necessary for an API consumer to know the cluster secret. Both the HTTP and the libp2p endpoints are supported by the [API Client](https://godoc.org/github.com/ipfs/ipfs-cluster/api/rest/client) and by [`ipfs-cluster-ctl`](/documentation/ipfs-cluster-ctl/).
+
+##### > `ipfsproxy`
+
+This component provides the IPFS Proxy Endpoint. This is an API which mimics the IPFS daemon. Some requests (pin, unpin, add) are hijacked and handled by Cluster. Others are simply forwarded to the IPFS daemon specified by `node_multiaddress`. The component is by default configured to mimic CORS headers configurations as present in the IPFS daemon. For
+that it triggers accessory requests to them (like CORS preflights).
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The listen addres of the IPFS daemon API. |
+|`listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | The proxy endpoint listening address. |
+|`node_https` | `false` | Use HTTPS to talk to the IPFS API endpoint (experimental). |
+|`read_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
+|`read_header_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`write_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
+|`idle_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
+|`extract_headers_extra` | `[]` | If additional headers need to be extracted from the IPFS daemon and used in hijacked requests responses, they can be added here. |
+|`extract_headers_path` | `"/api/v0/version"` | When extracting headers, a request to this path in the IPFS API is made. |
+|`extract_headers_ttl` | `"5m"` | The extracted headers from `extract_headers_path` have a TTL. They will be remembered and only refreshed after the TTL. |
+
 
 #### The `ipfs_connector` section
 
@@ -189,13 +232,9 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`proxy_listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | IPFS Proxy listen multiaddress. |
+|`listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | IPFS Proxy listen multiaddress. |
 |`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The IPFS daemon HTTP API endpoint. This is the daemon that the peer uses to pin content. |
 |`connect_swarms_delay` | `"30s"` | On start, the Cluster Peer will run `ipfs swarm connect` to the IPFS daemons of others peers. This sets the delay after starting up. |
-|`proxy_read_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . |
-|`proxy_read_header_timeout` | `"5s"` | Parameters for https://godoc.org/net/http#Server . |
-|`proxy_write_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . |
-|`proxy_idle_timeout` | `"1m"` | Parameters for https://godoc.org/net/http#Server . |
 |`pin_method` | `"refs"` | `refs` or `pin`. `refs` allows to fetch pins in parallel, but it's incompatible with automatic GC. `refs` only makes sense with `concurrent_pins` set to something > 1 in the `pin_tracker` section. `pin` only allows to fetch one thing at a time. |
 |`ipfs_request_timeout` | `"5m0s"` | Specifies a timeout on general requests to the IPFS daemon. |
 |`pin_timeout` | `"24h0m0s"` | Specifies the timeout for `pin/add` requests to the IPFS daemon. |
@@ -267,6 +306,31 @@ The `numpin` informer uses the total number of pins as metric, which collects at
 |:---|:-------|:-----------|
 |`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
 
+
+#### The `observations` section
+
+The `observations` section contains configuration for application distributed tracing and metrics collection.
+
+##### > `metrics`
+
+The `metrics` component configures the OpenCensus metrics endpoint for scraping of metrics by Prometheus.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`enable_stats` | `false` | Whether metrics should be enabled. |
+|`prometheus_endpoint` | `/ip4/0.0.0.0/tcp/8888` | Publish collected metrics to endpoint for scraping by Prometheus. |
+|`reporting_interval` | `"2s"` | How often to report on collected metrics. |
+
+##### > `tracing`
+
+The `tracing` component configures the Jaeger tracing client for use by OpenCensus.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`enable_tracing` | `false` | Whether tracing should be enabled. |
+|`jaeger_agent_endpoint` | `/ip4/0.0.0.0/udp/6831` | Multiaddress to send traces to. |
+|`sampling_prob` | `0.3` | How often to be sampling traces. |
+|`service_name` | `cluster-daemon` | Service name that will be associated with cluster traces. |
 
 
 ###  The `peerstore` file

@@ -31,9 +31,7 @@ Responses from the proxy mimic the IPFS daemon responses, thus allowing to drop-
 * `ipfs --api /ip4/127.0.0.1/tcp/9095 pin rm <cid>`
 * `ipfs --api /ip4/127.0.0.1/tcp/9095 pin ls`
 
-The responses would come from cluster, not from `go-ipfs`.
-
-Note that the intercepted endpoints aim to mimic the format and response code from IPFS, but they may lack headers. If you encounter a problem, open an issue so we can address it.
+The responses would come from cluster, not from `go-ipfs`. The intercepted endpoints aim to mimic the format, headers and response codes from IPFS. If you have custom headers configured in IPFS, you will need to add their names them to the `ipfsproxy.extract_headers_extra` configuration option.
 
 ## A Cluster of Clusters
 

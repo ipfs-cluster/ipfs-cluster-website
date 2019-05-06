@@ -22,14 +22,14 @@ IPFS Cluster consists of:
 
   * The definitions of components and their interfaces and related types (`ipfscluster.go`)
   * The **Cluster** main-component which binds together the whole system and offers the Go API (`cluster.go`). This component takes an arbitrary:
-    * **API**: a component which offers a public facing API. Default: `RESTAPI`
+    * **API** (multiple): components which offer a public-facing APIs. Default: `restapi`, `ipfsproxy`
     * **IPFSConnector**: a component which talks to the IPFS daemon and provides a proxy to it. Default: `ipfshttp`
-    * **State**: a component which keeps a list of Pins (maintained by the Consensus component). Default: `mapstate`
     * **PinTracker**: a component which tracks the pin set, makes sure that it is persisted by IPFS daemon as intended. Default: `maptracker`
     * **PeerMonitor**: a component to log metrics and detect peer failures. Default: `pubsubmon`
     * **PinAllocator**: a component to decide which peers should pin a CID given some metrics. Default: `descendalloc`
     * **Informer**: a component to collect metrics which are used by the `PinAllocator` and the `PeerMonitor`. Default: `disk`
-  * The **Consensus** component. The consensus component uses `go-libp2p-raft` via `go-libp2p-consensus`. While it is attempted to be agnostic from the underlying consensus implementation, it is not possible in all places. These places are however well marked (everything that calls `Leader()`). Default: `raft`.
+    * The **Consensus** component. The default consensus component uses `go-libp2p-raft` via `go-libp2p-consensus`. Default: `raft`.
+    * **Tracer**: a component to manage exporting metrics and tracing.
 
 Components perform a number of functions and need to be able to communicate with eachothers: i.e.:
 
@@ -49,7 +49,7 @@ On the down-side, the RPC API involves "reflect" magic and it is not easy to ver
 
 ## Code layout
 
-Components are organized in different submodules (i.e. `pintracker/maptracker` represents component `PinTracker` and implementation `MapPinTracker`). Interfaces for all components are on the base module. Executables (`ipfs-cluster-service` and `ipfs-cluster-ctl` are also submodules to the base module).
+Components are organized in different submodules (i.e. `pintracker/maptracker` represents component `PinTracker` and implementation `MapPinTracker`). Interfaces for all components are on the base module. Executables (`ipfs-cluster-service` and `ipfs-cluster-ctl` are also submodules.
 
 ## Configuration
 

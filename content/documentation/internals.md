@@ -6,7 +6,7 @@ title = "Internals"
 
 This sections provides insights into the IPFS cluster internals. It explains how cluster works on the inside, what happens when a pin request is received and how the project code is organized.
 
-## The consensus algoritm
+## The consensus algorithm
 
 IPFS Cluster was designed with the idea that it should eventually support different consensus algorithm implementations. The consensus layer takes care of two things:
 

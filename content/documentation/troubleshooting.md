@@ -6,6 +6,10 @@ title = "Troubleshooting"
 
 This sections contain a few tips to identify and correct problems when running IPFS Cluster.
 
+## IPFS Cluster fails to build
+
+Please read the the [Download section](/download/) which has instructions on how to build the software (and follow them).
+
 ## Debug logging
 
 By default, `ipfs-cluster-service` prints only `INFO`, `WARNING` and `ERROR` messages. Sometimes, it is useful to increase verbosity with the `--loglevel debug` flag. This will make ipfs-cluster and its components much more verbose. The `--debug` flag will make ipfs-cluster, its components and its most prominent dependencies (raft, libp2p-raft, libp2p-gorpc) verbose.
