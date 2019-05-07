@@ -23,7 +23,6 @@ To check what's going on in the project, check:
 
 - the [Changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md)
 - the [News](/news)
-- the [Waffle board](https://waffle.io/ipfs/ipfs-cluster)
 - the [Roadmap](/roadmap)
 - the [upcoming release issues](https://github.com/ipfs/ipfs-cluster/issues?q=label%3Arelease)
 
@@ -41,7 +40,7 @@ In practice, these are our soft standards:
 * All contributions are via Pull Request, which needs a Code Review approval from one of the project collaborators.
 * Tests must pass
 * Code coverage must be stable or increase
-* We prefer meaningul branch names: `feat/`, `fix/`...
+* We prefer meaningful branch names: `feat/`, `fix/`...
 * We prefer commit messages which reference an issue `fix #999: ...`
 
 
