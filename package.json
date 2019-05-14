@@ -7,7 +7,7 @@
     "less": "^2.7.2",
     "less-plugin-autoprefix": "^1.5.1",
     "less-plugin-clean-css": "^1.5.1",
-    "nodemon": "^1.18.7"
+    "nodemon": "^1.18.11"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

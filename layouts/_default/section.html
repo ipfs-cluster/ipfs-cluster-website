@@ -1,5 +1,16 @@
-{{ define "content" }}
-<div class="container">
-  {{ .Content }}
+{{ define "main" }}
+
+<!-- This file is for defining layout for each top-level section -->
+<!-- ie, www.foo.com/SECTION/but-not-lower-pages -->
+
+<div class="bt b--black-10 bg-white black-90 ph3 ph5-ns pb4 pb5-ns">
+  <div class="mw9 center">
+
+    {{ .Content }}
+
+    {{ partial "footer.html" . }}
+
+  </div>
 </div>
+
 {{ end }}

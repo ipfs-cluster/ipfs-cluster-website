@@ -3,19 +3,18 @@
 {{ if $isHomePage }}{{ $.Scratch.Set "basePath" "./" }}{{ end  }}
 {{ $basePath := $.Scratch.Get "basePath" }}
 
-<header>
-  <div class="container">
-    <div class="table-container">
-      <div class="header-section left">
-        <img alt="ipfs-cluster logo" id="logo" src="/android-chrome-192x192.png"/>
-        <span class="header-title">
-          <!-- <span><a href="{{ $basePath }}"><strong>IPFS</strong>&nbsp;CLUSTER</a></span> -->
-          <span><a href="{{ .Site.BaseURL }}"><strong>IPFS</strong>&nbsp;CLUSTER</a></span>
-        </span>
+  <header class="w-100 pa3 pa4-ns ph2 ph5-ns">
+    <div class="db dt-l mw9 center w-100">
+      <div class="dtc-l tc v-mid w-100 w-40-l">
+        <a href="/" class="dtc-l f5 f4-ns fw6 mt0 mb1 link header-title" title="Home"> <!-- TODO may need to be href="{{ .Site.BaseURL }}" -->
+          <div class="dtc ml0 pl0 v-mid">
+            <img src="/android-chrome-192x192.png" alt="IPFS Cluster logo" />
+          </div>
+          <div class="dtc v-mid">
+            IPFS <span class="fw5">Cluster</span>
+          </div>
+        </a>
       </div>
-      <nav class="header-section right">
-        {{ partial "nav.html" . }}
-      </nav>
+      {{ partial "nav.html" . }}
     </div>
-  </div>
-</header>
+  </header>

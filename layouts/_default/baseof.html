@@ -1,5 +1,9 @@
 <!doctype html>
 <html lang="en">
+
+<!-- This file is for defining anything that is an unchanging 'shell' for all pages -->
+<!-- Changing sections/layout/content will appear in the MAIN block -->
+
   <head>
     <meta charset="UTF-8"/>
     <meta content="IE=edge" http-equiv="X-UA-Compatible" />
@@ -31,26 +35,21 @@
     <meta name="twitter:url" value="{{ .Site.Params.BaseURL }}" />
 
     <title>{{ .Title }} - {{ .Site.Params.Description }}</title>
-    <link href="/css/main.css" rel="stylesheet"/>
-    <link href="/fonts/fonts.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/tachyons.min.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <link rel="stylesheet" href="/fonts/fonts.css"/>
     <script async defer src="/buttons.js"></script>
     <!-- ipfs camp -->
     <script src="https://camp.ipfs.io/ribbon.min.js" async></script>
     {{ template "_internal/google_analytics.html" . }}
   </head>
-  <body>
+  <body class="w-100 bg-dark_blue">
+
     {{ partial "header.html" . }}
 
-    {{ block "content" . }}{{ end }}
+    {{ block "main" . }}
 
-    {{ partial "footer.html" . }}
+    {{ end }}
 
-    <script>
-     var lsymbol = '<span id="link-symbol">#</span>'
-     document.querySelectorAll('h1, h2, h3, h4, h5, h6, h7').forEach(function(h) {
-        var link = '<a class="header-link no-decoration" href="#' + h.id + '">'
-        h.innerHTML =  link + lsymbol + h.innerHTML + '</a>'
-      })
-    </script>
   </body>
 </html>

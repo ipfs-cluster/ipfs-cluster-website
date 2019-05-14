@@ -197,7 +197,7 @@ This is the component which provides the REST API implementation to interact wit
 |`cors_allowed_origins`| `["*"]` | CORS Configuration: values for `Access-Control-Allow-Origin`. |
 |`cors_allowed_methods`| `["GET"]` | CORS Configuration: values for `Access-Control-Allow-Methods`. |
 |`cors_allowed_headers`| `[]` | CORS Configuration: values for `Access-Control-Allow-Headers`. |
-|`cors_exposed_headers`| `["Content-Type", "X-Stream-Output", "X-Chunked-Output", "X-Content-Length"]` | CORS Configuration: values for `Access-Control-Expose-Headers`. |
+|`cors_exposed_headers`| `["Content-Type", "X-Stream-Output",` `"X-Chunked-Output", "X-Content-Length"]` | CORS Configuration: values for `Access-Control-Expose-Headers`. |
 |`cors_allow_credentials`|  `true` | CORS Configuration: value for `Access-Control-Allow-Credentials`. |
 |`cors_max_age`|  `"0s"` | CORS Configuration: value for `Access-Control-Max-Age`. |
 
