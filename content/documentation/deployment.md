@@ -79,7 +79,7 @@ Make sure you have enough space for the conversion.
 For easy and quick upgrades, make sure your system starts and restarts IPFS Cluster and `go-ipfs` peers as follows:
 
 ```
-ipfs-cluster-service daemon --ugprade
+ipfs-cluster-service daemon --upgrade
 ```
 
 ```
