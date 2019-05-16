@@ -8,7 +8,7 @@
 
 > Official website for ipfs-cluster http://cluster.ipfs.io
 
-This repository contains the source code for the ipfs-cluster website available at http://cluster.ipfs.io
+This repository contains the source code for the ipfs-cluster website available at http://cluster.ipfs.io. If you're looking for the open-source IPFS Cluster project itself, head to https://github.com/ipfs/ipfs-cluster.
 
 This project builds out a static site to explain ipfs-cluster, ready for deployment on ipfs. It uses `hugo` to glue the html together. It provides an informative, public-facing website. The most important things are the words, concepts and links it presents.
 
