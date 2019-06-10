@@ -1,6 +1,6 @@
 +++
-title = "Documentation"
-weight = 20
+title = "Docs"
+weight = 10
 aliases = [
     "/developer/",
     "/guides/"

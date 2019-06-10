@@ -4,6 +4,6 @@
     {{ range .Site.Menus.main }}
     <li class="dib nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}"><a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a></li>
     {{ end }}
-    <li class="dib nav-link"><a target="_blank" href="{{ .Site.Params.Github }}">Github</a></li>
+    <li class="dib nav-link"><a target="_blank" href="{{ .Site.Params.Github }}"><i class='fab fa-github'></i> Github</a></li>
   </ul>
 </nav>

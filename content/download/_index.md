@@ -1,6 +1,6 @@
 +++
 title = "Download"
-weight = 30
+weight = 60
 aliases = ["/documentation/download/"]
 +++
 

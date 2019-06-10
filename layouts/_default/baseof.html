@@ -35,14 +35,25 @@
     <meta name="twitter:url" value="{{ .Site.Params.BaseURL }}" />
 
     <title>{{ .Title }} - {{ .Site.Params.Description }}</title>
+    <link rel="stylesheet" href="{{"css/fontawesome-all.min.css" | relURL}}">
     <link rel="stylesheet" href="/css/tachyons.min.css"/>
-    <link rel="stylesheet" href="/css/main.css"/>
     <link rel="stylesheet" href="/fonts/fonts.css"/>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="{{"css/auto-complete.css" | relURL}}">
+    <link rel="stylesheet" href="{{"css/theme.css" | relURL}}">
+    <link rel="stylesheet" href="{{"css/hugo-theme.css" | relURL}}">
+    <link rel="stylesheet" href="/css/main.css"/>
+
     <script async defer src="/buttons.js"></script>
+    <script src="{{"js/jquery-2.x.min.js"| relURL}}"></script>
+
     <!-- ipfs camp -->
     <script src="https://camp.ipfs.io/ribbon.min.js" async></script>
+
     {{ template "_internal/google_analytics.html" . }}
+
   </head>
+
   <body class="w-100 bg-dark_blue">
 
     {{ partial "header.html" . }}

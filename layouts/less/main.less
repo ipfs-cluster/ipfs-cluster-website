@@ -76,70 +76,72 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  color: @color;
+  font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
   font-weight: 400;
+  text-align: left;
   letter-spacing: normal;
-  color: @color;
+  text-transform: none;
 
-  code {
-    background-color: @background;
-  }
+  // code {
+  //   background-color: @background;
+  // }
 }
 
-h1 {
-  font-size: 42px;
-  font-weight: 700;
-  margin-top: 50px;
-  margin-bottom: 26px;
-
-  code {
-    font-size: 30px;
-  }
-}
-
-h2 {
-  font-weight: 700;
-  font-size: 24px;
-  margin-top: 30px;
-  margin-bottom: 14px;
-
-  code {
-    font-size: 26px;
-  }
-}
-
-h3 {
-  font-weight: 400;
-  font-size: 22px;
-  margin-top: 30px;
-  margin-bottom: 14px;
-
-  code {
-    font-size: 22px;
-  }
-}
-
-h4 {
-  font-weight: 700;
-  font-size: 18px;
-  margin-top: 30px;
-  margin-bottom: 10px;
-
-  code {
-    font-size: 17px;
-  }
-}
-
-h5, h6 {
-  //color: @cobalt;
-  font-weight: 700;
-  font-size: 16px;
-  margin-bottom: 6px;
-
-  code {
-    font-size: 15px;
-  }
-}
+// h1 {
+//   font-size: 42px;
+//   font-weight: 700;
+//   margin-top: 50px;
+//   margin-bottom: 26px;
+//
+//   code {
+//     font-size: 30px;
+//   }
+// }
+//
+// h2 {
+//   font-weight: 700;
+//   font-size: 24px;
+//   margin-top: 30px;
+//   margin-bottom: 14px;
+//
+//   code {
+//     font-size: 26px;
+//   }
+// }
+//
+// h3 {
+//   font-weight: 400;
+//   font-size: 22px;
+//   margin-top: 30px;
+//   margin-bottom: 14px;
+//
+//   code {
+//     font-size: 22px;
+//   }
+// }
+//
+// h4 {
+//   font-weight: 700;
+//   font-size: 18px;
+//   margin-top: 30px;
+//   margin-bottom: 10px;
+//
+//   code {
+//     font-size: 17px;
+//   }
+// }
+//
+// h5, h6 {
+//   font-weight: 700;
+//   font-size: 16px;
+//   margin-bottom: 6px;
+//
+//   code {
+//     font-size: 15px;
+//   }
+// }
 
 strong {
   font-weight: 700;
@@ -192,7 +194,7 @@ ul li, ol li {
 }
 
 blockquote {
-  font-family: 'Source Code Pro', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   margin-bottom: 20px;
   margin-left: 20px;
   margin-right: 20px;
@@ -205,7 +207,7 @@ blockquote {
   font-size: 13px;
 
   p, a {
-    font-family: 'Source Code Pro', monospace;
+    font-family: 'IBM Plex Mono', monospace;
     margin: 0;
   }
 
@@ -223,38 +225,38 @@ hr {
 }
 
 code, pre {
-  font-family: 'Source Code Pro',monospace;
-  font-size: 13px;
-  font-weight: 200;
-  background-color: @code-background;
-  display: block;
-  padding: 10px;
-  white-space: pre;
-  overflow: auto;
+  font-family: 'IBM Plex Mono', monospace;
+  // font-size: 13px;
+  // font-weight: 200;
+  // //background-color: @code-background;
+  // display: block;
+  // padding: 10px;
+  // white-space: pre;
+  // overflow: auto;
 }
 
-code {
-  display: inline;
-  overflow-wrap: break-word;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 3px;
-  padding-right: 3px;
-  word-break: break-all;
-}
-
-pre {
-  margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
-  white-space: pre-wrap;       /* css-3 */
-  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-  white-space: -pre-wrap;      /* Opera 4-6 */
-  white-space: -o-pre-wrap;    /* Opera 7 */
-  word-wrap: break-word;       /* Internet Explorer 5.5+ */
-  font-size: 13px;
-  line-height: 18px;
-}
+// code {
+//   display: inline;
+//   overflow-wrap: break-word;
+//   padding-top: 0;
+//   padding-bottom: 0;
+//   padding-left: 3px;
+//   padding-right: 3px;
+//   word-break: break-all;
+// }
+//
+// pre {
+//   margin-bottom: 20px;
+//   margin-left: 20px;
+//   margin-right: 20px;
+//   white-space: pre-wrap;       /* css-3 */
+//   white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+//   white-space: -pre-wrap;      /* Opera 4-6 */
+//   white-space: -o-pre-wrap;    /* Opera 7 */
+//   word-wrap: break-word;       /* Internet Explorer 5.5+ */
+//   font-size: 13px;
+//   line-height: 18px;
+// }
 
 table {
     border-collapse: collapse;
