@@ -1,5 +1,5 @@
 <nav class="db dtc-l v-mid w-100 tc tc-m tr-ns mt2 mt0-ns">
-  <ul class="mb0 ml0 list">
+  <ul class="mt0 mb0 ml0 list">
     {{ $currentPage := . }}
     {{ range .Site.Menus.main }}
     <li class="dib nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}"><a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a></li>
