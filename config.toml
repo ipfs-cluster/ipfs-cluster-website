@@ -5,6 +5,7 @@ sourceRelativeLinksEval = true
 ignoreFiles = [ "\\.less$" ]
 sectionPagesMenu = "main"
 googleAnalytics = "UA-96910779-7"
+
 theme = "hugo-theme-learn"
 
 [privacy]
@@ -23,3 +24,8 @@ theme = "hugo-theme-learn"
   download = "https://dist.ipfs.io/#ipfs-cluster-service"
   disableBreadcrumb = false
   disableNextPrev = true
+  disableInlineCopyToClipBoard = true
+
+# activate learn-theme's search
+[outputs]
+  home = [ "HTML", "RSS", "JSON"]
