@@ -21,4 +21,5 @@ theme = "hugo-theme-learn"
   domain = "cluster.ipfs.io"
   og_image = "https://cluster.ipfs.io/og-image.jpg"
   download = "https://dist.ipfs.io/#ipfs-cluster-service"
-  themeVariant = "cluster"
+  disableBreadcrumb = false
+  disableNextPrev = true

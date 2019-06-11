@@ -1,12 +1,71 @@
+{{ define "breadcrumb" }}
+  {{ $parent := .page.Parent }}
+  {{ if $parent }}
+    {{ $value := (printf "<a href='%s'>%s</a> > %s" $parent.URL $parent.Title .value) }}
+    {{ template "breadcrumb" dict "page" $parent "value" $value }}
+  {{ else }}
+    {{ .value|safeHTML }}
+  {{ end }}
+{{ end }}
+
 {{ define "main" }}
 
 <!-- This file is for defining layout for pages lower than section -->
 <!-- ie, www.foo.com/section/ALL-OF-THESE/AND-THESE -->
 
-<div class="bt b--black-10 bg-white black-90 ph3 ph5-ns pb4 pb5-ns">
+<div id="body" class="bt b--black-10 bg-white black-90 ph3 ph5-ns pb4 pb5-ns">
   <div class="mw9 center">
 
-    {{ .Content }}
+    <!-- START left nav -->
+    {{ partial "menu.html" . }}
+
+    <div id="overlay"></div> <!-- TODO figure out what this is for -->
+    <!-- END left na ??? -->
+
+    <!-- START main content block -->
+    <div class="padding highlightable">
+      {{if not .IsHome}}
+        <div id="top-bar">
+
+            {{$toc := (and (not .Params.disableToc) (not .Params.chapter))}}
+            <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <span id="sidebar-toggle-span">
+                    <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                      <i class="fas fa-bars"></i>
+                    </a>
+                </span>
+                {{ if $toc }}
+                <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                {{ end }}
+                <span class="links">
+               {{$showBreadcrumb := (and (not .Params.disableBreadcrumb) (not .Site.Params.disableBreadcrumb))}}
+               {{if $showBreadcrumb}}
+                  {{ $title := (or .Params.menuTitle .Title) }}
+                  {{ template "breadcrumb" dict "page" . "value" $title }}
+               {{ else }}
+                 {{ .Title }}
+               {{ end }}
+                </span>
+            </div>
+            {{ if $toc }}
+                {{ partial "toc.html" . }}
+            {{ end }}
+
+        </div> <!-- END top bar -->
+      {{ end }}
+
+      {{ if .Params.chapter }}
+      <div id="chapter">
+      {{ end }}
+
+      <div id="body-inner">
+
+        {{ .Content }}
+
+      </div>
+
+    </div> <!-- END highlightable -->
+    <!-- END main content block -->
 
     {{ partial "footer.html" . }}
 

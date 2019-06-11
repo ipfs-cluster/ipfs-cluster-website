@@ -286,6 +286,28 @@ table {
     width: 100%;
 }
 
+/* Inner Pages Global */
+#body {
+  margin: 0;
+  padding-left: 250px;
+}
+
+#body a.highlight:after {
+    display: block;
+    content: "";
+    height: 1px;
+    width: 0%;
+    -webkit-transition: width 0.5s ease;
+    -moz-transition: width 0.5s ease;
+    -ms-transition: width 0.5s ease;
+    transition: width 0.5s ease;
+    background-color: @hover;
+}
+
+#body .padding {
+  padding-top: 19px;
+}
+
 /* Header */
 header {
     align-items: center;
@@ -312,7 +334,7 @@ header {
     }
 }
 
-/* Nav */
+/* Global Nav */
 .nav-ul {
   list-style: none;
   margin-bottom: 0;
@@ -354,14 +376,65 @@ header {
 }
 
 .cluster-illustration {
-    max-height: 552px;
+  max-height: 552px;
 }
 
 .github-button {
-    margin-top: 20px;
+  margin-top: 20px;
+}
+
+/* Left Nav */
+#sidebar {
+	background-color: transparent;
+  margin-top: 145px;
+}
+
+#sidebar #header-wrapper {
+  background: transparent;
+  color: #bbbbbb;
+  border: none;
+}
+
+#sidebar .searchbox {
+	border-color: #bbbbbb;
+  background: @white;
+}
+
+.searchbox input::placeholder {
+  color: @color;
+}
+
+#sidebar ul.topics > li.parent, #sidebar ul.topics > li.active {
+  background: transparent;
+}
+
+#sidebar .searchbox * {
+  color: @color;
+}
+
+#sidebar a {
+  color: @color;
+}
+
+#sidebar a:hover {
+  color: @hover;
+}
+
+#sidebar ul li.active > a {
+  background: transparent;
+  color: @active !important;
+}
+
+#sidebar hr {
+  border-color: @color;
 }
 
 /* Modules */
+#body #breadcrumbs {
+  text-transform: lowercase;
+  width: 90%;
+}
+
 .tipbox {
     padding: 10px;
     margin: auto @padding @padding @padding;
