@@ -31,11 +31,6 @@ name = "<i class='fas fa-bookmark'></i> Releases"
 url = "#"
 weight = 1
 
-[[menu.shortcuts]]
-name = "<i class='fas fa-level-up-alt'></i> Upgrades"
-url = "#"
-weight = 2
-
 # activate learn-theme's search
 [outputs]
   home = [ "HTML", "RSS", "JSON"]

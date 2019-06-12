@@ -1,6 +1,6 @@
 +++
-title = "Community"
-weight = 50
+title = "Guides"
+weight = -10
 +++
 
 # Guides
