@@ -435,6 +435,11 @@ header {
   background: transparent;
 }
 
+#sidebar ul.topics ul {
+    display: block;
+    padding-bottom: 1rem;
+}
+
 #sidebar .searchbox * {
   color: @color;
 }
@@ -508,4 +513,53 @@ footer {
     .nav-link {
       color: @primary;
     }
+}
+
+/* Accordion */
+.js-accordion__panel[aria-hidden=true] {
+  display: none;
+}
+.js-accordion__panel[role="tabpanel"] .js-accordion__header {
+  display: none;
+}
+.js-accordion__panel {
+  padding-left: 2em;
+}
+button.js-accordion__header {
+  display: block !important;
+}
+.js-accordion__header[aria-expanded="true"]:before {
+  content: "- ";
+}
+.js-accordion__header[aria-expanded="false"]:before {
+  content: "+ ";
+}
+.js-accordion__header[aria-selected="true"]:after {
+  content: " (selected)";
+}
+.js-accordion__header[aria-selected="false"]:after {
+  content: " (unselected)";
+}
+
+.animated-accordion__panel {
+ display: block;
+ overflow: hidden;
+ opacity: 1;
+ transition: visibility 0s ease, max-height 1s ease, opacity 1s ease ;
+ max-height: 100em;
+ /* magic number for max-height = enough height */
+ visibility: visible;
+ transition-delay: 0s;
+ margin: 0;
+ padding: 0;
+}
+/* This is the hidden state */
+[aria-hidden=true].animated-accordion__panel {
+ display: block;
+ max-height: 0;
+ opacity: 0;
+ visibility: hidden;
+ transition-delay: 1s, 0s, 0s;
+ margin: 0;
+ padding: 0;
 }

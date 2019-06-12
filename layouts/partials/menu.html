@@ -10,12 +10,14 @@
 
       <div class="highlightable">
         <ul class="topics">
-          <li>Am I a node? {{ printf "%#v" .IsNode }}</li>
+          <!-- FOR DEBUGGING -->
+          <!-- <li>Am I a node? {{ printf "%#v" .IsNode }}</li>
           <li>IsSection {{ printf "%#v" .IsSection }}</li>
           <li>Am I a page? {{ printf "%#v" .IsPage }}</li>
           <li>Where am I? {{ printf "%#v" .Path }}</li>
           <li>What kind of page? {{ printf "%#v" .Kind }}</li>
-          <li>What type of page? {{ printf "%#v" .Type }}</li>
+          <li>What type of page? {{ printf "%#v" .Type }}</li> -->
+
 
           {{ $currentNode.Scratch.Set "pages" .Pages }}
           {{ if .Sections}}
@@ -89,6 +91,7 @@
       </div>
     </nav>
 
+
 <!-- templates -->
 {{ define "section-tree-nav" }}
 {{ $showvisitedlinks := .showvisitedlinks }}
@@ -96,53 +99,47 @@
  {{ with .sect }}
   {{ if .IsSection }}
     {{ safeHTML .Params.head }}
-    {{ $isParent := or (.IsAncestor $currentNode) (.Params.alwaysopen) }}
-    {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
 
-    <!--This controls display of node items in nav -->
-    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item
-        {{if $isParent }}parent{{end}}
+    <!-- Accessible Accordion from https://github.com/nico3333fr/jquery-accessible-accordion-aria | Thanks! -->
+    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion expand dd-item
+        {{if .IsAncestor $currentNode }}parent{{end}}
         {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}
+        {{if .Params.alwaysopen}}parent{{end}}
         ">
-      <a href="{{.RelPermalink}}">
-          {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
-          {{ if ne $numberOfPages 0 }}
-            {{ if $isParent }}
-              <i class="fas fa-angle-down"></i>
-            {{ else }}
-              <i class="fas fa-angle-right"></i>
-            {{ end }}
-          {{ end }}
-      </a>
-      
-      {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
-      {{ if ne $numberOfPages 0 }}
+       <div class="js-accordion__panel">
+         <h2 class="js-accordion__header">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</h2>
 
-        <ul>
-          {{ $currentNode.Scratch.Set "pages" .Pages }}
-          {{ if .Sections}}
-            {{ $currentNode.Scratch.Set "pages" (.Pages | union .Sections) }}
-          {{end}}
-          {{ $pages := ($currentNode.Scratch.Get "pages") }}
+         {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
+         {{ if ne $numberOfPages 0 }}
 
-          {{if eq .Site.Params.ordersectionsby "title"}}
-            {{ range $pages.ByTitle }}
-              {{ if and .Params.hidden (not $.showhidden) }}
-              {{else}}
-              {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
-              {{end}}
-            {{ end }}
-          {{else}}
-            {{ range $pages.ByWeight }}
-              {{ if and .Params.hidden (not $.showhidden) }}
-              {{ else }}
-              {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
-              {{ end }}
-            {{ end }}
-          {{end}}
-        </ul>
-      {{ end }}
+         <ul>
+           {{ $currentNode.Scratch.Set "pages" .Pages }}
+           {{ if .Sections}}
+             {{ $currentNode.Scratch.Set "pages" (.Pages | union .Sections) }}
+           {{end}}
+           {{ $pages := ($currentNode.Scratch.Get "pages") }}
+
+           {{if eq .Site.Params.ordersectionsby "title"}}
+             {{ range $pages.ByTitle }}
+               {{ if and .Params.hidden (not $.showhidden) }}
+               {{else}}
+               {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
+               {{end}}
+             {{ end }}
+           {{else}}
+             {{ range $pages.ByWeight }}
+               {{ if and .Params.hidden (not $.showhidden) }}
+               {{ else }}
+               {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
+               {{ end }}
+             {{ end }}
+           {{end}}
+         </ul>
+         {{ end }}
+     </div>
     </li>
+
+  <!-- removed node stuff from here -->
 
   {{ else }}
 
@@ -154,7 +151,7 @@
         {{ if $showvisitedlinks}}<i class="fas fa-check read-icon"></i>{{end}}
         </a>
     </li>
-     {{ end }}
+   {{ end }}
   {{ end }}
  {{ end }}
 {{ end }}

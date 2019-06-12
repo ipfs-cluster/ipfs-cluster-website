@@ -53,6 +53,12 @@
 
     <script async defer src="/buttons.js"></script>
     <script src="{{"js/jquery-2.x.min.js"| relURL}}"></script>
+    <script src="/js/jquery-accessible-accordion-aria.js"></script>
+    <script>
+      $(function () {
+         $('.js-accordion').accordion({ buttonsGeneratedContent: 'html' });
+      });
+    </script>
 
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
