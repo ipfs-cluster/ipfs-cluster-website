@@ -1,8 +1,9 @@
 +++
 title = "Guides"
+chapter = true
 weight = -10
 +++
 
 # Guides
 
-This section contains updates, release notes and blog posts. Visit it regularly to get to know all the news from IPFS Cluster:
+He made many woofs heckin good boys and girls such treat what a nice floof fat boi, waggy wags I am bekom fat. H*ck aqua doggo ur givin me a spook, you are doing me a frighten.

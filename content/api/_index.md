@@ -1,8 +1,9 @@
 +++
 title = "API"
+chapter = true
 weight = 20
 +++
 
 # API
 
-This section contains updates, release notes and blog posts. Visit it regularly to get to know all the news from IPFS Cluster:
+Doggo ipsum heckin angery woofer sub woofer doing me a frighten h*ck boofers, very jealous pupper doggo.

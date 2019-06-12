@@ -18,7 +18,6 @@
           <li>What kind of page? {{ printf "%#v" .Kind }}</li>
           <li>What type of page? {{ printf "%#v" .Type }}</li> -->
 
-
           {{ $currentNode.Scratch.Set "pages" .Pages }}
           {{ if .Sections}}
             {{ $currentNode.Scratch.Set "pages" (.Pages | union .Sections) }}
@@ -101,14 +100,16 @@
     {{ safeHTML .Params.head }}
 
     <!-- Accessible Accordion from https://github.com/nico3333fr/jquery-accessible-accordion-aria | Thanks! -->
+    <!--This controls display of node items in nav, ie, sections -->
     <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion expand dd-item
         {{if .IsAncestor $currentNode }}parent{{end}}
         {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}
         {{if .Params.alwaysopen}}parent{{end}}
         ">
+       <!-- <div class="js-accordion__panel" data-accordion-opened="true"> -->
        <div class="js-accordion__panel">
          <h2 class="js-accordion__header">
-           <a class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
+           <a href="{{ .RelPermalink}}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
          </h2>
 
          {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
@@ -140,8 +141,6 @@
          {{ end }}
      </div>
     </li>
-
-  <!-- removed node stuff from here -->
 
   {{ else }}
 

@@ -26,10 +26,10 @@ theme = "hugo-theme-learn"
   disableNextPrev = true
   disableInlineCopyToClipBoard = true
 
-[[menu.shortcuts]]
-name = "<i class='fas fa-bookmark'></i> Releases"
-url = "#"
-weight = 1
+# [[menu.shortcuts]]
+# name = "<i class='fas fa-bookmark'></i> Releases"
+# url = "#"
+# weight = 1
 
 # activate learn-theme's search
 [outputs]
