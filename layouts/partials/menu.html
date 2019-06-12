@@ -107,7 +107,9 @@
         {{if .Params.alwaysopen}}parent{{end}}
         ">
        <div class="js-accordion__panel">
-         <h2 class="js-accordion__header">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</h2>
+         <h2 class="js-accordion__header">
+           <a class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
+         </h2>
 
          {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
          {{ if ne $numberOfPages 0 }}
@@ -146,7 +148,7 @@
     <!--This controls display of NON-node items in nav, ie, pages -->
     {{ if not .Params.Hidden }}
       <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
-        <a href="{{ .RelPermalink}}">
+        <a href="{{ .RelPermalink}}" class="highlight">
         {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
         {{ if $showvisitedlinks}}<i class="fas fa-check read-icon"></i>{{end}}
         </a>

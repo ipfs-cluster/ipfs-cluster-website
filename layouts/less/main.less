@@ -49,6 +49,7 @@
 /* Other Variables */
 @line-height: 1.4;
 @padding: 18px;
+@font-size: 16px;
 
 /* Utility classes */
 .lh-1_1 {
@@ -64,9 +65,9 @@
 }
 
 /* HTML Primitives */
-body {
+body, #sidebar ul li {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 16px;
+  font-size: @font-size;
   font-style: normal;
   font-weight: 400;
   letter-spacing: normal;
@@ -154,12 +155,10 @@ p {
 
 a {
   color: @dark-teal;
-  text-decoration: underline;
 }
 
 a:hover, a:focus {
   color: @hover;
-  text-decoration: none;
 }
 
 a:active {
@@ -436,8 +435,17 @@ header {
 }
 
 #sidebar ul.topics ul {
-    display: block;
-    padding-bottom: 1rem;
+  display: block;
+  padding-bottom: 1rem;
+}
+
+#sidebar ul li a {
+  padding: 4px 0;
+}
+
+#sidebar ul.topics > li > a {
+  line-height: @line-height;
+  font-size: @font-size;
 }
 
 #sidebar .searchbox * {
@@ -449,7 +457,7 @@ header {
 }
 
 #sidebar a:hover {
-  color: @hover;
+  color: @active;
 }
 
 #sidebar ul li.active > a {
@@ -459,6 +467,36 @@ header {
 
 #sidebar hr {
   border-color: @color;
+}
+
+/* Accordion */
+.js-accordion__panel[aria-hidden=true] {
+  display: none;
+}
+.js-accordion__panel[role="tabpanel"] .js-accordion__header {
+  display: none;
+}
+.js-accordion__panel {
+  //padding-left: 2em;
+}
+button.js-accordion__header {
+  display: block !important;
+}
+.js-accordion__header {
+  line-height: @line-height;
+  background: @white;
+}
+.js-accordion__header[aria-expanded="true"]:after {
+  content: " -";
+}
+.js-accordion__header[aria-expanded="false"]:after {
+  content: " +";
+}
+// .js-accordion__header[aria-selected="true"] {
+//   border: 1px solid red;
+// }
+.js-accordion__header[aria-selected="false"] {
+  //content: " (unselected)";
 }
 
 /* Modules */
@@ -513,53 +551,4 @@ footer {
     .nav-link {
       color: @primary;
     }
-}
-
-/* Accordion */
-.js-accordion__panel[aria-hidden=true] {
-  display: none;
-}
-.js-accordion__panel[role="tabpanel"] .js-accordion__header {
-  display: none;
-}
-.js-accordion__panel {
-  padding-left: 2em;
-}
-button.js-accordion__header {
-  display: block !important;
-}
-.js-accordion__header[aria-expanded="true"]:before {
-  content: "- ";
-}
-.js-accordion__header[aria-expanded="false"]:before {
-  content: "+ ";
-}
-.js-accordion__header[aria-selected="true"]:after {
-  content: " (selected)";
-}
-.js-accordion__header[aria-selected="false"]:after {
-  content: " (unselected)";
-}
-
-.animated-accordion__panel {
- display: block;
- overflow: hidden;
- opacity: 1;
- transition: visibility 0s ease, max-height 1s ease, opacity 1s ease ;
- max-height: 100em;
- /* magic number for max-height = enough height */
- visibility: visible;
- transition-delay: 0s;
- margin: 0;
- padding: 0;
-}
-/* This is the hidden state */
-[aria-hidden=true].animated-accordion__panel {
- display: block;
- max-height: 0;
- opacity: 0;
- visibility: hidden;
- transition-delay: 1s, 0s, 0s;
- margin: 0;
- padding: 0;
 }
