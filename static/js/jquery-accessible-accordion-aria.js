@@ -20,14 +20,14 @@
         headersSelector: '.js-accordion__header',
         panelsSelector: '.js-accordion__panel',
         buttonsSelector: 'button.js-accordion__header',
-        buttonsGeneratedContent: 'text',
+        buttonsGeneratedContent: 'html',
         button: $('<button></button>', {
             class: 'js-accordion__header',
             type: 'button'
         }),
         buttonSuffixId: '_tab',
         multiselectable: true,
-        prefixClass: 'accordion',
+        prefixClass: 'set-in-HTML',
         headerSuffixClass: '__title',
         buttonSuffixClass: '__header',
         panelSuffixClass: '__panel',

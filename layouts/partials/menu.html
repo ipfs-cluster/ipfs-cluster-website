@@ -11,17 +11,19 @@
       <div class="highlightable">
         <ul class="topics">
           <!-- FOR DEBUGGING -->
-          <!-- <li>Am I a node? {{ printf "%#v" .IsNode }}</li>
-          <li>IsSection {{ printf "%#v" .IsSection }}</li>
-          <li>Am I a page? {{ printf "%#v" .IsPage }}</li>
-          <li>Where am I? {{ printf "%#v" .Path }}</li>
-          <li>What kind of page? {{ printf "%#v" .Kind }}</li>
-          <li>What type of page? {{ printf "%#v" .Type }}</li> -->
+          <!-- <li><strong>Am I a node?</strong> {{ printf "%#v" .IsNode }}</li>
+          <li><strong>IsSection</strong> {{ printf "%#v" .IsSection }}</li>
+          <li><strong>Am I a page?</strong> {{ printf "%#v" .IsPage }}</li>
+          <li><strong>What kind of page?</strong> {{ printf "%#v" .Kind }}</li>
+          <li><strong>What type of page?</strong> {{ printf "%#v" .Type }}</li>
+          <li><strong>Where am I?</strong> {{ printf "%#v" .Path }}</li>
+          <br/> -->
+          <!-- END DEBUGGING -->
 
           {{ $currentNode.Scratch.Set "pages" .Pages }}
-          {{ if .Sections}}
+          {{ if .Sections }}
             {{ $currentNode.Scratch.Set "pages" (.Pages | union .Sections) }}
-          {{end}}
+          {{ end }}
           {{ $pages := ($currentNode.Scratch.Get "pages") }}
           {{ range $pages.ByWeight }}
             {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
@@ -100,16 +102,17 @@
     {{ safeHTML .Params.head }}
 
     <!-- Accessible Accordion from https://github.com/nico3333fr/jquery-accessible-accordion-aria | Thanks! -->
+
     <!--This controls display of node items in nav, ie, sections -->
     <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion expand dd-item
-        {{if .IsAncestor $currentNode }}parent{{end}}
-        {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}
-        {{if .Params.alwaysopen}}parent{{end}}
-        ">
+        {{ if .IsAncestor $currentNode }}parent{{end}}
+        {{ if eq .UniqueID $currentNode.UniqueID }}active{{end}}
+        {{ if .Params.alwaysopen }}parent{{end}}
+        " data-accordion-prefix-classes="docs-accordion">
        <!-- <div class="js-accordion__panel" data-accordion-opened="true"> -->
        <div class="js-accordion__panel">
          <h2 class="js-accordion__header">
-           <a href="{{ .RelPermalink}}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
+           <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
          </h2>
 
          {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
@@ -126,17 +129,17 @@
              {{ range $pages.ByTitle }}
                {{ if and .Params.hidden (not $.showhidden) }}
                {{else}}
-               {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
+               {{ template "section-tree-nav-nested" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
                {{end}}
              {{ end }}
            {{else}}
              {{ range $pages.ByWeight }}
                {{ if and .Params.hidden (not $.showhidden) }}
                {{ else }}
-               {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
+               {{ template "section-tree-nav-nested" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
                {{ end }}
              {{ end }}
-           {{end}}
+           {{ end }}
          </ul>
          {{ end }}
      </div>
@@ -144,13 +147,77 @@
 
   {{ else }}
 
-    <!--This controls display of NON-node items in nav, ie, pages -->
+  <!--This controls display of NON-node items in nav, ie, pages -->
     {{ if not .Params.Hidden }}
-      <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
-        <a href="{{ .RelPermalink}}" class="highlight">
-        {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
-        {{ if $showvisitedlinks}}<i class="fas fa-check read-icon"></i>{{end}}
-        </a>
+    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
+      <a href="{{ .RelPermalink }}" class="highlight">
+      {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
+      {{ if $showvisitedlinks}}<i class="fas fa-check read-icon"></i>{{end}}
+      </a>
+    </li>
+   {{ end }}
+  {{ end }}
+ {{ end }}
+{{ end }}
+
+{{ define "section-tree-nav-nested" }}
+{{ $showvisitedlinks := .showvisitedlinks }}
+{{ $currentNode := .currentnode }}
+ {{ with .sect }}
+  {{ if .IsSection }}
+    {{ safeHTML .Params.head }}
+
+    <!--This controls display of node items in a nested nav, ie, nested sections -->
+    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion2 expand dd-item
+        {{ if .IsAncestor $currentNode }}parent{{end}}
+        {{ if eq .UniqueID $currentNode.UniqueID }}active{{end}}
+        {{ if .Params.alwaysopen }}parent{{end}}
+        " data-accordion-prefix-classes="docs-accordion-nested">
+       <!-- <div class="js-accordion__panel" data-accordion-opened="true"> -->
+       <div class="js-accordion2__panel">
+         <h2 class="js-accordion2__header">
+           <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
+         </h2>
+
+         {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
+         {{ if ne $numberOfPages 0 }}
+
+         <ul>
+           {{ $currentNode.Scratch.Set "pages" .Pages }}
+           {{ if .Sections}}
+             {{ $currentNode.Scratch.Set "pages" (.Pages | union .Sections) }}
+           {{end}}
+           {{ $pages := ($currentNode.Scratch.Get "pages") }}
+
+           {{if eq .Site.Params.ordersectionsby "title"}}
+             {{ range $pages.ByTitle }}
+               {{ if and .Params.hidden (not $.showhidden) }}
+               {{else}}
+               {{ template "section-tree-nav-nested" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
+               {{end}}
+             {{ end }}
+           {{else}}
+             {{ range $pages.ByWeight }}
+               {{ if and .Params.hidden (not $.showhidden) }}
+               {{ else }}
+               {{ template "section-tree-nav-nested" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
+               {{ end }}
+             {{ end }}
+           {{ end }}
+         </ul>
+         {{ end }}
+     </div>
+    </li>
+
+  {{ else }}
+
+  <!--This controls display of NON-node items in nav, ie, pages -->
+    {{ if not .Params.Hidden }}
+    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
+      <a href="{{ .RelPermalink }}" class="highlight">
+      {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
+      {{ if $showvisitedlinks}}<i class="fas fa-check read-icon"></i>{{end}}
+      </a>
     </li>
    {{ end }}
   {{ end }}
