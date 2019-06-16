@@ -36,6 +36,15 @@
 
     <title>{{ .Title }} - {{ .Site.Params.Description }}</title>
 
+    <script async defer src="/buttons.js"></script>
+    <script src="{{"js/jquery-2.x.min.js"| relURL}}"></script>
+    <script src="/js/jquery-accessible-accordion-aria.js"></script>
+    <script>
+      $(function () {
+         $('.js-accordion').accordion({ buttonsGeneratedContent: 'html' });
+      });
+    </script>
+
     <link rel="stylesheet" href="{{"css/nucleus.css" | relURL}}">
     <link rel="stylesheet" href="{{"css/fontawesome-all.min.css" | relURL}}">
     <link rel="stylesheet" href="{{"css/hybrid.css" | relURL}}">
@@ -51,15 +60,6 @@
     <link rel="stylesheet" href="{{"css/hugo-theme.css" | relURL}}">
     <link rel="stylesheet" href="/css/main.css"/>
 
-    <script async defer src="/buttons.js"></script>
-    <script src="{{"js/jquery-2.x.min.js"| relURL}}"></script>
-    <script src="/js/jquery-accessible-accordion-aria.js"></script>
-    <script>
-      $(function () {
-         $('.js-accordion').accordion({ buttonsGeneratedContent: 'html' });
-      });
-    </script>
-
     <style type="text/css">
       :root #header + #content > #left > #rlblock_left{
           display:none !important;
@@ -70,9 +70,6 @@
         }
       {{ end }}
     </style>
-
-    <!-- ipfs camp -->
-    <script src="https://camp.ipfs.io/ribbon.min.js" async></script>
 
     {{ template "_internal/google_analytics.html" . }}
 
