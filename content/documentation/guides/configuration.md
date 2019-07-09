@@ -1,5 +1,5 @@
 +++
-title = "Production Configuration Settings"
+title = "Configuration Settings"
 weight = 2
 +++
 
