@@ -122,3 +122,6 @@ The best way to verify your Cluster is up and running correctly is to:
 
 * Run and examine the output `ipfs-cluster-ctl peers ls`: it should list all peers, and all peers should *see* the same number of other peers.
 * Check the log outputs.
+
+
+_look for more information about raft in `internals/algorithms
