@@ -5,13 +5,6 @@ weight = 2
 
 # IPFS-Lite
 
-<p align="center">
-<img src="logo.png" alt="ipfs-lite" title="ipfs-lite" />
-</p>
-
-[![Build Status](https://travis-ci.org/hsanjuan/ipfs-lite.svg?branch=master)](https://travis-ci.org/hsanjuan/ipfs-lite)
-[![Godoc](https://godoc.org/github.com/hsanjuan/ipfs-lite?status.svg)](http://godoc.org/github.com/hsanjuan/ipfs-lite)
-
 IPFS-Lite is an embeddable, lightweight IPFS peer which runs the minimal setup
 to provide an `ipld.DAGService`. It can:
 

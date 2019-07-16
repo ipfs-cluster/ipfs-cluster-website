@@ -10,4 +10,4 @@ aliases = [
 
 # Documentation
 
-Welcome to the IPFS Cluster docs. This is where you will find user documentation, guides, tutorials, architecture documents and other information about how to use and develop ipfs-cluster.
+Welcome to the IPFS Cluster docs. This is where you will find user documentation, guides, tutorials, architecture documents and other information on how to use Cluster.
