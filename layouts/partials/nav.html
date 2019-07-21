@@ -4,6 +4,26 @@
     {{ range .Site.Menus.main }}
     <li class="dib nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}"><a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a></li>
     {{ end }}
+
+		{{ range $index, $element := $list }}
+		  {{ $is := $page.IsMenuCurrent "main" . }}
+			{{ $has := $page.HasMenuCurrent "main" . }}
+			  <li
+            {{ if or $is $has }}
+              class="li-active dib nav-link"
+            {{ else }}
+              class="dib nav-link"
+            {{ end }}
+          <a
+          {{ if eq (add $index 1) $len }}
+            class="link underline-hover dim"
+          {{ else }}
+            class="link underline-hover dim br"
+          {{ end }}
+            href="{{ .URL | absURL }}">
+          {{ .Pre }} {{ .Name }}
+        </a>
+        </li>
     <li class="dib nav-link"><a target="_blank" href="{{ .Site.Params.Github }}">Github</a></li>
   </ul>
 </nav>
