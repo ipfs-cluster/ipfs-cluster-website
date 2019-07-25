@@ -57,6 +57,18 @@
       });
     </script>
 
+    <!-- move sidenav up on scroll -->
+    <script>
+      window.onscroll = function() {scrollFunction()};
+        function scrollFunction() {
+          if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+            document.getElementById("sidebar").style.margin = "0px auto auto auto";
+          } else {
+            document.getElementById("sidebar").style.margin = "145px auto auto auto";
+          }
+        }
+    </script>
+
     <link rel="stylesheet" href="{{"css/nucleus.css" | relURL}}">
     <link rel="stylesheet" href="{{"css/fontawesome-all.min.css" | relURL}}">
     <link rel="stylesheet" href="{{"css/hybrid.css" | relURL}}">
