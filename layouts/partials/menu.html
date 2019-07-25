@@ -11,13 +11,15 @@
       <div class="highlightable">
         <ul class="topics">
           <!-- FOR DEBUGGING -->
-          <!-- <li><strong>Am I a node?</strong> {{ printf "%#v" .IsNode }}</li>
+          <li><strong>Am I a node?</strong> {{ printf "%#v" .IsNode }}</li>
           <li><strong>IsSection</strong> {{ printf "%#v" .IsSection }}</li>
           <li><strong>Am I a page?</strong> {{ printf "%#v" .IsPage }}</li>
           <li><strong>What kind of page?</strong> {{ printf "%#v" .Kind }}</li>
           <li><strong>What type of page?</strong> {{ printf "%#v" .Type }}</li>
           <li><strong>Where am I?</strong> {{ printf "%#v" .Path }}</li>
-          <br/> -->
+          <li><strong>Who's my mom?</strong> {{ printf "%#v" .FirstSection.Title }}</li>
+
+          <br/>
           <!-- END DEBUGGING -->
 
           {{ $currentNode.Scratch.Set "pages" .Pages }}
@@ -26,7 +28,7 @@
           {{ end }}
           {{ $pages := ($currentNode.Scratch.Get "pages") }}
           {{ range $pages.ByWeight }}
-            {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
+            {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks}}
           {{ end }}
 
         </ul>
@@ -101,11 +103,10 @@
   {{ if .IsSection }}
     {{ safeHTML .Params.head }}
 
-    <!-- Accessible Accordion from https://github.com/nico3333fr/jquery-accessible-accordion-aria | Thanks! -->
+    <!-- Accessible Accordion JS from https://github.com/nico3333fr/jquery-accessible-accordion-aria | Thanks! -->
 
     <!--This controls display of node items in nav, ie, sections -->
     <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion expand dd-item
-        {{ if .IsAncestor $currentNode }}parent{{end}}
         {{ if eq .UniqueID $currentNode.UniqueID }}active{{end}}
         {{ if .Params.alwaysopen }}parent{{end}}
         " data-accordion-prefix-classes="docs-accordion">
@@ -162,13 +163,12 @@
 {{ define "section-tree-nav-nested" }}
 {{ $showvisitedlinks := .showvisitedlinks }}
 {{ $currentNode := .currentnode }}
- {{ with .sect }}
+ {{ with .sect }} <!-- if .sect .IsSection, then... -->
   {{ if .IsSection }}
     {{ safeHTML .Params.head }}
 
     <!--This controls display of node items in a nested nav, ie, nested sections -->
     <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion2 expand dd-item
-        {{ if .IsAncestor $currentNode }}parent{{end}}
         {{ if eq .UniqueID $currentNode.UniqueID }}active{{end}}
         {{ if .Params.alwaysopen }}parent{{end}}
         " data-accordion-prefix-classes="docs-accordion-nested">
