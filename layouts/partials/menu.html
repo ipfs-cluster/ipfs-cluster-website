@@ -109,8 +109,7 @@
         {{ if eq .UniqueID $currentNode.UniqueID }}active{{end}}
         {{ if .Params.alwaysopen }}parent{{end}}
         " data-accordion-prefix-classes="docs-accordion">
-       <!-- <div class="js-accordion__panel" data-accordion-opened="true"> -->
-       <div class="js-accordion__panel">
+       <div class="js-accordion__panel" data-accordion-opened="true">
          <h2 class="js-accordion__header">
            <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
          </h2>
@@ -174,7 +173,7 @@
         {{ if .Params.alwaysopen }}parent{{end}}
         " data-accordion-prefix-classes="docs-accordion-nested">
        <!-- <div class="js-accordion__panel" data-accordion-opened="true"> -->
-       <div class="js-accordion2__panel">
+       <div class="js-accordion2__panel" data-accordion-opened="true">
          <h2 class="js-accordion2__header">
            <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
          </h2>
