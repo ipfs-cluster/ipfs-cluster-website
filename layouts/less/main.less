@@ -84,65 +84,41 @@ h1, h2, h3, h4, h5, h6 {
   text-align: left;
   letter-spacing: normal;
   text-transform: none;
-
-  // code {
-  //   background-color: @background;
-  // }
 }
 
-// h1 {
-//   font-size: 42px;
-//   font-weight: 700;
-//   margin-top: 50px;
-//   margin-bottom: 26px;
-//
-//   code {
-//     font-size: 30px;
-//   }
-// }
-//
-// h2 {
-//   font-weight: 700;
-//   font-size: 24px;
-//   margin-top: 30px;
-//   margin-bottom: 14px;
-//
-//   code {
-//     font-size: 26px;
-//   }
-// }
-//
-// h3 {
-//   font-weight: 400;
-//   font-size: 22px;
-//   margin-top: 30px;
-//   margin-bottom: 14px;
-//
-//   code {
-//     font-size: 22px;
-//   }
-// }
-//
-// h4 {
-//   font-weight: 700;
-//   font-size: 18px;
-//   margin-top: 30px;
-//   margin-bottom: 10px;
-//
-//   code {
-//     font-size: 17px;
-//   }
-// }
-//
-// h5, h6 {
-//   font-weight: 700;
-//   font-size: 16px;
-//   margin-bottom: 6px;
-//
-//   code {
-//     font-size: 15px;
-//   }
-// }
+h1 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-top: 50px;
+  margin-bottom: 26px;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 24px;
+  margin-top: 30px;
+  margin-bottom: 14px;
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 22px;
+  margin-top: 30px;
+  margin-bottom: 14px;
+}
+
+h4 {
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+h5, h6 {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 6px;
+}
 
 strong {
   font-weight: 700;
@@ -273,10 +249,15 @@ table {
     width: 100%;
 }
 
+// .default-animation, #sidebar, #sidebar ul, #body, #body .padding, #body .nav {
+//     -webkit-transition: all 0.2s ease;
+//     -moz-transition: all 0.2s ease;
+//     transition: all 0.2s ease;
+// }
+
 /* Inner Pages Global */
 #body {
   margin: 0;
-  padding-left: 280px;
 }
 
 #body a.highlight:after {
@@ -292,7 +273,7 @@ table {
 }
 
 #body .padding {
-  padding-top: 19px;
+  padding: 0;
 }
 
 @media only all and (max-width: 59.938em) {
@@ -411,14 +392,17 @@ header {
 
 /* Left Nav */
 #sidebar {
-	background-color: transparent;
-  margin-top: 145px;
+  background-color: transparent;
+  padding-top: 0;
+
+  position: relative;
 }
 
 #sidebar #header-wrapper {
   background: transparent;
   color: #bbbbbb;
   border: none;
+  padding-top: 0;
 }
 
 #sidebar .searchbox {
