@@ -17,14 +17,17 @@
           <li><strong>What kind of page?</strong> {{ printf "%#v" .Kind }}</li>
           <li><strong>What type of page?</strong> {{ printf "%#v" .Type }}</li>
           <li><strong>Where am I?</strong> {{ printf "%#v" .Path }}</li>
+          <li><strong>Section</strong> {{ printf "%#v" .Section }}</li>
+          <li><strong>ID?</strong> {{ printf "%#v" .UniqueID }}</li>
+          <li><strong>Title</strong> {{ printf "%#v" .Title }}</li>
           <li><strong>Who's my mom?</strong> {{ printf "%#v" .FirstSection.Title }}</li>
 
           <br/> -->
           <!-- END DEBUGGING -->
 
           {{ $currentNode.Scratch.Set "pages" .Pages }}
-          {{ if .Sections }}
-            {{ $currentNode.Scratch.Set "pages" (.Pages | union .Sections) }}
+          {{ if .FirstSection.Sections }}
+            {{ $currentNode.Scratch.Set "pages" (.Pages | union .FirstSection.Sections) }}
           {{ end }}
           {{ $pages := ($currentNode.Scratch.Get "pages") }}
           {{ range $pages.ByWeight }}
@@ -106,8 +109,7 @@
     <!-- Accessible Accordion JS from https://github.com/nico3333fr/jquery-accessible-accordion-aria | Thanks! -->
 
     <!--This controls display of node items in nav, ie, sections -->
-    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion expand dd-item
-        {{ if eq .UniqueID $currentNode.UniqueID }}active{{end}}
+    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion expand dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}
         {{ if .Params.alwaysopen }}parent{{end}}
         " data-accordion-prefix-classes="docs-accordion">
        <div class="js-accordion__panel" data-accordion-opened="true">

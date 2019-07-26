@@ -18,7 +18,7 @@
     <div class="cf ph2-ns">
 
       <!-- START left nav -->
-      {{ partial "menu.html" .FirstSection }}
+      {{ partial "menu.html" . }}
 
       <div id="overlay"></div> <!-- TODO figure out what this is for -->
       <!-- END left na ??? -->
@@ -68,6 +68,7 @@
             <li><strong>What type of page?</strong> {{ printf "%#v" .Type }}</li>
             <li><strong>Where am I?</strong> {{ printf "%#v" .Path }}</li>
             <li><strong>ID?</strong> {{ printf "%#v" .UniqueID }}</li>
+            <li><strong>Title</strong> {{ printf "%#v" .Title }}</li>
             <li><strong>Who's my mom?</strong> {{ printf "%#v" .FirstSection.Title }}</li>
 
             <br/> -->
