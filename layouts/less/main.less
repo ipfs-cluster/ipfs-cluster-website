@@ -273,10 +273,15 @@ table {
     width: 100%;
 }
 
+// .default-animation, #sidebar, #sidebar ul, #body, #body .padding, #body .nav {
+//     -webkit-transition: all 0.2s ease;
+//     -moz-transition: all 0.2s ease;
+//     transition: all 0.2s ease;
+// }
+
 /* Inner Pages Global */
 #body {
   margin: 0;
-  padding-left: 280px;
 }
 
 #body a.highlight:after {
@@ -292,7 +297,7 @@ table {
 }
 
 #body .padding {
-  padding-top: 19px;
+  padding: 0;
 }
 
 @media only all and (max-width: 59.938em) {
@@ -411,14 +416,17 @@ header {
 
 /* Left Nav */
 #sidebar {
-	background-color: transparent;
-  margin-top: 145px;
+  background-color: transparent;
+  padding-top: 0;
+
+  position: relative;
 }
 
 #sidebar #header-wrapper {
   background: transparent;
   color: #bbbbbb;
   border: none;
+  padding-top: 0;
 }
 
 #sidebar .searchbox {

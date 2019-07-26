@@ -13,8 +13,9 @@
 <!-- This file is for defining layout for each top-level section -->
 <!-- ie, www.foo.com/SECTION/but-not-lower-pages -->
 
-  <div id="body" class="bt b--black-10 bg-white black-90 ph3 ph5-ns pb4 pb5-ns">
-    <div class="mw9 center">
+<div id="body" class="bt b--black-10 bg-white black-90 ph3 ph5-ns pb4 pb5-ns">
+  <div class="mw9 center ph3-ns">
+    <div class="cf ph2-ns">
 
       <!-- START left nav -->
       {{ partial "menu.html" . }}
@@ -23,7 +24,7 @@
       <!-- END left na ??? -->
 
       <!-- START main content block -->
-      <div class="padding highlightable">
+      <div class="padding highlightable fl w-100 w-70-ns pa2">
         {{if not .IsHome}}
           <div id="top-bar">
 
@@ -66,6 +67,9 @@
 
       </div> <!-- END highlightable -->
       <!-- END main content block -->
+
+      </div>
+      </div>
 
       {{ partial "footer.html" . }}
 

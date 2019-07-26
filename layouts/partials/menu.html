@@ -1,4 +1,4 @@
-<nav id="sidebar" class="{{if $.Site.Params.showVisitedLinks }}showVisitedLinks{{end}}">
+<nav id="sidebar" class="{{if $.Site.Params.showVisitedLinks }}showVisitedLinks{{end}} fl w-100 w-30-ns pa2">
 
     {{ $currentNode := . }}
     {{ $showvisitedlinks := .Site.Params.showVisitedLinks }}
@@ -11,7 +11,7 @@
       <div class="highlightable">
         <ul class="topics">
           <!-- FOR DEBUGGING -->
-          <li><strong>Am I a node?</strong> {{ printf "%#v" .IsNode }}</li>
+          <!-- <li><strong>Am I a node?</strong> {{ printf "%#v" .IsNode }}</li>
           <li><strong>IsSection</strong> {{ printf "%#v" .IsSection }}</li>
           <li><strong>Am I a page?</strong> {{ printf "%#v" .IsPage }}</li>
           <li><strong>What kind of page?</strong> {{ printf "%#v" .Kind }}</li>
@@ -19,7 +19,7 @@
           <li><strong>Where am I?</strong> {{ printf "%#v" .Path }}</li>
           <li><strong>Who's my mom?</strong> {{ printf "%#v" .FirstSection.Title }}</li>
 
-          <br/>
+          <br/> -->
           <!-- END DEBUGGING -->
 
           {{ $currentNode.Scratch.Set "pages" .Pages }}
