@@ -17,7 +17,7 @@ The configurations and data persisted by a running IPFS Cluster peer (with `ipfs
 
 Since the pinset information is persistend on disk, it can be exported from an offline peer with:
 
-```sh
+```bash
 ipfs-cluster-service state export --consensus <crdt/raft>
 ```
 
