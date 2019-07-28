@@ -109,11 +109,8 @@
     <!-- Accessible Accordion JS from https://github.com/nico3333fr/jquery-accessible-accordion-aria | Thanks! -->
 
     <!--This controls display of node items in nav, ie, sections -->
-    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion expand dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}
-        {{ if .Params.alwaysopen }}parent{{end}}
-        " data-accordion-prefix-classes="docs-accordion">
-       <div class="js-accordion__panel" data-accordion-opened="true">
-         <h2 class="js-accordion__header">
+    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}} {{ if .Params.alwaysopen }}parent{{end}}">
+         <h2>
            <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
          </h2>
 
@@ -144,7 +141,6 @@
            {{ end }}
          </ul>
          {{ end }}
-     </div>
     </li>
 
   {{ else }}
@@ -170,13 +166,9 @@
     {{ safeHTML .Params.head }}
 
     <!--This controls display of node items in a nested nav, ie, nested sections -->
-    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion2 expand dd-item
-        {{ if eq .UniqueID $currentNode.UniqueID }}active{{end}}
-        {{ if .Params.alwaysopen }}parent{{end}}
-        " data-accordion-prefix-classes="docs-accordion-nested">
-       <!-- <div class="js-accordion__panel" data-accordion-opened="true"> -->
-       <div class="js-accordion2__panel" data-accordion-opened="true">
-         <h2 class="js-accordion2__header">
+    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item
+        {{ if eq .UniqueID $currentNode.UniqueID }}active{{end}} {{ if .Params.alwaysopen }}parent{{end}}">
+         <h2>
            <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
          </h2>
 
@@ -207,7 +199,6 @@
            {{ end }}
          </ul>
          {{ end }}
-     </div>
     </li>
 
   {{ else }}

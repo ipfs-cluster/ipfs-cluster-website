@@ -467,43 +467,6 @@ header {
   margin-bottom: 8px;
 }
 
-/* Accordion */
-.js-accordion__panel[aria-hidden=true],
-.js-accordion2__panel[aria-hidden=true] {
-  display: none;
-}
-.js-accordion__panel[role="tabpanel"] .js-accordion__header,
-.js-accordion2__panel[role="tabpanel"] .js-accordion2__header {
-  display: none;
-}
-.js-accordion__panel,
-.js-accordion2__panel {
-  //padding-left: 2em;
-}
-button.js-accordion__header,
-button.js-accordion2__header {
-  display: block !important;
-}
-.js-accordion__header,
-.js-accordion2__header {
-  line-height: @line-height;
-  background: @white;
-}
-.js-accordion__header[aria-expanded="true"]:after,
-.js-accordion2__header[aria-expanded="true"]:after {
-  content: " ▾";
-  //content: " &#9660;";
-}
-.js-accordion__header[aria-expanded="false"]:after,
-.js-accordion2__header[aria-expanded="false"]:after {
-  content: " ▸";
-}
-
-.js-accordion__header[aria-selected="false"],
-.js-accordion2__header[aria-selected="false"] {
-  //content: " (unselected)";
-}
-
 /* Modules */
 #body #breadcrumbs {
   width: 90%;
