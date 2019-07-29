@@ -44,7 +44,7 @@
     <!--This controls display of node items in nav, ie, sections -->
     <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{ if .Params.alwaysopen }}parent{{end}}">
        <h2 class="{{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
-         <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}} {{if eq .UniqueID $currentNode.UniqueID}}»{{end}}</a>
+         <a href="{{ .RelPermalink }}" class="highlight">{{if eq .UniqueID $currentNode.UniqueID}}»{{end}} {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
        </h2>
 
        {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
@@ -72,8 +72,7 @@
   <!--This controls display of NON-node items in nav, ie, pages -->
     <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
       <a href="{{ .RelPermalink }}" class="highlight">
-      {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
-      {{if eq .UniqueID $currentNode.UniqueID}}»{{end}}
+        {{if eq .UniqueID $currentNode.UniqueID}}»{{end}} {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
       </a>
     </li>
   {{ end }}
