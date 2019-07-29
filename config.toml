@@ -27,11 +27,6 @@ theme = "hugo-theme-learn"
   disableInlineCopyToClipBoard = true
   pygmentsCodeFences = true
 
-# [[menu.shortcuts]]
-# name = "<i class='fas fa-bookmark'></i> Releases"
-# url = "#"
-# weight = 1
-
 # activate learn-theme's search
 [outputs]
   home = [ "HTML", "RSS", "JSON"]

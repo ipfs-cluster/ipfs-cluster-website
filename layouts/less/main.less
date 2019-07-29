@@ -430,11 +430,6 @@ header {
   padding: 4px 0;
 }
 
-#sidebar ul li.active > button > a {
-  color: @active;
-  text-decoration: underline;
-}
-
 #sidebar ul.topics > li > a {
   line-height: @line-height;
   font-size: @font-size;
@@ -452,9 +447,10 @@ header {
   color: @active;
 }
 
-#sidebar ul li.active > a {
+#sidebar ul li.active > a, #sidebar ul li h2.active > a  {
   background: transparent;
   color: @active !important;
+  cursor: pointer;
 }
 
 #sidebar hr {
@@ -470,6 +466,12 @@ header {
 /* Modules */
 #body #breadcrumbs {
   width: 90%;
+}
+
+#top-bar {
+  background: transparent;
+  margin: 8px 0 0 0;
+  padding: 0;
 }
 
 .tipbox {
