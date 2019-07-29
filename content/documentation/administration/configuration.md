@@ -246,6 +246,7 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 |`ipfs_request_timeout` | `"5m0s"` | Specifies a timeout on general requests to the IPFS daemon for requets without a specific timeout option. |
 |`pin_timeout` | `"24h0m0s"` | Specifies the timeout for `pin/add` which starts from the last block received for the item being pinned. Thus items which are being pinned slowly will not be cancelled even if they take more than 24h. |
 |`unpin_timeout` | `"3h0m0s"` | Specifies the timeout for `pin/rm` requests to the IPFS daemon. |
+|`unpin_disable` | `false` | Prevents the connector from unpinning anything (even if the Cluster does). |
 
 ### The `pin_tracker` section
 
