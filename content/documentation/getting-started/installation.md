@@ -1,5 +1,5 @@
 +++
-title = "Download and Installation"
+title = "Download and Install"
 weight = 10
 aliases = [
     "/download/",

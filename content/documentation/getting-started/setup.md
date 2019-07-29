@@ -1,5 +1,5 @@
 +++
-title = "Initialization and Setup"
+title = "Setup and Initialize"
 weight = 20
 +++
 

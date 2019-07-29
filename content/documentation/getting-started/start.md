@@ -1,5 +1,5 @@
 +++
-title = "Starting the Cluster"
+title = "Start the Cluster"
 weight = 30
 aliases = [
     "/documentation/starting"
