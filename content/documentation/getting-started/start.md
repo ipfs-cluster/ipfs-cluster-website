@@ -25,13 +25,15 @@ As we will see below, the **first start** has slightly different requirements de
 <div class="tipbox warning">All peers in a Cluster must run either on CRDT or Raft mode.</div>
 
 
-### Starting a cluster with `--consensus crdt`
+## Starting a cluster with `--consensus crdt`
 
 This is the easiest option to start a cluster because the only requirement a crdt-based peer has to become part of a Cluster is to contact at least one other peer. This can be achieved in several ways:
 
 * Pre-filling the `peerstore` file with addresses for other peers ([as we saw in the previous section](/documentation/getting-started/setup/#the-peerstore-file)).
 * Running with the `--bootstrap <peer-multiaddress1,peer-multiaddress2>` flag. Note that using this flag will automatically *trust* the given peers. For more information about trust, read the [CRDT section](/documentation/administration/consensus#crdt).
 * In local networks with mDNS discovery support, peers will just autodiscover each-other and no additional measures are necessary.
+
+<div class="tipbox warning">By default, crdt peers trust no other peers, and will ignore any pins submitted by other peers. Thus, you will need to set the <code>trusted_peers</code> configuration option appropiately in your peers. <a href="/documentation/administration/security#the-trusted-peers-in-crdt-mode">More information here</a>.</div>
 
 * Example 1. Starting the *first* peer in a CRDT-based Cluster:
 
@@ -52,7 +54,7 @@ ipfs-cluster-service daemon --consensus crdt
 ipfs-cluster-service daemon --consensus crdt --bootstrap /dns4/cluster1.domain/tcp/9096/ipfs/QmcQ5XvrSQ4DouNkQyQtEoLczbMr6D9bSenGy6WQUCQUBt
 ```
 
-### Starting a cluster with `--consensus raft`
+## Starting a cluster with `--consensus raft`
 
 In Raft clusters, the first start of a peer must not only contact a different peer, but complete the task of becoming a member of the Raft Cluster. **Therefore the first start of a peer must always use the `--bootstrap` flag**:
 
@@ -74,7 +76,7 @@ ipfs-cluster-service daemon --consensus raft --bootstrap /dns4/cluster1.domain/t
 ipfs-cluster-service daemon --consensus raft
 ```
 
-### Checking it works
+## Checking it works
 
 After starting your cluster peers (specially the first time you are doing so), you should check that things are working correctly:
 

@@ -140,7 +140,7 @@ The `consensus` contains configuration objects for the different implementations
 |Key|Default|Description|
 |:---|:-------|:-----------|
 |`cluster_name`| `"ipfs-cluster"` | An arbitrary name. It becomes the pubsub topic to which all peers in the cluster subscribe to, so it must be the same for all |
-|`trusted_peers` | `[]` | The default set of trusted peers. See [Trust in CRDT Mode](/documentation/administration/consensus#trust-in-crdt-mode) for more information. |
+|`trusted_peers` | `[]` | The default set of trusted peers. See [Trust in CRDT Mode](/documentation/administration/consensus#the-trusted-peers-in-crdt-mode) for more information. Can be set to `[ "*" ]` to trust all peers. |
 |`peerset_metric` | `"ping"` | The name of the monitor metric to determine the current pinset. |
 |`rebroadcast_interval` | `"1m0s"` | How often to republish the current heads when no other pubsub message has been seen. Reducing this will allow new peers to learn about the current state sooner. |
 

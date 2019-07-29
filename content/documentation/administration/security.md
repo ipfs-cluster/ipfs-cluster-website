@@ -38,6 +38,8 @@ Trusted peers can:
 
 Non-trusted peers only have acccess to ID and Version endpoints (returning IPFS and Cluster Peer information).
 
+<div class="tipbox tip"><code>trusted_peers</code> can be set to <code>[ "*" ]</code> to trust every other peer.</div>
+
 ## Ports overview
 
   * Cluster swarm: `tcp:9096` is used by the Cluster swarm and protected by the *shared secret*. It is OK to expose this port (the cluster `secret` acts as password to interact with it).
