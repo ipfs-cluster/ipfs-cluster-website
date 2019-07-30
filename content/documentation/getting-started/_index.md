@@ -10,8 +10,8 @@ aliases = [
 
 The IPFS Cluster software consists of two binary files:
 
-* [ipfs-cluster-service](/documentation/usage/service) runs a Cluster peer (similar to `ipfs daemon`) using a configuration file and by storing some information on disk.
-* [ipfs-cluster-ctl](/documentation/usage/ctl) is used to communicate with a Cluster peer and perform actions such as pinning IPFS CIDs to the Cluster.
+* [ipfs-cluster-service](/documentation/reference/service) runs a Cluster peer (similar to `ipfs daemon`) using a configuration file and by storing some information on disk.
+* [ipfs-cluster-ctl](/documentation/reference/ctl) is used to communicate with a Cluster peer and perform actions such as pinning IPFS CIDs to the Cluster.
 
 The Cluster peer communicates with the IPFS daemon (which needs to be launched and running separately) using the HTTP API (`localhost:5001`).
 

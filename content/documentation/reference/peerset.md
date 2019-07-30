@@ -1,6 +1,6 @@
 +++
 title = "Peerset management"
-weight = 40
+weight = 60
 +++
 
 # Peerset management
@@ -44,5 +44,3 @@ ipfs-cluster-ctl peers rm <pid>
 This can be called from the peer shutting down (self-removal) or from any other peer. In any case, it will cause the peer to shut itself down when it realizes it has been removed.
 
 Alternatively, the `leave_on_shutdown` configuration option can be set to `true`. With this option, a peer shutting down cleanly will try to remove itself from the Raft peerset in the process. **Peers which have been removed from the Raft peerset** automatically clean their state and will need to bootstrap again to it to re-join it.
-
-

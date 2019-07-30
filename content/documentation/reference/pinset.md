@@ -1,6 +1,6 @@
 +++
 title = "Pinset management"
-weight = 30
+weight = 50
 +++
 
 # Pinset management

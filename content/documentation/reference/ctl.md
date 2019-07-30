@@ -1,6 +1,6 @@
 +++
 title = "ipfs-cluster-ctl"
-weight = 10
+weight = 30
 aliases = [
     "/documentation/ipfs-cluster-ctl"
 ]
@@ -13,10 +13,10 @@ The `ipfs-cluster-ctl` command line application is a user-friendly REST API clie
 * [Pinning](/documentation/getting-started/pinning#pinning-cids)
 * [Unpinning](/documentation/getting-started/pinning#pinning-cids)
 * [Adding](/documentation/getting-started/pinning#adding-files-to-the-cluster)
-* [Listing items in the pinset](/documentation/usage/pinset#pin-ls-vs-status)
-* [Checking the status of pins](/documentation/usage/pinset#pin-ls-vs-status)
-* [Listing cluster peers](/documentation/usage/peerset#listing-peers)
-* [Removing peers](/documentation/usage/peerset#removing-peers)
+* [Listing items in the pinset](/documentation/reference/pinset#pin-ls-vs-status)
+* [Checking the status of pins](/documentation/reference/pinset#pin-ls-vs-status)
+* [Listing cluster peers](/documentation/reference/peerset#listing-peers)
+* [Removing peers](/documentation/reference/peerset#removing-peers)
 
 ## Usage
 

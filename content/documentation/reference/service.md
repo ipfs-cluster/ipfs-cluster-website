@@ -1,6 +1,6 @@
 +++
 title = "ipfs-cluster-service"
-weight = 20
+weight = 40
 aliases = [
     "/documentation/ipfs-cluster-service"
 ]
