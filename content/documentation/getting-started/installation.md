@@ -7,7 +7,7 @@ aliases = [
 ]
 +++
 
-# Download
+# Download and Install
 
 In order to run an IPFS Cluster peer and perform actions on the Cluster, you will need to obtain the `ipfs-cluster-service` and `ipfs-cluster-ctl` binaries and run them from your console. This can be downloaded or compiled as explained below. You should run the latest stable version, and run all peers in your Cluster with the same version.
 

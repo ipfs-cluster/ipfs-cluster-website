@@ -6,7 +6,7 @@ aliases = [
 ]
 +++
 
-# Starting the Cluster
+# Start the Cluster
 
 If you are here it means that you have successfully installed `ipfs-cluster-service` (to run a cluster peer) and `ipfs-cluster-ctl` (to interact with it) in one or several machines (using the same `secret` in the configuration for all of them). Congrats! These machines need to be running an IPFS daemon (`ipfs daemon`) as well, which must be started before starting the Cluster peers.
 

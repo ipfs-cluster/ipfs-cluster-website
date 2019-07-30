@@ -64,11 +64,16 @@
             <li><strong>ID?</strong> {{ printf "%#v" .UniqueID }}</li>
             <li><strong>Title</strong> {{ printf "%#v" .Title }}</li>
             <li><strong>Who's my mom?</strong> {{ printf "%#v" .FirstSection.Title }}</li>
-
             <br/> -->
             <!-- END DEBUGGING -->
-          {{ .Content }}
-
+            {{$showRedirectedContent := ($.Params.redirect)}}
+            {{if $showRedirectedContent}}
+              {{ with .Site.GetPage $showRedirectedContent }}
+               {{ .Content }}
+              {{ end }}
+            {{ else }}
+              {{ .Content }}
+            {{ end }}
         </div>
 
       </div> <!-- END highlightable -->
