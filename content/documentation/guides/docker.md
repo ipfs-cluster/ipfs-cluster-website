@@ -1,26 +1,9 @@
 +++
-title = "Deployment automations"
-weight = 50
-aliases = [
-    "/documentation/deployment"
-]
+title = "Docker"
+weight = 70
 +++
 
-# Deployment automations
-
-We have developed a number of automations to facilitate configuring and deploying IPFS Clusters:
-
-* [Ansible roles](#ansible-roles)
-* [Docker](#docker)
-* [Kubernetes with Kustomize](#kubernetes-with-kustomize)
-
----
-
-## Ansible roles
-
-Ansible roles for configuring and deploying `ipfs-cluster-service`, `ipfs-cluster-ctl` and `go-ipfs` (including templated configuration files) are available at https://github.com/hsanjuan/ansible-ipfs-cluster.
-
-## Docker
+# Docker
 
 <div class="tipbox tip">IPFS Cluster provides official dockerized releases at <a href="https://hub.docker.com/r/ipfs/ipfs-cluster/">https://hub.docker.com/r/ipfs/ipfs-cluster/</a> along with an example template for <code>docker-compose</code>.</div>
 
@@ -41,12 +24,12 @@ The container ([Dockerfile here](https://github.com/ipfs/ipfs-cluster/blob/maste
 
 <div class="tipbox warning">Unless you run docker with <code>--net=host</code>, you will need to set <code>$IPFS_API</code> or make sure the configuration has the correct <code>node_multiaddress</code>.</div>
 
-Make sure you read the [Configuration documentation](/documentation/configuration) for more information on how to configure IPFS Cluster.
+Make sure you read the [configuration reference](/documentation/reference/configuration) for more information on how to configure IPFS Cluster.
 
 <div class="tipbox tip">You can pass any custom arguments and subcommands for <code>ipfs-cluster-service</code> when running <code>docker run ipfs/ipfs-cluster</code>. By default it runs with <code>daemon --upgrade</code>.</div>
 
 
-### Docker compose
+## Docker compose
 
 We also provide an example [`docker-compose.yml`](https://github.com/ipfs/ipfs-cluster/blob/master/docker-compose.yml) which is able to launch an IPFS Cluster with two cluster peers and two ipfs daemons running.
 
@@ -55,15 +38,3 @@ The first cluster peer is launched first and acts as bootstrapper. The second pe
 Only the IPFS swarm port (tcp `4001`/`4101`) and the IPFS Cluster API ports (tcp `9094`/`9194`) are exposed out of the containers.
 
 This compose file is provided as an example on how to set up a multi-peer cluster using Docker containers.
-
-## Kubernetes with Kustomize
-
-Kustomize can be used to deploy IPFS Clusters on Kubernetes.
-
-You can read more about it in the [Running Cluster on Kubernetes](/documentation/guides/k8s) guide.
-
-This subsection provides different resources to automate the deployment of an IPFS Cluster:
-
-* [Ansible roles]()
-* [Docker containers and Docker compose](/documentation/guides/docker)
-* [Kubernetes deployment Guide](/documentation/guides/k8s)
