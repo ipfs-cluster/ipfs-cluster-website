@@ -20,9 +20,9 @@ Pinning is when you make a piece of content persistent. It's great if you have c
 
 #### Other Features Include
 
-* Pin Monitoring and logging- Cluster allows you to see the health of your pins and implements 
+* Pin Monitoring and logging- Cluster allows you to see the health of your peers
 
-* New peers can be added
+* New peers can be added and removed
 
 * Import and export data into new clusters
 
@@ -61,8 +61,8 @@ IPFS can also be slow and has a lot of latency. With IPFS Cluster you can don't 
 
 
 
-Inspiration taken from: 
-https://www.consul.io/intro/index.html
+<!-- Inspiration taken from: 
+https://www.consul.io/intro/index.html -->
 
 
 

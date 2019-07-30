@@ -62,7 +62,6 @@ $(document).ready(function(){
   $("#top-bar").sticky({topSpacing:0, zIndex: 1000});
 });
 
-
 jQuery(document).ready(function() {
   // Add link button for every
   var text, clip = new Clipboard('.anchor');

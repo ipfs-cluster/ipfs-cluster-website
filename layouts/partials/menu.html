@@ -1,4 +1,4 @@
-<nav id="sidebar" class="{{if $.Site.Params.showVisitedLinks }}showVisitedLinks{{end}}">
+<nav id="sidebar" class="{{if $.Site.Params.showVisitedLinks }}showVisitedLinks{{end}} fl w-100 w-30-ns pa2">
 
     {{ $currentNode := . }}
     {{ $showvisitedlinks := .Site.Params.showVisitedLinks }}
@@ -17,81 +17,22 @@
           <li><strong>What kind of page?</strong> {{ printf "%#v" .Kind }}</li>
           <li><strong>What type of page?</strong> {{ printf "%#v" .Type }}</li>
           <li><strong>Where am I?</strong> {{ printf "%#v" .Path }}</li>
+          <li><strong>Section</strong> {{ printf "%#v" .Section }}</li>
+          <li><strong>ID?</strong> {{ printf "%#v" .UniqueID }}</li>
+          <li><strong>Title</strong> {{ printf "%#v" .Title }}</li>
+          <li><strong>Who's my mom?</strong> {{ printf "%#v" .FirstSection.Title }}</li>
+
           <br/> -->
           <!-- END DEBUGGING -->
-
           {{ $currentNode.Scratch.Set "pages" .Pages }}
-          {{ if .Sections }}
-            {{ $currentNode.Scratch.Set "pages" (.Pages | union .Sections) }}
-          {{ end }}
+          {{ $currentNode.Scratch.Set "pages" (.FirstSection.Sections) }}
           {{ $pages := ($currentNode.Scratch.Get "pages") }}
           {{ range $pages.ByWeight }}
-            {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
+            {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks}}
           {{ end }}
-
         </ul>
-
-        {{ $disableShortcutsTitle := .Site.Params.DisableShortcutsTitle}}
-        {{with .Site.Menus.shortcuts}}
-          <section id="shortcuts">
-            <ul>
-              {{ range sort . "Weight"}}
-                  <li>
-                      {{.Pre}}<a class="padding" href="{{.URL | absLangURL }}">{{safeHTML .Name}}</a>{{.Post}}
-                  </li>
-              {{end}}
-            </ul>
-          </section>
-        {{end}}
-
-        {{ if or .Site.IsMultiLingual $showvisitedlinks }}
-        <section id="prefooter">
-          <hr/>
-          <ul>
-          {{ if and .Site.IsMultiLingual (not .Site.Params.DisableLanguageSwitchingButton)}}
-            <li>
-              <a class="padding">
-                <i class="fas fa-language fa-fw"></i>
-              <div class="select-style">
-                <select id="select-language" onchange="location = this.value;">
-              {{ $siteLanguages := .Site.Languages}}
-              {{ $pageLang := .Page.Lang}}
-              {{ range .Page.AllTranslations }}
-                  {{ $translation := .}}
-                  {{ range $siteLanguages }}
-                      {{ if eq $translation.Lang .Lang }}
-                        {{ $selected := false }}
-                        {{ if eq $pageLang .Lang}}
-                          <option id="{{ $translation.Language }}" value="{{ $translation.URL }}" selected>{{ .LanguageName }}</option>
-                        {{ else }}
-                          <option id="{{ $translation.Language }}" value="{{ $translation.URL }}">{{ .LanguageName }}</option>
-                        {{ end }}
-                      {{ end }}
-                  {{ end }}
-              {{ end }}
-            </select>
-            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-              width="255px" height="255px" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255;" xml:space="preserve">
-              <g>
-                <g id="arrow-drop-down">
-                  <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
-                </g>
-              </g>
-            </svg>
-            </div>
-            </a>
-            </li>
-          {{end}}
-
-          {{ if $showvisitedlinks}}
-            <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> {{T "Clear-History"}}</a></li>
-          {{ end }}
-          </ul>
-        </section>
-        {{ end }}
       </div>
     </nav>
-
 
 <!-- templates -->
 {{ define "section-tree-nav" }}
@@ -99,24 +40,15 @@
 {{ $currentNode := .currentnode }}
  {{ with .sect }}
   {{ if .IsSection }}
-    {{ safeHTML .Params.head }}
-
-    <!-- Accessible Accordion from https://github.com/nico3333fr/jquery-accessible-accordion-aria | Thanks! -->
 
     <!--This controls display of node items in nav, ie, sections -->
-    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion expand dd-item
-        {{ if .IsAncestor $currentNode }}parent{{end}}
-        {{ if eq .UniqueID $currentNode.UniqueID }}active{{end}}
-        {{ if .Params.alwaysopen }}parent{{end}}
-        " data-accordion-prefix-classes="docs-accordion">
-       <!-- <div class="js-accordion__panel" data-accordion-opened="true"> -->
-       <div class="js-accordion__panel">
-         <h2 class="js-accordion__header">
-           <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
-         </h2>
+    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{ if .Params.alwaysopen }}parent{{end}}">
+       <h2 class="{{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
+         <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}} {{if eq .UniqueID $currentNode.UniqueID}}»{{end}}</a>
+       </h2>
 
-         {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
-         {{ if ne $numberOfPages 0 }}
+       {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
+       {{ if ne $numberOfPages 0 }}
 
          <ul>
            {{ $currentNode.Scratch.Set "pages" .Pages }}
@@ -125,101 +57,25 @@
            {{end}}
            {{ $pages := ($currentNode.Scratch.Get "pages") }}
 
-           {{if eq .Site.Params.ordersectionsby "title"}}
-             {{ range $pages.ByTitle }}
-               {{ if and .Params.hidden (not $.showhidden) }}
-               {{else}}
-               {{ template "section-tree-nav-nested" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
-               {{end}}
-             {{ end }}
-           {{else}}
-             {{ range $pages.ByWeight }}
-               {{ if and .Params.hidden (not $.showhidden) }}
-               {{ else }}
-               {{ template "section-tree-nav-nested" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
-               {{ end }}
+           {{ range $pages.ByWeight }}
+             {{ if and .Params.hidden (not $.showhidden) }}
+             {{ else }}
+             {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
              {{ end }}
            {{ end }}
          </ul>
-         {{ end }}
-     </div>
+       {{ end }}
     </li>
 
   {{ else }}
 
   <!--This controls display of NON-node items in nav, ie, pages -->
-    {{ if not .Params.Hidden }}
     <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
       <a href="{{ .RelPermalink }}" class="highlight">
       {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
-      {{ if $showvisitedlinks}}<i class="fas fa-check read-icon"></i>{{end}}
+      {{if eq .UniqueID $currentNode.UniqueID}}»{{end}}
       </a>
     </li>
-   {{ end }}
-  {{ end }}
- {{ end }}
-{{ end }}
-
-{{ define "section-tree-nav-nested" }}
-{{ $showvisitedlinks := .showvisitedlinks }}
-{{ $currentNode := .currentnode }}
- {{ with .sect }}
-  {{ if .IsSection }}
-    {{ safeHTML .Params.head }}
-
-    <!--This controls display of node items in a nested nav, ie, nested sections -->
-    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="js-accordion2 expand dd-item
-        {{ if .IsAncestor $currentNode }}parent{{end}}
-        {{ if eq .UniqueID $currentNode.UniqueID }}active{{end}}
-        {{ if .Params.alwaysopen }}parent{{end}}
-        " data-accordion-prefix-classes="docs-accordion-nested">
-       <!-- <div class="js-accordion__panel" data-accordion-opened="true"> -->
-       <div class="js-accordion2__panel">
-         <h2 class="js-accordion2__header">
-           <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
-         </h2>
-
-         {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
-         {{ if ne $numberOfPages 0 }}
-
-         <ul>
-           {{ $currentNode.Scratch.Set "pages" .Pages }}
-           {{ if .Sections}}
-             {{ $currentNode.Scratch.Set "pages" (.Pages | union .Sections) }}
-           {{end}}
-           {{ $pages := ($currentNode.Scratch.Get "pages") }}
-
-           {{if eq .Site.Params.ordersectionsby "title"}}
-             {{ range $pages.ByTitle }}
-               {{ if and .Params.hidden (not $.showhidden) }}
-               {{else}}
-               {{ template "section-tree-nav-nested" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
-               {{end}}
-             {{ end }}
-           {{else}}
-             {{ range $pages.ByWeight }}
-               {{ if and .Params.hidden (not $.showhidden) }}
-               {{ else }}
-               {{ template "section-tree-nav-nested" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
-               {{ end }}
-             {{ end }}
-           {{ end }}
-         </ul>
-         {{ end }}
-     </div>
-    </li>
-
-  {{ else }}
-
-  <!--This controls display of NON-node items in nav, ie, pages -->
-    {{ if not .Params.Hidden }}
-    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
-      <a href="{{ .RelPermalink }}" class="highlight">
-      {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
-      {{ if $showvisitedlinks}}<i class="fas fa-check read-icon"></i>{{end}}
-      </a>
-    </li>
-   {{ end }}
   {{ end }}
  {{ end }}
 {{ end }}

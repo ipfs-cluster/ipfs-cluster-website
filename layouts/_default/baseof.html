@@ -36,27 +36,7 @@
 
     <title>{{ .Title }} - {{ .Site.Params.Description }}</title>
 
-    <script async defer src="/buttons.js"></script>
     <script src="{{"js/jquery-2.x.min.js"| relURL}}"></script>
-
-    <!-- TODO this script creates our accesible accordion menu out of header levels. The user sees the uncollapsed nav in an annoying flash before this runs at load. I'm not sure how to fix this. -->
-    <!-- The additional js-accordion2 is a known bug in the JS around nested accordions. This is the author's suggested workaround as of 16 Jun 2019-->
-    <script src="/js/jquery-accessible-accordion-aria.js"></script>
-    <script>
-    $(function () {
-       $('.js-accordion').accordion();
-         $('.js-accordion2').accordion({
-         headersSelector: '.js-accordion2__header',
-              panelsSelector: '.js-accordion2__panel',
-              buttonsSelector: 'button.js-accordion2__header',
-              buttonsGeneratedContent: 'html',
-              button: $('<button></button>', {
-                  class: 'js-accordion2__header',
-                  type: 'button'
-              })
-         });
-      });
-    </script>
 
     <link rel="stylesheet" href="{{"css/nucleus.css" | relURL}}">
     <link rel="stylesheet" href="{{"css/fontawesome-all.min.css" | relURL}}">
@@ -100,8 +80,6 @@
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
     <script src="{{"js/clipboard.min.js" | relURL}}"></script>
-    <script src="{{"js/perfect-scrollbar.min.js" | relURL}}"></script>
-    <script src="{{"js/perfect-scrollbar.jquery.min.js" | relURL}}"></script>
     <script src="{{"js/jquery.sticky.js" | relURL}}"></script>
     <script src="{{"js/featherlight.min.js" | relURL}}"></script>
     <script src="{{"js/html5shiv-printshiv.min.js" | relURL}}"></script>

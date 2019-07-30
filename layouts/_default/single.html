@@ -14,16 +14,17 @@
 <!-- ie, www.foo.com/section/ALL-OF-THESE/AND-THESE -->
 
 <div id="body" class="bt b--black-10 bg-white black-90 ph3 ph5-ns pb4 pb5-ns">
-  <div class="mw9 center">
+  <div class="mw9 center ph3-ns">
+    <div class="cf ph2-ns">
 
     <!-- START left nav -->
     {{ partial "menu.html" . }}
 
-    <div id="overlay"></div> <!-- TODO figure out what this is for -->
-    <!-- END left na ??? -->
+    <div id="overlay"></div> <!-- Toggle when collapsed goes here. I think. -->
+    <!-- END left nav -->
 
     <!-- START main content block -->
-    <div class="padding highlightable">
+    <div class="padding highlightable fl w-100 w-70-ns pa2">
       {{if not .IsHome}}
         <div id="top-bar">
 
@@ -34,9 +35,6 @@
                       <i class="fas fa-bars"></i>
                     </a>
                 </span>
-                {{ if $toc }}
-                <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
-                {{ end }}
                 <span class="links">
                {{$showBreadcrumb := (and (not .Params.disableBreadcrumb) (not .Site.Params.disableBreadcrumb))}}
                {{if $showBreadcrumb}}
@@ -47,9 +45,6 @@
                {{ end }}
                 </span>
             </div>
-            {{ if $toc }}
-                {{ partial "toc.html" . }}
-            {{ end }}
 
         </div> <!-- END top bar -->
       {{ end }}
@@ -58,14 +53,28 @@
       <div id="chapter">
       {{ end }}
 
-      <div id="body-inner">
+      <div id="body-inner" class="page-with-sidenav">
+          <!-- FOR DEBUGGING -->
+          <!-- <li><strong>Am I a node?</strong> {{ printf "%#v" .IsNode }}</li>
+          <li><strong>IsSection</strong> {{ printf "%#v" .IsSection }}</li>
+          <li><strong>Am I a page?</strong> {{ printf "%#v" .IsPage }}</li>
+          <li><strong>What kind of page?</strong> {{ printf "%#v" .Kind }}</li>
+          <li><strong>What type of page?</strong> {{ printf "%#v" .Type }}</li>
+          <li><strong>Where am I?</strong> {{ printf "%#v" .Path }}</li>
+          <li><strong>ID?</strong> {{ printf "%#v" .UniqueID }}</li>
+          <li><strong>Title</strong> {{ printf "%#v" .Title }}</li>
+          <li><strong>Who's my mom?</strong> {{ printf "%#v" .FirstSection.Title }}</li>
 
+          <br/> -->
+          <!-- END DEBUGGING -->
         {{ .Content }}
 
       </div>
 
     </div> <!-- END highlightable -->
     <!-- END main content block -->
+
+  </div>
 
     {{ partial "footer.html" . }}
 
