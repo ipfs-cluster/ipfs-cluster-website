@@ -3,7 +3,8 @@ title = "Docs"
 weight = 10
 aliases = [
     "/developer/",
-    "/guides/"
+    "/guides/",
+    "/documentation/developer/architecture/"
 ]
 +++
 
