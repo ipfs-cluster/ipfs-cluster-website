@@ -27,4 +27,4 @@ By default, logs are coloured. To disable log colours set the `IPFS_LOGGING_FMT`
 
 ## Download
 
-To download `ipfs-cluster-service` check the [downloads page](/documentation/installation).
+To download `ipfs-cluster-service` check the [downloads page](/documentation/getting-started/installation).
