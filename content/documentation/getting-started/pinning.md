@@ -14,7 +14,7 @@ We will now add pins and content using `ipfs-cluster-ctl`:
 
 <div class="tipbox tip">You can get help and usage information for all <code>ipfs-cluster-ctl</code> commands with <code>ipfs-cluster-ctl --help</code> and <code>ipfs-cluster-ctl &lt;command&gt; --help</code></div>
 
-For extended information on pinset management, including how to list, filter and recover pins, see the [relevant section](/documentation/reference/pinset).
+For extended information on pinset management, including how to list, filter and recover pins, see the [relevant section](/documentation/guides/pinset).
 
 ## Adding files to the Cluster
 

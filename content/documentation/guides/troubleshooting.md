@@ -56,7 +56,7 @@ When a peer stops unexpectedly:
 
 ## `ipfs-cluster-ctl status <cid>` does not report CID information for all peers
 
-This is usually the result of a [desync between the *shared state* and the *local state*](/documentation/reference/pinset), or between the *local state* and the ipfs state. If the problem does not autocorrect itself after a couple of minutes (thanks to auto-syncing), try running `ipfs-cluster-ctl sync [cid]` for the problematic item. You can also restart your node.
+This is usually the result of a [desync between the *shared state* and the *local state*](/documentation/guides/pinset), or between the *local state* and the ipfs state. If the problem does not autocorrect itself after a couple of minutes (thanks to auto-syncing), try running `ipfs-cluster-ctl sync [cid]` for the problematic item. You can also restart your node.
 
 ## libp2p errors
 
