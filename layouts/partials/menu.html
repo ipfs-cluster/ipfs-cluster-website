@@ -1,4 +1,4 @@
-<nav id="sidebar" class="{{if $.Site.Params.showVisitedLinks }}showVisitedLinks{{end}} fl w-100 w-30-ns pa2">
+<nav id="sidebar" class="{{if $.Site.Params.showVisitedLinks }}showVisitedLinks{{end}} fl w-100 w-third-m w-third-ns pa2">
 
     {{ $currentNode := . }}
     {{ $showvisitedlinks := .Site.Params.showVisitedLinks }}
@@ -71,7 +71,7 @@
 
   <!--This controls display of NON-node items in nav, ie, pages -->
     <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
-      <a href="{{ .RelPermalink }}" class="highlight">{{if eq .UniqueID $currentNode.UniqueID}}»{{end}} 
+      <a href="{{ .RelPermalink }}" class="highlight">{{if eq .UniqueID $currentNode.UniqueID}}»{{end}}
       {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
       </a>
     </li>

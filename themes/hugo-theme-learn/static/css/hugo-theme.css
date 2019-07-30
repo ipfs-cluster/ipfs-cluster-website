@@ -243,12 +243,12 @@ figcaption h4 {
     cursor:  pointer;
 }
 
-@media only all and (max-width: 47.938em) {
+@media only all and (max-width: 60em) {
   #breadcrumbs .links, #top-github-link-text {
       display: none;
   }
 }
 
 .is-sticky #top-bar {
-  box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.1); 
+  box-shadow: -1px 2px 5px 1px rgba(0, 0, 0, 0.1);
 }
