@@ -5,14 +5,14 @@ weight = 40
 
 # Adding and pinning
 
-If you are here, you have successfully [downloaded and installed `ipfs-cluster-service` and `ipfs-cluster-ctl`](/documentation/getting-started/installation), [initialized](/documentation/getting-started/setup) and [started a cluster](/documentation/getting-started/start) with one or several peers.
+If you are here, you have successfully [downloaded and installed](/documentation/getting-started/installation) `ipfs-cluster-service` and `ipfs-cluster-ctl`, [setup and initialized](/documentation/getting-started/setup) your Cluster peers, and [started your Cluster](/documentation/getting-started/start) with one or several peers.
 
 We will now add pins and content using `ipfs-cluster-ctl`:
 
 * [Adding files to the Cluster](#adding-files-to-the-cluster)
 * [Pinning CIDs](#pinning-cids)
 
-<div class="tipbox tip">You can obtain detailed help and usage information for all <code>ipfs-cluster-ctl</code> commands with <code>ipfs-cluster-ctl --help</code> and <code>ipfs-cluster-ctl &lt;command&gt; --help</code></div>
+<div class="tipbox tip">You can get help and usage information for all <code>ipfs-cluster-ctl</code> commands with <code>ipfs-cluster-ctl --help</code> and <code>ipfs-cluster-ctl &lt;command&gt; --help</code></div>
 
 For extended information on pinset management, including how to list, filter and recover pins, see the [relevant section](/documentation/usage/pinset).
 
@@ -22,14 +22,14 @@ For extended information on pinset management, including how to list, filter and
 ipfs-cluster-ctl add myfile.txt
 ```
 
-The `ipfs-cluster-ctl add` command is very similar to the `ipfs add` command and share most of the options (like those to define the chunking, the DAG type or the CID-version to use).
+The `ipfs-cluster-ctl add` command is very similar to the `ipfs add` command and share most of the same options (such as those that define chunking, the DAG type or which CID-version to use).
 
-However, where the `ipfs add` command only adds to the local IPFS daemon, the `ipfs-cluster-ctl add` command will add to several cluster peers at the same time (how many depends on the replication factors you set as command flags pin or the defaults in the configuration).
+However, where the `ipfs add` command only adds to the local IPFS daemon, the `ipfs-cluster-ctl add` command will add to several Cluster peers at the same time. How many it adds depends on the replication factors you set as command flags pin or the defaults in the configuration file.
 
-This means that when the add process is finished, your file will have been fully added to several ipfs daemons (not necessarily the local one. For example:
+This means that when the add process is finished, your file will have been fully added to several IPFS daemons (and not necessarily the local one). For example:
 
 ```sh
-$ ipfs-cluster-ctl add pinning.md 
+$ ipfs-cluster-ctl add pinning.md
 added QmarNBnreCx4YtT4ETXxQ4dn2xQpcTGd2PaVM4b2UuyGku pinning.md
 $ ipfs-cluster-ctl pin ls QmarNBnreCx4YtT4ETXxQ4dn2xQpcTGd2PaVM4b2UuyGku # check pin data
 QmarNBnreCx4YtT4ETXxQ4dn2xQpcTGd2PaVM4b2UuyGku |  | PIN | Repl. Factor: -1 | Allocations: [everywhere] | Recursive
@@ -48,7 +48,7 @@ QmarNBnreCx4YtT4ETXxQ4dn2xQpcTGd2PaVM4b2UuyGku :
 ipfs-cluster-ctl pin add <cid/ipfs-path>
 ```
 
-In many cases, you know which content from the IPFS network you want to add to your cluster. The `ipfs-cluster-ctl pin add` operation is similar to the `ipfs pin add` one, but allows to set cluster specific flags such the replication factors or the name associated to a pin. For example:
+In many cases, you know what content from the IPFS network you want to add to your Cluster. The `ipfs-cluster-ctl pin add` operation is similar to the `ipfs pin add` one, but allows to set Cluster-specific flags, such the replication factors or the name associated to a pin. For example:
 
 ```sh
 $ ipfs-cluster-ctl pin add --name cluster-website --replication 2 /ipns/cluster.ipfs.io
@@ -63,6 +63,6 @@ QmXvQLhK2heNz65fWRabTfbzXwYfaBgEBuTdUJNzp69Xjx | cluster-website | PIN | Repl. F
 
 ```
 
-As we see, the pin started pinning in two places (replication = 2). When we check the pin object, we see the peer IDs it was allocated to and that it is called `cluster-website`.
+As we see, the pin started pinning in two places (replication = 2). When we check the pin object, we see both the peer IDs it was allocated to and that it is called `cluster-website`.
 
-Pins can be removed anytime with `ipfs-cluster-ctl pin rm`.
+Pins can be removed at any time with `ipfs-cluster-ctl pin rm`.
