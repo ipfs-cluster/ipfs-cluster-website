@@ -4,7 +4,8 @@ weight = 10
 aliases = [
     "/developer/",
     "/guides/",
-    "/documentation/developer/architecture/"
+    "/documentation/developer/architecture/",
+    "/documentation/developer/rfcs/dag-sharding-rfc/"
 ]
 +++
 
