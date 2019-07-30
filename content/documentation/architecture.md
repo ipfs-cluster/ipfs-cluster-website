@@ -4,6 +4,8 @@ title = "Architecture"
 
 # IPFS Cluster architecture
 
+**I think this can be deleted because it's been replaced by other sections -- or do we still want it? If we delete, then we can put an alias on a different page**
+
 This document gives an overview of the IPFS Cluster architecture.
 
 ## Modularity

@@ -1,5 +1,9 @@
 +++
 title = "DAG Sharding RFC"
+weight = "100"
+aliases = [
+    "/documentation/developer/rfcs/dag-sharding-rfc/"
+]
 +++
 
 # DAG Sharding RFC
@@ -22,7 +26,7 @@ Storing large files is a feature that would serve many use cases and the more ge
 
 This feature is also frequently requested, including in the original thread leading to the creation of ipfs-cluster (See issue #1), and in @raptortech-js 's thorough discussion in issue #9.  The idea is to use sharding to incorporate space-efficient replication techniques to provide better fault tolerance of storage.  This would open up ipfs-cluster to new usage patterns, especially storing archives with infrequent updates and long storage periods.
 
-Again, while files storage will benefit from efficient, fault tolerant encodings, these properties are potentially also quite useful for storing arbitrary merkle DAGs. 
+Again, while files storage will benefit from efficient, fault tolerant encodings, these properties are potentially also quite useful for storing arbitrary merkle DAGs.
 
 ## Background
 
