@@ -1,9 +1,6 @@
 +++
 title = "Getting Started"
 weight = 15
-aliases = [
-    "/documentation/overview"
-]
 +++
 
 # Getting started
