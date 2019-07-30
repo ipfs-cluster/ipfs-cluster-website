@@ -61,9 +61,3 @@ This compose file is provided as an example on how to set up a multi-peer cluste
 Kustomize can be used to deploy IPFS Clusters on Kubernetes.
 
 You can read more about it in the [Running Cluster on Kubernetes](/documentation/guides/k8s) guide.
-
-This subsection provides different resources to automate the deployment of an IPFS Cluster:
-
-* [Ansible roles]()
-* [Docker containers and Docker compose](/documentation/guides/docker)
-* [Kubernetes deployment Guide](/documentation/guides/k8s)
