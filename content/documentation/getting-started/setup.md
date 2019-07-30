@@ -39,7 +39,7 @@ If present, the <code>CLUSTER_SECRET</code> environment value is used when runni
 
 ## Trusted peers
 
-The `crdt` section of the `service.json` file includes an empty `trusted_peers` array. By default, peers running on crdt-mode trust no other peers, and will ignore any pins submitted by other peers. Thus, you will need to set the `trusted_peers` configuration option appropriately. See the [Security and Ports](/documentation/administration/security#the-trusted-peers-in-crdt-mode) section for more information.
+The `crdt` section of the `service.json` file includes an empty `trusted_peers` array. By default, peers running on crdt-mode trust no other peers, and will ignore any pins submitted by other peers. Thus, you will need to set the `trusted_peers` configuration option appropriately. See the [Security and Ports](/documentation/guides/security#the-trusted-peers-in-crdt-mode) section for more information.
 
 
 ## The `peerstore` file
@@ -55,8 +55,8 @@ The `peerstore` file will be maintained by the running Cluster peer and will be 
 
 ## Running in production
 
-If you are planning to run IPFS and IPFS Cluster in production, you should read the specific section on [Settings for production](/documentation/administration/production), which provides a few tips on how to configure your IPFS and Cluster peers with the right values for such environments. For more information about firewall configuration and security, visit the [Security and Ports](/documenation/administration/security) section.
+If you are planning to run IPFS and IPFS Cluster in production, you should read the specific section on [Settings for production](/documentation/guides/production), which provides a few tips on how to configure your IPFS and Cluster peers with the right values for such environments. For more information about firewall configuration and security, visit the [Security and Ports](/documenation/guides/security) section.
 
 ## Configuration reference
 
-The [configuration reference](/documentation/administration/configuration) contains detailed information for every configuration section, with extended descriptions of what each value means.
+The [configuration reference](/documentation/reference/configuration) contains detailed information for every configuration section, with extended descriptions of what each value means.

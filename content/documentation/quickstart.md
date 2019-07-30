@@ -8,6 +8,8 @@ aliases = [
 
 # Quickstart: Starting, enlarging and shrinking a cluster
 
+**I think this guide can be deleted because it's been replaced by the getting started section -- or do we still want it? If we delete, then we can move the alias to the first page of our getting started.**
+
 This guide will show you how to:
 
 * Setup, initialize and start a cluster peer

@@ -12,7 +12,7 @@ The `ipfs-cluster-service` is a command line application that runs a full cluste
 
 * [`ipfs-cluster-service init` initializes configuration and identity](/documentation/getting-started/setup).
 * [`ipfs-cluster-service daemon` launches a cluster peer](/documentation/getting-started/start).
-* [`ipfs-cluster-service state` allows to export, import, and cleanup the persistent state](/documentation/administration/backups).
+* [`ipfs-cluster-service state` allows to export, import, and cleanup the persistent state](/documentation/guides/backups).
 
 The `ipfs-cluster-service` provides its own help by running `ipfs-cluster-service --help` or `ipfs-cluster-service <command> --help`.
 

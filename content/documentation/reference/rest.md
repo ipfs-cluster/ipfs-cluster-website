@@ -8,7 +8,7 @@ aliases = [
 
 ## REST API Reference
 
-IPFS Cluster peers include an API component which provides HTTP-based access to the peer's functionality. The API attempts to be REST-ful in form and behaviour. It is enabled by default, but it can be disabled by removing its section from the [configuration file](/documentation/administration/configuration).
+IPFS Cluster peers include an API component which provides HTTP-based access to the peer's functionality. The API attempts to be REST-ful in form and behaviour. It is enabled by default, but it can be disabled by removing its section from the [configuration file](/documentation/reference/configuration).
 
 <div class="tipbox warning">The following API docs are work in progress and serve only as a quick reference. To play with and see how endpoints are used you can use <code>ipfs-cluster-ctl --enc=json --debug ...</code></div>
 

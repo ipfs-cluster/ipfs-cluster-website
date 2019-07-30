@@ -35,7 +35,7 @@ Note that:
 * The Time-To-Live associated to `freespace` and other informer-metrics is controlled with the `metric_ttl` options for the different informers (the `disk` informer is used by default). Increasing it reduces the number of time a peer sends metrics to the network.
 * The Time-To-Live associated to `ping` metrics is controlled by the `cluster.monitor_ping_interval` option.
 * The `pubsubmon.check_interval` option controls how often a peer checks for expired metrics from other peers.
-* You can read all the details in the [Configuration reference](/documentation/administration/configuration).
+* You can read all the details in the [Configuration reference](/documentation/reference/configuration).
 
 
 ## Tracing and metrics
@@ -48,4 +48,4 @@ These are configured in the `observations` section of the configuration and can 
 ipfs-cluster-service daemon --stats --tracing
 ```
 
-For information on how to configure local services to see Jaeger and Prometheus traces see the [Running Cluster with OpenCensus Tracing and Metrics](/guides/opencensus) guide.
+For information on how to configure local services to see Jaeger and Prometheus traces see the [Running Cluster with OpenCensus Tracing and Metrics](/documentation/guides/opencensus) guide.

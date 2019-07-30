@@ -9,8 +9,8 @@ The latest stable release of IPFS Cluster includes the following features:
 
 * Directly adding, replicating and pinning content to multiple IPFS peers at once.
 * Fetching and pinning content in multiple IPFS peers.
-* [Raft-based](/documentation/administration/consensus#raft) consensus layer with protection against network splits and automatic leader redirection: Every IPFS Cluster peer can control the cluster, modify the pinset and perform any operations.
-* [CRDT-based](/documentation/administration/consensus#crdt) offers full flexibility and scales to hundreds of peers.
+* [Raft-based](/documentation/guides/consensus#raft) consensus layer with protection against network splits and automatic leader redirection: Every IPFS Cluster peer can control the cluster, modify the pinset and perform any operations.
+* [CRDT-based](/documentation/guides/consensus#crdt) offers full flexibility and scales to hundreds of peers.
 * Maximum and minimum replication factor for content pinned in IPFS Cluster.
 * Automatic re-pinning on downtime events.
 * Evenly-distributed pins according to repository free space of each IPFS daemon. Pin allocations can also be manually set.

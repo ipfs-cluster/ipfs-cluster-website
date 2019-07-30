@@ -41,7 +41,7 @@ The process can be summarized as a follows:
 
 1. A pin request arrives including certain options
 2. Given the options, a list of current cluster peers is selected as "allocations" for that pin, based on how much free space each has available
-3. These and other things result in a pin object which is commited and broacasted to everyone (the how depends on the [consensus component](/documentation/administration/consensus)).
+3. These and other things result in a pin object which is commited and broacasted to everyone (the how depends on the [consensus component](/documentation/guides/consensus)).
 
 ### The IPFS-pinning stage
 
@@ -118,7 +118,7 @@ In such cases, the `ipfs-cluster-ctl recover` can be used to retrigger a pin or 
 
 ## Automatic syncing and recovering
 
-Cluster peers run sync and recover operations automatically, in intervals defined in the [configuration](/documentation/administration/configuration):
+Cluster peers run sync and recover operations automatically, in intervals defined in the [configuration](/documentation/reference/configuration):
 
 * `state_sync_interval` controls the interval to make sure that all the items in the global pinset are tracked so that `status` can be reported on them.
 * `ipfs_sync_interval` controls the interval to make sure that the ipfs status matches the current view of it that cluster has (the same as [syncing](#syncing) above)
