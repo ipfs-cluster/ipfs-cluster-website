@@ -1,6 +1,6 @@
 +++
 title = "Monitoring, tracing and metrics"
-weight = 60
+weight = 65
 +++
 
 # Monitoring, tracing and metrics
