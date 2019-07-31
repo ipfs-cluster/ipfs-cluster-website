@@ -440,6 +440,7 @@ header {
   #sidebar {
     width: 230px;
     left: -230px;
+    display: none;
   }
 
   #body {
@@ -448,15 +449,17 @@ header {
   }
 
   .sidebar-hidden {
-    overflow: hidden;
+    //overflow: hidden;
   }
 
   .sidebar-hidden #sidebar {
     left: 0;
+    display: inline;
+    z-index: 10101010101;
   }
 
-  .sidebar-hidden #body {
-    margin-left: 230px;
+.sidebar-hidden #body  {
+    margin-left: 0px;
     overflow: hidden;
   }
 
