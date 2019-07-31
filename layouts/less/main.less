@@ -348,12 +348,6 @@ table {
     width: 100%;
 }
 
-// .default-animation, #sidebar, #sidebar ul, #body, #body .padding, #body .nav {
-//     -webkit-transition: all 0.2s ease;
-//     -moz-transition: all 0.2s ease;
-//     transition: all 0.2s ease;
-// }
-
 /* Inner Pages Global */
 #body {
   margin: 0;
@@ -373,56 +367,6 @@ table {
 
 #body .padding {
   padding: 0;
-}
-
-#sidebar-toggle-span {
-    display: none;
-}
-
-@media only all and (max-width: 60em) {
-  #sidebar-toggle-span {
-      display: inline;
-  }
-
-  #sidebar {
-    width: 230px;
-    left: -230px;
-  }
-
-  #body {
-    padding-left: 0;
-    width: 100%;
-  }
-
-  .sidebar-hidden {
-    overflow: hidden;
-  }
-
-  .sidebar-hidden #sidebar {
-    left: 0;
-  }
-
-  .sidebar-hidden #body {
-    margin-left: 230px;
-    overflow: hidden;
-  }
-
-  .sidebar-hidden #overlay {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-  }
-}
-
-.page-with-sidenav {
-  h1 {
-    margin-top: 10px;
-  }
 }
 
 /* Header */
@@ -482,6 +426,56 @@ header {
   background-color: transparent;
   padding-top: 0;
   position: relative;
+}
+
+#sidebar-toggle-span {
+    display: none;
+}
+
+@media only all and (max-width: 60em) {
+  #sidebar-toggle-span {
+      display: inline;
+  }
+
+  #sidebar {
+    width: 230px;
+    left: -230px;
+  }
+
+  #body {
+    //padding-left: 0;
+    //width: 100%;
+  }
+
+  .sidebar-hidden {
+    overflow: hidden;
+  }
+
+  .sidebar-hidden #sidebar {
+    left: 0;
+  }
+
+  .sidebar-hidden #body {
+    margin-left: 230px;
+    overflow: hidden;
+  }
+
+  .sidebar-hidden #overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+  }
+}
+
+.page-with-sidenav {
+  h1 {
+    margin-top: 10px;
+  }
 }
 
 #sidebar #header-wrapper {
@@ -565,6 +559,10 @@ header {
 
 #top-bar span {
   font-weight: 200;
+}
+
+#main-content {
+  position: relative;
 }
 
 .tipbox {

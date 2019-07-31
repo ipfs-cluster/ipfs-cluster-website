@@ -13,18 +13,18 @@
 <!-- This file is for defining layout for pages lower than section -->
 <!-- ie, www.foo.com/section/ALL-OF-THESE/AND-THESE -->
 
-<div id="body" class="bt b--black-10 bg-white black-90 ph3 ph5-ns pb4 pb5-ns">
+<div id="body" class="bt b--black-10 bg-white black-90 pb4 pb5-ns">
   <div class="mw9 center ph3-ns">
     <div class="cf ph2-ns">
 
     <!-- START left nav -->
     {{ partial "menu.html" . }}
 
-    <div id="overlay"></div> <!-- Toggle when collapsed goes here. I think. -->
+    <div id="overlay"></div>
     <!-- END left nav -->
 
     <!-- START main content block -->
-    <div class="padding highlightable fl w-100 w-two-thirds-m w-two-thirds-ns pa2">
+    <div id="main-content" class="padding highlightable fl w-100 w-two-thirds-l pa2">
       {{if not .IsHome}}
         <div id="top-bar">
 
