@@ -13,9 +13,9 @@
 <!-- This file is for defining layout for each top-level section -->
 <!-- ie, www.foo.com/SECTION/but-not-lower-pages -->
 
-<div id="body" class="bt b--black-10 bg-white black-90 ph3 ph5-ns pb4 pb5-ns">
-  <div class="mw9 center ph3-ns">
-    <div class="cf ph2-ns">
+<div id="body" class="bt b--black-10 bg-white black-90 pb4 pb5-ns">
+  <div class="mw9 center ph4">
+    <div class="cf">
 
       <!-- START left nav -->
       {{ partial "menu.html" . }}
@@ -24,7 +24,7 @@
       <!-- END left nav -->
 
       <!-- START main content block -->
-      <div class="padding highlightable fl w-100 w-70-ns pa2">
+      <div id="main-content" class="padding highlightable fl w-100 w-two-thirds-ns w-100-m pa2">
         {{if not .IsHome}}
           <div id="top-bar">
 
@@ -64,11 +64,16 @@
             <li><strong>ID?</strong> {{ printf "%#v" .UniqueID }}</li>
             <li><strong>Title</strong> {{ printf "%#v" .Title }}</li>
             <li><strong>Who's my mom?</strong> {{ printf "%#v" .FirstSection.Title }}</li>
-
             <br/> -->
             <!-- END DEBUGGING -->
-          {{ .Content }}
-
+            {{$showRedirectedContent := ($.Params.redirect)}}
+            {{if $showRedirectedContent}}
+              {{ with .Site.GetPage $showRedirectedContent }}
+               {{ .Content }}
+              {{ end }}
+            {{ else }}
+              {{ .Content }}
+            {{ end }}
         </div>
 
       </div> <!-- END highlightable -->

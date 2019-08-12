@@ -1,11 +1,11 @@
 +++
-title = "Configuration reference"
-weight = 20
+title = "Configuration"
+weight = 5
 +++
 
 # Configuration reference
 
-All IPFS Cluster configurations and persistent data can be found, by default, at the `~/.ipfs-cluster` folder. For more information about the persistent data in this folder, see the [Data, backups and recovery](/documentation/administration/backups) section.
+All IPFS Cluster configurations and persistent data can be found, by default, at the `~/.ipfs-cluster` folder. For more information about the persistent data in this folder, see the [Data, backups and recovery](/documentation/guides/backups) section.
 
 <div class="tipbox tip"> <code>ipfs-cluster-service -c &lt;path&gt;</code> sets the location of the configuration folder. This is also controlled by the <code>IPFS_CLUSTER_PATH</code> environment variable.</div>
 
@@ -35,7 +35,7 @@ ipfs-key -type ed25519 | base64 -w 0
 
 The `service.json` file holds all the configurable options for the cluster peer and its different components. The configuration file is divided in sections. Each section represents a component. Each item inside the section represents an implementation of that component and contains specific options. A default `service.json` file with sensible values is created when running `ipfs-cluster-service init`.
 
-<div class="tipbox warning"> Important: The <code>cluster</code> section of the configuration stores a 32 byte hex-encoded <code>secret</code> which secures communication among all cluster peers. The <code>secret</code> must be shared by all cluster peers. Using an empty secret has security implications (see the <a href="/documentation/administration/security">Security</a> section).</div>
+<div class="tipbox warning"> Important: The <code>cluster</code> section of the configuration stores a 32 byte hex-encoded <code>secret</code> which secures communication among all cluster peers. The <code>secret</code> must be shared by all cluster peers. Using an empty secret has security implications (see the <a href="/documentation/guides/security">Security</a> section).</div>
 
 <div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
@@ -140,7 +140,7 @@ The `consensus` contains configuration objects for the different implementations
 |Key|Default|Description|
 |:---|:-------|:-----------|
 |`cluster_name`| `"ipfs-cluster"` | An arbitrary name. It becomes the pubsub topic to which all peers in the cluster subscribe to, so it must be the same for all |
-|`trusted_peers` | `[]` | The default set of trusted peers. See [Trust in CRDT Mode](/documentation/administration/consensus#trust-in-crdt-mode) for more information. |
+|`trusted_peers` | `[]` | The default set of trusted peers. See [Trust in CRDT Mode](/documentation/guides/consensus#the-trusted-peers-in-crdt-mode) for more information. Can be set to `[ "*" ]` to trust all peers. |
 |`peerset_metric` | `"ping"` | The name of the monitor metric to determine the current pinset. |
 |`rebroadcast_interval` | `"1m0s"` | How often to republish the current heads when no other pubsub message has been seen. Reducing this will allow new peers to learn about the current state sooner. |
 
@@ -246,6 +246,7 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 |`ipfs_request_timeout` | `"5m0s"` | Specifies a timeout on general requests to the IPFS daemon for requets without a specific timeout option. |
 |`pin_timeout` | `"24h0m0s"` | Specifies the timeout for `pin/add` which starts from the last block received for the item being pinned. Thus items which are being pinned slowly will not be cancelled even if they take more than 24h. |
 |`unpin_timeout` | `"3h0m0s"` | Specifies the timeout for `pin/rm` requests to the IPFS daemon. |
+|`unpin_disable` | `false` | Prevents the connector from unpinning anything (even if the Cluster does). |
 
 ### The `pin_tracker` section
 

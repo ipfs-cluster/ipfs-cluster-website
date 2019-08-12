@@ -1,5 +1,5 @@
 +++
-title = "Running Cluster with OpenCensus Tracing and Metrics"
+title = "Cluster + OpenCensus"
 aliases = [
     "/documentation/opencensus"
 ]
@@ -22,7 +22,7 @@ We will be utilizing docker to run both Jaeger and Prometheus, so please have th
 
 ### Running
 
-Firstly, pull down the Jaeger all-in-one image:
+First, pull down the Jaeger all-in-one image:
 
 ```
 $ docker pull jaegertracing/all-in-one:1.9
@@ -70,7 +70,7 @@ The target address specified matches the default address in the metrics configur
 
 ### Running
 
-Firstly, pull the docker image down:
+First, pull the docker image down:
 
 ```
 $ docker pull prom/prometheus
@@ -124,7 +124,7 @@ The metrics flag is labelled `--stats` to distinguish it from the IPFS Cluster p
 
 Once cluster has started, go to [http://localhost:9090/targets](http://localhost:9090/targets) to confirm that Prometheus has been able to beginning scraping metrics from IPFS Cluster.
 
-To confirm that tracing is functioning correctly, we will add a file and pin to IPFS Cluster in one step by using the IPFS Cluster `add` command and then search for it's trace in Jaeger.
+To confirm that tracing is functioning correctly, we will add a file and pin to IPFS Cluster in one step by using the IPFS Cluster `add` command and then search for its trace in Jaeger.
 
 ```
 $ echo 'test tracing file' > test.file

@@ -38,11 +38,13 @@ Trusted peers can:
 
 Non-trusted peers only have acccess to ID and Version endpoints (returning IPFS and Cluster Peer information).
 
+<div class="tipbox tip"><code>trusted_peers</code> can be set to <code>[ "*" ]</code> to trust every other peer.</div>
+
 ## Ports overview
 
   * Cluster swarm: `tcp:9096` is used by the Cluster swarm and protected by the *shared secret*. It is OK to expose this port (the cluster `secret` acts as password to interact with it).
-  * HTTP API: `tcp:9094` can be exposed when [enabling SSL and setting up basic authentication](documentation/administration/configuration/#restapi)
-  * libp2p-HTTP API: when using an alternative [libp2p host](documentation/administration/configuration/#restapi), for the api, the `libp2p_listen_multiaddress` can be exposed when basic authentication is enabled.
+  * HTTP API: `tcp:9094` can be exposed when [enabling SSL and setting up basic authentication](documentation/reference/configuration/#restapi)
+  * libp2p-HTTP API: when using an alternative [libp2p host](documentation/reference/configuration/#restapi), for the api, the `libp2p_listen_multiaddress` can be exposed when basic authentication is enabled.
   * IPFS API: `tcp:5001` is the API of the IPFS daemon and should not be exposed to other than `localhost`.
   * IPFS Proxy endpoint: `tcp:9095` should not be exposed without an authentication mechanism on top (`nginx` etc...). By default it provides no authentication nor encryption (similar to IPFS's `tcp:5001`)
 

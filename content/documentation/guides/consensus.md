@@ -15,7 +15,7 @@ IPFS Cluster peers can be started using different choices for the implementation
 
 IPFS Cluster offers two "consensus component" options and the users are forced to make a mandatory choice when starting a cluster peer by providing either `--consensus crdt` or `--consensus raft`.
 
-For offline cluster pinset management check the [Data, backups and recovery section](/documentation/administration/backups).
+For offline cluster pinset management check the [Data, backups and recovery section](/documentation/guides/backups).
 
 ## CRDT
 
