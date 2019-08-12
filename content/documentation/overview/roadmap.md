@@ -1,13 +1,12 @@
 +++
 title = "Roadmap"
-weight = 2
+weight = 20
 aliases = [
     "/roadmap"
 ]
 +++
 
 # Roadmap
-
 
 This is the IPFS Cluster Roadmap for the next months. Note that this is a declaration of our best intentions but it is very difficult to make compromises. We will keep this page updated ([history here](https://github.com/ipfs/ipfs-cluster-website/commits/master/content/roadmap.md)).
 

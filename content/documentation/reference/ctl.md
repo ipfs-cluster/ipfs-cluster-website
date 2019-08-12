@@ -1,6 +1,6 @@
 +++
 title = "ipfs-cluster-ctl"
-weight = 10
+weight = 30
 aliases = [
     "/documentation/ipfs-cluster-ctl"
 ]
@@ -8,15 +8,15 @@ aliases = [
 
 # `ipfs-cluster-ctl`
 
-The `ipfs-cluster-ctl` command line application is a user-friendly REST API client for IPFS Cluster. It allows to perform all the operations supported by a cluster peer:
+The `ipfs-cluster-ctl` command line application is a user-friendly REST API client for IPFS Cluster. It allows to perform all the operations supported by a Cluster peer:
 
 * [Pinning](/documentation/getting-started/pinning#pinning-cids)
 * [Unpinning](/documentation/getting-started/pinning#pinning-cids)
 * [Adding](/documentation/getting-started/pinning#adding-files-to-the-cluster)
-* [Listing items in the pinset](/documentation/usage/pinset#pin-ls-vs-status)
-* [Checking the status of pins](/documentation/usage/pinset#pin-ls-vs-status)
-* [Listing cluster peers](/documentation/usage/peerset#listing-peers)
-* [Removing peers](/documentation/usage/peerset#removing-peers)
+* [Listing items in the pinset](/documentation/guides/pinset#pin-ls-vs-status)
+* [Checking the status of pins](/documentation/guides/pinset#pin-ls-vs-status)
+* [Listing cluster peers](/documentation/guides/peerset#listing-peers)
+* [Removing peers](/documentation/guides/peerset#removing-peers)
 
 ## Usage
 
@@ -80,4 +80,4 @@ We recommend that you alias the `ipfs-cluster-ctl` command in your shell to some
 
 ### Download
 
-To download `ipfs-cluster-ctl` check the [downloads page](/documentation/installation).
+To download `ipfs-cluster-ctl` check the [downloads page](/documentation/getting-started/installation).

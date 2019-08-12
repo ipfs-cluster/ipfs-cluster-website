@@ -1,4 +1,4 @@
-<nav id="sidebar" class="{{if $.Site.Params.showVisitedLinks }}showVisitedLinks{{end}} fl w-100 w-30-ns pa2">
+<nav id="sidebar" class="{{if $.Site.Params.showVisitedLinks }}showVisitedLinks{{end}} fl w-100 w-third-ns w-100-m pa2">
 
     {{ $currentNode := . }}
     {{ $showvisitedlinks := .Site.Params.showVisitedLinks }}
@@ -44,7 +44,7 @@
     <!--This controls display of node items in nav, ie, sections -->
     <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{ if .Params.alwaysopen }}parent{{end}}">
        <h2 class="{{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
-         <a href="{{ .RelPermalink }}" class="highlight">{{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}} {{if eq .UniqueID $currentNode.UniqueID}}»{{end}}</a>
+         <a href="{{ .RelPermalink }}" class="highlight">{{if eq .UniqueID $currentNode.UniqueID}}»{{end}} {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
        </h2>
 
        {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
@@ -71,9 +71,8 @@
 
   <!--This controls display of NON-node items in nav, ie, pages -->
     <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
-      <a href="{{ .RelPermalink }}" class="highlight">
+      <a href="{{ .RelPermalink }}" class="highlight">{{if eq .UniqueID $currentNode.UniqueID}}»{{end}}
       {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
-      {{if eq .UniqueID $currentNode.UniqueID}}»{{end}}
       </a>
     </li>
   {{ end }}

@@ -31,7 +31,7 @@ If you are looking for things to start with, [filter for issues with `easy` and 
 
 In general, [anything marked with `help wanted`](https://github.com/ipfs/ipfs-cluster/issues?q=is%3Aopen+is%3Aissue+label%3Aready+label%3A%22help+wanted%22) is ready to be taken on by external contributors.
 
-Please [let us know](/documentation#support) when you are going to work on something, or more clarifications are needed, so we can help you out!
+Please [let us know](/documentation/community/support) when you are going to work on something, or more clarifications are needed, so we can help you out!
 
 ## Code contribution guidelines
 
@@ -46,6 +46,3 @@ In practice, these are our soft standards:
 
 
 These are just guidelines. We are friendly people and are happy to help :)
-
-
-

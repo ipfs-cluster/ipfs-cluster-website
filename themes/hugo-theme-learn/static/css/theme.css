@@ -1011,15 +1011,15 @@ td {
 #body #breadcrumbs span {
     padding: 0 0.1rem;
 }
-@media only all and (max-width: 59.938em) {
+/* @media only all and (max-width: 59.938em) {
     #sidebar {
         width: 230px;
     }
     #body {
         margin-left: 230px;
     }
-}
-@media only all and (max-width: 47.938em) {
+} */
+@media only all and (max-width: 60em) {
     #sidebar {
         width: 230px;
         left: -230px;

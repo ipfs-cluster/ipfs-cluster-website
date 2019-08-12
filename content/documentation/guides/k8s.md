@@ -1,5 +1,5 @@
 +++
-title = "Running Cluster on Kubernetes"
+title = "Cluster + Kubernetes"
 aliases = [
     "/documentation/k8s"
 ]

@@ -1,6 +1,6 @@
 +++
 title = "ipfs-cluster-service"
-weight = 20
+weight = 40
 aliases = [
     "/documentation/ipfs-cluster-service"
 ]
@@ -12,7 +12,7 @@ The `ipfs-cluster-service` is a command line application that runs a full cluste
 
 * [`ipfs-cluster-service init` initializes configuration and identity](/documentation/getting-started/setup).
 * [`ipfs-cluster-service daemon` launches a cluster peer](/documentation/getting-started/start).
-* [`ipfs-cluster-service state` allows to export, import, and cleanup the persistent state](/documentation/administration/backups).
+* [`ipfs-cluster-service state` allows to export, import, and cleanup the persistent state](/documentation/guides/backups).
 
 The `ipfs-cluster-service` provides its own help by running `ipfs-cluster-service --help` or `ipfs-cluster-service <command> --help`.
 
@@ -27,4 +27,4 @@ By default, logs are coloured. To disable log colours set the `IPFS_LOGGING_FMT`
 
 ## Download
 
-To download `ipfs-cluster-service` check the [downloads page](/documentation/installation).
+To download `ipfs-cluster-service` check the [downloads page](/documentation/getting-started/installation).

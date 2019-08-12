@@ -1,11 +1,11 @@
 +++
 title = "Peerset management"
-weight = 40
+weight = 60
 +++
 
 # Peerset management
 
-Adding and removing peers from the Cluster might be a simpler or trickier operation depending on the "consensus" component used by the cluster (the [consensus component is in charge on managing the peerset](/documentation/administration/consensus)).
+Adding and removing peers from the Cluster might be a simpler or trickier operation depending on the "consensus" component used by the cluster (the [consensus component is in charge on managing the peerset](/documentation/guides/consensus)).
 
 ## Listing peers
 
@@ -29,7 +29,7 @@ Adding new peers to a cluster works exactly as described in the [Starting the Cl
 
 ### CRDT mode
 
-In CRDT-mode, peers can be simply stopped. Other peers may consider them part of the peerset until their last metric expires. Thus, reducing the [metric ttls](/documentation/administration/metrics) will speed this up.
+In CRDT-mode, peers can be simply stopped. Other peers may consider them part of the peerset until their last metric expires. Thus, reducing the [metric ttls](/documentation/guides/metrics) will speed this up.
 
 ### Raft mode
 
@@ -44,5 +44,3 @@ ipfs-cluster-ctl peers rm <pid>
 This can be called from the peer shutting down (self-removal) or from any other peer. In any case, it will cause the peer to shut itself down when it realizes it has been removed.
 
 Alternatively, the `leave_on_shutdown` configuration option can be set to `true`. With this option, a peer shutting down cleanly will try to remove itself from the Raft peerset in the process. **Peers which have been removed from the Raft peerset** automatically clean their state and will need to bootstrap again to it to re-join it.
-
-

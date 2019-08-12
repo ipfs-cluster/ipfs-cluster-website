@@ -13,4 +13,4 @@ The IPFS Cluster project aims to facilitate adoption of IPFS by:
 * Supporting the handling of large volumes, where a full DAG does not fit in a single IPFS node
 * Enabling collaborative storage efforts to backup data of interest on top of IPFS
 
-This website is the central point of access for all IPFS Cluster information, [documentation](/documentation), [news](/news) and [roadmap](/roadmap) updates.
+This website is the central point of access for all IPFS Cluster information, [documentation](/documentation), [news](/news) and [roadmap](/documentation/overview/roadmap) updates.
