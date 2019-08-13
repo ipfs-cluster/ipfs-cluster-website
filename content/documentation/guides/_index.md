@@ -1,6 +1,6 @@
 +++
 title = "Guides"
-weight = 20
+weight = 30
 +++
 
 # Guides

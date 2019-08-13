@@ -10,7 +10,7 @@ aliases = [
 
 This section explores some security considerations when running IPFS Cluster.
 
-There are four types of endpoins in IPFS Cluster to be taken into account when protecting access to the system. Exposing an unprotected endpoint might give anyone control of the cluster. Cluster configuration uses sensible defaults.
+There are four types of endpoints in IPFS Cluster to be taken into account when protecting access to the system. Exposing an unprotected endpoint might give anyone control of the cluster. Cluster configuration uses sensible defaults.
 
 * [The cluster secret](#the-cluster-secret)
 * [The `trusted_peers` in CRDT mode](#the-trusted-peers-in-crdt-mode)

@@ -3,7 +3,7 @@ title = "Data, backups and recovery"
 weight = 50
 +++
 
-# Data, backups and recovery
+# Data, backups, and recovery
 
 The configurations and data persisted by a running IPFS Cluster peer (with `ipfs-cluster-service`) is, by default, in the `$HOME/.ipfs-cluster/` folder. A Cluster peer persists several types of information on disk:
 

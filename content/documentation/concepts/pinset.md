@@ -5,6 +5,8 @@ weight = 50
 
 # Pinset management
 
+**TODO @lanzafame was talking about expanding this section**
+
 Cluster usage mostly consists on adding and removing pins. We already explained how to perform this basic operations in [Adding and pinning](/documentation/getting-started/first-pins).
 
 When working with a large number of pins, it is important to keep an eye on the state of the pinset, whether every pin is getting correctly pinned an allocated. This section provides in-depth explanations on how pinning works and the different operations that a cluster peer can perform to simplify and maintain the cluster pinsets.

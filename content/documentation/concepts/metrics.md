@@ -3,7 +3,7 @@ title = "Monitoring, tracing and metrics"
 weight = 65
 +++
 
-# Monitoring, tracing and metrics
+# Monitoring, tracing, and metrics
 
 IPFS Cluster peers monitor each others by regularly publishing metrics to the Cluster swarm via PubSub, but also offer a Prometheus endpoint and Jaeger tracing:
 
