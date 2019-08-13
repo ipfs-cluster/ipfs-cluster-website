@@ -28,8 +28,3 @@ Cluster peers communicate using [libp2p](https://libp2p.io) (cluster swarm), sim
 The different sections of the documention will explain how to setup, start and operate a Cluster:
 
 {{% children %}}
-
-
-## Documentation bugs
-
-Please open issues and submit PRs to this website in the [ipfs-cluster-website repository](https://github.com/ipfs/ipfs-cluster-website/issues).
