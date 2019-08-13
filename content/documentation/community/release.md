@@ -4,11 +4,13 @@ weight = 20
 +++
 
 
-# IPFS Cluster release process
+# Release process
 
-This details the list of tasks that need to happen for a release:
+**TODO is there somewhere better for this? In the repo, for example? Could make RELEASE_PROCESS.md in root folder.**
 
-### Preparation
+Tasks that need to happen for a release:
+
+## Preparation
 
 * Open release issue with the Release tag and mention all issues and tickets
 that will go on that release
@@ -28,8 +30,7 @@ things happening from the issues.
     main contributors.
   * Updaqte the `Updated tp version x.x.x` string
 
-### Make a release candidate
-
+## Make a release candidate
 
 * Merge all code that needs to be merged for the release. Double check on
   master:
@@ -82,7 +83,7 @@ that is not part of the repository (untracked files).
     `ipfs-cluster-infra/ansible`.
 * Announce the RC to the world via twitter.
 
-### Testing
+## Testing
 
 * This is the triple check that things should be working as they should.  Most
 of this testing should have happened locally before making the RC.
@@ -93,7 +94,7 @@ of this testing should have happened locally before making the RC.
 * Test that bugfixes are actually fixed (again).
 * Depending on the introduced changes, let the RC rest for a couple of days.
 
-### Make the final release
+## Make the final release
 
 * Set the right date in the changelog branch. Ensure all issue links are
   there.  Merge.
