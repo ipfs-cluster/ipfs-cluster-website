@@ -24,7 +24,7 @@ To check what's going on in the project, check:
 
 - the [Changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md)
 - the [News](/news)
-- the [Roadmap](/roadmap)
+- the [Roadmap](/documentation/roadmap)
 - the [upcoming release issues](https://github.com/ipfs/ipfs-cluster/issues?q=label%3Arelease)
 
 If you are looking for things to start with, [filter for issues with `easy` and `ready` labels](https://github.com/ipfs/ipfs-cluster/issues?q=is%3Aopen+is%3Aissue+label%3Adifficulty%3Aeasy+label%3Aready).

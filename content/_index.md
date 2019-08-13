@@ -1,16 +1,22 @@
 +++
-title = "IPFS CLUSTER"
+title = "IPFS Cluster"
 +++
 
-<div class="tipbox tip">Are you an IPFS Cluster user? Let us know about your setup by contributing to the <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWF5aXNXrAK_sCyu1eVv2obTaKVO3Ac5dfgl2r5_IWcizGRg/viewform">IPFS Cluster user registry</a>.</div>
+## **IPFS Cluster is software built on top of <a href="https://ipfs.io/">IPFS</a> that automates data redundancy and availability**
 
-# Pinset orchestration for IPFS
+...even on a network such as IPFS that supports peers dropping in and out at will.
 
-The IPFS Cluster project aims to facilitate adoption of IPFS by:
+IPFS Cluster can:
 
-* Providing support for production deployments of IPFS in the datacenter
-* Facilitating the conservation and replication of data (pinsets) across multiple nodes
-* Supporting the handling of large volumes, where a full DAG does not fit in a single IPFS node
-* Enabling collaborative storage efforts to backup data of interest on top of IPFS
+* Enable shared "pinsets" across multiple IPFS nodes
+* Support production deployments of IPFS in datacenters
+* Support large volumes of data on IPFS, where a full DAG does not fit in a single IPFS node
+* Enable collaborative storage efforts to backup data on IPFS
 
-This website is the central point of access for all IPFS Cluster information, [documentation](/documentation), [news](/news) and [roadmap](/documentation/overview/roadmap) updates.
+## Gimme the details
+
+<center><img alt="A typical IPFS Cluster" title="A typical IPFS Cluster" src="/cluster/diagrams/png/cluster.png" width="500px" /></center>
+
+A Cluster is formed by a number of *Peers*, each of them associated to one IPFS daemon. The peers share a *global pinset* which stores the *CIDs* for content which is cluster-pinned and their properties (allocations, replication factor, etc). Cluster peers instruct IPFS daemons to fetch and pin that content.
+
+Cluster peers communicate using [libp2p](https://libp2p.io) (cluster swarm), similar to IPFS, but separately from it. Thus, every cluster peer needs its own Private Key (different from the one used by the IPFS daemon) and has its own *Peer ID*.

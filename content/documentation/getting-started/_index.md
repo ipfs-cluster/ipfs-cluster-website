@@ -1,6 +1,6 @@
 +++
 title = "Getting Started"
-weight = 15
+weight = 10
 aliases = [
     "/documentation/quickstart"
 ]

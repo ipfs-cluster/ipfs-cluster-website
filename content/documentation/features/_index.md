@@ -1,6 +1,6 @@
 +++
 title = "Features"
-weight = 10
+weight = 15
 +++
 
 # Features
@@ -27,16 +27,3 @@ The latest stable release of IPFS Cluster includes the following features:
 * Metric exporting (Prometheus) and tracing (Jaeger).
 * Ansible roles, Kustomize resources (for Kubernetes), Docker container and Docker-compose templates are available to facilitate deployment.
 * Extensive, up to date documentation and guides, including documentation focused on production deployments of IPFS and IPFS Cluster.
-
-## Current limitations
-
-These are the currently observed main problems and things lacking in IPFS Cluster (from what people expect). Be sure to check our [Roadmap](/documentation/overview/roadmap/) to see how and when we are planning to address them:
-
-* Unclear about the scalability limits:
-  * Tested with 10 cluster peers on a global setup:
-    * Repository size of around 70 GB/each
-    * ~2000 pins/peer
-  * Tested with 5 cluster peers on a regional setup
-    * 44 TB disk
-    * ~7000 entries in pinset
-* The `crdt` consensus option is new and needs to be tested and improved.
