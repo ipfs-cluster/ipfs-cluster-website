@@ -1,12 +1,12 @@
 +++
-title = "REST API"
+title = "REST-ish API"
 weight = 10
 aliases = [
     "/documentation/developer/api"
 ]
 +++
 
-## REST API Reference
+## REST-ish API Reference
 
 IPFS Cluster peers include an API component which provides HTTP-based access to the peer's functionality. The API attempts to be REST-ful in form and behaviour. It is enabled by default, but it can be disabled by removing its section from the [configuration file](/documentation/reference/configuration).
 
