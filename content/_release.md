@@ -8,6 +8,8 @@ weight = 20
 
 **TODO is there somewhere better for this? In the repo, for example? Could make RELEASE_PROCESS.md in root folder.**
 
+**TODO @hsanjuan says this needs to be updated, so we should hide for now.**
+
 Tasks that need to happen for a release:
 
 ## Preparation

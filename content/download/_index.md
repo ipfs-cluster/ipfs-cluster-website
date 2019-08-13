@@ -1,6 +1,6 @@
 +++
 title = "Download"
-weight = 20
+weight = 40
 +++
 
 # Download IPFS Cluster
