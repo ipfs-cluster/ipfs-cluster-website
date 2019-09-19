@@ -1,6 +1,6 @@
 +++
 title = "Peerset management"
-weight = 60
+weight = 50
 +++
 
 # Peerset management

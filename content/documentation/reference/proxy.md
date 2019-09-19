@@ -10,7 +10,7 @@ The IPFS Proxy is an endpoint which presents the IPFS HTTP API in the following 
 * Some requests are intercepted and trigger cluster operations
 * All non-intercepted requests are forwarded to the IPFS daemon attached to the cluster peer
 
-This endpoint is enabled by default, and listens by default on `/ip4/127.0.0.1/tcp/9095` and is provided by the `ipfshttp` connector component. It can be disabled by removing its section from the [configuration file](/documentation/reference/configuration).
+This endpoint is enabled by default, and listens by default on `/ip4/127.0.0.1/tcp/9095` and is provided by the `ipfshttp` connector component. It can be disabled by removing its section from the `service.json` configuration file.
 
 The requests that are intercepted are the following:
 

@@ -10,9 +10,9 @@ aliases = [
 
 The `ipfs-cluster-ctl` command line application is a user-friendly REST API client for IPFS Cluster. It allows to perform all the operations supported by a Cluster peer:
 
-* [Pinning](/documentation/getting-started/pinning#pinning-cids)
-* [Unpinning](/documentation/getting-started/pinning#pinning-cids)
-* [Adding](/documentation/getting-started/pinning#adding-files-to-the-cluster)
+* [Pinning](/documentation/guides/pinning#pinning-cids)
+* [Unpinning](/documentation/guides/pinning#pinning-cids)
+* [Adding](/documentation/guides/pinning#adding-files)
 * [Listing items in the pinset](/documentation/guides/pinset#pin-ls-vs-status)
 * [Checking the status of pins](/documentation/guides/pinset#pin-ls-vs-status)
 * [Listing cluster peers](/documentation/guides/peerset#listing-peers)
@@ -80,4 +80,4 @@ We recommend that you alias the `ipfs-cluster-ctl` command in your shell to some
 
 ### Download
 
-To download `ipfs-cluster-ctl` check the [downloads page](/documentation/getting-started/installation).
+To download `ipfs-cluster-ctl` check the [downloads page](/download).

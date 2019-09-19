@@ -39,15 +39,16 @@ The `service.json` file holds all the configurable options for the cluster peer 
 
 <div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
-As an example, [this is a default `service.json` configuration file](/0.11.0_service.json).
+As an example, [this is a default `service.json` configuration file](/0.11.0_service.json TODO).
 
 The file looks like:
 
 ```js
 {
+  "source": "url" // a single source field may appear for remote configurations
   "cluster": {...},
   "consensus": {
-    "crdt": {...},
+    "crdt": {...}, // either crdt or raft
     "raft": {...},
   },
   "api": {
@@ -66,7 +67,6 @@ The file looks like:
   },
   "informer": {
     "disk": {...},
-    "numpin": {...}
   },
   "observations": {
     "metrics": {...},
@@ -93,6 +93,12 @@ In general the environment variable takes the form
 be applied to the resultant configuration file when generating it with
 `ipfs-cluster-service init`.
 
+### Remote configurations
+
+Since version 0.11.0, the `service.json` may be initialized with a single `source` field containing a URL that points to a standard `service.json` file. This configuration is read on every start of the peer.
+
+A remote `service.json` can be used to point all peers the same configuration file stored in the same location. It is also possible to use an URL pointing to an file provided through IPFS.
+
 ### The `cluster` main section
 
 The main `cluster` section of the configuration file configures the core
@@ -116,7 +122,10 @@ component and contains the following keys:
 |`replication_factor_max` | `-1` | Specifies the default maximum number of peers that should be pinning an item. -1 == all. |
 |`monitor_ping_interval` | `"15s"` | Interval for sending a `ping` (used to detect downtimes). |
 |`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset and detect if this peer was removed from the cluster (and shut-down). |
+|`mdns_interval` | `"10s"` | Interval between mDNS announce broadcasts. Setting it to `"0"` disables mDNS. |
 |`disable_repinning` | `true` | Do not automatically re-pin all items allocated to a peer that becomes unhealthy (down). |
+|`follower_mode` | `false` | Peers in follower mode provide useful error messages when trying to perform actions like pinning. |
+|
 
 The `leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly. It is most relevant
 when using *raft*. This means that, for any subsequent starts, the peer will need to be [bootstrapped](/documentation/getting-started/start#starting-a-cluster-with-consensus-raft) in order to re-join the Cluster.
@@ -133,9 +142,9 @@ export CLUSTER_SECRET=$(od  -vN 32 -An -tx1 /dev/urandom | tr -d ' \n')
 
 ### The `consensus` section
 
-The `consensus` contains configuration objects for the different implementations of the consensus component.
+The `consensus` contains **a single configuration object for the chosen implementations of the consensus component** (either `crdt` or `raft`, but not both).
 
-#### > `crdt`
+#### `crdt`
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
@@ -144,7 +153,7 @@ The `consensus` contains configuration objects for the different implementations
 |`peerset_metric` | `"ping"` | The name of the monitor metric to determine the current pinset. |
 |`rebroadcast_interval` | `"1m0s"` | How often to republish the current heads when no other pubsub message has been seen. Reducing this will allow new peers to learn about the current state sooner. |
 
-#### > `raft`
+#### `raft`
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
@@ -181,7 +190,7 @@ This will allow you to start a Cluster from scratch with already fixed peerset.
 
 The `api` section contains configurations for the implementations of the API component, which are meant to provide endpoints for the interaction with Cluster. Removing any of these sections will disable the component. For example, removing the `ipfsproxy` section from the configuration will disable the proxy endpoint on the running peer.
 
-#### > `ipfsproxy`
+#### `ipfsproxy`
 
 This component provides the IPFS Proxy Endpoint. This is an API which mimics the IPFS daemon. Some requests (pin, unpin, add) are hijacked and handled by Cluster. Others are simply forwarded to the IPFS daemon specified by `node_multiaddress`. The component is by default configured to mimic CORS headers configurations as present in the IPFS daemon. For
 that it triggers accessory requests to them (like CORS preflights).
@@ -200,7 +209,7 @@ that it triggers accessory requests to them (like CORS preflights).
 |`extract_headers_ttl` | `"5m"` | The extracted headers from `extract_headers_path` have a TTL. They will be remembered and only refreshed after the TTL. |
 
 
-#### > `restapi`
+#### `restapi`
 
 This is the component which provides the REST API implementation to interact with Cluster.
 
@@ -218,6 +227,7 @@ This is the component which provides the REST API implementation to interact wit
 |`private_key` | `""` | A private key for the alternative libp2p host (must match `id`). See below. |
 |`basic_auth_credentials` | `null` | An object mapping `"username"` to `"password"`. It enables Basic Authentication for the API. Should be used with SSL-enabled or libp2p-endpoints. |
 |`headers` | `null` | A `key: [values]` map of headers the API endpoint should return with each response to `GET`, `POST`, `DELETE` requests. i.e. `"headers": {"header_name": [ "v1", "v2" ] }`. Do not place CORS headers here, as they are fully handled by the options below. |
+|`http_log_file` | `""` | A file to write API log files (Apache Combined Format). Otherwise they are written to the Cluster log. |
 |`cors_allowed_origins`| `["*"]` | CORS Configuration: values for `Access-Control-Allow-Origin`. |
 |`cors_allowed_methods`| `["GET"]` | CORS Configuration: values for `Access-Control-Allow-Methods`. |
 |`cors_allowed_headers`| `[]` | CORS Configuration: values for `Access-Control-Allow-Headers`. |
@@ -233,7 +243,7 @@ The REST API component automatically, and additionally, exposes the HTTP API as 
 
 The `ipfs_connector` section contains configurations for the implementations of the IPFS Connector component, which are meant to provide a way for the Cluster peer to interact with an IPFS daemon.
 
-#### > `ipfshttp`
+#### `ipfshttp`
 
 This is the default and only IPFS Connector implementation. It provides a gateway to the IPFS daemon API and an IPFS HTTP Proxy.
 
@@ -242,7 +252,6 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 |`listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | IPFS Proxy listen multiaddress. |
 |`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The IPFS daemon HTTP API endpoint. This is the daemon that the peer uses to pin content. |
 |`connect_swarms_delay` | `"30s"` | On start, the Cluster Peer will run `ipfs swarm connect` to the IPFS daemons of others peers. This sets the delay after starting up. |
-|`pin_method` | `"refs"` | `refs` or `pin`. `refs` allows to fetch pins in parallel, but it's incompatible with automatic GC. `refs` only makes sense with `concurrent_pins` set to something > 1 in the `pin_tracker` section. `pin` only allows to fetch one thing at a time. |
 |`ipfs_request_timeout` | `"5m0s"` | Specifies a timeout on general requests to the IPFS daemon for requets without a specific timeout option. |
 |`pin_timeout` | `"24h0m0s"` | Specifies the timeout for `pin/add` which starts from the last block received for the item being pinned. Thus items which are being pinned slowly will not be cancelled even if they take more than 24h. |
 |`unpin_timeout` | `"3h0m0s"` | Specifies the timeout for `pin/rm` requests to the IPFS daemon. |
@@ -252,30 +261,30 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 
 The `pin_tracker` section contains configurations for the implementations of the Pin Tracker component, which are meant to ensure that the content in IPFS matches the allocations as decided by IPFS Cluster.
 
-#### > `maptracker`
+#### `maptracker`
 
 The `maptracker` implements a pintracker which keeps the local state in memory.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`max_pin_queue_size` | `50000` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. Re-queing will be attempted on the next "state sync" as defined by `state_sync_interval` |
+|`max_pin_queue_size` | `1000000` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. Re-queing will be attempted on the next "state sync" as defined by `state_sync_interval` |
 |`concurrent_pins` | `10` | How many parallel pin or unpin requests we make to IPFS. Only makes sense with `pin_method` set to `refs` in the `ipfs_connector` section. |
 
-#### > `stateless`
+#### `stateless`
 
 The `stateless` tracker implements a pintracker which relies on ipfs and the shared state, thus reducing
 the memory usage in comparison to the `maptracker`.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`max_pin_queue_size` | `50000` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. Re-queing will be attempted on the next "state sync" as defined by `state_sync_interval` |
+|`max_pin_queue_size` | `1000000` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. Re-queing will be attempted on the next "state sync" as defined by `state_sync_interval` |
 |`concurrent_pins` | `10` | How many parallel pin or unpin requests we make to IPFS. Only makes sense with `pin_method` set to `refs` in the `ipfs_connector` section. |
 
 ### The `monitor` section
 
 The `monitor` section contains configurations for the implementations of the Peer Monitor component, which are meant to distribute and collects monitoring information (informer metrics, pings) to and from other peers, and trigger alerts.
 
-#### > `pubsubmon`
+#### `pubsubmon`
 
 The `pubsubmon` implementation collects and broadcasts metrics using libp2p's pubsub. This will provide a more efficient and scalable approach for metric distribution.
 
@@ -288,7 +297,7 @@ The `pubsubmon` implementation collects and broadcasts metrics using libp2p's pu
 
 The `informer` section contains configuration for Informers. Informers fetch the metrics which are used to allocate content to the different peers.
 
-#### > `disk`
+#### `disk`
 
 The `disk` informer collects disk-related metrics at intervals.
 
@@ -297,7 +306,7 @@ The `disk` informer collects disk-related metrics at intervals.
 |`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
 |`metric_type` | `"freespace"` | `freespace` or `reposize`. The informer will report the free space in the ipfs daemon repository (`StorageMax-RepoSize`) or the `RepoSize`.
 
-#### > `numpin`
+#### `numpin`
 
 The `numpin` informer uses the total number of pins as metric, which collects at intervals.
 
@@ -310,7 +319,7 @@ The `numpin` informer uses the total number of pins as metric, which collects at
 
 The `observations` section contains configuration for application distributed tracing and metrics collection.
 
-#### > `metrics`
+#### `metrics`
 
 The `metrics` component configures the OpenCensus metrics endpoint for scraping of metrics by Prometheus.
 
@@ -320,7 +329,7 @@ The `metrics` component configures the OpenCensus metrics endpoint for scraping 
 |`prometheus_endpoint` | `/ip4/0.0.0.0/tcp/8888` | Publish collected metrics to endpoint for scraping by Prometheus. |
 |`reporting_interval` | `"2s"` | How often to report on collected metrics. |
 
-#### > `tracing`
+#### `tracing`
 
 The `tracing` component configures the Jaeger tracing client for use by OpenCensus.
 
@@ -330,3 +339,16 @@ The `tracing` component configures the Jaeger tracing client for use by OpenCens
 |`jaeger_agent_endpoint` | `/ip4/0.0.0.0/udp/6831` | Multiaddress to send traces to. |
 |`sampling_prob` | `0.3` | How often to be sampling traces. |
 |`service_name` | `cluster-daemon` | Service name that will be associated with cluster traces. |
+
+### The `datastore` section
+
+The `datastore` section contains configuration for different storage backends (currently only `badger`).
+
+#### `badger`
+
+The `badger component configures the BadgerDB backend which is used by the CRDT component.
+
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`badger_options` | `{...}` | [BadgerDB specific options](TODO) initialized to their defaults. |

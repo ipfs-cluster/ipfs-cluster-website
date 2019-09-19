@@ -1,6 +1,6 @@
 +++
 title = "Data, backups and recovery"
-weight = 50
+weight = 40
 +++
 
 # Data, backups, and recovery
@@ -18,20 +18,20 @@ The configurations and data persisted by a running IPFS Cluster peer (with `ipfs
 Since the pinset information is persistend on disk, it can be exported from an offline peer with:
 
 ```bash
-ipfs-cluster-service state export --consensus <crdt/raft>
+ipfs-cluster-service state export
 ```
 
 This will produce a list of json objects that represent the current pinset (very similar to `ipfs-cluster-ctl --enc=json pin ls` on peers that are online). The resulting file can be re-imported with:
 
 ```sh
-ipfs-cluster-service state import --consensus <crdt/raft>
+ipfs-cluster-service state import
 ```
 
 <div class="tipbox warning">Always re-import using the same <code>ipfs-cluster-service</code> version that you exported with.</div>
 
 Note that the **state dump just contains the pinset**. It does not include any bookeeping information, Raft peerset membership, Raft current term, CRDT Merkle-DAG nodes etc. Thus, when re-importing a pinset it is important to remember that:
 
-  * In `raft`, the given pinset will be used to create a new snapshot, newer than any existing ones, but including information like the current peerset.
+  * In `raft`, the given pinset will be used to create a new snapshot, newer than any existing ones, but including information like the current peerset when existing.
   * In `crdt`, importing will [clean](#resetting-a-peer-state-cleanup) the state completely and create a single batch Merkle-DAG node. This effectively compacts the state by replacing the Merkle-DAG, but to prevent this peer from re-downloading the old DAG, all other peers in the Cluster should have replaced or removed it too.
 
 See [Disaster recovery](#disaster-recovery) below for more information.
@@ -43,7 +43,7 @@ See [Disaster recovery](#disaster-recovery) below for more information.
 Cleaning up the state results in a blank cluster peer. Such peer will need to re-bootstrap (`raft`) or reconnect (`crdt`) to a Cluster in order to re-download the state. The state can also be provided by importing it, as described above. The cleanup can be performed by:
 
 ```sh
-ipfs-cluster-service state cleanup --consensus <crdt/raft>
+ipfs-cluster-service state cleanup
 ```
 
 Note that this does not remove or rewrite the configuration, the identity or the peerstore files. Removing the `raft` or `crdt` data folders is to all effects the equivalent of a state cleanup.

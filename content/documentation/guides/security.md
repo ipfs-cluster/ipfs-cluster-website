@@ -1,6 +1,6 @@
 +++
 title = "Security and ports"
-weight = 40
+weight = 30
 aliases = [
     "/documentation/security"
 ]
