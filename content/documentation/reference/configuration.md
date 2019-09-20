@@ -39,7 +39,7 @@ The `service.json` file holds all the configurable options for the cluster peer 
 
 <div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
-As an example, [this is a default `service.json` configuration file](/0.11.0_service.json TODO).
+As an example, [this is a default `service.json` configuration file](/0.11.0_service.json).
 
 The file looks like:
 
@@ -128,7 +128,7 @@ component and contains the following keys:
 |
 
 The `leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly. It is most relevant
-when using *raft*. This means that, for any subsequent starts, the peer will need to be [bootstrapped](/documentation/getting-started/start#starting-a-cluster-with-consensus-raft) in order to re-join the Cluster.
+when using *raft*. This means that, for any subsequent starts, the peer will need to be [bootstrapped](/documentation/deployment/bootstrap/#bootstrapping-the-cluster-in-raft-mode) in order to re-join the Cluster.
 
 #### Manual secret generation
 
@@ -351,4 +351,4 @@ The `badger component configures the BadgerDB backend which is used by the CRDT 
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`badger_options` | `{...}` | [BadgerDB specific options](TODO) initialized to their defaults. |
+|`badger_options` | `{...}` | Some [BadgerDB specific options](https://godoc.org/github.com/dgraph-io/badger#Options) initialized to their defaults. Setting `table_loading_mode` and `value_log_loading_mode` to `0` should help in memory constrained platforms (Raspberry Pis etc. with <1GB RAM) |

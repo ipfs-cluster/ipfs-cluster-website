@@ -9,8 +9,7 @@ In order to run an IPFS Cluster peer and perform actions on the Cluster, you wil
 
 * Visit the [download page](/download) for instructions on the different ways to obtain `ipfs-cluster-service` and `ipfs-cluster-ctl`.
 * Place the binaries in a place where they can be run by an unattended by an `ipfs` system user (usually `/usr/local/bin`). IPFS Cluster should be installed and run along `ipfs` (go-ipfs).
-* Consider configuring your systems to start `ipfs` and `ipfs-cluster-service` automatically (beware to check that you need to ensure your cluster is fully operational and peers discover each other beforehand). Some sample Systemd service files are available here: [ipfs-cluster-service](TODO), [ipfs](TODO).
-* Check the [deployment guide](/documentation/guides/deployment) for additional information on automating docker, kubernetes or ansible cluster deployments.
+* Consider configuring your systems to start `ipfs` and `ipfs-cluster-service` automatically (beware to check that you need to ensure your cluster is fully operational and peers discover each other beforehand). Some sample Systemd service files are available here: [ipfs-cluster-service](https://raw.githubusercontent.com/hsanjuan/ansible-ipfs-cluster/master/roles/ipfs-cluster/templates/etc/systemd/system/ipfs-cluster.service), [ipfs](https://raw.githubusercontent.com/hsanjuan/ansible-ipfs-cluster/master/roles/ipfs/templates/etc/systemd/system/ipfs.service).
 
 
 # Initialization
@@ -45,7 +44,7 @@ A good trick is to use IPFS to store the actual configuration and, for example, 
 $ ipfs-cluster-service init http://localhost:8080/ipns/config.mydomain.com
 ```
 
-(a [DNSLink TXT record](TODO) needs to be configured for the example above to work. A regular URL can be used too).
+(a [DNSLink TXT record](https://dnslink.io/) needs to be configured for the example above to work. A regular URL can be used too).
 
 <div class="tipbox warning">Do not host configurations publicly unless it is OK to expose the Cluster secret. This is only OK in crdt-based clusters which have configured <code>trusted_peers</code> to other than <code>*</code>.</div>
 
@@ -56,8 +55,8 @@ The `crdt` section of the `service.json` file includes a single `*` value for th
 
 Read more about trusted peers in the [Security and Ports guide](/documentation/guides/security).
 
-# The peerstore file
 
+# The peerstore file
 
 The `peerstore` file will be maintained by the running Cluster peer and will be used to store known-peer addresses. However, you can also pre-fill this file (one line per multiaddress) to help this peer connect to others during its first start. Here is an example:
 

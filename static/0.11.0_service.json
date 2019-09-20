@@ -1,7 +1,7 @@
 {
   "cluster": {
-    "peername": "hecturchi2.fritz.box",
-    "secret": "811970d84c940b4cffb2eba9782e787630e016d1985849ba9a59f670d776b1f7",
+    "peername": "cluster",
+    "secret": "9d171041f5ffd244316307e2141a6890dbf5fb4c00dfb38fd61721b88a4adf87",
     "leave_on_shutdown": false,
     "listen_multiaddress": "/ip4/0.0.0.0/tcp/9096",
     "connection_manager": {
@@ -16,28 +16,15 @@
     "replication_factor_max": -1,
     "monitor_ping_interval": "15s",
     "peer_watch_interval": "5s",
+    "mdns_interval": "10s",
     "disable_repinning": false
   },
   "consensus": {
     "crdt": {
       "cluster_name": "ipfs-cluster",
-      "trusted_peers": []
-    },
-    "raft": {
-      "init_peerset": [],
-      "wait_for_leader_timeout": "15s",
-      "network_timeout": "10s",
-      "commit_retries": 1,
-      "commit_retry_delay": "200ms",
-      "backups_rotate": 6,
-      "heartbeat_timeout": "1s",
-      "election_timeout": "1s",
-      "commit_timeout": "50ms",
-      "max_append_entries": 64,
-      "trailing_logs": 10240,
-      "snapshot_interval": "2m0s",
-      "snapshot_threshold": 8192,
-      "leader_lease_timeout": "500ms"
+      "trusted_peers": [
+        "*"
+      ]
     }
   },
   "api": {
@@ -58,6 +45,7 @@
       "idle_timeout": "2m0s",
       "max_header_bytes": 4096,
       "basic_auth_credentials": null,
+      "http_log_file": "",
       "headers": {},
       "cors_allowed_origins": [
         "*"
@@ -80,7 +68,6 @@
     "ipfshttp": {
       "node_multiaddress": "/ip4/127.0.0.1/tcp/5001",
       "connect_swarms_delay": "30s",
-      "pin_method": "refs",
       "ipfs_request_timeout": "5m0s",
       "pin_timeout": "24h0m0s",
       "unpin_timeout": "3h0m0s"
@@ -88,7 +75,6 @@
   },
   "pin_tracker": {
     "maptracker": {
-      "max_pin_queue_size": 50000,
       "concurrent_pins": 10
     },
     "stateless": {
@@ -106,9 +92,6 @@
     "disk": {
       "metric_ttl": "30s",
       "metric_type": "freespace"
-    },
-    "numpin": {
-      "metric_ttl": "10s"
     }
   },
   "observations": {
@@ -144,7 +127,7 @@
         "value_log_file_size": 1073741823,
         "value_log_max_entries": 1000000,
         "num_compactors": 2,
-        "compact_l_0_on_close": true,
+        "compact_l_0_on_close": false,
         "read_only": false,
         "truncate": false
       }

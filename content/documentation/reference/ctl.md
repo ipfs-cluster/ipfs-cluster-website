@@ -13,8 +13,8 @@ The `ipfs-cluster-ctl` command line application is a user-friendly REST API clie
 * [Pinning](/documentation/guides/pinning#pinning-cids)
 * [Unpinning](/documentation/guides/pinning#pinning-cids)
 * [Adding](/documentation/guides/pinning#adding-files)
-* [Listing items in the pinset](/documentation/guides/pinset#pin-ls-vs-status)
-* [Checking the status of pins](/documentation/guides/pinset#pin-ls-vs-status)
+* [Listing items in the pinset](/documentation/guides/pinning#pin-ls-vs-status)
+* [Checking the status of pins](/documentation/guides/pinning#pin-ls-vs-status)
 * [Listing cluster peers](/documentation/guides/peerset#listing-peers)
 * [Removing peers](/documentation/guides/peerset#removing-peers)
 

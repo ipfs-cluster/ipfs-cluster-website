@@ -1,5 +1,6 @@
 +++
 title = "Tracing and Monitoring"
+weight = 90
 aliases = [
     "/documentation/opencensus"
 ]

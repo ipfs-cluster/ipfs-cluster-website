@@ -1,5 +1,6 @@
 +++
-title = "Cluster + Kubernetes"
+title = "Deployment on Kubernetes"
+weight = 100
 aliases = [
     "/documentation/k8s"
 ]

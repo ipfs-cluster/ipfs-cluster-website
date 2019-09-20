@@ -13,7 +13,7 @@ This sections contain a few tips to identify and correct problems when running I
 
 ## IPFS Cluster fails to build
 
-Please read the [Download section](/documentation/getting-started/installation). It has instructions on how to build the software (please follow them).
+Please read the [Download page](/download). It has instructions on how to build the software (please follow them).
 
 ## Debug logging
 
@@ -41,7 +41,7 @@ When your peer is not starting:
 * Are all the listen addresses free or are they used by a different process?
 * Are other peers of the cluster reachable?
 * Is the `cluster.secret` the same for all peers?
-* Double-check that the [`peerstore`](/documentation/getting-started/setup#the-peerstore-file) file has the right content and that you've followed one of the methods in the [Starting the Cluster section](/documentation/getting-started/start).
+* Double-check that the [`peerstore`](/documentation/deployment/setup#the-peerstore-file) file has the right content and that you've followed one of the methods in the [Bootstrapping the Cluster section](/documentation/deployment/bootstrap).
 * Double-check that the rest of the cluster is in a healthy state.
 * In some cases, it may help to run `ipfs-cluster-service state clean` (specially if the reason for not starting is a mismatch between the raft state and the cluster peers). Assuming that the cluster is healthy, this will allow the non-starting peer to pull a clean state from the cluster Leader when bootstrapping.
 
@@ -56,7 +56,7 @@ When a peer stops unexpectedly:
 
 ## `ipfs-cluster-ctl status <cid>` does not report CID information for all peers
 
-This is usually the result of a [desync between the *shared state* and the *local state*](/documentation/guides/pinset), or between the *local state* and the ipfs state. If the problem does not autocorrect itself after a couple of minutes (thanks to auto-syncing), try running `ipfs-cluster-ctl sync [cid]` for the problematic item. You can also restart your node.
+This is usually the result of a [desync between the *shared state* and the *local state*](/documentation/guides/pinning), or between the *local state* and the ipfs state. If the problem does not autocorrect itself after a couple of minutes (thanks to auto-syncing), try running `ipfs-cluster-ctl sync [cid]` for the problematic item. You can also restart your node.
 
 ## libp2p errors
 
