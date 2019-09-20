@@ -1,60 +1,21 @@
 +++
 title = "Documentation"
-weight = 20
+weight = 5
 aliases = [
     "/developer/",
-    "/guides/"
+    "/guides/",
+    "/documentation/developer/architecture/",
+    "/documentation/developer/rfcs/dag-sharding-rfc/"
 ]
 +++
 
 # Documentation
 
-Welcome to the IPFS Cluster documentation. This is where you will find user documentation, guides, tutorials, architecture documents and other information about how to use and develop ipfs-cluster.
+<div class="tipbox tip">Updated to version <a href="https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md">0.11.0 (see the Changelog)</a>.</div>
 
-<div class="tipbox tip">Updated to version <a href="https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md">0.10.1 (see the Changelog)</a>.</div>
+Welcome to IPFS Cluster documentation. The different sections of the documentation will explain how to setup, start, and operate a Cluster. Operating a production IPFS Cluster can be a daunting task if you are not familiar with concepts around [IPFS](https://ipfs.io) and peer-2-peer networking ([libp2p](https://libp2p.io) in particular). We aim to provide comprehensive documentation and guides but we are always open for improvements: documentation issues can be submitted to the [ipfs-cluster-website repository](https://github.com/ipfs/ipfs-cluster-website).
 
+If you need help, head over to the [Support section](/support).
 
-## User documentation
+<div class="tipbox tip">Are you an IPFS Cluster user? Let us know about your setup by contributing to the <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWF5aXNXrAK_sCyu1eVv2obTaKVO3Ac5dfgl2r5_IWcizGRg/viewform">IPFS Cluster user registry</a>.</div>
 
-* [IPFS Cluster Overview](overview)
-* [Download](../download)
-* [Configuration](configuration)
-* [Starting the Cluster](starting)
-* [Deployment](deployment)
-* [Troubleshooting](troubleshooting)
-* [Upgrades](upgrades)
-* [Internals](internals)
-* [Composite Clusters](composite-clusters)
-* [ipfs-cluster-service](ipfs-cluster-service)
-* [ipfs-cluster-ctl](ipfs-cluster-ctl)
-* [Security](security)
-* [FAQ](faq)
-
-## User guides
-
-* [Quickstart: Starting, enlarging and shrinking a cluster](quickstart)
-* [Deploying IPFS Cluster to Kubernetes](k8s)
-* [Running Cluster with OpenCensus Tracing and Metrics](opencensus)
-
-## Developer documentation
-
-* [Contribution guidelines](developer/contribute)
-* [Project Architecture's overview](developer/architecture)
-* [Go API (Godoc)](https://godoc.org/github.com/ipfs/ipfs-cluster)
-* [HTTP API reference](developer/api)
-* [RFCs](developer/rfcs)
-* [Release process](developer/release)
-
-## Documentation bugs
-
-Please open issues and submit PRs to this documentation in the [ipfs-cluster-website repository](https://github.com/ipfs/ipfs-cluster-website/issues).
-
-## Support
-
-We are happy to support you, answer questions and help you using IPFS Cluster.
-
-You can reach out to the team and the community:
-
-* By opening [issues](https://github.com/ipfs/ipfs-cluster/issues) in the repository
-* By joining the IRC [\#ipfs-cluster](http://webchat.freenode.net/?channels=%23ipfs-cluster) channel on Freenode.
-* By opening a topic at https://discuss.ipfs.io/ .

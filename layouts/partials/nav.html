@@ -1,9 +1,13 @@
-<nav class="db dtc-l v-mid w-100 tc tc-m tr-ns mt2 mt0-ns">
-  <ul class="mb0 ml0 list">
-    {{ $currentPage := . }}
+<nav id="navbar" class="db dtc-l v-mid w-100 tc tc-m tr-ns mt2 mt0-ns">
+  <ul class="mt0 mb0 ml0 list">
     {{ range .Site.Menus.main }}
-    <li class="dib nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}"><a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a></li>
+    <li class="dib nav-link{{if or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }} nav-link_active{{end}}"><a href="{{ .URL }}" title="{{ .Title }}">
+       {{if eq .URL "/download/"}}<i class='fa fa-download'></i> {{end}}
+       {{if eq .URL "/documentation/"}}<i class='fa fa-book'></i> {{end}}
+       {{if eq .URL "/news/"}}<i class='fa fa-newspaper'></i> {{end}}
+       {{if eq .URL "/support/"}}<i class='fa fa-question-circle'></i> {{end}}
+      {{ .Name }}</a></li>
     {{ end }}
-    <li class="dib nav-link"><a target="_blank" href="{{ .Site.Params.Github }}">Github</a></li>
+    <li class="dib nav-link"><a target="_blank" href="{{ .Site.Params.Github }}"><i class='fab fa-github'></i> Github</a></li>
   </ul>
 </nav>

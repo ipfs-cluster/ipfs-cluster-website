@@ -1,11 +1,18 @@
 +++
 title = "Download"
-weight = 30
-aliases = ["/documentation/download/"]
+weight = 10
+aliases = [
+    "/documentation/download/"
+]
 +++
 
-
 # Download
+
+We offer `ipfs-cluster-service` and `ipfs-cluster-ctl` through several options. For information on how to setup and run IPFS Cluster:
+
+* [Read the documentation](/documentation)
+* Check the command help (`--help`) ([ipfs-cluster-ctl](/documentation/reference/ctl), [ipfs-cluster-service](/documentation/reference/service))
+* [Get support](/support)
 
 ## Binary distribution
 
@@ -21,34 +28,25 @@ The prebuilt-binaries are only updated on new releases (with occasional release 
 
 ## Docker
 
-We have automatic docker builds (https://hub.docker.com/r/ipfs/ipfs-cluster/) to create a minimal container that runs `ipfs-cluster-service` by default. You can obtain it with:
+We have automatic docker builds (https://hub.docker.com/r/ipfs/ipfs-cluster/) to create a minimal container that runs `ipfs-cluster-service` by default. You can get it with:
 
 ```
 docker pull ipfs/ipfs-cluster:\<tag\>
 ```
 
-where `<tag>` is either `latest` or a tagged version of cluster (i.e. `v0.7.0`). The latest build is built from `master`.
+where `<tag>` is either `latest` or a tagged version of cluster (i.e. `v0.11.0`). The latest build is built from `master`.
 
-<div class="tipbox tip">Make sure to read the <a href="/documentation/deployment/docker">Docker documentation section</a>.</div>
+<div class="tipbox tip">See the <a href="/documentation/deployment/automations#docker">Docker documentation section</a> for more details.</div>
 
-## Snaps
-
-We submit automated experimental builds to the [snapcraft.io](https://snapcraft.io) store:
-
-```
-snap install ipfs-cluster --edge
-```
-
-We currently do not provide stable snaps.
 
 ## Installing from source
 
 The following requirements apply to the installation from source:
 
-* Go 1.11+
+* Go 1.12+
 * Git
 
-In order to build and install IPFS Cluster follow the steps:
+In order to build and install IPFS Cluster follow these steps:
 
 ```
 git clone https://github.com/ipfs/ipfs-cluster.git
@@ -62,18 +60,12 @@ After the dependencies have been downloaded, `ipfs-cluster-service` and `ipfs-cl
 If you would rather have them built locally, use `go build ./cmd/<binary_name>` instead.
 
 
-### Building the docker image
+## Building the docker image
 
-This is as easily as running:
+Run...
 
 ```
 docker build . -t ipfs-cluster
 ```
 
-in the repository root.
-
-## Changelog
-
-The project Changelog is available [here](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md).
-
-## Next steps: [Configuration](/documentation/configuration)
+...in the repository root.

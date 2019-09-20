@@ -231,4 +231,4 @@ The rest of the quarter will be focused on 4 main issues:
 * Generate real end to end tests
 * Make IPFS Cluster stable
 
-These endaevours will be reflected on the [ROADMAP](/roadmap).
+These endaevours will be reflected on the [ROADMAP](/documentation/roadmap).

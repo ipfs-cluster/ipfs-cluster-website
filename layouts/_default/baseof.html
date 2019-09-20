@@ -35,14 +35,40 @@
     <meta name="twitter:url" value="{{ .Site.Params.BaseURL }}" />
 
     <title>{{ .Title }} - {{ .Site.Params.Description }}</title>
+
+    <script src="{{"js/jquery-2.x.min.js"| relURL}}"></script>
+
+    <link rel="stylesheet" href="{{"css/nucleus.css" | relURL}}">
+    <link rel="stylesheet" href="{{"css/fontawesome-all.min.css" | relURL}}">
+    <link rel="stylesheet" href="{{"css/hybrid.css" | relURL}}">
+    <link rel="stylesheet" href="{{"css/featherlight.min.css" | relURL}}">
+    <link rel="stylesheet" href="{{"css/perfect-scrollbar.min.css" | relURL}}">
+    <link rel="stylesheet" href="{{"css/auto-complete.css" | relURL}}">
+    <link rel="stylesheet" href="{{"css/hybrid.css" | relURL}}">
+    <link rel="stylesheet" href="{{"css/fontawesome-all.min.css" | relURL}}">
     <link rel="stylesheet" href="/css/tachyons.min.css"/>
-    <link rel="stylesheet" href="/css/main.css"/>
     <link rel="stylesheet" href="/fonts/fonts.css"/>
     <script async defer src="/buttons.js"></script>
-    <!-- ipfs camp -->
-    <script src="https://camp.ipfs.io/ribbon.min.js" async></script>
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="{{"css/theme.css" | relURL}}">
+    <link rel="stylesheet" href="{{"css/hugo-theme.css" | relURL}}">
+    <link rel="stylesheet" href="/css/main.css"/>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      {{ if .Site.Params.disableInlineCopyToClipBoard }}
+        :not(pre) > code + span.copy-to-clipboard {
+            display: none;
+        }
+      {{ end }}
+    </style>
+
     {{ template "_internal/google_analytics.html" . }}
+
   </head>
+
   <body class="w-100 bg-dark_blue">
 
     {{ partial "header.html" . }}
@@ -51,5 +77,23 @@
 
     {{ end }}
 
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="{{"js/clipboard.min.js" | relURL}}"></script>
+    <script src="{{"js/jquery.sticky.js" | relURL}}"></script>
+    <script src="{{"js/featherlight.min.js" | relURL}}"></script>
+    <script src="{{"js/html5shiv-printshiv.min.js" | relURL}}"></script>
+    <script src="{{"js/highlight.pack.js" | relURL}}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="{{"js/modernizr.custom.71422.js" | relURL}}"></script>
+    <script src="{{"js/learn.js" | relURL}}"></script>
+    <script src="{{"js/hugo-learn.js" | relURL}}"></script>
+
+    <link href="{{"mermaid/mermaid.css" | relURL}}" type="text/css" rel="stylesheet" />
+    <script src="{{"mermaid/mermaid.js" | relURL}}"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
   </body>
 </html>

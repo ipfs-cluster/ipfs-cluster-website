@@ -1,0 +1,80 @@
+<nav id="sidebar" class="{{if $.Site.Params.showVisitedLinks }}showVisitedLinks{{end}} fl w-100 w-third-ns w-100-m pa2">
+
+    {{ $currentNode := . }}
+    {{ $showvisitedlinks := .Site.Params.showVisitedLinks }}
+      <div id="header-wrapper">
+        {{if not .Site.Params.disableSearch}}
+            {{ partial "search.html" . }}
+        {{end}}
+      </div>
+
+      <div class="highlightable">
+        <ul class="topics">
+          <!-- FOR DEBUGGING -->
+          <!-- <li><strong>Am I a node?</strong> {{ printf "%#v" .IsNode }}</li>
+          <li><strong>IsSection</strong> {{ printf "%#v" .IsSection }}</li>
+          <li><strong>Am I a page?</strong> {{ printf "%#v" .IsPage }}</li>
+          <li><strong>What kind of page?</strong> {{ printf "%#v" .Kind }}</li>
+          <li><strong>What type of page?</strong> {{ printf "%#v" .Type }}</li>
+          <li><strong>Where am I?</strong> {{ printf "%#v" .Path }}</li>
+          <li><strong>Section</strong> {{ printf "%#v" .Section }}</li>
+          <li><strong>ID?</strong> {{ printf "%#v" .UniqueID }}</li>
+          <li><strong>Title</strong> {{ printf "%#v" .Title }}</li>
+          <li><strong>Who's my mom?</strong> {{ printf "%#v" .FirstSection.Title }}</li>
+
+          <br/> -->
+          <!-- END DEBUGGING -->
+          {{ $currentNode.Scratch.Set "pages" .Pages }}
+          {{ $currentNode.Scratch.Set "pages" (.FirstSection.Sections) }}
+          {{ $pages := ($currentNode.Scratch.Get "pages") }}
+          {{ range $pages.ByWeight }}
+            {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks}}
+          {{ end }}
+        </ul>
+      </div>
+    </nav>
+
+<!-- templates -->
+{{ define "section-tree-nav" }}
+{{ $showvisitedlinks := .showvisitedlinks }}
+{{ $currentNode := .currentnode }}
+ {{ with .sect }}
+  {{ if .IsSection }}
+
+    <!--This controls display of node items in nav, ie, sections -->
+    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{ if .Params.alwaysopen }}parent{{end}}">
+       <h2 class="{{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
+         <a href="{{ .RelPermalink }}" class="highlight">{{if eq .UniqueID $currentNode.UniqueID}}»{{end}} {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}</a>
+       </h2>
+
+       {{ $numberOfPages := (add (len .Pages) (len .Sections)) }}
+       {{ if ne $numberOfPages 0 }}
+
+         <ul>
+           {{ $currentNode.Scratch.Set "pages" .Pages }}
+           {{ if .Sections}}
+             {{ $currentNode.Scratch.Set "pages" (.Pages | union .Sections) }}
+           {{end}}
+           {{ $pages := ($currentNode.Scratch.Get "pages") }}
+
+           {{ range $pages.ByWeight }}
+             {{ if and .Params.hidden (not $.showhidden) }}
+             {{ else }}
+             {{ template "section-tree-nav" dict "sect" . "currentnode" $currentNode "showvisitedlinks" $showvisitedlinks }}
+             {{ end }}
+           {{ end }}
+         </ul>
+       {{ end }}
+    </li>
+
+  {{ else }}
+
+  <!--This controls display of NON-node items in nav, ie, pages -->
+    <li data-nav-id="{{.URL}}" title="{{.Title}}" class="dd-item {{if eq .UniqueID $currentNode.UniqueID}}active{{end}}">
+      <a href="{{ .RelPermalink }}" class="highlight">
+        {{if eq .UniqueID $currentNode.UniqueID}}»{{end}} {{safeHTML .Params.Pre}}{{or .Params.menuTitle .LinkTitle .Title}}{{safeHTML .Params.Post}}
+      </a>
+    </li>
+  {{ end }}
+ {{ end }}
+{{ end }}

@@ -1,16 +1,20 @@
 +++
-title = "IPFS CLUSTER"
+title = "IPFS Cluster"
 +++
 
-<div class="tipbox tip">Are you an IPFS Cluster user? Let us know about your setup by contributing to the <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWF5aXNXrAK_sCyu1eVv2obTaKVO3Ac5dfgl2r5_IWcizGRg/viewform">IPFS Cluster user registry</a>.</div>
+[IPFS](https://ipfs.io) has given the users the power of content-addressed storage. The *permanent web* requires, however, a data redundancy and availability solution that does not compromise on the distributed nature of the IPFS Network.
 
-# Pinset orchestration for IPFS
+<img alt="A typical IPFS Cluster" title="A typical IPFS Cluster" src="/cluster/diagrams/png/cluster.png" width="500px" style="float:right;" />
 
-The IPFS Cluster project aims to facilitate adoption of IPFS by:
+**IPFS Cluster** is a distributed application that works as a sidecar to IPFS peers, maintaining a global cluster pinset and intelligently allocating its items to the IPFS peers:
 
-* Providing support for production deployments of IPFS in the datacenter
-* Facilitating the conservation and replication of data (pinsets) across multiple nodes
-* Supporting the handling of large volumes, where a full DAG does not fit in a single IPFS node
-* Enabling collaborative storage efforts to backup data of interest on top of IPFS
-
-This website is the central point of access for all IPFS Cluster information, [documentation](/documentation), [news](/news) and [roadmap](/roadmap) updates.
+* An easy to run application: `ipfs-cluster-service` runs as an independent daemon, independent from IPFS and interacting with the IPFS daemon's API.
+* Fully featured API and CLI: `ipfs-cluster-ctl` provides a command-line client to the fully featured Cluster HTTP REST API.
+* No central server: cluster peers form a distributed network and maintain a global, replicated and conflict-free list of pins.
+* Baked-in permissions: a embedded permission  model supports standard peers (with permissions to change the cluster pinset) and follower peers (which store content as instructed but cannot modify the pinset).
+* Name your pins: every pin supports custom replication factors, name and any other custom metadata.
+* Multi-add: Ingest IPFS content to multiple daemons directly.
+* A drop-in to any IPFS integration: each cluster peer provides an additional IPFS proxy API which performs cluster actions but behaves exactly like the IPFS daemon's API does.
+* Integration-ready: Written in Go, Cluster peers can be programatically launched and controlled. The IPFS Cluster additionally provides Go and Javascript clients for its API.
+* [libp2p](https://libp2p.io) powered: IPFS Cluster is built on libp2p, the battle-tested next generation p2p networking library powering IPFS and Ethereum V2.
+  

@@ -1,3 +1,4 @@
+baseurl = "https://cluster.ipfs.io"
 languageCode = "en-us"
 relativeURLs = true
 sourceRelativeLinksEval = true
@@ -5,18 +6,27 @@ ignoreFiles = [ "\\.less$" ]
 sectionPagesMenu = "main"
 googleAnalytics = "UA-96910779-7"
 
+theme = "hugo-theme-learn"
+
 [privacy]
   [privacy.googleAnalytics]
     anonymizeIP = true
     respectDoNotTrack = true
 
 [params]
-  # baseurl = "https://cluster.ipfs.io"
-  name = "IPFS CLUSTER"
-  title = "IPFS CLUSTER"
+  name = "IPFS Cluster"
+  title = "IPFS Cluster"
   description = "Pinset orchestration for IPFS"
   author = "Protocol Labs"
   github = "https://github.com/ipfs/ipfs-cluster"
   domain = "cluster.ipfs.io"
   og_image = "https://cluster.ipfs.io/og-image.jpg"
   download = "https://dist.ipfs.io/#ipfs-cluster-service"
+  disableBreadcrumb = false
+  disableNextPrev = true
+  disableInlineCopyToClipBoard = true
+  pygmentsCodeFences = true
+
+# activate learn-theme's search
+[outputs]
+  home = [ "HTML", "RSS", "JSON"]
