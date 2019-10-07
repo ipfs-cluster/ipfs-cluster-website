@@ -48,8 +48,9 @@ The following requirements apply to the installation from source:
 
 In order to build and install IPFS Cluster follow these steps:
 
-```
+```sh
 git clone https://github.com/ipfs/ipfs-cluster.git
+cd ipfs-cluster
 export GO111MODULE=on # optional, if checking out the repository in $GOPATH.
 go install ./cmd/ipfs-cluster-service
 go install ./cmd/ipfs-cluster-ctl
