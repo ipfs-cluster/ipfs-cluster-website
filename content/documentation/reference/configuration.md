@@ -7,7 +7,7 @@ weight = 5
 
 All IPFS Cluster configurations and persistent data can be found, by default, at the `~/.ipfs-cluster` folder. For more information about the persistent data in this folder, see the [Data, backups and recovery](/documentation/guides/backups) section.
 
-<div class="tipbox tip"> <code>ipfs-cluster-service -c &lt;path&gt;</code> sets the location of the configuration folder. This is also controlled by the <code>IPFS_CLUSTER_PATH</code> environment variable.</div>
+<div class="tipbox tip"> <code>ipfs-cluster-service -c &lt;path&gt;</code> sets the location of the configuration folder. This is also controlled by the <code>CLUSTER_PATH</code> environment variable.</div>
 
 The `ipfs-cluster-service` program uses two main configuration files:
 
