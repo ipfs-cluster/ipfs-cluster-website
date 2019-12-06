@@ -20,6 +20,7 @@ The requests that are intercepted are the following:
 * `/pin/rm`: the proxy unpins the given CID from cluster.
 * `/pin/ls`: the proxy lists the pinned items in cluster.
 * `/repo/stat`: the proxy responds with aggregated `/repo/stat` from all connected IPFS daemons.
+* `/repo/gc`: the proxy performs garbage collection on all IPFS daemons and responds with collected CIDs.
 
 Responses from the proxy mimic the IPFS daemon responses, thus allowing to drop-in this endpoint in places where the IPFS API was used before. For example, you can use the `go-ipfs` CLI as follows:
 
