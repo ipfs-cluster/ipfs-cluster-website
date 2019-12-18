@@ -43,7 +43,7 @@ Any follower peer can start a IPFS cluster peer that will join your collaborativ
 
 It is however better when you can distribute a configuration template which has all the options set right for your cluster. Ultimately, you will want follower peers to run using `ipfs-cluster-follow`, rather than `ipfs-cluster-service`.
 
-### Creating a configuration for followers
+### Creating a configuration template for followers
 
 Follower peers can technically use the same configuration as trusted peers but we recommend considering a couple of modifications. The following apply to a copy of your `service.json` file that you will distribute to your followers:
 
@@ -60,7 +60,7 @@ After all these changes, you will have a `service.json` file that is ready to be
 * Replace the generated default `service.json` with the follower configuration you created.
 * Run `ipfs-cluster-service -c someFolder daemon` and make sure a peer starts and joins the main cluster (`ipfs-cluster-ctl peers ls` on one of the trusted peers should show it).
 
-### Distributing a configuration template
+### Distributing the template
 
 Once you have a configuration template to provide to your followers, you can either host it on a webserver and make it accessible through HTTP(s), or, more interestingly, add it to IPFS (and to the cluster you created) and make it accessible through every IPFS daemon's gateway:
 
