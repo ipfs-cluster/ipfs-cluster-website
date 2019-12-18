@@ -62,7 +62,7 @@ IPFS Cluster peers provide by default an **HTTP API endpoint** which can be conf
 
 These endpoints are controlled by the `restapi.http_listen_multiaddress` (default `/ip4/127.0.0.1/tcp/9094`) and the `restapi.libp2p_listen_multiaddress` (if a specific `private_key` and `id` are configured in the `restapi` section).
 
-Note that when no additional libp2p host is configured, the Cluster's peer libp2p host (which listens on `0.0.0.0`) is re-used to provide the libp2p API endpoint. As explained, this endpoint is only protected by the *cluster secret*.
+Note that when no additional libp2p host is configured and running in Raft mode, the Cluster's peer libp2p host (which listens on `0.0.0.0`) is re-used to provide the libp2p API endpoint. As explained, this endpoint is only protected by the *cluster secret*. When running in CRDT mode, the libp2p endpoint is disabled, as the cluster secret may be shared and would otherwise expose an open endpoint to the world. In order to run a lib2p API endpoint when using CRDT mode, configure an additional, separate libp2p host in the `restapi` configuration.
 
 Both endpoints support **Basic Authentication** but are unauthenticated by default.
 

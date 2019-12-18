@@ -122,7 +122,7 @@ The `service.json` configuration file contains a few options which should be twe
 
 ### `cluster` section 
 
-When dealing with large amount of pins, you may further increase the `cluster.state_sync_interval` and `cluster.ipfs_sync_interval`. These operations will perform checks for every pin in the pinset and will trigger `ipfs pin ls --type=recursive` calls, which may be slow when the number of pinned items is huge.
+When dealing with large amount of pins, you may further increase the `cluster.pin_recover_interval`. This operation will perform checks for every pin in the pinset and will trigger `ipfs pin ls --type=recursive` calls, which may be slow when the number of pinned items is huge.
 
 Consider increasing the `cluster.monitor_ping_interval` and `monitor.*.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and potentially trigger re-pins). Re-pinning might be a very expensive in your cluster. Thus, you may want to set this a bit high (several minutes). You can use same value for both.
 

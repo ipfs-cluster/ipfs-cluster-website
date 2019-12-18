@@ -32,6 +32,7 @@ As we will see below, the **first start** has slightly different requirements de
 
 This is the easiest option to start a cluster because the only requirement a crdt-based peer has to become part of a Cluster is to contact at least one other peer. This can be achieved in several ways:
 
+* Adding addresses for other peers to the `peer_addresses` array in the configuration.
 * Pre-filling the `peerstore` file with addresses for other peers ([as we saw in the previous section](/documentation/deployment/setup/#the-peerstore-file)).
 * Running with the `--bootstrap <peer-multiaddress1,peer-multiaddress2>` flag. Note that using this flag will automatically *trust* the given peers. For more information about trust, read the [CRDT section](/documentation/guides/consensus#crdt).
 * In local networks with mDNS discovery support, peers will autodiscover each other and no additional measures are necessary.
