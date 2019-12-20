@@ -89,7 +89,7 @@ From the Kubernetes documentation on [StatefulSets](https://kubernetes.io/docs/c
 
 > Like a Deployment, a StatefulSet manages Pods that are based on an identical container spec. Unlike a Deployment, a StatefulSet maintains a sticky identity for each of their Pods. These pods are created from the same spec, but are not interchangeable: each has a persistent identifier that it maintains across any rescheduling.
 
-This means for us, that any Kubernetes generated configuration, such as hostnames, i.e. `ipfs-cluster-0`, will be associated with the same Pod and VolumeClaim, which means for example, hostnames will always be associated with the same peer id that is stored in the `~/.ipfs-cluster/service.json` file. And all this is important, because it allows us to bootstrap our ipfs-cluster without a spnning up a specific bootstraping peer.
+This means for us, that any Kubernetes generated configuration, such as hostnames, i.e. `ipfs-cluster-0`, will be associated with the same Pod and VolumeClaim, which means for example, hostnames will always be associated with the same peer id that is stored in the `~/.ipfs-cluster/service.json` file. And all this is important, because it allows us to bootstrap our ipfs-cluster without a spinning up a specific bootstrapping peer.
 
 Breaking the StatefulSet definition into chunks, the first is the preamble and start of the StatefulSet spec:
 
