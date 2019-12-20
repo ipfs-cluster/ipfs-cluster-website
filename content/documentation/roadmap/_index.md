@@ -12,7 +12,6 @@ This is the IPFS Cluster Roadmap for the next months. Note that this is a declar
 
 ## Short term (Q4 2019)
 
-* Adoption of the stateless PinTracker implementation
 * Support and improvements to the CRDT implementation
 * Usability improvements and small fixes
 * DAG Sharding support (ongoing)
@@ -22,7 +21,6 @@ This is the IPFS Cluster Roadmap for the next months. Note that this is a declar
 ## Mid term (6-8 months horizon)
 
 * RPC streaming
-* "ipfs-cluster-follower" application with a nice set of default archives for people to follow.
 * Stable collaborations with different players interested in using ipfs-cluster/ipfs.
 * Sharding support and good sharding support for at least ~1TB datasets (package repositories).
 * Exploring support for a rich set of allocation strategies e.g. by geographic location or as a function of access patterns

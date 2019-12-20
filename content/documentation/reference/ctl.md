@@ -78,6 +78,6 @@ We recommend that you alias the `ipfs-cluster-ctl` command in your shell to some
 
 `ipfs-cluster-ctl` takes a `--debug` flag which allows to inspect request paths and raw response bodies.
 
-### Download
+## Download
 
 To download `ipfs-cluster-ctl` check the [downloads page](/download).

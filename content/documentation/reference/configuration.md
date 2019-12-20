@@ -109,23 +109,23 @@ component and contains the following keys:
 |`peername`| `"<hostname>"` | A human name for this peer. |
 |`secret`|`"<randomly generated>"` | The Cluster secret (must be the same in all peers).|
 |`leave_on_shutdown`| `false` | The peer will remove itself from the cluster peerset on shutdown. |
-|`listen_multiaddress`| `"/ip4/0.0.0.0/tcp/9096"` | The peers Cluster-RPC listening endpoint. |
+|`listen_multiaddress`| `["/ip4/0.0.0.0/tcp/9096", "/ip4/0.0.0.0/udp/9096/quic"]` | The peers Cluster-RPC listening endpoints. |
 | `connection_manager {` | | A connection manager configuration objec. t|
 | &nbsp;&nbsp;&nbsp;&nbsp;`high_water` | `400` | The maximum number of connections this peer will have. If it, connections will be closed until the `low_water` value is reached. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`low_water` | `100` | The libp2p host will try to keep at least this many connections to other peers. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`grace_period` | `"2m0s"` | New connections will not be dropped for at least this period. |
 | `}` |||
 |`state_sync_interval`| `"10m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.StateSync). |
-|`ipfs_sync_interval`| `"2m10s"` | Interval between automatic triggers of [`SyncAllLocal`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.SyncAllLocal). |
 |`pin_recover_interval`| `"1h0m0s"` | Interval between automatic triggers of [`RecoverAllLocal`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.RecoverAllLocal). This will automatically re-try pin and unpin operations that failed. |
 |`replication_factor_min` | `-1` | Specifies the default minimum number of peers that should be pinning an item. -1 == all. |
 |`replication_factor_max` | `-1` | Specifies the default maximum number of peers that should be pinning an item. -1 == all. |
 |`monitor_ping_interval` | `"15s"` | Interval for sending a `ping` (used to detect downtimes). |
 |`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset and detect if this peer was removed from the cluster (and shut-down). |
 |`mdns_interval` | `"10s"` | Interval between mDNS announce broadcasts. Setting it to `"0"` disables mDNS. |
+|`enable_relay_hop` | `true` | Let the cluster peer acts as relay for other peers that are not reachable directly. |
 |`disable_repinning` | `true` | Do not automatically re-pin all items allocated to a peer that becomes unhealthy (down). |
 |`follower_mode` | `false` | Peers in follower mode provide useful error messages when trying to perform actions like pinning. |
-|
+|`peer_addresses` | `[]` | Full peer multiadresses for peers to connect to on boot (similar to manually added entries to the `peerstore` file. |
 
 The `leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly. It is most relevant
 when using *raft*. This means that, for any subsequent starts, the peer will need to be [bootstrapped](/documentation/deployment/bootstrap/#bootstrapping-the-cluster-in-raft-mode) in order to re-join the Cluster.
@@ -235,7 +235,7 @@ This is the component which provides the REST API implementation to interact wit
 |`cors_allow_credentials`|  `true` | CORS Configuration: value for `Access-Control-Allow-Credentials`. |
 |`cors_max_age`|  `"0s"` | CORS Configuration: value for `Access-Control-Max-Age`. |
 
-The REST API component automatically, and additionally, exposes the HTTP API as a libp2p service on the main libp2p cluster Host (which listens on port `9096`). Exposing the HTTP API as a libp2p service allows users to benefit from the channel encryption provided by libp2p. Alternatively, the API supports specifying a fully separate libp2p Host by providing `id`, `private_key` and `libp2p_listen_multiaddress`. When using a separate Host, it is not necessary for an API consumer to know the cluster secret. Both the HTTP and the libp2p endpoints are supported by the [API Client](https://godoc.org/github.com/ipfs/ipfs-cluster/api/rest/client) and by [`ipfs-cluster-ctl`](/documentation/ipfs-cluster-ctl/).
+The REST API component automatically, and additionally, can expose the HTTP API as a libp2p service on the main libp2p cluster Host (which listens on port `9096`) (this happens by default on Raft clusters). Exposing the HTTP API as a libp2p service allows users to benefit from the channel encryption provided by libp2p. Alternatively, the API supports specifying a fully separate libp2p Host by providing `id`, `private_key` and `libp2p_listen_multiaddress`. When using a separate Host, it is not necessary for an API consumer to know the cluster secret. Both the HTTP and the libp2p endpoints are supported by the [API Client](https://godoc.org/github.com/ipfs/ipfs-cluster/api/rest/client) and by [`ipfs-cluster-ctl`](/documentation/ipfs-cluster-ctl/).
 
 
 
@@ -253,6 +253,7 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 |`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The IPFS daemon HTTP API endpoint. This is the daemon that the peer uses to pin content. |
 |`connect_swarms_delay` | `"30s"` | On start, the Cluster Peer will run `ipfs swarm connect` to the IPFS daemons of others peers. This sets the delay after starting up. |
 |`ipfs_request_timeout` | `"5m0s"` | Specifies a timeout on general requests to the IPFS daemon for requets without a specific timeout option. |
+|`repogc_timeout` | `"24h"` | Specifies a timeout on `/repo/gc` operations. |
 |`pin_timeout` | `"24h0m0s"` | Specifies the timeout for `pin/add` which starts from the last block received for the item being pinned. Thus items which are being pinned slowly will not be cancelled even if they take more than 24h. |
 |`unpin_timeout` | `"3h0m0s"` | Specifies the timeout for `pin/rm` requests to the IPFS daemon. |
 |`unpin_disable` | `false` | Prevents the connector from unpinning anything (even if the Cluster does). |
