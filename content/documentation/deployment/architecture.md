@@ -11,10 +11,11 @@ Before jumping in to install and run IPFS Cluster, it is important to clarify so
 
 <img src="/cluster/diagrams/png/peer.png" alt="cluster architecture" title="cluster architecture" width="600px" />
 
-The IPFS Cluster software consists of two binary files:
+The IPFS Cluster software consists of three binary files:
 
 * [ipfs-cluster-service](/documentation/reference/service) runs a Cluster peer (similar to `ipfs daemon`) using a configuration file and by storing some information on disk.
 * [ipfs-cluster-ctl](/documentation/reference/ctl) is used to communicate with a Cluster peer and perform actions such as pinning IPFS CIDs to the Cluster.
+* [ipfs-cluster-follow](/documentation/reference/follow) runs a follower Cluster peer. It can be used as a substitute for `ipfs-cluster-service` for this specific usecase and mixes some `service` and `ctl` features.
 
 The Cluster peer communicates with the IPFS daemon using the HTTP API (`localhost:5001`). Therefore, **the IPFS daemon must be launched and running separately**.
 

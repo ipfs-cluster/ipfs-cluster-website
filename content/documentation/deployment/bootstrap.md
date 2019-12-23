@@ -40,20 +40,20 @@ This is the easiest option to start a cluster because the only requirement a crd
 _Example 1._ Starting the *first* peer in a CRDT-based Cluster:
 
 ```sh
-ipfs-cluster-service daemon --consensus crdt
+ipfs-cluster-service daemon
 ```
 
 _Example 2._ Starting more peers in a CRDT-based cluster by customizing the peerstore. The given multiaddress corresponds to the first peer:
 
 ```sh
 echo "/dns4/cluster1.domain/tcp/9096/ipfs/QmcQ5XvrSQ4DouNkQyQtEoLczbMr6D9bSenGy6WQUCQUBt" >> ~/.ipfs-cluster/peerstore
-ipfs-cluster-service daemon --consensus crdt
+ipfs-cluster-service daemon
 ```
 
 _Example 3._ Starting more peers in a CRDT-based cluster using the `--bootstrap` flag. The given multiaddress corresponds to the first peer:
 
 ```sh
-ipfs-cluster-service daemon --consensus crdt --bootstrap /dns4/cluster1.domain/tcp/9096/ipfs/QmcQ5XvrSQ4DouNkQyQtEoLczbMr6D9bSenGy6WQUCQUBt
+ipfs-cluster-service daemon --bootstrap /dns4/cluster1.domain/tcp/9096/ipfs/QmcQ5XvrSQ4DouNkQyQtEoLczbMr6D9bSenGy6WQUCQUBt
 ```
 
 ## Bootstrapping the Cluster in Raft mode
@@ -63,19 +63,19 @@ In Raft Clusters, the first start of a peer must not only contact a different pe
 _Example 1._ Starting the *first* peer in a Raft-based Cluster:
 
 ```sh
-ipfs-cluster-service daemon --consensus raft
+ipfs-cluster-service daemon
 ```
 
 _Example 2._ Starting more peers in a Raft-based cluster. The given multiaddress corresponds to the first peer:
 
 ```sh
-ipfs-cluster-service daemon --consensus raft --bootstrap /dns4/cluster1.domain/tcp/9096/ipfs/QmcQ5XvrSQ4DouNkQyQtEoLczbMr6D9bSenGy6WQUCQUBt
+ipfs-cluster-service daemon --bootstrap /dns4/cluster1.domain/tcp/9096/ipfs/QmcQ5XvrSQ4DouNkQyQtEoLczbMr6D9bSenGy6WQUCQUBt
 ```
 
 _Example 3._ Subsequent starts when the peer already successfully joined a Raft cluster before:
 
 ```sh
-ipfs-cluster-service daemon --consensus raft
+ipfs-cluster-service daemon
 ```
 
 ## Verifying a successful bootstrap

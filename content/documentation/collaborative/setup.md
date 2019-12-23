@@ -8,9 +8,9 @@ aliases = []
 
 In order to create your own collaborative cluster that other people can subscribe to you will need to:
 
-* [Setup your regular production deployment of IPFS Cluster](#trusted-peers-setup) in CRDT mode (a.k.a. the "trusted peers").
+* [Setup your regular production deployment of IPFS Cluster](#trusted-peers-setup) in CRDT mode (these will be your "trusted peers").
 * [Distribute a configuration template](#distributing-a-configuration-template) so that follower peers can easily join the cluster.
-* Let users [take advantage of ipfs-cluster-follow](#ipfs-cluster-follow)
+* Let users [take advantage of ipfs-cluster-follow](#ipfs-cluster-follow).
 
 ## Trusted peers setup
 
@@ -20,12 +20,25 @@ The first step in setting a collaborative cluster is to deploy a regular CRDT cl
 
 Follow the instructions in the [Production deployment](/documentation/deployment/) section, particularly those related to the [CRDT mode bootstrapping](https://cluster.ipfs.io/documentation/deployment/bootstrap/). The simplest is to run a single-peer cluster, although you may choose to run two or more to have some redundancy.
 
-Once you have your base cluster configured and running, you will need to make sure that the `trusted_peers` array in the `crdt` configuration section is set to the peer IDs in your base cluster. Otherwise (if set to the default `*`), anyone might be able to modify the pinset and this may be something you don't want.
+A summarized version of the instructions for a single peer with default configuration would amount to the following:
+
+```sh
+# Start your ipfs daemon
+$ ipfs-cluster-service init --consensus crdt
+$ ipfs-cluster-service daemon
+# Write down:
+# - The generated cluster secret (will need to be re-used in other peers)
+# - The peer ID (this will be a "trusted peer")
+# - The multiaddress on which it will be reachable by other peers (usually /ip4/public_ip/tcp/9096/p2p/peer_id
+```
+
+
+Once you have your base cluster configured and running, you will need to make sure that the `trusted_peers` array in the `crdt` configuration section is set to the peer IDs in your base cluster. Otherwise (if set to the default `*`), ***anyone might be able to modify the pinset and this may be something you don't want***.
 
 Review the resulting configuration in your cluster peers:
 
 * All *trusted peers* in your setup should probably have the same configuration (unless they are running on machines with different requirements)
-* `trusted_peers` should probably be set to the list of peer IDs that you trust.
+* `trusted_peers` should be set to the list of peer IDs in the original cluster that are under your control (or someone's trusted control).
 * You should have generated a cluster `secret`. It will be ok to distribute this secret later.
 * Depending on your Cluster setup, who you plan to join the cluster, and the level of trust on those follower peers, you can set `replication_factor_min/max`. For the general usecase, we recommend leaving at `-1` (everything pinned everywhere). The main usecase of collaborative clusters is to ensure wide distribution and replication of content.
 * You can modify the `crdt/cluster_name` value to your liking, but remember to inform your followers about its value.

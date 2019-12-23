@@ -66,6 +66,8 @@ The `peerstore` file will be maintained by the running Cluster peer and will be 
 /ip4/192.168.1.10/tcp/9096/ipfs/QmSGCzHkz8gC9fNndMtaCZdf9RFtwtbTEEsGo4zkVfcykD
 ```
 
+Alternatively, you can also use the `peer_addresses` configuration value to provide addresses for other peers.
+
 # Ports
 
 By default, Cluster uses:
