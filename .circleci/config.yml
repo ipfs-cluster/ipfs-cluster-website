@@ -29,12 +29,14 @@ jobs:
             pin_name="$DOMAIN build $CIRCLE_BUILD_NUMBER"
             
             hash=$(pin-to-cluster.sh "$pin_name" /tmp/workspace/$BUILD_DIR)
-
             echo "Website added to IPFS: https://ipfs.io/ipfs/$hash"
 
             # Update DNSlink for prod or dev domain
             if [ "$CIRCLE_BRANCH" == "master" ] ; then
               dnslink-dnsimple -d $DOMAIN -r _dnslink -l /ipfs/$hash
+              export CLUSTER_HOST=/dnsaddr/ipfs-websites.collab.ipfscluster.io
+              hash=$(pin-to-cluster.sh "$pin_name" /tmp/workspace/$BUILD_DIR)
+              echo "Website added to collaborative cluster: https://ipfs.io/ipfs/$hash"
             fi
 workflows:
   version: 2
