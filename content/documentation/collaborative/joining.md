@@ -8,7 +8,7 @@ aliases = []
 
 Collaborative clusters allow people to join forces to backup and distribute interesting content on the IPFS-network.
 
-These clusters are formed by a group of *trusted peers*, which add and modify the list of items in the cluster, and a group of *followers*, which subscribe to the cluster and pin things accordinly.
+These clusters are formed by a group of *trusted peers*, which add and modify the list of items in the cluster, and a group of *followers*, which subscribe to the cluster and pin things accordingly.
 
 ## Joining a cluster using ipfs-cluster-follow
 
