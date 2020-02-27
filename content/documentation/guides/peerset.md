@@ -13,7 +13,7 @@ Adding and removing peers from the Cluster might be a simpler or trickier operat
 ipfs-cluster-ctl peers ls
 ```
 
-The `peers ls` command will produce the list of peers in the cluster will all their information. It is the equivalent of calling `ipfs-cluster-ctl id` on every cluster peer and building a list with the results, but for it to work it needs to contact all the current peers of the cluster, meaning it can be a slow operation. Instead, if you just want a list of the peer IDs in the cluster you can see it wit hthe `id` command (the `text` output only shows the number of peers):
+The `peers ls` command will produce the list of peers in the cluster will all their information. It is the equivalent of calling `ipfs-cluster-ctl id` on every cluster peer and building a list with the results, but for it to work it needs to contact all the current peers of the cluster, meaning it can be a slow operation. Instead, if you just want a list of the peer IDs in the cluster you can see it with the `id` command (the `text` output only shows the number of peers):
 
 ```sh
 ipfs-cluster-ctl --enc=json id
