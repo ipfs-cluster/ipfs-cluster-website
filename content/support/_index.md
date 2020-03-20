@@ -34,10 +34,9 @@ To check what's going on in the project, check:
 
 IPFS Cluster adopts the existing guidelines in the IPFS community:
 
-* The [go-ipfs contributing guidelines](https://github.com/ipfs/go-ipfs/blob/master/contribute.md), which builds upon:
-* The [IPFS Community Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md)
-* The [IPFS community contributing notes](https://github.com/ipfs/community/blob/master/contributing.md)
 * The [Go contribution guidelines](https://github.com/ipfs/community/blob/master/go-code-guidelines.md)
+* The [IPFS community contributing notes](https://github.com/ipfs/community/blob/master/CONTRIBUTING.md)
+* The [IPFS Community Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md)
 
 
 ## Code contribution guidelines
