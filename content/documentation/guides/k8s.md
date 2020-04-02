@@ -312,8 +312,8 @@ data:
     fi
 
     ipfs init --profile=badgerds,server
-    ipfs config --json Addresses.API /ip4/0.0.0.0/tcp/5001
-    ipfs config --json Addresses.Gateway /ip4/0.0.0.0/tcp/8080
+    ipfs config Addresses.API /ip4/0.0.0.0/tcp/5001
+    ipfs config Addresses.Gateway /ip4/0.0.0.0/tcp/8080
     ipfs config --json Swarm.ConnMgr.HighWater 2000
     ipfs config --json Datastore.BloomFilterSize 1048576
     ipfs config Datastore.StorageMax 100GB
