@@ -118,6 +118,10 @@ Increase the `Swarm.ConnMgr.HighWater` (maximum number of connections) and reduc
 The `IPFS_FD_MAX` environment variable controls the FD `ulimit` value that `go-ipfs` sets for itself. Depending on your `Highwater` value, you may want to increase it to `8192` or more.
 
 
+### Garbage collection
+
+We recommend to keep automatic garbage collection on IPFS disabled when using IPFS Cluster to add content as the GC process may delete content as it is being added. Alternatively, it is possible to add content directly to IPFS (this will lock the GC process in the mean time), and only use the Cluster to pin it once added.
+
 ## IPFS Cluster configuration
 
 The `service.json` configuration file contains a few options which should be tweaked according to your environment, capacity and requirements.
