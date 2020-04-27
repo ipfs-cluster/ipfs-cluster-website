@@ -33,6 +33,8 @@ By default `crdt` consensus is used to initialize the configuration. This can be
 
 <div class="tipbox warning">Unless you run docker with <code>--net=host</code>, you will need to set <code>$CLUSTER_IPFSHTTP_NODEMULTIADDRESS</code> or make sure the configuration has the correct <code>node_multiaddress</code>.</div>
 
+<div class="tipbox warning">Unless you run docker with <code>--net=host</code>, the REST API endpoint will only listen locally inside the container. You may need to set <code>$CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS</code> to <code>/ip4/0.0.0.0/tcp/9096</code> if you wish to access this endpoint from outside the container, along with the necessary port forwarding (<code>-p 9094:9094</code>.</div>
+
 
 ### Docker compose
 
