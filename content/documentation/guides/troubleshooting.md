@@ -17,21 +17,34 @@ Please read the [Download page](/download). It has instructions on how to build 
 
 ## Debug logging
 
-By default, `ipfs-cluster-service` prints only `INFO`, `WARNING` and `ERROR` messages. Sometimes, it is useful to increase verbosity with the `--loglevel debug` flag. This will make ipfs-cluster and its components much more verbose. The `--debug` flag will make ipfs-cluster, its components and its most prominent dependencies (raft, libp2p-raft, libp2p-gorpc) verbose.
+When discovering a problem, it is always useful to try to figure out the issue and potentially provide some relevant logs when asking for help.
 
-`ipfs-cluster-ctl` offers a `--debug` flag which will print information about the API endpoints used by the tool. `--enc json` allows to print raw `json` responses from the API.
+### ipfs-cluster-service
 
-Interpreting debug information can be tricky. For example:
+By default, `ipfs-cluster-service` prints only `INFO`, `WARNING` and `ERROR` messages. You can increase the logging level in several ways:
+
+* The `--debug` flag will set the `DEBUG` log level in ALL logging subsystems. This produces a lot of information and may even slow down your peer significantly. Do not use by default!
+* The `--loglevel` allows fine-grain control of what components should log and what levels they should use. `--loglevel debug` makes all cluster-relevant components print `DEBUG` messages. This can be limited by component too: `--loglevel error,restapi:debug,pintracker:debug` will set the default log level to `ERROr`, while setting `DEBUG` on the `restapi` and the `pintracker` components.
+
+Interpreting debug information can be tricky. Take this example:
 
 ```
-18:21:50.343 ERROR   ipfshttp: error getting:Get http://127.0.0.1:5001/api/v0/repo/stat: dial tcp 127.0.0.1:5001: getsockopt: connection refused ipfshttp.go:695
+2020-05-17T00:51:52.953+0200    ERROR   ipfshttp        ipfshttp/ipfshttp.go:722        Post "http://127.0.0.1:5001/api/v0/repo/stat?size-only=true": dial tcp 127.0.0.1:5001: connect: connection refused
 ```
 
-The above line shows a message of `ERROR` severity, coming from the `ipfshttp` facility. This facility corresponds to the `ipfshttp` module which implements the IPFS Connector component. This information helps narrowing the context from which the error comes from. The error message indicates that the component failed to perform a GET request to the ipfs HTTP API. The log entry contains the file and line-number in which the error was logged.
+The above line shows a message of `ERROR` severity, coming from the `ipfshttp` facility. It was logged in `ipfshttp/ipfshttp.go:722` (filename and line number) . This facility corresponds to the `ipfshttp` module which implements the IPFS Connector component. This information helps narrowing the context from which the error comes from. The error message indicates that the component failed to perform a GET request to the IPFS API.
 
 Given all this context, we can figure out that very probably the ipfs daemon is not running, or not reachable.
 
-When discovering a problem, it is always useful if you can provide some logs when asking for help.
+When debugging, you can find out which component is producing the errors and then  use `--loglevel <component>:debug` to get more information about what that component is doing.
+
+### ipfs-cluster-ctl
+
+`ipfs-cluster-ctl` offers a `--debug` flag which will print information about the API endpoints used by the tool. `--enc json` allows to print raw `json` responses from the API.
+
+### ipfs-cluster-follow
+
+`ipfs-cluster-follow` does not include a way to increase verbosity. You can however run `ipfs-cluster-service -c <folder> daemon` where the `<folder>` is the `Config folder` as shown by `ipfs-cluster-follow <clusterName> info`. You can then increase verbosity as shown above. Only do this for debugging when necessary!
 
 ## Peer not starting
 
@@ -67,4 +80,4 @@ Since cluster is built on top of libp2p, many errors that new users face come fr
 * `dial attempt failed: context deadline exceeded`: this means that the address is not reachable or that the wrong secret is being used.
 * `dial backoff`: same as above.
 * `dial attempt failed: incoming message was too large`: this probably means that your cluster peers are not sharing the same secret.
-* `version not supported`: this means that your nodes are running different versions of `ipfs-cluster-service`.
+* `version not supported`: this means that your nodes are running on incompatible versions.
