@@ -10,21 +10,26 @@ aliases = [
 
 The IPFS Cluster project releases new versions regularly. This section describes the procedure to upgrade Clusters with minimal or no downtime.
 
-The main consideration is that:
+It is very important to check the [changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md) before upgrading, in order to get familiar with changes since the last version. All information about potential incompatibilities and breaking changes are included there.
 
-<div class="tipbox warning"> All the cluster peers need to run the same cluster `major.minor` (but they can have different patch numbers). i.e.: <code>0.10.x</code> or <code>0.11.x</code>.</div>
+The other main consideration is that:
 
-Otherwise, peers will not be able to communicate. We plan to move to a more flexible scheme soon, as the feature set stabilizes.
+<div class="tipbox warning"> Starting on v0.12.1, all the cluster peers need to run on the same RPC protocol version.</div>.
+
+The RPC Protocol version can be seen in the response of `ipfs-cluster-ctl --enc=json id` (`rpc_protocol_version` field), or in the [source code](https://github.com/ipfs/ipfs-cluster/blob/master/version/version.go). It should remain stable accross multiple IPFS Cluster releases and it only changes when non-backwards compatible RPC changes happen.
+
+If there is a mismatch between the RPC protocol versions of the peers, they will not be able to communicate.
+
+When the RPC protocol version is the same, the core functionality of peers will work even if the cluster is made of peers running different versions, unless the [changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md) states otherwise.
+
+## Running the upgrade
 
 The general approach to is to:
 
-1. Replace `ipfs-cluster-ctl` and `ipfs-cluster-service` with their new versions.
-2. Restart all the peers.
+1. Upgrade `ipfs-cluster-ctl`, `ipfs-cluster-service` or `ipfs-cluster-follow` to the new version.
+2. Restart all the peers (either sequentially or at once).
 
-For compatible versions (patch bumps), this can be done gradually without general downtime.
-
-In the case of `raft`, this only works if:
+In the case of `raft`, the restart only works if:
 
 * `leave_on_shutdown` is set to `false`. Otherwise, those peer will need to be bootstrapped on the next start.
-* `wait_for_leader_timeout` is sufficiently high to account for the restart of all peers (default should be ok in most cases)
-
+* `wait_for_leader_timeout` is sufficiently high to account for the restart of the majority peers in the cluster (default should be ok in most cases)

@@ -40,11 +40,11 @@ By default `crdt` consensus is used to initialize the configuration. This can be
 
 We also provide an example [`docker-compose.yml`](https://github.com/ipfs/ipfs-cluster/blob/master/docker-compose.yml) that is able to launch an IPFS Cluster with two Cluster peers and two IPFS daemons running.
 
-One Cluster peer is launched first and acts as bootstrapper. A second peer is bootstrapped against the first one during the first boot. During the first launch, configurations are automatically generated and will be persisted for next launches in the `./compose` folder, along with the `ipfs` ones.
+During the first launch, configurations are automatically generated and will be persisted for next launches in the `./compose` folder, along with the `ipfs` ones. Delete this folder to reset the Docker Compose setup.
 
 Only the IPFS swarm port (tcp `4001`/`4101`) and the IPFS Cluster API ports (tcp `9094`/`9194`) are exposed out of the containers.
 
-This compose file is provided as an example on how to set up a multi-peer Cluster using Docker containers.
+This compose file is provided as an example on how to set up a multi-peer Cluster using Docker containers. You may need to adapt it for your own needs.
 
 ## Kubernetes with Kustomize
 

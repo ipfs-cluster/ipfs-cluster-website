@@ -18,8 +18,9 @@ You should be able to join using a single oneliner:
 ipfs-cluster-follow <clusterName> run --init <template-configuration-url>
 ```
 
-If you don't have or don't know a URL for your configuration, you can ask for it
-to whoever runs the trusted peers for that cluster. If you know the right pieces of information (see below), you can build your own configuration, add it to IPFS, and use the gateway URL for it `http://127.0.0.1:8080/ipfs/Qmhash...`. You can also run `ipfs-cluster-follow <clusterName> init` with a random url and then replace the generated `service.json` with your own.
+<div class="tipbox warning">Always run on the same or on a newer IPFS Cluster version than the version used by the truted peers in the cluster.</div>
+
+If you don't have or don't know a URL for your configuration, you can ask for it to whoever runs the trusted peers for that cluster. If you know the right pieces of information (see below), you can build your own configuration, add it to IPFS, and use the gateway URL for it `http://127.0.0.1:8080/ipfs/Qmhash...`. You can also run `ipfs-cluster-follow <clusterName> init` with a random url and then replace the generated `service.json` with your own.
 
 ## Finding collaborative clusters to join
 
