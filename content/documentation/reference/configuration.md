@@ -109,8 +109,7 @@ component and contains the following keys:
 |`peername`| `"<hostname>"` | A human name for this peer. |
 |`secret`|`"<randomly generated>"` | The Cluster secret (must be the same in all peers).|
 |`leave_on_shutdown`| `false` | The peer will remove itself from the cluster peerset on shutdown. |
-|`listen_multiaddress`| `["/ip4/0.0.0.0/tcp/9096",
-"/ip4/0.0.0.0/udp/9096/quic"]` | The peers Cluster-RPC listening endpoints. |
+|`listen_multiaddress`| `["/ip4/0.0.0.0/tcp/9096",` `"/ip4/0.0.0.0/udp/9096/quic"]` | The peers Cluster-RPC listening endpoints. |
 | `connection_manager {` | | A connection manager configuration objec. t|
 | &nbsp;&nbsp;&nbsp;&nbsp;`high_water` | `400` | The maximum number of connections this peer will have. If it, connections will be closed until the `low_water` value is reached. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`low_water` | `100` | The libp2p host will try to keep at least this many connections to other peers. |
@@ -199,7 +198,7 @@ that it triggers accessory requests to them (like CORS preflights).
 |Key|Default|Description|
 |:---|:-------|:-----------|
 |`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The listen addres of the IPFS daemon API. |
-|`listen_multiaddress` | `[ "/ip4/127.0.0.1/tcp/9095" ]` | The proxy endpoint listening addresses. |
+|`listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | The proxy endpoint listening address. |
 |`node_https` | `false` | Use HTTPS to talk to the IPFS API endpoint (experimental). |
 |`read_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
 |`read_header_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
@@ -216,14 +215,14 @@ This is the component which provides the REST API implementation to interact wit
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`http_listen_multiaddress` | `[ "/ip4/127.0.0.1/tcp/9094" ]` | The API HTTP listen endpoints. Set to none or to `""` to disable the HTTP endpoint. |
+|`http_listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9094"` | The API HTTP listen endpoint. Set empty to disable the HTTP endpoint. |
 |`ssl_cert_file` | `""` | Path to an x509 certificate file. Enables SSL on the HTTP endpoint. Unless an absolute path, relative to config folder. |
 |`ssl_key_file` | `""` | Path to a SSL private key file. Enables SSL on the HTTP endpoint. Unless an absolute path, relative to config folder. |
 |`read_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
 |`read_header_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
 |`write_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
 |`idle_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
-|`libp2p_listen_multiaddress` | `[]` | A listen multiaddress for the alternative libp2p host. See below. |
+|`libp2p_listen_multiaddress` | `""` | A listen multiaddress for the alternative libp2p host. See below. |
 |`id` | `""` | A peer ID for the alternative libp2p host (must match `private_key`). See below. |
 |`private_key` | `""` | A private key for the alternative libp2p host (must match `id`). See below. |
 |`basic_auth_credentials` | `null` | An object mapping `"username"` to `"password"`. It enables Basic Authentication for the API. Should be used with SSL-enabled or libp2p-endpoints. |
@@ -232,10 +231,7 @@ This is the component which provides the REST API implementation to interact wit
 |`cors_allowed_origins`| `["*"]` | CORS Configuration: values for `Access-Control-Allow-Origin`. |
 |`cors_allowed_methods`| `["GET"]` | CORS Configuration: values for `Access-Control-Allow-Methods`. |
 |`cors_allowed_headers`| `[]` | CORS Configuration: values for `Access-Control-Allow-Headers`. |
-|`cors_exposed_headers`| `["Content-Type",
-"X-Stream-Output",
-"X-Chunked-Output",
-"X-Content-Length"]`  | CORS Configuration: values for `Access-Control-Expose-Headers`. |
+|`cors_exposed_headers`| `["Content-Type",` `"X-Stream-Output",` `"X-Chunked-Output",` `"X-Content-Length"]` | CORS Configuration: values for `Access-Control-Expose-Headers`. |
 |`cors_allow_credentials`|  `true` | CORS Configuration: value for `Access-Control-Allow-Credentials`. |
 |`cors_max_age`|  `"0s"` | CORS Configuration: value for `Access-Control-Max-Age`. |
 
@@ -253,6 +249,7 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
+|`listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | IPFS Proxy listen multiaddress. |
 |`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The IPFS daemon HTTP API endpoint. This is the daemon that the peer uses to pin content. |
 |`connect_swarms_delay` | `"30s"` | On start, the Cluster Peer will run `ipfs swarm connect` to the IPFS daemons of others peers. This sets the delay after starting up. |
 |`ipfs_request_timeout` | `"5m0s"` | Specifies a timeout on general requests to the IPFS daemon for requets without a specific timeout option. |
@@ -355,4 +352,4 @@ The `badger component configures the BadgerDB backend which is used by the CRDT 
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`badger_options` | `{...}` | Some [BadgerDB specific options](https://godoc.org/github.com/dgraph-io/badger#Options) [mostly initalized to their defaults](https://github.com/ipfs/ipfs-cluster/blob/master/datastore/badger/config.go#L32). Setting `table_loading_mode` and `value_log_loading_mode` to `0` should help in memory constrained platforms (Raspberry Pis etc. with <1GB RAM) |
+|`badger_options` | `{...}` | Some [BadgerDB specific options](https://godoc.org/github.com/dgraph-io/badger#Options) initialized to their defaults. Setting `table_loading_mode` and `value_log_loading_mode` to `0` should help in memory constrained platforms (Raspberry Pis etc. with <1GB RAM) |
