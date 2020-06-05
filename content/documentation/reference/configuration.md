@@ -109,10 +109,8 @@ component and contains the following keys:
 |`peername`| `"<hostname>"` | A human name for this peer. |
 |`secret`|`"<randomly generated>"` | The Cluster secret (must be the same in all peers).|
 |`leave_on_shutdown`| `false` | The peer will remove itself from the cluster peerset on shutdown. |
-|`listen_multiaddress`| ```
-["/ip4/0.0.0.0/tcp/9096",
-"/ip4/0.0.0.0/udp/9096/quic"]
-``` | The peers Cluster-RPC listening endpoints. |
+|`listen_multiaddress`| `["/ip4/0.0.0.0/tcp/9096",
+"/ip4/0.0.0.0/udp/9096/quic"]` | The peers Cluster-RPC listening endpoints. |
 | `connection_manager {` | | A connection manager configuration objec. t|
 | &nbsp;&nbsp;&nbsp;&nbsp;`high_water` | `400` | The maximum number of connections this peer will have. If it, connections will be closed until the `low_water` value is reached. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`low_water` | `100` | The libp2p host will try to keep at least this many connections to other peers. |
@@ -234,12 +232,10 @@ This is the component which provides the REST API implementation to interact wit
 |`cors_allowed_origins`| `["*"]` | CORS Configuration: values for `Access-Control-Allow-Origin`. |
 |`cors_allowed_methods`| `["GET"]` | CORS Configuration: values for `Access-Control-Allow-Methods`. |
 |`cors_allowed_headers`| `[]` | CORS Configuration: values for `Access-Control-Allow-Headers`. |
-|`cors_exposed_headers`| ```
-["Content-Type",
+|`cors_exposed_headers`| `["Content-Type",
 "X-Stream-Output",
 "X-Chunked-Output",
-"X-Content-Length"]
-```  | CORS Configuration: values for `Access-Control-Expose-Headers`. |
+"X-Content-Length"]`  | CORS Configuration: values for `Access-Control-Expose-Headers`. |
 |`cors_allow_credentials`|  `true` | CORS Configuration: value for `Access-Control-Allow-Credentials`. |
 |`cors_max_age`|  `"0s"` | CORS Configuration: value for `Access-Control-Max-Age`. |
 
