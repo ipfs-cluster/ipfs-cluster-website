@@ -47,3 +47,4 @@ As a final tip, this table provides a quick summary of methods available.
 |`POST`      |`/pins/{cid}/recover` |Recover a CID|
 |`POST`      |`/pins/recover`       |Recover all pins in the receiving Cluster peer|
 |`GET`       |`/health/graph`       |  Get connection graph |
+|`POST`      |`/ipfs/gc`            |  Perform GC in the IPFS nodes |
