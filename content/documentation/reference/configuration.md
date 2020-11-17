@@ -262,14 +262,6 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 
 The `pin_tracker` section contains configurations for the implementations of the Pin Tracker component, which are meant to ensure that the content in IPFS matches the allocations as decided by IPFS Cluster.
 
-#### `maptracker`
-
-The `maptracker` implements a pintracker which keeps the local state in memory.
-
-|Key|Default|Description|
-|:---|:-------|:-----------|
-|`max_pin_queue_size` | `1000000` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. Re-queing will be attempted on the next "state sync" as defined by `state_sync_interval` |
-|`concurrent_pins` | `10` | How many parallel pin or unpin requests we make to IPFS. Only makes sense with `pin_method` set to `refs` in the `ipfs_connector` section. |
 
 #### `stateless`
 
@@ -279,7 +271,7 @@ the memory usage in comparison to the `maptracker`.
 |Key|Default|Description|
 |:---|:-------|:-----------|
 |`max_pin_queue_size` | `1000000` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. Re-queing will be attempted on the next "state sync" as defined by `state_sync_interval` |
-|`concurrent_pins` | `10` | How many parallel pin or unpin requests we make to IPFS. Only makes sense with `pin_method` set to `refs` in the `ipfs_connector` section. |
+|`concurrent_pins` | `10` | How many parallel pin or unpin requests we make to IPFS. |
 
 ### The `monitor` section
 
