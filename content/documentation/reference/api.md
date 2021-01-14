@@ -46,5 +46,9 @@ As a final tip, this table provides a quick summary of methods available.
 |`POST`      |`/pins/{cid}/sync`    |Sync a CID|
 |`POST`      |`/pins/{cid}/recover` |Recover a CID|
 |`POST`      |`/pins/recover`       |Recover all pins in the receiving Cluster peer|
+|`GET`       |`/monitor/metrics`    |  Get a list of metric types known to the peer |
+|`GET`       |`/monitor/metrics/{metric}`    |  Get a list of current metrics seen by this peer |
+|`GET`       |`/health/alerts`       |  Display a list of alerts (metric expiration events) |
 |`GET`       |`/health/graph`       |  Get connection graph |
+|`GET`       |`/health/alerts`       |  Get connection graph |
 |`POST`      |`/ipfs/gc`            |  Perform GC in the IPFS nodes |
