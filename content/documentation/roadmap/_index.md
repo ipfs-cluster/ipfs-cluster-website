@@ -8,24 +8,21 @@ aliases = [
 
 # Roadmap
 
-This is the IPFS Cluster Roadmap for the next months. Note that this is a declaration of our best intentions but it is very difficult to make compromises. We keep this page updated regularly.
+IPFS Cluster is an open source project in the IPFS ecosystem stewarded by Protocol Labs.
 
-## Short term (Q4 2019)
+Users of the project can expect:
 
-* Support and improvements to the CRDT implementation
-* Usability improvements and small fixes
-* DAG Sharding support (ongoing)
-* Key metrics for prometheus
-* Workshops and conference talks
+* Regular releases correcting bugs and adding simple features
+* Support over the common channels and issue triage
+* Dependency upgrades, compatibility and features from the IPFS and libp2p downstreams.
 
-## Mid term (6-8 months horizon)
+That said, we are at the moment not committing to larger, complex endaevors, in the short term, although we are aware and tracking the following areas and topics:
 
-* RPC streaming
-* Stable collaborations with different players interested in using ipfs-cluster/ipfs.
-* Sharding support and good sharding support for at least ~1TB datasets (package repositories).
-* Exploring support for a rich set of allocation strategies e.g. by geographic location or as a function of access patterns
-
-## Long term (~1 year+)
-
+* DAG Sharding support: distributing large DAGs across multiple peers. Ongoing effort but lacking go-ipfs support for depth-limited pins.
+* Optimistic replication: allow cluster peers to decide what content they back rather than defining allocations.
+* Improve the metrics exporting system (i.e. Prometheus) with new metrics.
+* RPC streaming improvements (primarily affects speeding up adding content to many cluster nodes at once).
+* Exploring support for a more allocation strategies e.g. by geographic location or as a function of access patterns.
 * Additional chunking/sharding/encoding strategies. FEC support.
-* Tested to 10s of millions of peers
+* Cluster-controlled MFS.
+* IPFS Pinning API support.
