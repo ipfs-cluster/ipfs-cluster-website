@@ -26,6 +26,7 @@ For offline cluster pinset management check the [Data, backups and recovery sect
 * Uses Merkle-CRDTs to obtain eventual consistency using [go-ds-crdt](https://github.com/ipfs/go-ds-crdt). These are append-only, immutable Merkle-DAGs. They cannot be compacted on normal conditions and new peers must discover and traverse them from the root, which might be a slow operation if the DAG is very deep.
 * Does not need to perform any peerset management. Every peer for which we received "pings" via pubsub is considered a member of the Cluster until their last metric expires.
 * Trusts peers as defined in the `trusted_peers` configuration option: only those peers can modify the pinset in the local peer and can access "trusted" RPC endpoints.
+* Can optionally batch many pin/unpin operations on a single update, thus allowing scaling pin ingestion capabilities.
 
 
 ## Raft
@@ -45,6 +46,7 @@ Choose CRDT when:
 * You expect your cluster to work well with peers easily coming and going
 * You plan to have follower peers without permissions to modify the pinset
 * You do not have a fixed peer(s) for bootstrapping or you need to take advantage of mDNS autodiscovery
+* The cluster needs to accomodate regular and heavy bursts of pinning/unpinning operations (batching support helps).
 
 Choose Raft when:
 
@@ -67,5 +69,5 @@ Choose Raft when:
 |Works with very large number of peers | Works with a small number of peers|
 |Based on IPFS-tech (bitswap, dht, pubsub) | Based on hashicorp-tech (raft)|
 |Strong Eventual Consistency: Pinsets can diverge until they are consolidated | Consensus: Pinsets can be outdated but never diverge |
-|Fast pin ingestion|Slow pin ingestion|
+|Fast pin ingestion with batching support|Slow pin ingestion|
 |Pin committed != Pin arrived to most peers | Pin commited == pin arrived to most peers|

@@ -102,7 +102,11 @@ A remote `service.json` can be used to point all peers the same configuration fi
 ### The `cluster` main section
 
 The main `cluster` section of the configuration file configures the core
-component and contains the following keys:
+component.
+
+The `replication_factor_min` and `replication_factor_max` control the pinning defaults when these options, which can be set on a per-pin basis, are left unset. Cluster always tries to allocate up to `replication_factor_max` peers to every item. However, if it is not possible to reach that number, pin operations will succeed as long as `replication_factor_min` can be fulfilled. Once the allocations are set, Cluster does not automatically change them (i.e. to increase them). However, a new Pin operation for the same CID will try again to fulfill `replication_factor_max` while respecting the already existing allocations.
+
+The `leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly. It is most relevant when using *raft*. This means that, for any subsequent starts, the peer will need to be [bootstrapped](/documentation/deployment/bootstrap/#bootstrapping-the-cluster-in-raft-mode) in order to re-join the Cluster.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
@@ -110,7 +114,7 @@ component and contains the following keys:
 |`secret`|`"<randomly generated>"` | The Cluster secret (must be the same in all peers).|
 |`leave_on_shutdown`| `false` | The peer will remove itself from the cluster peerset on shutdown. |
 |`listen_multiaddress`| `["/ip4/0.0.0.0/tcp/9096",` `"/ip4/0.0.0.0/udp/9096/quic"]` | The peers Cluster-RPC listening endpoints. |
-| `connection_manager {` | | A connection manager configuration objec. t|
+| `connection_manager {` | | A connection manager configuration object.|
 | &nbsp;&nbsp;&nbsp;&nbsp;`high_water` | `400` | The maximum number of connections this peer will have. If it, connections will be closed until the `low_water` value is reached. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`low_water` | `100` | The libp2p host will try to keep at least this many connections to other peers. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`grace_period` | `"2m0s"` | New connections will not be dropped for at least this period. |
@@ -127,8 +131,7 @@ component and contains the following keys:
 |`follower_mode` | `false` | Peers in follower mode provide useful error messages when trying to perform actions like pinning. |
 |`peer_addresses` | `[]` | Full peer multiadresses for peers to connect to on boot (similar to manually added entries to the `peerstore` file. |
 
-The `leave_on_shutdown` option allows a peer to remove itself from the *peerset* when shutting down cleanly. It is most relevant
-when using *raft*. This means that, for any subsequent starts, the peer will need to be [bootstrapped](/documentation/deployment/bootstrap/#bootstrapping-the-cluster-in-raft-mode) in order to re-join the Cluster.
+
 
 #### Manual secret generation
 
@@ -146,10 +149,24 @@ The `consensus` contains **a single configuration object for the chosen implemen
 
 #### `crdt`
 
+Including the CRDT section enables cluster to use a [crdt-based distributed key value store](/documentation/guides/consensus) for the cluster state (pinset).
+
+Batched commits are enabled in this section by setting `batching.max_batch_size` and `batching.max_batch_age` to a value greater than 0 (the default). These two settings control when a batch is committed, either by reaching a maximum number of pin/unpin operations, or by reaching a maximum age.
+
+An additional `batching.max_queue_size` option provides the ability to perform backpressure on Pin/Unpin requests. When more than `max_queue_size` pin/unpins are waiting to be included in a batch, the operations will fail. If this
+happens, it is means cluster cannot commit batches as fast as pins are arriving. Thus, `max_queue_size` should be increase (to accommodate bursts), or the `max_batch_size` increased (to perform less commits and hopefully handle the requests faster).
+
+Note that the underlying CRDT library will auto-commit when batch deltas reach 1MB of size.
+
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`cluster_name`| `"ipfs-cluster"` | An arbitrary name. It becomes the pubsub topic to which all peers in the cluster subscribe to, so it must be the same for all |
+|`cluster_name`| `"ipfs-cluster"` | An arbitrary name. It becomes the pubsub topic to which all peers in the cluster subscribe to, so it must be the same for all. |
 |`trusted_peers` | `[]` | The default set of trusted peers. See [Trust in CRDT Mode](/documentation/guides/consensus#the-trusted-peers-in-crdt-mode) for more information. Can be set to `[ "*" ]` to trust all peers. |
+| `batching {` | | Batching settings when submitting pins to the CRDT layer. Both `max_batch_size` and `max_batch_age` need to be greater than 0 for batching to be enabled. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`max_batch_size` | `0` | The maximum number of pin/unpin operations to include in a batch before commiting it. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`max_batch_age` | `"0s"` | The maximum time an uncommited batch waits before it is commited. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`max_queue_size` | `1000` | The maximum number of pin/unpin operations that are waiting to be included in a batch. |
+| `}` |||
 |`peerset_metric` | `"ping"` | The name of the monitor metric to determine the current pinset. |
 |`rebroadcast_interval` | `"1m0s"` | How often to republish the current heads when no other pubsub message has been seen. Reducing this will allow new peers to learn about the current state sooner. |
 
