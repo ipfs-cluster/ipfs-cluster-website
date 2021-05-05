@@ -20,7 +20,7 @@ As additional resources:
 
 * All the available API endpoints and their parametres and object formats are supported and documented by the [Go API Client](https://pkg.go.dev/github.com/ipfs/ipfs-cluster/api/rest/client?tab=doc#Client).
 * The [API source code is here](https://github.com/ipfs/ipfs-cluster/blob/master/api/rest/restapi.go) (the `routes` method is a good place to start).
-* A [Javascript client library](https://github.com/ipfs-cluster/js-cluster-client) also exists.
+* There are two Javascript client libraries: [js-cluster-client](https://github.com/ipfs-cluster/js-cluster-client) (old) and [NFT.storage's cluster client](https://github.com/nftstorage/ipfs-cluster) (new).
 * The request body for the `/add` endpoint is a bit special, but it works just like the IPFS one. See the section below.
 
 The above should be enough to find out about the existing endpoints, their methods and current supported options.
