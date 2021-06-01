@@ -9,7 +9,7 @@ We are happy to support you, answer questions, and help you use IPFS Cluster. Yo
 
 * For **general questions and usage guidance**: we prefer that you open a topic at https://discuss.ipfs.io/.
 * For **bugs and feature requests**: please open [issues](https://github.com/ipfs/ipfs-cluster/issues) in the repository.
-* For **quick chat and questions**: join the [\#ipfs-cluster](http://webchat.freenode.net/?channels=%23ipfs-cluster) channel on Matrix or on Freenode (both are bridged).
+* For **quick chat and questions**: join the [\#ipfs-cluster](https://app.element.io/#/room/#ipfs-cluster:ipfs.io) channel on Matrix.
 
 _Interactions in all of these venues is governed by the [IPFS Community Code of Conduct](https://github.com/ipfs/community/blob/master/code-of-conduct.md)._
 
