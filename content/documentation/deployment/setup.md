@@ -8,7 +8,7 @@ weight = 20
 In order to run an IPFS Cluster peer and perform actions on the Cluster, you will need to obtain the `ipfs-cluster-service` and `ipfs-cluster-ctl` binaries. The former runs the Cluster peer. The latter allows to interact with it:
 
 * Visit the [download page](/download) for instructions on the different ways to obtain `ipfs-cluster-service` and `ipfs-cluster-ctl`.
-* Place the binaries in a place where they can be run by an unattended by an `ipfs` system user (usually `/usr/local/bin`). IPFS Cluster should be installed and run along `ipfs` (go-ipfs).
+* Place the binaries in a place where they can be run unattended by an `ipfs` system user (usually `/usr/local/bin`). IPFS Cluster should be installed and run along `ipfs` (go-ipfs).
 * Consider configuring your systems to start `ipfs` and `ipfs-cluster-service` automatically (beware to check that you need to ensure your cluster is fully operational and peers discover each other beforehand). Some sample Systemd service files are available here: [ipfs-cluster-service](https://raw.githubusercontent.com/hsanjuan/ansible-ipfs-cluster/master/roles/ipfs-cluster/templates/etc/systemd/system/ipfs-cluster.service), [ipfs](https://raw.githubusercontent.com/hsanjuan/ansible-ipfs-cluster/master/roles/ipfs/templates/etc/systemd/system/ipfs.service).
 
 
