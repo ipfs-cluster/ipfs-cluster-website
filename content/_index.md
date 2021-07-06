@@ -12,7 +12,7 @@ title = "IPFS Cluster"
 * Handle replication of millions pin to multiple IPFS daemons in a fire&forget fashion: pin lifetime tracked asynchronously, the Cluster peers take care of asking IPFS to pin things at a sustainable rate and retry pinning in case of failures.
 * Fully featured API and CLI: `ipfs-cluster-ctl` provides a command-line client to the fully featured Cluster HTTP REST API.
 * No central server: cluster peers form a distributed network and maintain a global, replicated and conflict-free list of pins.
-* Baked-in permissions: a embedded permission  model supports standard peers (with permissions to change the cluster pinset) and follower peers (which store content as instructed but cannot modify the pinset).
+* Baked-in permissions: an embedded permission model supports standard peers (with permissions to change the cluster pinset) and follower peers (which store content as instructed but cannot modify the pinset).
 * Name your pins: every pin supports custom replication factors, name and any other custom metadata.
 * Multi-add: Ingest IPFS content to multiple daemons directly.
 * CAR import support: import CAR-archived content with custom DAGs directly to the Cluster.
