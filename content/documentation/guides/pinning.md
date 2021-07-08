@@ -15,6 +15,7 @@ When working with a large number of pins, it is important to keep an eye on the 
 
 * [Adding files](#adding-files)
 * [Pinning CIDs](#pinning-cids)
+* [Replication factors](#replication-factors)
 * [The pinning process](#the-pinning-process)
 * [`pin ls` vs `status`](#pin-ls-vs-status)
 * [Filtering results](#filtering-results)
@@ -50,6 +51,11 @@ QmarNBnreCx4YtT4ETXxQ4dn2xQpcTGd2PaVM4b2UuyGku :
     > cluserr4        : PINNED | 2019-07-26T10:25:24.508614677Z
 ```
 
+The process of adding this way is however way slower than adding to a local IPFS daemon and it is not recommended for bigger files (i.e. more than 3MB). As an alternative, the `--local` flag can be provided to the `add` command. In this case, the content will be added to the local IPFS daemon of the peer receiving the request, and then pinned normally. The arrival of the pin will make ipfs retrieve the file faster than it would have been to send each block individually, so this way is more appropiate for larger files.
+
+Adding with `--local` with positive replication-factors may mean that the content is added on a peer that is finally not allocated to store the content and will not end up pinning it. Sometimes, when this is relevant, it can be worked around using the `--allocations` flag to force the pin to be allocated to the same peer ID on which it is being added.
+
+Another feature in the `add` command that is not available on IPFS is the possibility of importing CAR files (ala. `ipfs dag import`). In order to import a CAR file you can do `ipfs-cluster-ctl add --format car myfile.car`. CAR files should have a single root, which is the CID that becomes pinned after import.
 
 ## Pinning CIDs
 
@@ -76,6 +82,22 @@ As we see, the pin started pinning in two places (replication = 2). When we chec
 
 Pins can be removed at any time with `ipfs-cluster-ctl pin rm`.
 
+## Replication factors
+
+Every pin submitted to IPFS Cluster carries two replication options:
+
+* `replication_factor_min` (`--replication-min` flag in `ipfs-cluster-ctl`)
+* `replication_factor_max` (`--replication-max` flag in `ipfs-cluster-ctl`)
+
+The cluster configuration sets the default values that apply when the option is not set.
+
+The **replication_factor_min** value specifies the minimal number of copies that the pin should have in the cluster. If automatic repinning is enabled and the cluster detects that the peers that should be pinning an item are not available, and that the item is under-replicated (the number of peers pinning it is below `replication_factor_min`), it will re-allocate the item to new peers. Pinning will fail directly when there are not enough peers to pin something up to `replication_factor_min`.
+
+The **replication_factor_max** value indicates how many peers should be allocated to the pin. On pin submission, the cluster will try to allocate that many peers, but not fail if it cannot find so many, as long as it finds more than `replication_factor_min`. Repinnings of an item will try to increase allocations to `replication_factor_max`, however automatic repinnings of an item, when enable, will not affect pins that are between the two thresholds.
+
+The recommendation is to use thresholds with some leeway (usually 2-3, or 3-5) when `disable_repinning` is set to `false`. In this case, without leeway, a cluster peer going down for a few seconds could trigger repinnings and result in an unbalanced cluster, even if the peer comes up fine later and still holds the content (at which point it will be unpinned because it is no longer allocated to it).
+
+
 ## The pinning process
 
 Cluster-pinning and unpinning are at the core of the cluster operation and involve multiple internal components but have two main stages:
@@ -96,7 +118,7 @@ We **consider a `pin add` operation has been successful when the cluster-pinning
 The process can be summarized as a follows:
 
 1. A pin request arrives including certain options.
-2. Given the options, a list of current cluster peers is selected as "allocations" for that pin, based on how much free space is available on each.
+2. Given the options (particularly replication factors), a list of current cluster peers is selected as "allocations" for that pin, based on how much free space is available on each.
 3. These and other things result in a pin object which is commited and broadcasted to everyone (the how depends on the [consensus component](/documentation/guides/consensus)).
 
 ### The IPFS-pinning stage
@@ -138,6 +160,7 @@ The `status` commands supports filtering to display only pins which are in a giv
 * `pin_error`: pins that failed to pin (due to an ipfs problem or a timeout)
 * `unpin_error`: pins that failed to unpin (due to an ipfs problem or a timeout)
 * `error`: pins in `pin_error` or `unpin_error`
+* `unexpected_unpinned`: pins that are not pinned by ipfs, yet they should be pinned and are not pin_queued or pinning right now.
 * `pinned`: pins were correctly pinned
 * `pinning`: pins that are currently being pinned by ipfs
 * `unpinning`: pins that are currently being unpinned by ipfs
@@ -162,30 +185,19 @@ will display status information for CIDs which are in error state for some reaso
 
 <div class="tipbox tip"><code>ipfs-cluster-ctl status --help</code> provides more information on usage and options</div>
 
-## Syncing
-
-Since the IPFS daemon runs separately from cluster, there might be cases when the `status` reported by a cluster peer does not match the actual pinned status of a CID in the IPFS daemon. These are namely:
-
-* When a CID is manually unpinned from IPFS without cluster knowing about it
-* When the IPFS daemon was down in a previous check and could not be contacted
-* When bugs exists that may cause such discrepancies (all fixed at this point for all we know).
-
-The `ipfs-cluster-ctl sync` commands triggers a manual re-sync which makes sure the status information tracker by the cluster peer matches the state of pins in the IPFS daemon. As explained below, `sync` operations are regularly triggered by every cluster peer automatically.
-
-<div class="tipbox warning">The <code>sync</code> operation may be removed in future releases as it becomes superfluous.</div>
-
 ## Recovering
 
 Sometimes an item is pinned in the Cluster but it actually fails to pin on the allocated IPFS daemons because of different reasons:
 
 * The IPFS deamon is down or not responding
 * The pin operation times out or errors
+* It is manually removed from IPFS.
 
-In these cases, the items will show a status of `PIN_ERROR` (equivalently, also `UNPIN_ERROR` when removing). However, the item is correctly allocated in the cluster: the cluster is healthy, all cluster peers know about it and those that should pin it are aware. Thus the error is mostly on the IPFS-side of things and cluster cannot do much about it.
+In these cases, the items will show a status of `PIN_ERROR` (equivalently, also `UNPIN_ERROR` when removing) or `UNEXPECTEDLY_UNPINNED`. This is not a cluster issue and it usually indicates a problem with IPFS (content is not available etc.).
 
-In such cases, the `ipfs-cluster-ctl recover` can be used to retrigger a pin or unpin operation against the allocated ipfs daemons, once the problems have been fixed. As explained below, `recover` operations are regularly triggered by every cluster peer automatically. Note that pins can also be re-added with `pin add`, obtaining a similar effect. The main difference is that `recover` happens in sync (waits until done), while `pin add` returns immediately.
+In such cases, the `ipfs-cluster-ctl recover` can be used to retrigger a pin or unpin operation against the allocated ipfs daemons as needed, once the problems have been fixed. As explained below, `recover` operations are regularly triggered by every cluster peer automatically anyways. Note that pins can also be re-added with `pin add`, obtaining a similar effect. The main difference is that `recover` happens in sync (waits until done), while `pin add` returns immediately.
 
-<div class="tipbox tip"><code>ipfs-cluster-ctl recover --help</code> provides more information on usage and options</div>
+<div class="tipbox tip"><code>ipfs-cluster-ctl recover --help</code> provides more information on usage and options.</div>
 
 
 ## Automatic syncing and recovering

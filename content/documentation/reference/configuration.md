@@ -17,7 +17,7 @@ The `ipfs-cluster-service` program uses two main configuration files:
 
 ## `identity.json`
 
-The `identity.json` file is auto-generated during `ipfs-cluster-service init`. It includes a base64-encoded private key and the public peer ID associated to it. This peer ID identifies the peer in the Cluster. You can see an example [here](/0.11.0_identity.json).
+The `identity.json` file is auto-generated during `ipfs-cluster-service init`. It includes a base64-encoded private key and the public peer ID associated to it. This peer ID identifies the peer in the Cluster. You can see an example [here](/0.14.0_identity.json).
 
 This file is not overwritten when re-running `ipfs-cluster-service -f init`. If you wish to generate a new one, you will need to delete it first.
 
@@ -39,7 +39,7 @@ The `service.json` file holds all the configurable options for the cluster peer 
 
 <div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
-As an example, [this is a default `service.json` configuration file](/0.11.0_service.json).
+As an example, [this is a default `service.json` configuration file](/0.14.0_service.json).
 
 The file looks like:
 
@@ -59,7 +59,6 @@ The file looks like:
     "ipfshttp": {...}
   },
   "pin_tracker": {
-    "maptracker": {...},
     "stateless": {...}
   },
   "monitor": {
@@ -73,7 +72,8 @@ The file looks like:
     "tracing": {...}
   },
   "datastore": {
-    "badger": {...}
+    "badger": {...}, // either badger or leveldb
+    "leveldb": {...},
   }
 }
 ```
@@ -119,6 +119,7 @@ The `leave_on_shutdown` option allows a peer to remove itself from the *peerset*
 | &nbsp;&nbsp;&nbsp;&nbsp;`low_water` | `100` | The libp2p host will try to keep at least this many connections to other peers. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`grace_period` | `"2m0s"` | New connections will not be dropped for at least this period. |
 | `}` |||
+|`dial_peer_timeout` | `"3s"` | How long to wait when dialing a cluster peer before giving up. |
 |`state_sync_interval`| `"10m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.StateSync). |
 |`pin_recover_interval`| `"1h0m0s"` | Interval between automatic triggers of [`RecoverAllLocal`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.RecoverAllLocal). This will automatically re-try pin and unpin operations that failed. |
 |`replication_factor_min` | `-1` | Specifies the default minimum number of peers that should be pinning an item. -1 == all. |
@@ -216,6 +217,7 @@ that it triggers accessory requests to them (like CORS preflights).
 |:---|:-------|:-----------|
 |`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The listen addres of the IPFS daemon API. |
 |`listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | The proxy endpoint listening address. |
+|`log_file` | `""` | A file to write request log files (Apache Combined Format). Otherwise they are written to the Cluster log under the `ipfsproxylog` facility. |
 |`node_https` | `false` | Use HTTPS to talk to the IPFS API endpoint (experimental). |
 |`read_timeout` | `"0s"` | Parameters for https://godoc.org/net/http#Server . Note setting this value might break adding to cluster, if the timeout is shorter than the time it takes to add something to the cluster. |
 |`read_header_timeout` | `"30s"` | Parameters for https://godoc.org/net/http#Server . |
@@ -244,7 +246,7 @@ This is the component which provides the REST API implementation to interact wit
 |`private_key` | `""` | A private key for the alternative libp2p host (must match `id`). See below. |
 |`basic_auth_credentials` | `null` | An object mapping `"username"` to `"password"`. It enables Basic Authentication for the API. Should be used with SSL-enabled or libp2p-endpoints. |
 |`headers` | `null` | A `key: [values]` map of headers the API endpoint should return with each response to `GET`, `POST`, `DELETE` requests. i.e. `"headers": {"header_name": [ "v1", "v2" ] }`. Do not place CORS headers here, as they are fully handled by the options below. |
-|`http_log_file` | `""` | A file to write API log files (Apache Combined Format). Otherwise they are written to the Cluster log. |
+|`http_log_file` | `""` | A file to write API log files (Apache Combined Format). Otherwise they are written to the Cluster log under the `restapilog` facility. |
 |`cors_allowed_origins`| `["*"]` | CORS Configuration: values for `Access-Control-Allow-Origin`. |
 |`cors_allowed_methods`| `["GET"]` | CORS Configuration: values for `Access-Control-Allow-Methods`. |
 |`cors_allowed_headers`| `[]` | CORS Configuration: values for `Access-Control-Allow-Headers`. |
@@ -282,8 +284,7 @@ The `pin_tracker` section contains configurations for the implementations of the
 
 #### `stateless`
 
-The `stateless` tracker implements a pintracker which relies on ipfs and the shared state, thus reducing
-the memory usage in comparison to the `maptracker`.
+The `stateless` tracker implements a pintracker which relies on ipfs and the shared state, only keeping track in-memory of ongoing operations.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
@@ -336,7 +337,7 @@ The `metrics` component configures the OpenCensus metrics endpoint for scraping 
 |Key|Default|Description|
 |:---|:-------|:-----------|
 |`enable_stats` | `false` | Whether metrics should be enabled. |
-|`prometheus_endpoint` | `/ip4/0.0.0.0/tcp/8888` | Publish collected metrics to endpoint for scraping by Prometheus. |
+|`prometheus_endpoint` | `/ip4/127.0.0.1/tcp/8888` | Publish collected metrics to endpoint for scraping by Prometheus. |
 |`reporting_interval` | `"2s"` | How often to report on collected metrics. |
 
 #### `tracing`
@@ -352,13 +353,26 @@ The `tracing` component configures the Jaeger tracing client for use by OpenCens
 
 ### The `datastore` section
 
-The `datastore` section contains configuration for different storage backends (currently only `badger`).
+The `datastore` section contains configuration for the storage backend. It can contain either a `badger` or a `leveldb` section.
 
 #### `badger`
 
-The `badger component configures the BadgerDB backend which is used by the CRDT component.
+The `badger` component configures the BadgerDB backend which is used to store things when the CRDT consensus is enabled.
 
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`badger_options` | `{...}` | Some [BadgerDB specific options](https://godoc.org/github.com/dgraph-io/badger#Options) initialized to their defaults. Setting `table_loading_mode` and `value_log_loading_mode` to `0` should help in memory constrained platforms (Raspberry Pis etc. with <1GB RAM) |
+|`gc_discard_ratio` | `0.2` | See [RunValueLogGC](https://github.com/dgraph-io/badger/blob/725913b83470967abd97e850331d7ebe4926fa79/db.go#L1290-L1316) documentation. |
+|`gc_interval` | `"15m0s"` | How often to run Badger GC cycles. A cycle is made of several rounds, which repeat until no space can be freed. Setting this to `"0s"` disables GC cycles. |
+|`gc_sleep` | `"10s"` | How long to wait between GC rounds in the same GC cycle. Setting this to `"0s"` causes a single round to be run instead. |
+|`badger_options` | `{...}` | Some [BadgerDB specific options](https://godoc.org/github.com/dgraph-io/badger#Options) initialized to optimized defaults (per IPFS recommendations, see below). Setting `table_loading_mode` and `value_log_loading_mode` to `0` should help in memory constrained platforms (Raspberry Pis etc. with <1GB RAM) |
+
+The adjustments performed on top of the default badger options by default can be seen [in the badger configuration initialization code](https://github.com/ipfs/ipfs-cluster/blob/master/datastore/badger/config.go#L38-L49).
+
+#### `leveldb`
+
+The `leveldb` component configures the LevelDB backend which is used to store things when the CRDT consensus is enabled.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`leveldb_options` | `{...}` | Some [LevelDB specific options](https://pkg.go.dev/github.com/syndtr/goleveldb@v1.0.0/leveldb/opt#Options) initialized to their defaults. |
