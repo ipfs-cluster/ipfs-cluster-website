@@ -9,7 +9,7 @@ title = "IPFS Cluster"
 **IPFS Cluster** is a distributed application that works as a sidecar to IPFS peers, maintaining a global cluster pinset and intelligently allocating its items to the IPFS peers:
 
 * An easy to run application: `ipfs-cluster-service` runs as an independent daemon, independent from IPFS and interacting with the IPFS daemon's API.
-* Handle replication of millions pin to multiple IPFS daemons in a fire&forget fashion: pin lifetime tracked asynchronously, the Cluster peers take care of asking IPFS to pin things at a sustainable rate and retry pinning in case of failures.
+* Handle replication of millions of pins to hundreds of IPFS daemons in a fire&forget fashion: pin lifetime tracked asynchronously, the Cluster peers take care of asking IPFS to pin things at a sustainable rate and retry pinning in case of failures.
 * Fully featured API and CLI: `ipfs-cluster-ctl` provides a command-line client to the fully featured Cluster HTTP REST API.
 * No central server: cluster peers form a distributed network and maintain a global, replicated and conflict-free list of pins.
 * Baked-in permissions: an embedded permission model supports standard peers (with permissions to change the cluster pinset) and follower peers (which store content as instructed but cannot modify the pinset).
