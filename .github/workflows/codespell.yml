@@ -1,9 +1,12 @@
 name: check-spelling
-on: [push]
+
+on: [push, pull_request]
+
 jobs:
   check-spelling:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - uses: codespell-project/actions-codespell@master
         with:
           only_warn: 1
