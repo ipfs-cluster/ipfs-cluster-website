@@ -10,3 +10,4 @@ jobs:
       - uses: codespell-project/actions-codespell@master
         with:
           only_warn: 1
+          skip: ./.git,./layouts,./themes,./static
