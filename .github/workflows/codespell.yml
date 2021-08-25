@@ -1,0 +1,9 @@
+name: check-spelling
+on: [push]
+jobs:
+  check-spelling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: codespell-project/actions-codespell@master
+        with:
+          only_warn: 1
