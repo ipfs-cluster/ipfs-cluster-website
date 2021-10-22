@@ -21,6 +21,8 @@ The `identity.json` file is auto-generated during `ipfs-cluster-service init`. I
 
 This file is not overwritten when re-running `ipfs-cluster-service -f init`. If you wish to generate a new one, you will need to delete it first.
 
+The identity fields can be overwritten using the `CLUSTER_ID` and `CLUSTER_PRIVATEKEY` environment values.
+
 #### Manual identity generation
 
 When automating a deployment or creating configurations for several peers, it might be handy to generate peer IDs and private keys manually beforehand.
