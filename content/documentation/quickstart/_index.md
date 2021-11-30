@@ -37,6 +37,14 @@ $ docker-compose up
 
 Wait until all the containers are running. You may see some errors because the cluster peers start too fast, before IPFs is ready, but they are harmless.
 
+### SELinux Users
+
+If the services fail to start because of "Permission denied" errors, you may need to do the following:
+
+1. Look for AVC denials and grant the ipfs processes the needed SELinux permissions.
+2. `sudo chmod -R 1000:100 compose`.  The services seem to use the `root` user when creating the compose directory.
+3. Add `:z` to the end of the volumes in the docker-compose.yml file.  See [Configuring SELinux Volumes in Docker](https://docs.docker.com/storage/bind-mounts/#configure-the-selinux-label) for more information.
+
 ## 4. Play with the cluster
 
 You should now have a 3-peer IPFS Cluster running! Use `ipfs-cluster-ctl` on a different terminal (same folder) to interact with it:
