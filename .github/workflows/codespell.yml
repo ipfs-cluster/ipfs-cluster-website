@@ -1,0 +1,14 @@
+name: check-spelling
+
+on: [push, pull_request]
+
+jobs:
+  check-spelling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: codespell-project/actions-codespell@master
+        with:
+          skip: ./.git,./layouts,./themes,./static
+# uncomment this to make warning only - not failing the checks
+#          only_warn: 1
