@@ -17,7 +17,7 @@ The `ipfs-cluster-service` program uses two main configuration files:
 
 ## `identity.json`
 
-The `identity.json` file is auto-generated during `ipfs-cluster-service init`. It includes a base64-encoded private key and the public peer ID associated to it. This peer ID identifies the peer in the Cluster. You can see an example [here](/0.14.0_identity.json).
+The `identity.json` file is auto-generated during `ipfs-cluster-service init`. It includes a base64-encoded private key and the public peer ID associated to it. This peer ID identifies the peer in the Cluster. You can see an example [here](/0.14.2_identity.json).
 
 This file is not overwritten when re-running `ipfs-cluster-service -f init`. If you wish to generate a new one, you will need to delete it first.
 
@@ -41,7 +41,7 @@ The `service.json` file holds all the configurable options for the cluster peer 
 
 <div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
-As an example, [this is a default `service.json` configuration file](/0.14.0_service.json).
+As an example, [this is a default `service.json` configuration file](/0.14.2_service.json).
 
 The file looks like:
 
@@ -128,7 +128,7 @@ The `leave_on_shutdown` option allows a peer to remove itself from the *peerset*
 |`replication_factor_max` | `-1` | Specifies the default maximum number of peers that should be pinning an item. -1 == all. |
 |`monitor_ping_interval` | `"15s"` | Interval for sending a `ping` (used to detect downtimes). |
 |`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset and detect if this peer was removed from the cluster (and shut-down). |
-|`mdns_interval` | `"10s"` | Interval between mDNS announce broadcasts. Setting it to `"0"` disables mDNS. |
+|`mdns_interval` | `"10s"` | Setting it to `"0"` disables mDNS. Setting to a larger value enables mDNS but no longer controls anything. |
 |`enable_relay_hop` | `true` | Let the cluster peer acts as relay for other peers that are not reachable directly. |
 |`disable_repinning` | `true` | Do not automatically re-pin all items allocated to a peer that becomes unhealthy (down). |
 |`follower_mode` | `false` | Peers in follower mode provide useful error messages when trying to perform actions like pinning. |
@@ -319,6 +319,16 @@ The `disk` informer collects disk-related metrics at intervals.
 |`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
 |`metric_type` | `"freespace"` | `freespace` or `reposize`. The informer will report the free space in the ipfs daemon repository (`StorageMax-RepoSize`) or the `RepoSize`.
 
+#### `tags`
+
+The `tags` informer issues metrics based on user-provided tags. These "metrics" are just used to inform other peers of the tags associated to each peer. These tags are useful for the balanced allocator below, as they can be part of the `allocate_by` option. One metric is issued for every defined tag.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
+|`tags` | `{"group": "default"}` | A simple "tag_name: tag_value" object to specify the tags associated to this peer. |
+
+
 #### `numpin`
 
 The `numpin` informer uses the total number of pins as metric, which collects at intervals.
@@ -326,6 +336,39 @@ The `numpin` informer uses the total number of pins as metric, which collects at
 |Key|Default|Description|
 |:---|:-------|:-----------|
 |`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
+
+
+### The `allocator` section
+
+The `allocator` is used to configure allocators. Allocators control how pins are assigned to peers in the cluster.
+
+#### `balanced`
+
+The `balanced` allocator selects which peers to allocate pins to (when
+replication factor is larger than 0) by using the different metrics received
+from the peers to group and create a balanced distribution of every pin among
+those groups.
+
+For example: Allocate by `["tag:group", "freespace"]`, means that the
+allocator will divide all the peers based on the value of tag-metric "group"
+that they have first. Then it will order the peers in each group by their
+"freespace" metric value. When deciding which peers should a pin be allocated
+to, it will select the peer with most free-space from the group with most
+overall free-space. Then it will forcefully select the peer with most
+free-space from a second group (if it exists), as it is trying to balance
+allocations among existing groups.
+
+This can be extended to subgroups: Assuming a cluster made of 6 peers, 2 per
+region (per a "region" tag), and one per availability zone (per an "az" tag),
+configuring the allocator with `["tag:region", "tag:az", "freespace"]` will
+ensure that a pin with replication factor = 3 lands in the 3 different
+regions, in availability zone with most available and in the peer in that zone with
+most available space.
+
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`allocate_by` | `["tag:group", "freespace"]` | Specifies by which informer metrics each pin should be allocated.
 
 
 ### The `observations` section
