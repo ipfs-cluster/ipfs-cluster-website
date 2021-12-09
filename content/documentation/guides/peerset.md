@@ -20,7 +20,6 @@ ipfs-cluster-ctl --enc=json id
 ```
 
 
-
 ## Adding new peers
 
 Adding new peers to a cluster works exactly as described in the [Bootstrapping the Cluster](/documentation/deployment/bootstrap) section. The works-for-all method is to use the `ipfs-cluster-service daemon --bootstrap` flag.

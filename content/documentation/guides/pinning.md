@@ -66,19 +66,18 @@ ipfs-cluster-ctl pin add <cid/ipfs-path>
 In many cases, you know what content from the IPFS network you want to add to your Cluster. The `ipfs-cluster-ctl pin add` operation is similar to the `ipfs pin add` one, but allows to set Cluster-specific flags, such the replication factors or the name associated to a pin. For example:
 
 ```sh
-$ ipfs-cluster-ctl pin add --name cluster-website --replication 2 /ipns/cluster.ipfs.io
+$ ipfs-cluster-ctl pin add --name cluster-website --replication 3 /ipns/cluster.ipfs.io
 QmXvQLhK2heNz65fWRabTfbzXwYfaBgEBuTdUJNzp69Xjx :
-    > cluster0           : PINNING | 2019-07-26T12:31:08.180738872+02:00
-    > cluster1           : REMOTE | 2019-07-26T10:31:08.231791643Z
-    > cluster2           : PINNING | 2019-07-26T10:31:08.223206563Z
-    > cluster3           : REMOTE | 2019-07-26T10:31:08.227396652Z
-    > cluster4           : REMOTE | 2019-07-26T10:31:09.189573842Z
+    > cluster2             : PINNED | 2021-12-07T15:24:58Z | Attempts: 0 | Priority: false
+    > cluster3             : PINNING | 2021-12-07T15:24:58Z | Attempts: 0 | Priority: true
+    > cluster0             : PINNING | 2021-12-07T15:24:58Z | Attempts: 0 | Priority: true
+    > Qmabc123             : REMOTE | 2021-12-07T16:25:07.48933158+01:00 | Attempts: 0 | Priority: false
+    > Qmabc456             : REMOTE | 2021-12-07T16:25:07.4893358+01:00 | Attempts: 0 | Priority: false
 $ ipfs-cluster-ctl pin ls QmXvQLhK2heNz65fWRabTfbzXwYfaBgEBuTdUJNzp69Xjx
-QmXvQLhK2heNz65fWRabTfbzXwYfaBgEBuTdUJNzp69Xjx | cluster-website | PIN | Repl. Factor: 2--2 | Allocations: [12D3KooWGbmjg3MDUYFosLNPbE1jKkv5fzKHD7wyGDa1P95iKMjF QmYY1ggjoew5eFrvkenTR3F4uWqtkBkmgfJk8g9Qqcwy51] | Recursive
-
+QmXvQLhK2heNz65fWRabTfbzXwYfaBgEBuTdUJNzp69Xjx | cluster-website | PIN | Repl. Factor: 3--3 | Allocations: [12D3KooWGbmjg3MDUYFosLNPbE1jKkv5fzKHD7wyGDa1P95iKMjF QmYY1ggjoew5eFrvkenTR3F4uWqtkBkmgfJk8g9Qqcwy51] | Recursive | Metadata: no | Exp: ∞ | Added: 2021-12-07 16:24:58
 ```
 
-As we see, the pin started pinning in two places (replication = 2). When we check the pin object, we see both the peer IDs it was allocated to and that it is called `cluster-website`.
+As we see, the pin started pinning in two places (replication = 3). When we check the pin object, we see both the peer IDs it was allocated to and that it is called `cluster-website`. We also see whether it has any metadata attached, an expiry date and date it was last added.
 
 Pins can be removed at any time with `ipfs-cluster-ctl pin rm`.
 
@@ -113,12 +112,12 @@ The stages and the results they produce are actually inspectable with the differ
 
 ### The Cluster-pinning stage
 
-We **consider a `pin add` operation has been successful when the cluster-pinning stage is finished**. This means the pin has been ingested by Cluster and that things are underway to tell IPFS to pin the content. If IPFS fails to pin the content, Cluster will know, report about it and try to handle the situation. The cluster-pinning stage is relatively fast, but the ipfs-pinning stage can take days. Therefore the second stage happens asynchronously once the cluster-pinning stage is completed.
+We **consider a `pin add` operation has been successful when the cluster-pinning stage is finished**. This means the pin has been ingested by Cluster and that things are underway to tell IPFS to pin the content. If IPFS fails to pin the content, Cluster will know, report about it and try to handle the situation. The cluster-pinning stage is relatively fast, but the ipfs-pinning stage can take much longer depending on the amount of things being pinned and the sizes involved. Therefore the second stage happens asynchronously once the cluster-pinning stage is completed.
 
 The process can be summarized as a follows:
 
 1. A pin request arrives including certain options.
-2. Given the options (particularly replication factors), a list of current cluster peers is selected as "allocations" for that pin, based on how much free space is available on each.
+2. Given the options (particularly replication factors), a list of current cluster peers is selected as "allocations" for that pin, based on the allocator configuration and the metrics associated to each peer. i.e. the simplest is to make the list ordered by based on how much free space is available on each peer.
 3. These and other things result in a pin object which is commited and broadcasted to everyone (the how depends on the [consensus component](/documentation/guides/consensus)).
 
 ### The IPFS-pinning stage
@@ -126,8 +125,12 @@ The process can be summarized as a follows:
 Once the Cluster-pinning stage is completed, each peer is notified of a new item in the pinset. If the peer is among the allocations for that item, it will proceed to ask ipfs to pin it:
 
 1. Peer starts "tracking" CID
-2. If allocated to it, an "ipfs pin add" operation is triggered
-3. The tracking process waits for the "ipfs pin add" operation to succeed.
+2. If allocated to it, it queues it for pinning and when it turns comes in the queue an "ipfs pin add" operation is triggered
+3. The tracking process waits for the "ipfs pin add" operation to succeed. The pinning operation may time out based on when was the last block received by ipfs, not based on the total amount of time spent pinning.
+4. When the pinning completes, the item is considered pinned.
+5. If an error happens while pinning, the item goes into error state and will be eventually retried by the cluster, increasing its attempt count.
+
+The pinning process has two different queues which take the available pinning slots. The first one is a prioritary one for new items and items that have not failed to pin many times. The other is used for the rest of items. This allows that pins that cannot complete for whatever reason do not stand in the way and use pinning slots for new pins.
 
 ## `pin ls` vs `status`
 
@@ -136,21 +139,21 @@ It is very important to distinguish between `ipfs-cluster-ctl pin ls` and `ipfs-
 * `pin ls` shows shows information from the cluster *shared state* or *global pinset* which is fully available in every peer. It shows which are the allocations and how the pin has been configured. For example:
 
 ```sh
-QmY7UvWxx2oPBzTpJdHKTrjJbzKYA5GF8Qd8SnGpjXCFAp |  | PIN | Repl. Factor: 2--3 | Allocations: [12D3KooWGbmjg3MDUYFosLNPbE1jKkv5fzKHD7wyGDa1P95iKMjF QmSGCzHkz8gC9fNndMtaCZdf9RFtwtbTEEsGo4zkVfcykD QmdFBMf9HMDH3eCWrc1U11YCPenC3Uvy9mZQ2BedTyKTDf] | Recursive
+QmXvQLhK2heNz65fWRabTfbzXwYfaBgEBuTdUJNzp69Xjx | cluster-website | PIN | Repl. Factor: 2--3 | Allocations: [12D3KooWGbmjg3MDUYFosLNPbE1jKkv5fzKHD7wyGDa1P95iKMjF QmYY1ggjoew5eFrvkenTR3F4uWqtkBkmgfJk8g9Qqcwy51] | Recursive | Metadata: no | Exp: ∞ | Added: 2021-12-07 16:24:58
 ```
 
-* `status`. however, requests information about the status of each pin on each cluster peer, including whether that CID is PINNED on IPFS, or still PINNING, or errored for some reason:
+* `status`. however, requests information about the status of each pin on each cluster peer allocated to it, including whether that CID is PINNED on IPFS, or still PINNING, or errored for some reason:
 
 ```sh
-QmY7UvWxx2oPBzTpJdHKTrjJbzKYA5GF8Qd8SnGpjXCFAp :
-    > cluster0           : PINNED | 2019-07-26T12:18:29.834862706+02:00
-    > cluster1           : PINNING | 2019-07-26T10:25:18.365068131Z
-    > cluster2           : REMOTE | 2019-07-26T10:25:18.356000031Z
-    > cluster3           : REMOTE | 2019-07-26T10:25:18.374354035Z
-    > cluster4           : PINNING | 2019-07-26T10:28:19.661061918Z
+bafybeiary2ibmljf3l466qzk5hud3rnlk7zped37oik64zlfh22sa5nrg4 | cluster-website:
+    > cluster2             : PINNED | 2021-12-07T15:24:58Z | Attempts: 0 | Priority: false
+    > cluster3             : PINNED | 2021-12-07T15:24:58Z | Attempts: 0 | Priority: false
+    > cluster0             : PINNED | 2021-12-07T15:24:58Z | Attempts: 0 | Priority: false
+    > QmYAajUVaFMw7EyUsZqwDhbNmCsP8L7VDRLuXNkEw6DCC1 : REMOTE | 2021-12-07T16:40:08.122100484+01:00 | Attempts: 0 | Priority: false
+    > QmaHvxFk6DoNsRHqe2a7UJH66AjGDKPG2HCBxr25YYop32 : REMOTE | 2021-12-07T16:40:08.122100484+01:00 | Attempts: 0 | Priority: false
 ```
 
-In order to show this information, the `status` request must contact every of the peers (only the peers pinning something can return on what state that operation is). Thus, the **`status` request can be very expensive on clusters with many peers**, but provides very useful information on the state of pin. Both commands take an optional `cid` to limit the results to a single item.
+In order to show this information, the `status` request must contact every of the peers allocated to the pin (only the peers pinning something can tell on what state that operation is). Thus, the **`status` request can be very expensive on clusters with many peers**, but provides very useful information on the state of pin. Both commands take an optional `cid` to limit the results to a single item. The `status` results include information to inspect how many attempts to pin something have occurred and whether the last attempt happened via the priority pinning queue or not.
 
 ## Filtering results
 
@@ -159,7 +162,7 @@ The `status` commands supports filtering to display only pins which are in a giv
 * `cluster_error`: pins for which we cannot obtain status information (i.e. the cluster peer is down)
 * `pin_error`: pins that failed to pin (due to an ipfs problem or a timeout)
 * `unpin_error`: pins that failed to unpin (due to an ipfs problem or a timeout)
-* `error`: pins in `pin_error` or `unpin_error`
+* `error`: pins in `pin_error`, `unpin_error` or `cluster_error`
 * `unexpected_unpinned`: pins that are not pinned by ipfs, yet they should be pinned and are not pin_queued or pinning right now.
 * `pinned`: pins were correctly pinned
 * `pinning`: pins that are currently being pinned by ipfs
@@ -200,10 +203,9 @@ In such cases, the `ipfs-cluster-ctl recover` can be used to retrigger a pin or 
 <div class="tipbox tip"><code>ipfs-cluster-ctl recover --help</code> provides more information on usage and options.</div>
 
 
-## Automatic syncing and recovering
+## Automatic unpinning and recovering
 
-Cluster peers run sync and recover operations automatically, in intervals defined in the [configuration](/documentation/reference/configuration):
+Cluster peers run unpin operations for expired items and recover operations automatically, in intervals defined in the [configuration](/documentation/reference/configuration):
 
-* `state_sync_interval` controls the interval to make sure that all the items in the global pinset are tracked so that `status` can be reported on them.
-* `ipfs_sync_interval` controls the interval to make sure that the ipfs status matches the current view of it that cluster has (the same as [syncing](#syncing) above)
+* `state_sync_interval` how often to check for expired items and potentially trigger unpin requests.
 * `pin_recover_interval` controls the interval to trigger [recover](#recovering) operations for all pins in error state.
