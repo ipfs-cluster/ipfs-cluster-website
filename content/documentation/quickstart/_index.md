@@ -8,7 +8,7 @@ aliases = [
 
 # Test Cluster Quickstart
 
-This will help you setup a testing, local instance of IPFS Cluster using [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/). The objective is that you get a quick preview of what is to run an IPFS Cluster and how you can interact with it. To sucessfully follow these instructions you need to be familiar with Docker and with running commands from the command line (including checking out a git-repository).
+This will help you setup a testing, local instance of IPFS Cluster using [Docker](https://docs.docker.com/install/) and [Docker Compose](https://docs.docker.com/compose/install/). The objective is that you get a quick preview of what is to run an IPFS Cluster and how you can interact with it. To successfully follow these instructions you need to be familiar with Docker and with running commands from the command line (including checking out a git-repository).
 
 We will be starting a 3-peer cluster (along with IPFS daemons) using a docker compose template. Once the cluster is up and running, we will be interacting with one of the peers using `ipfs-cluster-ctl`. 
 

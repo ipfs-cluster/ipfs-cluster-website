@@ -166,8 +166,8 @@ Note that the underlying CRDT library will auto-commit when batch deltas reach 1
 |`cluster_name`| `"ipfs-cluster"` | An arbitrary name. It becomes the pubsub topic to which all peers in the cluster subscribe to, so it must be the same for all. |
 |`trusted_peers` | `[]` | The default set of trusted peers. See [Trust in CRDT Mode](/documentation/guides/consensus#the-trusted-peers-in-crdt-mode) for more information. Can be set to `[ "*" ]` to trust all peers. |
 | `batching {` | | Batching settings when submitting pins to the CRDT layer. Both `max_batch_size` and `max_batch_age` need to be greater than 0 for batching to be enabled. |
-| &nbsp;&nbsp;&nbsp;&nbsp;`max_batch_size` | `0` | The maximum number of pin/unpin operations to include in a batch before commiting it. |
-| &nbsp;&nbsp;&nbsp;&nbsp;`max_batch_age` | `"0s"` | The maximum time an uncommited batch waits before it is commited. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`max_batch_size` | `0` | The maximum number of pin/unpin operations to include in a batch before committing it. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`max_batch_age` | `"0s"` | The maximum time an uncommitted batch waits before it is committed. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`max_queue_size` | `1000` | The maximum number of pin/unpin operations that are waiting to be included in a batch. |
 | `}` |||
 |`peerset_metric` | `"ping"` | The name of the monitor metric to determine the current pinset. |
@@ -217,7 +217,7 @@ that it triggers accessory requests to them (like CORS preflights).
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The listen addres of the IPFS daemon API. |
+|`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The listen address of the IPFS daemon API. |
 |`listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | The proxy endpoint listening address. |
 |`log_file` | `""` | A file to write request log files (Apache Combined Format). Otherwise they are written to the Cluster log under the `ipfsproxylog` facility. |
 |`node_https` | `false` | Use HTTPS to talk to the IPFS API endpoint (experimental). |

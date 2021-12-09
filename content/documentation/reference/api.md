@@ -10,7 +10,7 @@ aliases = [
 
 IPFS Cluster peers include an API component which provides HTTP-based access to the peer's functionality. The API attempts to be REST-ful in form and behaviour. It is enabled by default, but it can be disabled by removing its section from the `service.json` configuration file.
 
-We do not mantain ad-hoc API documentation, as it gets easily out of date or, at worst, is innacurate or buggy. Instead, we provide an easy way to find how to do what you need to do by using the `ipfs-cluster-ctl` command.
+We do not maintain ad-hoc API documentation, as it gets easily out of date or, at worst, is innaccurate or buggy. Instead, we provide an easy way to find how to do what you need to do by using the `ipfs-cluster-ctl` command.
 
 Running `ipfs-cluster-ctl --enc=json --debug <command>` will print information about the endpoint, the query options, the request body and raw responses for that command. Use it on a [test cluster](/documentation/quickstart/)!
 

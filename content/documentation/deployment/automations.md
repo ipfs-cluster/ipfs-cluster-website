@@ -29,7 +29,7 @@ If you want to run one of the [`/ipfs/ipfs-cluster`](https://hub.docker.com/r/ip
 
 The container ([Dockerfile here](https://github.com/ipfs/ipfs-cluster/blob/master/Dockerfile) runs an [`entrypoint.sh`](https://github.com/ipfs/ipfs-cluster/blob/master/docker/entrypoint.sh) script which initializes IPFS Cluster when no configuration is present. The configuration values can be controlled by setting environment variables as explained in the [configuration reference](/documentation/reference/configuration).
 
-By default `crdt` consensus is used to initialize the configuration. This can be overriden by setting `IPFS_CLUSTER_CONSENSUS=raft`. Simlarly, `badger` is used as the default backend, and can be overriden setting `IPFS_CLUSTER_DATASTORE=leveldb`.
+By default `crdt` consensus is used to initialize the configuration. This can be overridden by setting `IPFS_CLUSTER_CONSENSUS=raft`. Similarly, `badger` is used as the default backend, and can be overridden setting `IPFS_CLUSTER_DATASTORE=leveldb`.
 
 <div class="tipbox warning">Unless you run docker with <code>--net=host</code>, you will need to set <code>$CLUSTER_IPFSHTTP_NODEMULTIADDRESS</code> or make sure the configuration has the correct <code>node_multiaddress</code>.</div>
 

@@ -7,7 +7,7 @@ weight = 20
 
 IPFS Cluster peers can be started using different choices for the implementations of some components. The most important one is the "consensus" one. The "consensus component" is in charge of:
 
-* Managing the global cluster pinset by receving modifications from other peers and publishing them.
+* Managing the global cluster pinset by receiving modifications from other peers and publishing them.
 * Managing the persistent storage of pinset-related data on disk.
 * Achieving strong eventual consistency between all peers: all peers should converge to the same pinset.
 * Managing the Cluster peerset: performing the necessary operation to add or remove peers from the Cluster.
@@ -46,7 +46,7 @@ Choose CRDT when:
 * You expect your cluster to work well with peers easily coming and going
 * You plan to have follower peers without permissions to modify the pinset
 * You do not have a fixed peer(s) for bootstrapping or you need to take advantage of mDNS autodiscovery
-* The cluster needs to accomodate regular and heavy bursts of pinning/unpinning operations (batching support helps).
+* The cluster needs to accommodate regular and heavy bursts of pinning/unpinning operations (batching support helps).
 
 Choose Raft when:
 
@@ -70,4 +70,4 @@ Choose Raft when:
 |Based on IPFS-tech (bitswap, dht, pubsub) | Based on hashicorp-tech (raft)|
 |Strong Eventual Consistency: Pinsets can diverge until they are consolidated | Consensus: Pinsets can be outdated but never diverge |
 |Fast pin ingestion with batching support|Slow pin ingestion|
-|Pin committed != Pin arrived to most peers | Pin commited == pin arrived to most peers|
+|Pin committed != Pin arrived to most peers | Pin committed == pin arrived to most peers|
