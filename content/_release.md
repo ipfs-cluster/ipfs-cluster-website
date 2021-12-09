@@ -75,7 +75,7 @@ that is not part of the repository (untracked files).
 * Update the pinbot to the new cluster version:
   * `ipfs/pinbot-irc` and `gx update ipfs-cluster
     github.com/ipfs/ipfs-cluster`.
-  * Any `client` API changes migth need to fix the pinbot code.
+  * Any `client` API changes might need to fix the pinbot code.
   * Commit and push.
   * Deploy the pinbot by updated the ref commit in
     `ipfs-cluster-infra/ansible`.

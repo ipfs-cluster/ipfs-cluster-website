@@ -16,7 +16,7 @@ The other main consideration is that:
 
 <div class="tipbox warning"> Starting on v0.12.1, all the cluster peers need to run on the same RPC protocol version.</div>
 
-The RPC Protocol version can be seen in the response of `ipfs-cluster-ctl --enc=json id` (`rpc_protocol_version` field), or in the [source code](https://github.com/ipfs/ipfs-cluster/blob/master/version/version.go). It should remain stable accross multiple IPFS Cluster releases and it only changes when non-backwards compatible RPC changes happen.
+The RPC Protocol version can be seen in the response of `ipfs-cluster-ctl --enc=json id` (`rpc_protocol_version` field), or in the [source code](https://github.com/ipfs/ipfs-cluster/blob/master/version/version.go). It should remain stable across multiple IPFS Cluster releases and it only changes when non-backwards compatible RPC changes happen.
 
 If there is a mismatch between the RPC protocol versions of the peers, they will not be able to communicate.
 

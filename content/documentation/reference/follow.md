@@ -16,7 +16,7 @@ The `ipfs-cluster-follow` command line application is a user-friendly way of run
 
 In this case, the `service.json` file for each configured cluster contains a single `source` key pointing to a URL, which is read when starting the peer.
 
-This file can be replaced by a custom `service.json` file. Alternatively, every configuration value can be overriden with environment variables as explained in the [configuration reference](/documentation/reference/configuration#using-environment-variables-to-overwrite-configuration-values). The `IPFS_GATEWAY` environmental variable can be used to set the gateway location if it's not the default (`127.0.0.1:8080`).
+This file can be replaced by a custom `service.json` file. Alternatively, every configuration value can be overridden with environment variables as explained in the [configuration reference](/documentation/reference/configuration#using-environment-variables-to-overwrite-configuration-values). The `IPFS_GATEWAY` environmental variable can be used to set the gateway location if it's not the default (`127.0.0.1:8080`).
 
 If you need to expose the HTTP API on a TCP port rather than the default unix socket, set `CLUSTER_RESTAPI_HTTPLISTENMULTIADDRESS` accordingly.
 

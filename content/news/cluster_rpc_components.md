@@ -37,7 +37,7 @@ rpcClient.Call(<peerID>, <method>, <argument>, <response>)
 
 This may seem counter intuitive at first. For example, when the `restapi` component receives a [`POST /pins/<cid>`](https://github.com/ipfs/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/api/rest/restapi.go#L590), it doesn't have access to the [`Cluster.Pin()`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.Pin) method offered by the main component directly. Instead, it needs to `rpcClient.Call("<localPeerID>", "Pin", cid, nil)`.
 
-However, it soon became clear that  this becomes really convinient when needing to orchestrate actions on several Cluster peers, as shown by several examples from the code base:
+However, it soon became clear that  this becomes really convenient when needing to orchestrate actions on several Cluster peers, as shown by several examples from the code base:
 
 * Broadcasting an action to the whole suddenly becomes extremely natural. For example, the [`Peers()` method (`peers ls`)](https://github.com/ipfs/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/cluster.go#L1089) action is just a parallel call to the `ID()` exposed by every peer via RPC. The response is an array of the individual answers provided by each peer.
 * Redirecting an action to the right actor becomes totally transparent. For example, our `raft` layer (`Consensus` component), needs to redirect all write actions to the Raft Leader. When a peer is performing one of these actions and sees the leader is a different peer, it just uses [RPC to trigger the same method in the right peer](https://github.com/ipfs/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/consensus/raft/consensus.go#L250).
@@ -47,9 +47,9 @@ However, it soon became clear that  this becomes really convinient when needing 
 
 ### The RPC library: go-libp2p-gorpc
 
-Every IPFS Cluster peer runs on top of it's own [libp2p Host](https://godoc.org/github.com/libp2p/go-libp2p-host), and exposes different services on it. Because libp2p multiplexes several streams onto the same connection, we can run dozens of different services and expose them on the same socket. libp2p facilitates things a lot: we do not need to do connection management, nor worry about closing and opening [tcp] connections (a very expensive operation), nor even knowing in which IP or port our desntination peer is, and all our communications occurr encrypted and under a private network.
+Every IPFS Cluster peer runs on top of it's own [libp2p Host](https://godoc.org/github.com/libp2p/go-libp2p-host), and exposes different services on it. Because libp2p multiplexes several streams onto the same connection, we can run dozens of different services and expose them on the same socket. libp2p facilitates things a lot: we do not need to do connection management, nor worry about closing and opening [tcp] connections (a very expensive operation), nor even knowing in which IP or port our desntination peer is, and all our communications occur encrypted and under a private network.
 
-The RPC server, which receives RPC requests and sends the call to the appropiate Component and Method, is one of those services. 
+The RPC server, which receives RPC requests and sends the call to the appropriate Component and Method, is one of those services. 
 
 We use [go-libp2p-gorpc](https://github.com/libp2p/go-libp2p-rpc) as our RPC library. It started as a libp2p-powered clone of Go's original [`net/rpc`](https://golang.org/pkg/net/rpc/) and, while it has evolved a little bit, it still remains a very simple and easy to use module. It cannot compete with [`gRPC`](https://godoc.org/google.golang.org/grpc) in terms of functionality, but it certainly represents a reduced overhead (no protobuffers generation) along with some helpers that come very handy.
 
@@ -67,7 +67,7 @@ Mocks are always an option when testing, specially when Go code makes correct us
 
 ### Re-implementing components
 
-The Component architecture has made it easy to provide alternative or replacement implementations for componenets. One of the examples is the [`PinTracker` component](https://godoc.org/github.com/ipfs/ipfs-cluster#PinTracker), which triggers, cancels and tracks errors from requests to the `IPFSConnector` component as new pins are tracked in the system.
+The Component architecture has made it easy to provide alternative or replacement implementations for components. One of the examples is the [`PinTracker` component](https://godoc.org/github.com/ipfs/ipfs-cluster#PinTracker), which triggers, cancels and tracks errors from requests to the `IPFSConnector` component as new pins are tracked in the system.
 
 This component had a [`maptracker` implementation](https://godoc.org/github.com/ipfs/ipfs-cluster/pintracker/maptracker), which stores all the information in memory. We recently added an [`stateless` implementation](https://godoc.org/github.com/ipfs/ipfs-cluster/pintracker/stateless) which relies on the IPFS daemon pinset as well as the shared state to piece together the PinTracker state, keeping track only of errors, and thus reducing memory usage with really big pinsets.
 

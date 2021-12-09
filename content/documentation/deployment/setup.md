@@ -90,7 +90,7 @@ Additionally to the settings mentioned here, the [configuration reference](/docu
 
 ## IPFS Configuration
 
-IPFS deamons can be optimized for production. The options are documented in the official repository:
+IPFS daemons can be optimized for production. The options are documented in the official repository:
 
 * [`config` documentation](https://github.com/ipfs/go-ipfs/blob/master/docs/config.md)
 * [Experimental features documentation](https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md)

@@ -49,11 +49,11 @@ Finally, it is very important to remark that we recently finished the [Sharding 
 
 During the last weeks we've been working hard on making the first "live" deployment of IPFS Cluster. I am happy to announce that a 10-peer cluster runs on ipfs-gateway nodes, maintaining a >2000-length pinset.
 
-The nodes are distributed, run a vanilla IPFS Cluster docker container mounting a volume with a customized cluster configuration, which uses higher-than-default timeouts and intervals. The injection of the pin-set took a while, but enventually every pin in every node became PINNED. In one occassion, a single IPFS node hanged while pinning. After re-starting the IPFS node in question, all pins in the queue became PIN_ERRORs, but they could easily be fixed with a `recover` operation.
+The nodes are distributed, run a vanilla IPFS Cluster docker container mounting a volume with a customized cluster configuration, which uses higher-than-default timeouts and intervals. The injection of the pin-set took a while, but enventually every pin in every node became PINNED. In one occasion, a single IPFS node hanged while pinning. After re-starting the IPFS node in question, all pins in the queue became PIN_ERRORs, but they could easily be fixed with a `recover` operation.
 
 Additionally, the [IPFS IRC Pinbot](https://github.com/ipfs/pinbot-irc) now supports cluster-pinning, by using the IPFS Cluster proxy to ipfs, which intercepts pin requests and performs them in cluster. This allowed us to re-use the `go-ipfs-api` library to interact with cluster.
 
-The first live setup has shown nevertheless that some things were missing. For example, we added `--local` flags to Sync, Status and Recover operations (and allowed a local RecoverAll). They are handy when a single node is at fault and you want to fix the pins on that specific node. We will also work on a `go-ipfs-cluster-api` library which provides a REST API client which allows to programatically interact with cluster more easily.
+The first live setup has shown nevertheless that some things were missing. For example, we added `--local` flags to Sync, Status and Recover operations (and allowed a local RecoverAll). They are handy when a single node is at fault and you want to fix the pins on that specific node. We will also work on a `go-ipfs-cluster-api` library which provides a REST API client which allows to programmatically interact with cluster more easily.
 
 Parallel to all this, @zenground0 has been working on state migrations. The cluster's consensus state is stored on disk via snapshots in certain format. This format might evolve in the future and we need a way to migrate between versions without losing all the state data. In the new approach, we are able to extract the state from Raft snapshots, migrate it, and create a new snapshot with the new format so that the next time cluster starts everything works. This has been a complex feature but a very important step to providing a production grade release of IPFS Cluster.
 
@@ -165,12 +165,12 @@ The next days will be spent fixing small things and figuring out how to get bett
 
 ## 20170215 | @hsanjuan
 
-A global replication factor is now supported! A new configuration file option `replication_factor` allows to specify how many peers should be allocated to pin a CID. `-1` means "Pin everywhere", and maintains compatibility with the previous behaviour. A replication factor >= 1 pin request is subjec to a number of requirements:
+A global replication factor is now supported! A new configuration file option `replication_factor` allows to specify how many peers should be allocated to pin a CID. `-1` means "Pin everywhere", and maintains compatibility with the previous behaviour. A replication factor >= 1 pin request is subject to a number of requirements:
 
 * It needs to not be allocated already. If it is the pin will return with an error saying so.
 * It needs to find enough peers to pin.
 
-How the peers are allocated content has been most of the work in this feature. We have two three componenets for doing so:
+How the peers are allocated content has been most of the work in this feature. We have two three components for doing so:
 
 * An `Informer` component. Informer is used to fetch some metric (agnostic to Cluster). The metric has a Time-to-Live and it is pushed in TTL/2 intervals to the Cluster leader.
 * An `Allocator` component. The allocator is used to provide an `Allocate()` method which, given current allocations, candidate peers and the last valid metrics pushed from the `Informers`, can decide which peers should perform the pinning. For example, a metric could be the used disk space in a cluster peer, and the allocation algorithm would be to sort candidate peers according to that metrics. The first in the list are the ones with less disk used, and will then be chosen to perform the pin. An `Allocator` could also work by receiving a location metric and making sure that the most preferential location is different from the already existing ones etc.
@@ -186,7 +186,7 @@ The next steps in Cluster will be wrapping up this milestone with failure detect
 
 So much for commitments... I missed last friday's log entry. The reason is that I was busy with the implementation of [dynamic membership for IPFS Cluster](https://github.com/ipfs/ipfs-cluster/milestone/2).
 
-What seemed a rather simple task turned into a not so simple endeavour because modifying the peer set of Raft has a lot of pitfalls. This is specially if it is during boot (in order to bootstrap). A `peer add` operation implies making everyone aware of a new peer. In Raft this is achieved by commiting a special log entry. However there is no way to notify of such event on a receiver, and such entry only has the peer ID, not the full multiaddress of the new peer (needed so that other nodes can talk to it).
+What seemed a rather simple task turned into a not so simple endeavour because modifying the peer set of Raft has a lot of pitfalls. This is specially if it is during boot (in order to bootstrap). A `peer add` operation implies making everyone aware of a new peer. In Raft this is achieved by committing a special log entry. However there is no way to notify of such event on a receiver, and such entry only has the peer ID, not the full multiaddress of the new peer (needed so that other nodes can talk to it).
 
 Therefore whoever adds the node must additionally broadcast the new node and also send back the full list of cluster peers to it. After three implementation attempts (all working but all improving on top of the previous), we perform this broadcasting by logging our own `PeerAdd` operation in Raft, with the multiaddress. This proved nicer and simpler than broadcasting to all the nodes (mostly on dealing with failures and errors - what do when a node has missed out). If the operation makes it to the log then everyone should get it, and if not, failure does not involve un-doing the operation in every node with another broadcast. The whole thing is still tricky when joining peers which have disjoint Raft states, so it is best to use it with clean, just started peers.
 

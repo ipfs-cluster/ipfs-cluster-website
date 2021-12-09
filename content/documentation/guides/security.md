@@ -18,7 +18,7 @@ There are four types of endpoints in IPFS Cluster to be taken into account when 
 
 ## The cluster secret
 
-The 32-byte hex-encoded `secret` in the `service.json` file acts as libp2p network protector. This provides additional encrytion for all communications between peers (libp2p) using a pre-shared key.
+The 32-byte hex-encoded `secret` in the `service.json` file acts as libp2p network protector. This provides additional encryption for all communications between peers (libp2p) using a pre-shared key.
 
 This makes it impossible to communicate with a peer's swarm endpoint (see below) and thus, to send RPC commands to that peer, without knowing the secret in advance.
 
@@ -36,7 +36,7 @@ Trusted peers can:
 * Trigger status sync operations (resulting in `ipfs pin ls`)
 * Add content to the peer (resulting in `ipfs block put`)
 
-Non-trusted peers only have acccess to ID and Version endpoints (returning IPFS and Cluster Peer information).
+Non-trusted peers only have access to ID and Version endpoints (returning IPFS and Cluster Peer information).
 
 <div class="tipbox tip"><code>trusted_peers</code> can be set to <code>[ "*" ]</code> to trust every other peer.</div>
 

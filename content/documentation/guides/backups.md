@@ -29,7 +29,7 @@ ipfs-cluster-service state import
 
 <div class="tipbox warning">Always re-import using the same <code>ipfs-cluster-service</code> version that you exported with.</div>
 
-Note that the **state dump just contains the pinset**. It does not include any bookeeping information, Raft peerset membership, Raft current term, CRDT Merkle-DAG nodes etc. Thus, when re-importing a pinset it is important to remember that:
+Note that the **state dump just contains the pinset**. It does not include any bookkeeping information, Raft peerset membership, Raft current term, CRDT Merkle-DAG nodes etc. Thus, when re-importing a pinset it is important to remember that:
 
   * In `raft`, the given pinset will be used to create a new snapshot, newer than any existing ones, but including information like the current peerset when existing.
   * In `crdt`, importing will [clean](#resetting-a-peer-state-cleanup) the state completely and create a single batch Merkle-DAG node. This effectively compacts the state by replacing the Merkle-DAG, but to prevent this peer from re-downloading the old DAG, all other peers in the Cluster should have replaced or removed it too.
@@ -52,7 +52,7 @@ When using Raft, the `raft` folder will be renamed as `raft.old.X`. Several copi
 
 ## Disaster recovery
 
-The only content that IPFS Cluster stores and which is unique to a cluster peer is the pinset. IPFS content is stored by IPFS. Usually, if you are running a cluster, there will be several peers replicating the content and the cluster pinset so that when one or several peers crash, are destroyed, dissappear or simply fail, they can be reset to their clean form re-sync from other existing peers.
+The only content that IPFS Cluster stores and which is unique to a cluster peer is the pinset. IPFS content is stored by IPFS. Usually, if you are running a cluster, there will be several peers replicating the content and the cluster pinset so that when one or several peers crash, are destroyed, disappear or simply fail, they can be reset to their clean form re-sync from other existing peers.
 
 <div class="tipbox tip">A <b>healthy cluster</b> is that with at least 50% of healthy online peers (<code>raft</code>) or at least one trusted, healthy peer (<code>crdt</code>).</div>
 

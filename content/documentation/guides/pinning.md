@@ -51,7 +51,7 @@ QmarNBnreCx4YtT4ETXxQ4dn2xQpcTGd2PaVM4b2UuyGku :
     > cluserr4        : PINNED | 2019-07-26T10:25:24.508614677Z
 ```
 
-The process of adding this way is however way slower than adding to a local IPFS daemon and it is not recommended for bigger files (i.e. more than 3MB). As an alternative, the `--local` flag can be provided to the `add` command. In this case, the content will be added to the local IPFS daemon of the peer receiving the request, and then pinned normally. The arrival of the pin will make ipfs retrieve the file faster than it would have been to send each block individually, so this way is more appropiate for larger files.
+The process of adding this way is however way slower than adding to a local IPFS daemon and it is not recommended for bigger files (i.e. more than 3MB). As an alternative, the `--local` flag can be provided to the `add` command. In this case, the content will be added to the local IPFS daemon of the peer receiving the request, and then pinned normally. The arrival of the pin will make ipfs retrieve the file faster than it would have been to send each block individually, so this way is more appropriate for larger files.
 
 Adding with `--local` with positive replication-factors may mean that the content is added on a peer that is finally not allocated to store the content and will not end up pinning it. Sometimes, when this is relevant, it can be worked around using the `--allocations` flag to force the pin to be allocated to the same peer ID on which it is being added.
 
@@ -118,7 +118,7 @@ The process can be summarized as a follows:
 
 1. A pin request arrives including certain options.
 2. Given the options (particularly replication factors), a list of current cluster peers is selected as "allocations" for that pin, based on the allocator configuration and the metrics associated to each peer. i.e. the simplest is to make the list ordered by based on how much free space is available on each peer.
-3. These and other things result in a pin object which is commited and broadcasted to everyone (the how depends on the [consensus component](/documentation/guides/consensus)).
+3. These and other things result in a pin object which is committed and broadcasted to everyone (the how depends on the [consensus component](/documentation/guides/consensus)).
 
 ### The IPFS-pinning stage
 
@@ -130,7 +130,7 @@ Once the Cluster-pinning stage is completed, each peer is notified of a new item
 4. When the pinning completes, the item is considered pinned.
 5. If an error happens while pinning, the item goes into error state and will be eventually retried by the cluster, increasing its attempt count.
 
-The pinning process has two different queues which take the available pinning slots. The first one is a prioritary one for new items and items that have not failed to pin many times. The other is used for the rest of items. This allows that pins that cannot complete for whatever reason do not stand in the way and use pinning slots for new pins.
+The pinning process has two different queues which take the available pinning slots. The first one is a "priority" one for new items and items that have not failed to pin many times. The other is used for the rest of items. This allows that pins that cannot complete for whatever reason do not stand in the way and use pinning slots for new pins.
 
 ## `pin ls` vs `status`
 
@@ -192,7 +192,7 @@ will display status information for CIDs which are in error state for some reaso
 
 Sometimes an item is pinned in the Cluster but it actually fails to pin on the allocated IPFS daemons because of different reasons:
 
-* The IPFS deamon is down or not responding
+* The IPFS daemon is down or not responding
 * The pin operation times out or errors
 * It is manually removed from IPFS.
 
