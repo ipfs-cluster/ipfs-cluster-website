@@ -8,16 +8,19 @@ aliases = [
 
 # Running Cluster on Kubernetes
 
-This guide will show you how to:
+## Helm templates
 
-* Run a simple Cluster on Kubernetes
-* Using [Kustomize](https://kustomize.io), adapt the Cluster Kubernetes resources to your scenario
+Monaparty maintains Helm templates for cluster deployment at https://github.com/monaparty/helm-ipfs-cluster
+
+## Kustomize
+
+Beware we have not updated the following instructions in a while. They show how to run a simple Cluster on Kubernetes using [Kustomize](https://kustomize.io).
 
 <div class="tipbox tip">This guide assumes you have a running Kubernetes cluster to deploy to and have properly configured `kubectl`.</div>
 
-## Prepare Configuration Values
+### Prepare Configuration Values
 
-### Configuring the Secret Resource
+#### Configuring the Secret Resource
 
 In Kubernetes, `Secret` objects are used to hold values such as tokens, or private keys.
 
@@ -32,7 +35,7 @@ data:
   cluster-secret: <INSERT_SECRET>
 ```
 
-### Cluster Secret
+#### Cluster Secret
 
 To generate the `cluster_secret` value in `secret.yaml`, run the following and insert the output in the appropriate place in the `secret.yaml` file:
 
@@ -40,7 +43,7 @@ To generate the `cluster_secret` value in `secret.yaml`, run the following and i
 $ od  -vN 32 -An -tx1 /dev/urandom | tr -d ' \n' | base64 -w 0 -
 ```
 
-### Bootstrap Peer ID and Private Key
+#### Bootstrap Peer ID and Private Key
 
 To generate the values for `bootstrap_peer_id` and `bootstrap_peer_priv_key`, install [`ipfs-key`](https://github.com/whyrusleeping/ipfs-key) and then run the following:
 
@@ -81,7 +84,7 @@ data:
 ```
 
 
-## Defining a StatefulSet
+### Defining a StatefulSet
 
 From the Kubernetes documentation on [StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset):
 
