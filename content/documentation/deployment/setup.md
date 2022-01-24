@@ -128,11 +128,9 @@ The `service.json` configuration file contains a few options which should be twe
 
 ### `cluster` section 
 
-When dealing with large amount of pins, you may further increase the `cluster.pin_recover_interval`. This operation will perform checks for every pin in the pinset and will trigger `ipfs pin ls --type=recursive` calls, which may be slow when the number of pinned items is huge.
+When dealing with large amount of pins, you may further increase the `cluster.pin_recover_interval`. This operation will perform checks for every pin in the pinset and will trigger `ipfs pin ls --type=recursive` calls, which may be slow when the number of pinned items is huge. For example, for multimillion pinsets, this should be set to one hour.
 
-Consider increasing the `cluster.monitor_ping_interval` and `monitor.*.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and potentially trigger re-pins). Re-pinning might be a very expensive in your cluster. Thus, you may want to set this a bit high (several minutes). You can use same value for both.
-
-Under the same consideration, you might want to set `cluster.disable_repinning` to `true` if you don't wish repinnings to be triggered at all on peer downtime and want to handle things manually when content becomes underpinned. `replication_factor_max` and `replication_factor_min` allow some leeway: i.e. a 2/3 will allow one peer to be down without re-allocating the content assigned to it somewhere else.
+Consider increasing the `cluster.monitor_ping_interval` and `monitor.*.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and potentially trigger re-pins if `cluster.disable_repinning` is set to `false`). Re-pinning might be a very expensive in your cluster. Thus, you may want to set this to be long enough. You can use the same value for both. In general, we recommend leaving repinning disabled, although when enabled, `replication_factor_max` and `replication_factor_min` allow some leeway: i.e. a 2/3 will allow one peer to be down without re-allocating the content assigned to it somewhere else.
 
 ### `raft` section
 
