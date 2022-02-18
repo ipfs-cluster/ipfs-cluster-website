@@ -19,7 +19,6 @@ When working with a large number of pins, it is important to keep an eye on the 
 * [The pinning process](#the-pinning-process)
 * [`pin ls` vs `status`](#pin-ls-vs-status)
 * [Filtering results](#filtering-results)
-* [Syncing](#syncing)
 * [Recovering](#recovering)
 * [Automatic syncing and recovering](#automatic-syncing-and-recovering)
 
