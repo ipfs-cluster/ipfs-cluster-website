@@ -103,7 +103,13 @@ Pay attention to [`AddrFilters`](https://github.com/ipfs/go-ipfs/blob/master/doc
 
 ### Datastore settings
 
-For very large repos, consider enabling the Badger datastore. You can convert between datastores using `ipfs-ds-convert` ([instructions](https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#basic-usage-2)). Badger should be significantly faster for very large pinsets, at the expense of memory.
+Unlike a previous recommendation, we have found that the `flatfs` datastore performs better than badger or very large repositories on modern hardware, and gives less headaches (i.e. does not need several minutes to be ready).
+
+Ideally, `sync` should be set to `false` in the configuration, and the backing Filesystem should probably be XFS or ZFS (faster when working with folder with large number of files in them). IPFS puts huge pressure on disk by performing random reads, specially when providing popular content.
+
+Flatfs can be improved by setting the [Sharding function](https://github.com/ipfs/go-ipfs/blob/master/docs/datastores.md?) to `/repo/flatfs/shard/v1/next-to-last/3` (`next-to-last/2` is the default). This should only be done for multi-terabyte repositories.
+
+Updating the sharding function can be done by initializing from a configuration template or by setting it in the `datastore_spec` and removing the `blocks/` folder. It should be done during the first setup of the IPFS node, although small datastores can be converted using `ipfs-ds-convert`.
 
 Increase `Datastore.BloomFilterSize` according to your repo size (in bytes): `1048576` (1MB) is a good value (more info [here](https://github.com/ipfs/go-ipfs/blob/master/docs/config.md#datastore))
 
@@ -113,14 +119,38 @@ Do not forget to set `Datastore.StorageMax` to a value according to the disk you
 
 Increase the `Swarm.ConnMgr.HighWater` (maximum number of connections) and reduce `GracePeriod` to `20s`. It can be as high as your machine would take (`10000` is a good value for large machines). Adjust `Swarm.ConnMgr.LowWater` to about a 25% of the HighWater value.
 
+### Experimental DHT providing
+
+Large datastore will have a lot to provide, so enabling [`AcceleratedDHTClient`](https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#accelerated-dht-client) is a good thing.
+
 ### File descriptor limit
 
 The `IPFS_FD_MAX` environment variable controls the FD `ulimit` value that `go-ipfs` sets for itself. Depending on your `Highwater` value, you may want to increase it to `8192` or more.
 
-
 ### Garbage collection
 
 We recommend to keep automatic garbage collection on IPFS disabled when using IPFS Cluster to add content as the GC process may delete content as it is being added. Alternatively, it is possible to add content directly to IPFS (this will lock the GC process in the mean time), and only use the Cluster to pin it once added.
+
+### Bitswap optimizations
+
+Bitswap has very conservative default settings. Memory can be traded for performance by setting the following configuration in IPFS:
+
+```
+  "Internal": {
+    "Bitswap": {
+      "EngineBlockstoreWorkerCount": 2500,
+      "EngineTaskWorkerCount": 500,
+      "MaxOutstandingBytesPerPeer": 1048576,
+      "TaskWorkerCount": 500
+    }
+  }
+```
+
+Multiply by 2 these values if your machines can handle it.
+
+### Peerings
+
+The [peering](https://github.com/ipfs/go-ipfs/blob/master/docs/config.md#peering) can be used to ensure IPFS peers in the cluster stay always connected.
 
 ## IPFS Cluster configuration
 
@@ -128,7 +158,7 @@ The `service.json` configuration file contains a few options which should be twe
 
 ### `cluster` section 
 
-When dealing with large amount of pins, you may further increase the `cluster.pin_recover_interval`. This operation will perform checks for every pin in the pinset and will trigger `ipfs pin ls --type=recursive` calls, which may be slow when the number of pinned items is huge. For example, for multimillion pinsets, this should be set to one hour.
+When dealing with large amount of pins, you may further increase the `cluster.pin_recover_interval`. This operation will perform checks for every pin in the pinset and will trigger `ipfs pin ls --type=recursive` calls, which may be slow when the number of pinned items is huge. For example, for multimillion pinsets, this should be set to 2+ hours.
 
 Consider increasing the `cluster.monitor_ping_interval` and `monitor.*.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and potentially trigger re-pins if `cluster.disable_repinning` is set to `false`). Re-pinning might be a very expensive in your cluster. Thus, you may want to set this to be long enough. You can use the same value for both. In general, we recommend leaving repinning disabled, although when enabled, `replication_factor_max` and `replication_factor_min` allow some leeway: i.e. a 2/3 will allow one peer to be down without re-allocating the content assigned to it somewhere else.
 
@@ -148,9 +178,38 @@ For very large pinsets, increase `raft.snapshot_interval`. If your cluster pins 
 
 These options only apply when running crdt-based clusters.
 
-Reducing the `crdt.rebroadcast_interval` (default `1m`) to a few seconds should make new peers start downloading the state faster, and badly connected peers should have more options to receive bits of information, at the expense of increased pubsub chatter in the network.
+Reducing the `crdt.rebroadcast_interval` (default `1m`) to a few seconds should make new peers start downloading the state faster, and badly connected peers should have more options to receive bits of information, at the expense of increased pubsub chatter in the network. It can be reduced to 10 seconds for clusters under 10 peers.
+
+Most importantly, the `batching` configuration allows to increase CRDT throughput by orders of magnitude by batching multiple pin updates in a single delta (at the cost of delays). For example, you can let clusters only commit new pins every minute, or when there are 500 in a batch as follows:
+
+```
+      "batching": {
+        "max_batch_size": 500,
+        "max_batch_age": "1m",
+        "max_queue_size": 50000
+      },
+```
 
 You can edit the `crdt.cluster_name`, as long as it is the same for all peers.
+
+### `pin_tracker` section
+
+The `stateless` pin tracker handles two pinning queues: a priority one and a "normal" one. When processing the queues, pins queued in the priority queue always have preference. All new pins go to the priority queue and stay there until they become old or have been retried too many times:
+
+```
+ "pin_tracker": {
+    "stateless": {
+      "max_pin_queue_size": 200000000,
+      "concurrent_pins": 25,
+      "priority_pin_max_age" : "24h",
+      "priority_pin_max_retries" : 3
+    }
+  },
+```
+
+### `ipfs_connector` section
+
+Pin requests performed by cluster time out based on the last blocked fetched by IPFS (not on the total length of the pin requests). Therefore the `pin_timeout` setting can be set very low: 20 seconds will ask cluster to give up a pin if no block can be fetched for 20 seconds. Lower pin timeouts let cluster churn through pinning queues faster. Pin errors will be retried later.
 
 ### `restapi` section
 

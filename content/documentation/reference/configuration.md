@@ -66,6 +66,9 @@ The file looks like:
   "monitor": {
     "pubsubmon": {...}
   },
+  "allocator": {
+    "balanced": {...}
+  },
   "informer": {
     "disk": {...},
   },
@@ -172,6 +175,7 @@ Note that the underlying CRDT library will auto-commit when batch deltas reach 1
 | `}` |||
 |`peerset_metric` | `"ping"` | The name of the monitor metric to determine the current pinset. |
 |`rebroadcast_interval` | `"1m0s"` | How often to republish the current heads when no other pubsub message has been seen. Reducing this will allow new peers to learn about the current state sooner. |
+|`repair_interval` | `"1h0m0s"` | How often to check if the crdt-datastore is marked as dirty, and trigger a re-processing of the DAG in that case. |
 
 #### `raft`
 
@@ -278,6 +282,7 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 |`pin_timeout` | `"2m0s"` | Specifies the timeout for `pin/add` which starts from the last block received for the item being pinned. Thus items which are being pinned slowly will not be cancelled even if they take more than 24h. |
 |`unpin_timeout` | `"3h0m0s"` | Specifies the timeout for `pin/rm` requests to the IPFS daemon. |
 |`unpin_disable` | `false` | Prevents the connector from unpinning anything (even if the Cluster does). |
+|`informer_trigger_interval` | `0` | Force a broadcast of all peer metrics after the number of pin requests indicated by this value. |
 
 ### The `pin_tracker` section
 
@@ -292,6 +297,8 @@ The `stateless` tracker implements a pintracker which relies on ipfs and the sha
 |:---|:-------|:-----------|
 |`max_pin_queue_size` | `1000000` | How many pin or unpin requests can be queued waiting to be pinned before we error them directly. Re-queing will be attempted on the next "state sync" as defined by `state_sync_interval` |
 |`concurrent_pins` | `10` | How many parallel pin or unpin requests we make to IPFS. |
+|`priority_pin_max_age`| `"24h0m0s"` | If a pin becomes this old and has failed to pin, retries will be deprioritized in the face of newer pin requests. |
+|`priority_pin_max_retries` | `5` | If a pin has surpassed this number of pinning attempts, retries will be deprioritized in the face of newer pin requests. |
 
 ### The `monitor` section
 
