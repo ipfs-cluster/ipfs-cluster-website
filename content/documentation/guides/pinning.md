@@ -52,7 +52,7 @@ QmarNBnreCx4YtT4ETXxQ4dn2xQpcTGd2PaVM4b2UuyGku :
 
 The process of adding this way is however way slower than adding to a local IPFS daemon and it is not recommended for bigger files (i.e. more than 3MB). As an alternative, the `--local` flag can be provided to the `add` command. In this case, the content will be added to the local IPFS daemon of the peer receiving the request, and then pinned normally. The arrival of the pin will make ipfs retrieve the file faster than it would have been to send each block individually, so this way is more appropriate for larger files.
 
-Adding with `--local` with positive replication-factors may mean that the content is added on a peer that is finally not allocated to store the content and will not end up pinning it. Sometimes, when this is relevant, it can be worked around using the `--allocations` flag to force the pin to be allocated to the same peer ID on which it is being added.
+Adding with `--local` and no additional options will always include the local peer among the allocations for the content (regardless of free space etc.). This can be worked around using the `--allocations` flag to provide different allocations manually, if needed.
 
 Another feature in the `add` command that is not available on IPFS is the possibility of importing CAR files (ala. `ipfs dag import`). In order to import a CAR file you can do `ipfs-cluster-ctl add --format car myfile.car`. CAR files should have a single root, which is the CID that becomes pinned after import.
 
