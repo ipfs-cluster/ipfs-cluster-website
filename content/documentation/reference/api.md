@@ -56,13 +56,11 @@ As a final tip, this table provides a quick summary of methods available.
 |`GET`       |`/allocations`        |List of pins and their allocations (pinset)|
 |`GET`       |`/allocations/{cid}`  |Show a single pin and its allocations (from the pinset)|
 |`GET`       |`/pins`               |Local status of all tracked CIDs|
-|`POST`      |`/pins/sync`          |Sync local status from IPFS|
 |`GET`       |`/pins/{cid}`         |Local status of single CID|
 |`POST`      |`/pins/{cid}`         |Pin a CID|
 |`POST`      |`/pins/{ipfs\|ipns\|ipld}/<path>`|Pin using an IPFS path|
 |`DELETE`    |`/pins/{cid}`         |Unpin a CID|
 |`DELETE`    |`/pins/{ipfs\|ipns\|ipld}/<path>`|Unpin using an IPFS path|
-|`POST`      |`/pins/{cid}/sync`    |Sync a CID|
 |`POST`      |`/pins/{cid}/recover` |Recover a CID|
 |`POST`      |`/pins/recover`       |Recover all pins in the receiving Cluster peer|
 |`GET`       |`/monitor/metrics`    |  Get a list of metric types known to the peer |
