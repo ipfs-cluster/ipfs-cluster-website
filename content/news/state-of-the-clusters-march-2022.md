@@ -35,7 +35,7 @@ The main issue now preventing unbounded scalability is that the huge pinset
 causes RAM memory spikes whenever a cluster peer needs to check that the pins
 that are supposed to on ipfs are actually there. This is because every item on
 the pinset is loaded on memory to be able to iterate on them. At this point,
-the memory spikes are very noticiable and steal memory which IPFS would gladly
+the memory spikes are very noticeable and steal memory which IPFS would gladly
 use.
 
 The next release of IPFS Cluster will address this and other issues through a
