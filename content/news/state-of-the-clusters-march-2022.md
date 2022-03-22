@@ -7,7 +7,7 @@ author = "@hsanjuan"
 
 ## State of the clusters: March 2022
 
-Two months have passed since our [last update](state-of-the-clusters-jan-2022)
+Two months have passed since our [last update](../state-of-the-clusters-jan-2022/)
 on the "state of the clusters". In our previous post I mentioned we were
 tracking 25 million pins on a 9-peer cluster.
 
