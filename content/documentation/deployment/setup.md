@@ -73,14 +73,17 @@ Alternatively, you can also use the `peer_addresses` configuration value to prov
 By default, Cluster uses:
 
 * `9096/tcp` as the cluster swarm endpoint which should be open and diallable by other cluster peers.
-* `9094/tcp` as the HTTP API endpoint
-* `9095/tcp` as the Proxy API endpoint
+* `9094/tcp` as the HTTP API endpoint, when enabled
+* `9095/tcp` as the Proxy API endpoint, when enabled
+* `9097/tcp` as the IPFS Pinning API endpoint, when enabled
+* `8888/tcp` as the Prometheus metrics endpoint, when enabled.
+* `6831/tcp` as the Jaeger agent endpoint for traces, when enabled.
 
 A full description of the ports and endpoints is available in the [Security guide](/documentation/guides/security).
 
 # Settings for production
 
-The default IPFS and Cluster settings are conservative and work for most setups out of the box. There are however, a number of options that can be optimized with regards to:
+The default IPFS and Cluster settings are conservative and work for simple setups out of the box. There are however, a number of options that can be optimized with regards to:
 
 * Large pinsets
 * Large number of peers
@@ -105,13 +108,13 @@ Pay attention to [`AddrFilters`](https://github.com/ipfs/go-ipfs/blob/master/doc
 
 Unlike a previous recommendation, we have found that the `flatfs` datastore performs better than badger or very large repositories on modern hardware, and gives less headaches (i.e. does not need several minutes to be ready).
 
-Ideally, `sync` should be set to `false` in the configuration, and the backing Filesystem should probably be XFS or ZFS (faster when working with folder with large number of files in them). IPFS puts huge pressure on disk by performing random reads, specially when providing popular content.
+`sync` should be set to `false` in the configuration (big performance impact otherwise), and the backing Filesystem should probably be XFS or ZFS (faster when working with folder with large number of files in them). IPFS puts huge pressure on disk by performing random reads, specially when providing popular content.
 
 Flatfs can be improved by setting the [Sharding function](https://github.com/ipfs/go-ipfs/blob/master/docs/datastores.md?) to `/repo/flatfs/shard/v1/next-to-last/3` (`next-to-last/2` is the default). This should only be done for multi-terabyte repositories.
 
-Updating the sharding function can be done by initializing from a configuration template or by setting it in the `datastore_spec` and removing the `blocks/` folder. It should be done during the first setup of the IPFS node, although small datastores can be converted using `ipfs-ds-convert`.
+Updating the sharding function can be done by initializing from a configuration template or by setting it in `config` and the `datastore_spec` and removing the `blocks/` folder. It should be done during the first setup of the IPFS node, although small datastores can be converted using `ipfs-ds-convert`.
 
-Increase `Datastore.BloomFilterSize` according to your repo size (in bytes): `1048576` (1MB) is a good value (more info [here](https://github.com/ipfs/go-ipfs/blob/master/docs/config.md#datastore))
+Increasing `Datastore.BloomFilterSize` should be considered in most cases, according to the expected IPFS repository size: `1048576` (1MB) is a good value to start (more info [here](https://github.com/ipfs/go-ipfs/blob/master/docs/config.md#datastore)).
 
 Do not forget to set `Datastore.StorageMax` to a value according to the disk you want to dedicate for the ipfs repo. This will affect how cluster calculates how much free space there is in every peer.
 
@@ -133,7 +136,7 @@ We recommend to keep automatic garbage collection on IPFS disabled when using IP
 
 ### Bitswap optimizations
 
-Bitswap has very conservative default settings. Memory can be traded for performance by setting the following configuration in IPFS:
+It is also very important to adjust [Bitswap internal configuration](https://github.com/ipfs/go-ipfs/blob/master/docs/config.md#internalbitswap) when nodes have lots of traffic. Multiplying the defaults by 100 is not unhread of in big machines. However, you would have to find the right balance, as this will make IPFS consume much more memory when it is busy bitswapping. Example for machine with 128GB of RAM:
 
 ```
   "Internal": {
@@ -211,9 +214,9 @@ The `stateless` pin tracker handles two pinning queues: a priority one and a "no
 
 Pin requests performed by cluster time out based on the last blocked fetched by IPFS (not on the total length of the pin requests). Therefore the `pin_timeout` setting can be set very low: 20 seconds will ask cluster to give up a pin if no block can be fetched for 20 seconds. Lower pin timeouts let cluster churn through pinning queues faster. Pin errors will be retried later.
 
-### `restapi` section
+### `restapi` and `pinsvcapi` sections
 
-Adjust the `api.restapi` network timeouts depending on your API usage. This may protect against misuse of the API or DDoS attacks. Note that there are usually client-side timeouts that can be modified too if you control the clients.
+Adjust the `api.restapi/pinsvcapi` network timeouts depending on your API usage. This may protect against misuse of the API or DDoS attacks. Note that there are usually client-side timeouts that can be modified too if you control the clients.
 
 The API can be disabled by removing the configuration section.
 
@@ -222,3 +225,39 @@ The API can be disabled by removing the configuration section.
 Adjust the `ipfs_connector.ipfshttp` network timeouts if you are using the ipfs proxy in the same fashion as the `restapi`.
 
 The Proxy API can be disabled by removing the configuration section.
+
+### `datastore` section
+
+The `badger` defaults are very conservative and designed to minimize Badger's memory consumption. On a big machine with 128GB of RAM, these have proven to be much better:
+
+```json
+   "badger": {
+      "gc_discard_ratio": 0.2,
+      "gc_interval": "15m0s",
+      "gc_sleep": "10s",
+      "badger_options": {
+        "dir": "",
+        "value_dir": "",
+        "sync_writes": false,
+        "table_loading_mode": 2,
+        "value_log_loading_mode": 0,
+        "num_versions_to_keep": 1,
+        "max_table_size": 268435456,
+        "level_size_multiplier": 10,
+        "max_levels": 7,
+        "value_threshold": 512,
+        "num_memtables": 10,
+        "num_level_zero_tables": 10,
+        "num_level_zero_tables_stall": 20,
+        "level_one_size": 268435456,
+        "value_log_file_size": 1073741823,
+        "value_log_max_entries": 1000000,
+        "num_compactors": 2,
+        "compact_l_0_on_close": true,
+        "read_only": false,
+        "truncate": false
+      }
+    }
+```
+
+It is very important in any case to spend time understanding the [Badger options](https://pkg.go.dev/github.com/dgraph-io/badger?utm_source=godoc#Options). Things like the table and value log loading modes, `max_table_size`, `value_threshold` etc. have big impact on how much memory Badger uses, and how it performs. This is specially relevant for 10M+ pinsets.

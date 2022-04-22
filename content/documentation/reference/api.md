@@ -31,8 +31,8 @@ The `/add` endpoint can be use to upload content to IPFS via the Cluster API. Th
 
 There are considerations to take into account here:
 
-* Adding content via IPFS Cluster (particularly large content) pays a performance penalty. It is way faster for large things to add directly to IPFS and then Cluster-Pin the result. Adding via Cluster is useful for small pieces of content because by the time the adding process finishes, they will already be fully replicated.
-* The `local=true` query parameter will instruct the cluster peer receiving the request to ingest all blocks locally, even if the local IPFS peer is not meant to pin them in the end. This makes adding way faster and the expense of a slower Cluster-pinning: the pinning nodes will have to use IPFS to receive the blocks when they are instructed to pin. Overall this is still faster for larger pieces of content.
+* Adding content via IPFS Cluster is slower because it replicates to all pinning locations at the same time that it adds.
+* The `local=true` query parameter will instruct the cluster peer receiving the request to ingest all blocks locally. This makes adding way faster and the expense of a slower Cluster-pinning: the pinning nodes will have to use IPFS to receive the blocks when they are instructed to pin.
 * IPFS garbage collection should be disabled while adding. Because blocks are block/put individually, if a GC operation happens while and adding operation is underway, and before the blocks have been pinned, they would be deleted.
 
 Currently IPFS Cluster supports adding with two DAG-formats (`?format=` query parameter):
@@ -50,12 +50,12 @@ As a final tip, this table provides a quick summary of methods available.
 |:-----------|:---------------------|:--------------------------------|
 |`GET`       |`/id`                 |Cluster peer information         |
 |`GET`       |`/version`            |Cluster version|
-|`GET`       |`/peers`              |Cluster peers|
+|`GET`       |`/peers`              |Cluster peers. Streaming endpoint.|
 |`DELETE`    |`/peers/{peerID}`     |Remove a peer|
-|`POST`      |`/add`                |Add content to the cluster. See notes above |
-|`GET`       |`/allocations`        |List of pins and their allocations (pinset)|
+|`POST`      |`/add`                |Add content to the cluster. Streaming endpoint. See notes above |
+|`GET`       |`/allocations`        |List of pins and their allocations (pinset). Streaming endpoint. |
 |`GET`       |`/allocations/{cid}`  |Show a single pin and its allocations (from the pinset)|
-|`GET`       |`/pins`               |Local status of all tracked CIDs|
+|`GET`       |`/pins`               |Local status of all tracked CIDs. Streaming endpoint. |
 |`GET`       |`/pins/{cid}`         |Local status of single CID|
 |`POST`      |`/pins/{cid}`         |Pin a CID|
 |`POST`      |`/pins/{ipfs\|ipns\|ipld}/<path>`|Pin using an IPFS path|

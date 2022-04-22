@@ -21,9 +21,9 @@ in the short term, although might work in some of the following areas:
 
 * DAG Sharding support: distributing large DAGs across multiple peers. Ongoing effort but lacking go-ipfs support for depth-limited pins.
 * Optimistic replication: allow cluster peers to decide what content they back rather than defining allocations.
-* Improve the metrics exporting system (i.e. Prometheus) with new metrics.
-* Done! RPC streaming improvements (primarily affects speeding up adding content to many cluster nodes at once).
-* Done! Exploring support for a more allocation strategies e.g. by geographic location or as a function of access patterns.
+* **In progress!** Improve the metrics exporting system (i.e. Prometheus) with new metrics.
+* **Done!** RPC streaming improvements (primarily affects speeding up adding content to many cluster nodes at once).
+* **Done!** Exploring support for a more allocation strategies e.g. by geographic location or as a function of access patterns.
 * Additional chunking/sharding/encoding strategies. FEC support.
 * Cluster-controlled MFS.
-* Done! IPFS Pinning API support.
+* **Done!** IPFS Pinning API support.

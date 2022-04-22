@@ -1,9 +1,9 @@
 +++
-title = "Cluster metrics"
+title = "Cluster pubsub metrics"
 weight = 70
 +++
 
-# Cluster metrics
+# Cluster pubsub metrics
 
 Cluster peers run a "monitor" component which is in charge of:
 
@@ -13,7 +13,7 @@ Cluster peers run a "monitor" component which is in charge of:
 
 The metrics are produced by an "informer" component and broadcasted using libp2p's GossipSub. There are currently two types of metrics:
 
-* `ping`: the lack of pings from a given cluster peer signifies that the peer is down and is used to trigger re-pinnings when enabled.
+* `ping`: the lack of pings from a given cluster peer signifies that the peer is down and is used to trigger re-pinnings when enabled. The ping metric includes information about each peer, like its peer name, IPFS daemon ID and addresses etc.
 * `freespace`: informs how much free space IPFS has in its repository and is used to decide whether to allocate new pins to this peer or others.
 
 Administrators can inspect the latest metrics received by a peer with the following commands:

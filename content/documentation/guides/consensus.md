@@ -71,3 +71,4 @@ Choose Raft when:
 |Strong Eventual Consistency: Pinsets can diverge until they are consolidated | Consensus: Pinsets can be outdated but never diverge |
 |Fast pin ingestion with batching support|Slow pin ingestion|
 |Pin committed != Pin arrived to most peers | Pin committed == pin arrived to most peers|
+|Maximum tested size: 60M pins | 100k pins|
