@@ -29,6 +29,8 @@ ipfs-cluster-service state import
 
 <div class="tipbox warning">Always re-import using the same <code>ipfs-cluster-service</code> version that you exported with.</div>
 
+<div class="tipbox warning">Consider https://github.com/ipfs/ipfs-cluster/issues/1547 when importing a state to multiple cluster peers.</div>
+
 Note that the **state dump just contains the pinset**. It does not include any bookkeeping information, Raft peerset membership, Raft current term, CRDT Merkle-DAG nodes etc. Thus, when re-importing a pinset it is important to remember that:
 
   * In `raft`, the given pinset will be used to create a new snapshot, newer than any existing ones, but including information like the current peerset when existing.

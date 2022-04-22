@@ -19,7 +19,7 @@ The IPFS Cluster software consists of three binary files:
 
 The Cluster peer communicates with the IPFS daemon using the HTTP API (`localhost:5001`). Therefore, **the IPFS daemon must be launched and running separately**.
 
-Usually, `ipfs-cluster-ctl` is used on the same machine or server on which `ipfs-cluster-service` is running. For example, `ipfs-cluster-ctl pin add <hash>` will instruct the local Cluster peer to submit a pin to the Cluster. The different peers in the Cluster will then proceed to ask their local IPFS daemons to pin that content. The number of pins across the Cluster will depend on the replication factor set in the Cluster configuration file.
+Usually, `ipfs-cluster-ctl` is used on the same machine or server on which `ipfs-cluster-service` is running. For example, `ipfs-cluster-ctl pin add <hash>` will instruct the local Cluster peer to submit a pin to the Cluster. The different peers in the Cluster will then proceed to ask their local IPFS daemons to pin that content. The number of pins across the Cluster will depend on the replication factor set for each pin (the default is set in the `ipfs-cluster-service` configuration file).
 
 ## The Cluster swarm
 
@@ -38,6 +38,6 @@ All peers in the Cluster maintain a global pinset. Making every peer maintain th
 * A CRDT-based approach, based on Conflict-Free Replicated Datatypes
 * A Raft-based approach, based on a popular log-based consensus algorithm
 
-The relevant details and trade-offs between them are outlined in the [Consensus Components](/documentation/guides/consensus) section. The choice (which must be performed during initialization and cannot be easily changed), heavily affects the procedures for adding, removing and handling failures in Cluster peers.
+The relevant details and trade-offs between them are outlined in the [Consensus Components](/documentation/guides/consensus) section. The choice (which must be performed during initialization and cannot be easily changed), heavily affects the procedures for adding, removing and handling failures in Cluster peers. tl;dr: we recommend using the CRDT-consensus component.
 
 The *shared state* can be inspected with `ipfs-cluster-ctl pin ls` and is the only piece of information present locally in every peer. Pin status (`status`) information, or peers information (`peers ls`) for other than the peer that is running the command, must be obtained at runtime from their respective peers and assembled together.

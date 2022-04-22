@@ -45,9 +45,3 @@ During the first launch, configurations are automatically generated and will be 
 Only the IPFS swarm port (tcp `4001`/`4101`) and the IPFS Cluster API ports (tcp `9094`/`9194`) are exposed out of the containers.
 
 This compose file is provided as an example on how to set up a multi-peer Cluster using Docker containers. You may need to adapt it for your own needs.
-
-## Kubernetes with Kustomize
-
-Kustomize can be used to deploy IPFS Clusters on Kubernetes.
-
-You can read more about it in the [Running Cluster on Kubernetes](/documentation/guides/k8s) guide.

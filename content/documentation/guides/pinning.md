@@ -50,11 +50,11 @@ QmarNBnreCx4YtT4ETXxQ4dn2xQpcTGd2PaVM4b2UuyGku :
     > cluserr4        : PINNED | 2019-07-26T10:25:24.508614677Z
 ```
 
-The process of adding this way is however way slower than adding to a local IPFS daemon and it is not recommended for bigger files (i.e. more than 3MB). As an alternative, the `--local` flag can be provided to the `add` command. In this case, the content will be added to the local IPFS daemon of the peer receiving the request, and then pinned normally. The arrival of the pin will make ipfs retrieve the file faster than it would have been to send each block individually, so this way is more appropriate for larger files.
+The process of adding this way is slower than adding to a local IPFS daemon because all the blocks are sent to their remote locations in parallel. As an alternative, the `--local` flag can be provided to the `add` command. In this case, the content will be added to the local IPFS daemon of the peer receiving the request, and then pinned normally. This will make the `add` calls take less time, but the content will not be yet fully replicated when they return.
 
 Adding with `--local` and no additional options will always include the local peer among the allocations for the content (regardless of free space etc.). This can be worked around using the `--allocations` flag to provide different allocations manually, if needed.
 
-Another feature in the `add` command that is not available on IPFS is the possibility of importing CAR files (ala. `ipfs dag import`). In order to import a CAR file you can do `ipfs-cluster-ctl add --format car myfile.car`. CAR files should have a single root, which is the CID that becomes pinned after import.
+Another feature in the `add` command that is not available on IPFS is the possibility of importing CAR files (similar to `ipfs dag import`). In order to import a CAR file you can do `ipfs-cluster-ctl add --format car myfile.car`. CAR files should have a single root, which is the CID that becomes pinned after import. IPFS Cluster does not perform checks to verify that the CAR files are complete and contain all the blocks etc.
 
 ## Pinning CIDs
 
@@ -107,7 +107,7 @@ The stages and the results they produce are actually inspectable with the differ
 
 * `ipfs-cluster-ctl pin add ...` waits 1 second by default and reports `status` resulting from the ongoing IPFS-pinning process.
 * `ipfs-cluster-ctl pin add --no-status ...` does not wait and reports `pin ls` information resulting from the Cluster-pinning process.
-* `ipfs-cluster-ctl pin add --wait ...` waits until the IPFS-pinning process is complete.
+* `ipfs-cluster-ctl pin add --wait ...` waits until the IPFS-pinning process is complete in at least 1 peer.
 
 ### The Cluster-pinning stage
 
@@ -131,6 +131,12 @@ Once the Cluster-pinning stage is completed, each peer is notified of a new item
 
 The pinning process has two different queues which take the available pinning slots. The first one is a "priority" one for new items and items that have not failed to pin many times. The other is used for the rest of items. This allows that pins that cannot complete for whatever reason do not stand in the way and use pinning slots for new pins.
 
+### CRDT-Batching
+
+When CRDT-batching is enabled, pins will be batched in the local peer receiving the pin requests and submitted all together to the network in a single batch. This happens only when the batch reaches its maximum age, or when it gets full (both things controlled in the configuration).
+
+If a peer is restarted before a batch has been broadcasted, these pins will be lost. Thus we recommend stopping requests and waiting for the batch max_age before restarting peers.
+
 ## `pin ls` vs `status`
 
 It is very important to distinguish between `ipfs-cluster-ctl pin ls` and `ipfs-cluster-ctl status`. Both endpoints provide a list of CIDs pinned in the cluster, but they do it in very different ways:
@@ -152,7 +158,7 @@ bafybeiary2ibmljf3l466qzk5hud3rnlk7zped37oik64zlfh22sa5nrg4 | cluster-website:
     > QmaHvxFk6DoNsRHqe2a7UJH66AjGDKPG2HCBxr25YYop32 : REMOTE | 2021-12-07T16:40:08.122100484+01:00 | Attempts: 0 | Priority: false
 ```
 
-In order to show this information, the `status` request must contact every of the peers allocated to the pin (only the peers pinning something can tell on what state that operation is). Thus, the **`status` request can be very expensive on clusters with many peers**, but provides very useful information on the state of pin. Both commands take an optional `cid` to limit the results to a single item. The `status` results include information to inspect how many attempts to pin something have occurred and whether the last attempt happened via the priority pinning queue or not.
+In order to show this information, the `status` request must contact every of the peers allocated to the pin (only the peers pinning something can tell on what state that operation is). Thus, the **`status` request can be very expensive on clusters with many peers**, but provides very useful information on the state of pin. Both commands take an optional `cid` to limit the results to a single item. The `status` results include information to inspect how many attempts to pin something have occurred and whether the last attempt happened via the priority pinning queue or not. Finally, the `status` request supports a `--local` flag to just report status from the local peer.
 
 ## Filtering results
 

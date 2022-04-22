@@ -16,6 +16,8 @@ These are configured in the `observations` section of the configuration and can 
 ipfs-cluster-service daemon --stats --tracing
 ```
 
+Apart from all go-specific metrics, cluster exports some metrics to track the current state of the cluster peer, these can be quickly inspected with `curl 'http://127.0.0.1:8888/metrics | grep cluster`, and include the total number of pins, the number of items queued etc.
+
 ## Development setup for tracing and metrics
 
 The following section shows how to:
