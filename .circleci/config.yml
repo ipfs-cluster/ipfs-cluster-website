@@ -16,7 +16,7 @@ jobs:
 
   deploy:
     docker:
-      - image: olizilla/ipfs-dns-deploy:latest
+      - image: ipfs/ipfs-dns-deploy:latest
         environment:
           DOMAIN: cluster.ipfs.io
           BUILD_DIR: public
