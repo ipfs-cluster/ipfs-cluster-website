@@ -18,7 +18,7 @@ In order to create your own collaborative cluster that other people can subscrib
 
 The first step in setting a collaborative cluster is to deploy a regular CRDT cluster with one or more peers.
 
-Follow the instructions in the [Production deployment](/documentation/deployment/) section, particularly those related to the [CRDT mode bootstrapping](https://cluster.ipfs.io/documentation/deployment/bootstrap/). The simplest is to run a single-peer cluster, although you may choose to run two or more to have some redundancy.
+Follow the instructions in the [Production deployment](/documentation/deployment/) section, particularly those related to the [CRDT mode bootstrapping](/documentation/deployment/bootstrap/). The simplest is to run a single-peer cluster, although you may choose to run two or more to have some redundancy.
 
 A summarized version of the instructions for a single peer with default configuration would amount to the following:
 

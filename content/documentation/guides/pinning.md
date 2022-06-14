@@ -65,7 +65,7 @@ ipfs-cluster-ctl pin add <cid/ipfs-path>
 In many cases, you know what content from the IPFS network you want to add to your Cluster. The `ipfs-cluster-ctl pin add` operation is similar to the `ipfs pin add` one, but allows to set Cluster-specific flags, such the replication factors or the name associated to a pin. For example:
 
 ```sh
-$ ipfs-cluster-ctl pin add --name cluster-website --replication 3 /ipns/cluster.ipfs.io
+$ ipfs-cluster-ctl pin add --name cluster-website --replication 3 /ipns/ipfscluster.io
 QmXvQLhK2heNz65fWRabTfbzXwYfaBgEBuTdUJNzp69Xjx :
     > cluster2             : PINNED | 2021-12-07T15:24:58Z | Attempts: 0 | Priority: false
     > cluster3             : PINNING | 2021-12-07T15:24:58Z | Attempts: 0 | Priority: true

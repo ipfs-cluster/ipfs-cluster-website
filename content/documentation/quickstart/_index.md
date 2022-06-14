@@ -52,7 +52,7 @@ You should now have a 3-peer IPFS Cluster running! Use `ipfs-cluster-ctl` on a d
 ```shell
 ./ipfs-cluster-ctl peers ls                      # show information about the peers in the cluster
 ./ipfs-cluster-ctl add somefile                  # add a file to the cluster
-./ipfs-cluster-ctl pin add /ipns/cluster.ipfs.io # pin the cluster website
+./ipfs-cluster-ctl pin add /ipns/ipfscluster.io  # pin the cluster website
 ./ipfs-cluster-ctl status <cid>                  # use the CID shown above to see the status in every peer
 ./ipfs-cluster-ctl pin ls <cid>                  # inspect the pin information
 ```
