@@ -38,6 +38,7 @@ jobs:
           name: website
           path: /tmp/workspace
       - name: Deploy website to IPFS
+        shell: bash
         run: |
           pin_name="$DOMAIN build $GITHUB_JOB"
 
