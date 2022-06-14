@@ -1,0 +1,51 @@
+name: build-deploy
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ipfs/ci-websites
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: make build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: website
+          path: public
+        
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    container:
+      image: ipfs/ipfs-dns-deploy:latest
+    env:
+      DOMAIN: cluster.ipfs.io
+      BUILD_DIR: public
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      CLUSTER_USER: ${{ secrets.CLUSTER_USER }}
+      CLUSTER_PASSWORD: ${{ secrets.CLUSTER_PASSWORD }}
+      DNSIMPLE_ACCOUNT: ${{ secrets.DNSIMPLE_ACCOUNT }}
+      DNSIMPLE_TOKEN: ${{ secrets.DNSIMPLE_TOKEN }}
+      CIRCLE_SHA1: ${{ github.sha }}
+      CIRCLE_PROJECT_USERNAME: ipfs-cluster
+      CIRCLE_PROJECT_REPONAME: ipfs-cluster-website
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: website
+          path: /tmp/workspace
+      - name: Deploy website to IPFS
+        run: |
+          pin_name="$DOMAIN build $GITHUB_JOB"
+
+          export CLUSTER_HOST=/dnsaddr/ipfs-websites.collab.ipfscluster.io
+          hash=$(pin-to-cluster.sh "$pin_name" /tmp/workspace/)
+          echo "Website added to IPFS: https://ipfs.io/ipfs/$hash"
+
+          # Update DNSlink for prod or dev domain
+          if [ "$GITHUB_REF_NAME" == "master" ] ; then
+          dnslink-dnsimple -d $DOMAIN -r _dnslink -l /ipfs/$hash
+          fi
