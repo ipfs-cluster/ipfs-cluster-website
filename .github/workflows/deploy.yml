@@ -46,6 +46,6 @@ jobs:
           echo "Website added to IPFS: https://ipfs.io/ipfs/$hash"
 
           # Update DNSlink for prod or dev domain
-          if [ "$GITHUB_REF_NAME" == "master" ] ; then
-          dnslink-dnsimple -d $DOMAIN -r _dnslink -l /ipfs/$hash
+          if [[ "$GITHUB_REF_NAME" == "master" ]] ; then
+            dnslink-dnsimple -d $DOMAIN -r _dnslink -l /ipfs/$hash
           fi
