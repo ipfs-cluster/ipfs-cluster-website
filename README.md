@@ -6,9 +6,9 @@
 [![](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 [![build status](https://img.shields.io/circleci/project/github/ipfs/ipfs-cluster-website/master.svg?style=flat-square)](https://circleci.com/gh/ipfs/ipfs-cluster-website)
 
-> Official website for ipfs-cluster http://cluster.ipfs.io
+> Official website for ipfs-cluster http://ipfscluster.io
 
-This repository contains the source code for the ipfs-cluster website available at http://cluster.ipfs.io. If you're looking for the open-source IPFS Cluster project itself, head to https://github.com/ipfs/ipfs-cluster.
+This repository contains the source code for the ipfs-cluster website available at http://ipfscluster.io. If you're looking for the open-source IPFS Cluster project itself, head to https://github.com/ipfs/ipfs-cluster.
 
 This project builds out a static site to explain ipfs-cluster, ready for deployment on ipfs. It uses `hugo` to glue the html together. It provides an informative, public-facing website. The most important things are the words, concepts and links it presents.
 
@@ -20,7 +20,7 @@ git clone https://github.com/ipfs/ipfs-cluster-website
 
 ## Usage
 
-To deploy the site cluster.ipfs.io, run:
+To deploy the site ipfscluster.io, run:
 
 ```sh
 # Build out the optimised site to ./public, where you can check it locally.
@@ -32,7 +32,7 @@ make deploy
 # Save your dnsimple api token as auth.token
 cat "<api token here>" > auth.token
 
-# Update the dns record for cluster.ipfs.io to point to the new ipfs hash.
+# Update the dns record for ipfscluster.io to point to the new ipfs hash.
 make publish-to-domain
 ```
 
@@ -56,7 +56,7 @@ Build the site in the `public` dir and add to `ipfs` _(requires `hugo` & `ipfs` 
 
 ### `make publish-to-domain` :rocket:
 
-Update the DNS record for `cluster.ipfs.io`.  _(requires an `auto.token` file to be saved in the project root.)_
+Update the DNS record for `ipfscluster.io`.  _(requires an `auto.token` file to be saved in the project root.)_
 
 If you'd like to update the dnslink TXT record for another domain, pass `DOMAIN=<your domain here>` like so:
 

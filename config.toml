@@ -1,4 +1,4 @@
-baseurl = "https://cluster.ipfs.io"
+baseurl = "https://ipfscluster.io"
 languageCode = "en-us"
 relativeURLs = true
 sourceRelativeLinksEval = true
@@ -19,8 +19,8 @@ theme = "hugo-theme-learn"
   description = "Pinset orchestration for IPFS"
   author = "Protocol Labs"
   github = "https://github.com/ipfs/ipfs-cluster"
-  domain = "cluster.ipfs.io"
-  og_image = "https://cluster.ipfs.io/og-image.jpg"
+  domain = "ipfscluster.io"
+  og_image = "https://ipfscluster.io/og-image.jpg"
   download = "https://dist.ipfs.io/#ipfs-cluster-service"
   disableBreadcrumb = false
   disableNextPrev = true

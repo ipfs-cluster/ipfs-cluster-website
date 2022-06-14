@@ -22,7 +22,7 @@ jobs:
     container:
       image: ipfs/ipfs-dns-deploy:latest
     env:
-      DOMAIN: cluster.ipfs.io
+      DOMAIN: ipfscluster.io
       BUILD_DIR: public
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       CLUSTER_USER: ${{ secrets.CLUSTER_USER }}

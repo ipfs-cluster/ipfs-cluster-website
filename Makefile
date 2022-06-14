@@ -1,4 +1,4 @@
-DOMAIN="cluster.ipfs.io"
+DOMAIN="ipfscluster.io"
 IPFSLOCAL="http://localhost:8080/ipfs/"
 IPFSGATEWAY="https://ipfs.io/ipfs/"
 OUTPUTDIR=public
@@ -42,7 +42,7 @@ bin/hugo:
 	$(PREPEND)rm -rf tmp_hugo $(APPEND)
 
 help:
-	@echo 'Makefile for a cluster.ipfs.io, a hugo built static site.                                                 '
+	@echo 'Makefile for a ipfscluster.io, a hugo built static site.                                                 '
 	@echo '                                                                                                          '
 	@echo 'Usage:                                                                                                    '
 	@echo '   make                                Build the optimised site to ./$(OUTPUTDIR)                         '
