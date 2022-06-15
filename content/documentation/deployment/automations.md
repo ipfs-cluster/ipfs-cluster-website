@@ -20,9 +20,9 @@ Ansible roles for configuring and deploying `ipfs-cluster-service`, `ipfs-cluste
 
 ## Docker
 
-<div class="tipbox tip">IPFS Cluster provides official dockerized releases at <a href="https://hub.docker.com/r/ipfs-cluster/ipfs-cluster/">https://hub.docker.com/r/ipfs-cluster/ipfs-cluster/</a> along with an example template for <code>docker-compose</code>.</div>
+<div class="tipbox tip">IPFS Cluster provides official dockerized releases at <a href="https://hub.docker.com/r/ipfs/ipfs-cluster/">https://hub.docker.com/r/ipfs/ipfs-cluster/</a> along with an example template for <code>docker-compose</code>.</div>
 
-If you want to run one of the [`/ipfs-cluster/ipfs-cluster`](https://hub.docker.com/r/ipfs-cluster/ipfs-cluster/tags/) Docker containers, it is important to know that:
+If you want to run one of the [`/ipfs/ipfs-cluster`](https://hub.docker.com/r/ipfs/ipfs-cluster/tags/) Docker containers, it is important to know that:
 
 * The container does not run `go-ipfs` and you should run the IPFS daemon separately, for example, using the `ipfs/go-ipfs` Docker container. The `ipfs_connector/ipfshttp/node_multiaddress` configuration value will need to be adjusted accordingly to be able to reach the IPFS API. This path supports DNS addresses (`/dns4/ipfs1/tcp/5001`) and is set from the `CLUSTER_IPFSHTTP_NODEMULTIADDRESS` environment variable when starting the container and no previous configuration exists.
 * By default, we use  the `/data/ipfs-cluster` as the IPFS Cluster configuration path. We recommend mounting this folder as means to provide custom configurations and/or data persistency for your peers. This is usually achieved by passing `-v <your_local_path>:/data/ipfs-cluster` to `docker run`.
