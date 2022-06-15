@@ -12,7 +12,7 @@ Tasks that need to happen for a release:
 
 * Open release issue with the Release tag and mention all issues and tickets
 that will go on that release
-(https://github.com/ipfs/ipfs-cluster/issues/620). It helps backtrack when
+(https://github.com/ipfs-cluster/ipfs-cluster/issues/620). It helps backtrack when
 things happening from the issues.
 * Write the changelog entry for the release (copy from previous) and commit to
   branch:
@@ -74,7 +74,7 @@ that is not part of the repository (untracked files).
     submodule.
 * Update the pinbot to the new cluster version:
   * `ipfs/pinbot-irc` and `gx update ipfs-cluster
-    github.com/ipfs/ipfs-cluster`.
+    github.com/ipfs-cluster/ipfs-cluster`.
   * Any `client` API changes might need to fix the pinbot code.
   * Commit and push.
   * Deploy the pinbot by updated the ref commit in

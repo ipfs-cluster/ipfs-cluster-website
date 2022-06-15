@@ -29,10 +29,10 @@ The prebuilt-binaries are only updated on new releases (with occasional release 
 
 ## Docker
 
-We have automatic docker builds (https://hub.docker.com/r/ipfs/ipfs-cluster/) to create a minimal container that runs `ipfs-cluster-service` by default. You can get it with:
+We have automatic docker builds (https://hub.docker.com/r/ipfs-cluster/ipfs-cluster/) to create a minimal container that runs `ipfs-cluster-service` by default. You can get it with:
 
 ```
-docker pull ipfs/ipfs-cluster:\<tag\>
+docker pull ipfs-cluster/ipfs-cluster:\<tag\>
 ```
 
 where `<tag>` is either `latest` or a tagged version of cluster (i.e. `v0.11.0`). The latest build is built from `master`.
@@ -50,7 +50,7 @@ The following requirements apply to the installation from source:
 In order to build and install IPFS Cluster follow these steps:
 
 ```sh
-git clone https://github.com/ipfs/ipfs-cluster.git
+git clone https://github.com/ipfs-cluster/ipfs-cluster.git
 cd ipfs-cluster
 export GO111MODULE=on # optional, if checking out the repository in $GOPATH.
 go install ./cmd/ipfs-cluster-service

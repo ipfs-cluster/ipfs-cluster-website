@@ -52,5 +52,5 @@ With the increased visibility into the queue of operations that have been reques
 
 ####  Where to go next
 
-Currently in [PR](https://github.com/ipfs/ipfs-cluster/pull/460), there is a stateless implementation of the pintracker interface. This implementation removes the duplication of state and potential for stale PinInfos in the pintracker itself. The stateless pintracker relies directly on the shared state provided by the consensus component and the state provided by the ipfs node.
+Currently in [PR](https://github.com/ipfs-cluster/ipfs-cluster/pull/460), there is a stateless implementation of the pintracker interface. This implementation removes the duplication of state and potential for stale PinInfos in the pintracker itself. The stateless pintracker relies directly on the shared state provided by the consensus component and the state provided by the ipfs node.
 The main benefit is for clusters with a very large number of pins, as the status of all those pins will not be held in memory. 

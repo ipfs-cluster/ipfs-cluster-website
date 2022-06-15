@@ -1,21 +1,20 @@
 # The ipfs-cluster website
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
-[![](https://img.shields.io/badge/project-ipfs-blue.svg?style=flat-square)](https://github.com/ipfs/ipfs)
-[![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](https://webchat.freenode.net/?channels=%23ipfs)
+[![Main project](https://img.shields.io/badge/project-ipfs-cluster-blue.svg?style=flat-square)](http://github.com/ipfs-cluster)
+[![Matrix channel](https://img.shields.io/badge/matrix-%23ipfs--cluster-blue.svg?style=flat-square)](https://app.element.io/#/room/#ipfs-cluster:ipfs.io)
 [![](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
-[![build status](https://img.shields.io/circleci/project/github/ipfs/ipfs-cluster-website/master.svg?style=flat-square)](https://circleci.com/gh/ipfs/ipfs-cluster-website)
 
-> Official website for ipfs-cluster http://ipfscluster.io
+> Official website sources for http://ipfscluster.io
 
-This repository contains the source code for the ipfs-cluster website available at http://ipfscluster.io. If you're looking for the open-source IPFS Cluster project itself, head to https://github.com/ipfs/ipfs-cluster.
+This repository contains the source code for the ipfs-cluster website available at http://ipfscluster.io. If you're looking for the open-source IPFS Cluster project itself, head to https://github.com/ipfs-cluster/ipfs-cluster.
 
 This project builds out a static site to explain ipfs-cluster, ready for deployment on ipfs. It uses `hugo` to glue the html together. It provides an informative, public-facing website. The most important things are the words, concepts and links it presents.
 
 ## Install
 
 ```sh
-git clone https://github.com/ipfs/ipfs-cluster-website
+git clone https://github.com/ipfs-cluster/ipfs-cluster-website
 ```
 
 ## Usage
@@ -74,12 +73,12 @@ The ipfs-cluster team.
 
 ## Contribute
 
-Please do! Check out the [issues](https://github.com/ipfs/ipfs-cluster-website/issues), or open a PR!
+Please do! Check out the [issues](https://github.com/ipfs-cluster/ipfs-cluster-website/issues), or open a PR!
 
-Check out our [contributing document](https://github.com/ipfs/ipfs-cluster/blob/master/contribute.md) for more information on how we work, and about contributing in general.
+Check out our [contributing document](https://github.com/ipfs-cluster/ipfs-cluster/blob/master/contribute.md) for more information on how we work, and about contributing in general.
 
 Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 
 ## License
 
-[MIT](LICENSE) © 2018 Protocol Labs Inc.
+[MIT](LICENSE) © 2022 Protocol Labs Inc.

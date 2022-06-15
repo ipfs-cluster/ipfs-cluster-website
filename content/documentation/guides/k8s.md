@@ -170,7 +170,7 @@ Next we define the `ipfs-cluster` container:
 
 ```yaml
         - name: ipfs-cluster
-          image: "ipfs/ipfs-cluster:latest"
+          image: "ipfs-cluster/ipfs-cluster:latest"
           imagePullPolicy: IfNotPresent
           command: ["sh", "/custom/entrypoint.sh"]
           envFrom:

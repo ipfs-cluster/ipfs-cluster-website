@@ -75,7 +75,7 @@ In the documentation, we have stressed the importance of the consensus data and 
 
 I'm also happy to announce that we now build and publish "snaps". [Snaps](https://snapcraft.io/) are "universal Linux packages designed to be secure, sandboxed, containerised applications isolated from the underlying system and from other applications". We are still testing them. For the moment we publish a new snap on every master build.
 
-You are welcome to check the [changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md) for a detailed list of other new features and bugfixes.
+You are welcome to check the [changelog](https://github.com/ipfs-cluster/ipfs-cluster/blob/master/CHANGELOG.md) for a detailed list of other new features and bugfixes.
 
 Our upcoming work will be focused on setting up a live IPFS Cluster and run it in a "production" fashion, as well as adding more capabilities to manage the internal cluster state while offline (migrate, export, import) etc.
 
@@ -89,7 +89,7 @@ We have now started the final quarter of 2017 with renewed energy and plans for 
 * To start looking into the handling of "big datasets", including IPLD integration
 * To provide users with a delightful experience with a focus in documentation and support
 
-The `v0.2.0` marks the start of this cycle and includes. Check the [changelog](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md) for a list of features and bugfixes. Among them, the new configuration options in the consensus component options will allow our users to experiment in environments with larger latencies than usual.
+The `v0.2.0` marks the start of this cycle and includes. Check the [changelog](https://github.com/ipfs-cluster/ipfs-cluster/blob/master/CHANGELOG.md) for a list of features and bugfixes. Among them, the new configuration options in the consensus component options will allow our users to experiment in environments with larger latencies than usual.
 
 Finally, coming up in the pipeline we have:
 
@@ -184,7 +184,7 @@ The next steps in Cluster will be wrapping up this milestone with failure detect
 
 ## 20170208 | @hsanjuan
 
-So much for commitments... I missed last friday's log entry. The reason is that I was busy with the implementation of [dynamic membership for IPFS Cluster](https://github.com/ipfs/ipfs-cluster/milestone/2).
+So much for commitments... I missed last friday's log entry. The reason is that I was busy with the implementation of [dynamic membership for IPFS Cluster](https://github.com/ipfs-cluster/ipfs-cluster/milestone/2).
 
 What seemed a rather simple task turned into a not so simple endeavour because modifying the peer set of Raft has a lot of pitfalls. This is specially if it is during boot (in order to bootstrap). A `peer add` operation implies making everyone aware of a new peer. In Raft this is achieved by committing a special log entry. However there is no way to notify of such event on a receiver, and such entry only has the peer ID, not the full multiaddress of the new peer (needed so that other nodes can talk to it).
 
@@ -192,7 +192,7 @@ Therefore whoever adds the node must additionally broadcast the new node and als
 
 Same as `peer add`, there is a `join` operation which facilitates bootstrapping a node and have it directly join a cluster. On shut down, each node will save the current cluster peers in the configuration for future use. A `join` operation can be triggered with the `--bootstrap` flag in `ipfs-cluster-service` or with the `bootstrap` option in the configuration and works best with clean nodes.
 
-The next days will be spent on implementing [replication factors](https://github.com/ipfs/ipfs-cluster/milestone/3), which implies the addition of new components to the mix.
+The next days will be spent on implementing [replication factors](https://github.com/ipfs-cluster/ipfs-cluster/milestone/3), which implies the addition of new components to the mix.
 
 ---
 
@@ -200,7 +200,7 @@ The next days will be spent on implementing [replication factors](https://github
 
 Friday is from now on the Captain Log entry day.
 
-Last week, was the first week out of three the current IPFS Cluster *sprintino* (https://github.com/ipfs/pm/issues/353). The work has focused on addressing ["rough edges"](https://github.com/ipfs/ipfs-cluster/milestone/1), most of which came from @jbenet's feedback (#14). The result has been significant changes and improvements to IPFS Cluster:
+Last week, was the first week out of three the current IPFS Cluster *sprintino* (https://github.com/ipfs/pm/issues/353). The work has focused on addressing ["rough edges"](https://github.com/ipfs-cluster/ipfs-cluster/milestone/1), most of which came from @jbenet's feedback (#14). The result has been significant changes and improvements to IPFS Cluster:
 
 * I finally nailed down the use of multicodecs in `go-libp2p-raft` and `go-libp2p-gorpc` and the whole dependency tree is now Gx'ed.
 * It seems for the moment we have settled for `ipfs-cluster-service` and `ipfs-cluster-ctl` as names for the cluster tools.
@@ -216,7 +216,7 @@ replacing an IPFS daemon by a Cluster peer, but also enables compositing cluster
 
 The changes above include a large number of API renamings, re-writings and re-organization of the code, but IPFS Cluster has grown more solid as a result.
 
-Next week, the work will focus on making it easy to [add and remove peers from a running cluster](https://github.com/ipfs/ipfs-cluster/milestone/2).
+Next week, the work will focus on making it easy to [add and remove peers from a running cluster](https://github.com/ipfs-cluster/ipfs-cluster/milestone/2).
 
 ---
 
