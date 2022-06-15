@@ -125,8 +125,8 @@ The `leave_on_shutdown` option allows a peer to remove itself from the *peerset*
 | &nbsp;&nbsp;&nbsp;&nbsp;`grace_period` | `"2m0s"` | New connections will not be dropped for at least this period. |
 | `}` |||
 |`dial_peer_timeout` | `"3s"` | How long to wait when dialing a cluster peer before giving up. |
-|`state_sync_interval`| `"10m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.StateSync). |
-|`pin_recover_interval`| `"1h0m0s"` | Interval between automatic triggers of [`RecoverAllLocal`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.RecoverAllLocal). This will automatically re-try pin and unpin operations that failed. |
+|`state_sync_interval`| `"10m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#Cluster.StateSync). |
+|`pin_recover_interval`| `"1h0m0s"` | Interval between automatic triggers of [`RecoverAllLocal`](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#Cluster.RecoverAllLocal). This will automatically re-try pin and unpin operations that failed. |
 |`replication_factor_min` | `-1` | Specifies the default minimum number of peers that should be pinning an item. -1 == all. |
 |`replication_factor_max` | `-1` | Specifies the default maximum number of peers that should be pinning an item. -1 == all. |
 |`monitor_ping_interval` | `"15s"` | Interval for sending a `ping` (used to detect downtimes). |
@@ -261,7 +261,7 @@ This is the component which provides the REST API implementation to interact wit
 |`cors_allow_credentials`|  `true` | CORS Configuration: value for `Access-Control-Allow-Credentials`. |
 |`cors_max_age`|  `"0s"` | CORS Configuration: value for `Access-Control-Max-Age`. |
 
-The REST API component automatically, and additionally, can expose the HTTP API as a libp2p service on the main libp2p cluster Host (which listens on port `9096`) (this happens by default on Raft clusters). Exposing the HTTP API as a libp2p service allows users to benefit from the channel encryption provided by libp2p. Alternatively, the API supports specifying a fully separate libp2p Host by providing `id`, `private_key` and `libp2p_listen_multiaddress`. When using a separate Host, it is not necessary for an API consumer to know the cluster secret. Both the HTTP and the libp2p endpoints are supported by the [API Client](https://godoc.org/github.com/ipfs/ipfs-cluster/api/rest/client) and by [`ipfs-cluster-ctl`](/documentation/ipfs-cluster-ctl/).
+The REST API component automatically, and additionally, can expose the HTTP API as a libp2p service on the main libp2p cluster Host (which listens on port `9096`) (this happens by default on Raft clusters). Exposing the HTTP API as a libp2p service allows users to benefit from the channel encryption provided by libp2p. Alternatively, the API supports specifying a fully separate libp2p Host by providing `id`, `private_key` and `libp2p_listen_multiaddress`. When using a separate Host, it is not necessary for an API consumer to know the cluster secret. Both the HTTP and the libp2p endpoints are supported by the [API Client](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster/api/rest/client) and by [`ipfs-cluster-ctl`](/documentation/ipfs-cluster-ctl/).
 
 
 #### `pinsvcapi`
@@ -446,7 +446,7 @@ The `badger` component configures the BadgerDB backend which is used to store th
 |`gc_sleep` | `"10s"` | How long to wait between GC rounds in the same GC cycle. Setting this to `"0s"` causes a single round to be run instead. |
 |`badger_options` | `{...}` | Some [BadgerDB specific options](https://godoc.org/github.com/dgraph-io/badger#Options) initialized to optimized defaults (per IPFS recommendations, see below). Setting `table_loading_mode` and `value_log_loading_mode` to `0` should help in memory constrained platforms (Raspberry Pis etc. with <1GB RAM) |
 
-The adjustments performed on top of the default badger options by default can be seen [in the badger configuration initialization code](https://github.com/ipfs/ipfs-cluster/blob/master/datastore/badger/config.go#L38-L49).
+The adjustments performed on top of the default badger options by default can be seen [in the badger configuration initialization code](https://github.com/ipfs-cluster/ipfs-cluster/blob/master/datastore/badger/config.go#L38-L49).
 
 #### `leveldb`
 

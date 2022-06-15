@@ -50,17 +50,14 @@ The following requirements apply to the installation from source:
 In order to build and install IPFS Cluster follow these steps:
 
 ```sh
-git clone https://github.com/ipfs/ipfs-cluster.git
+git clone https://github.com/ipfs-cluster/ipfs-cluster.git
 cd ipfs-cluster
-export GO111MODULE=on # optional, if checking out the repository in $GOPATH.
-go install ./cmd/ipfs-cluster-service
-go install ./cmd/ipfs-cluster-ctl
-go install ./cmd/ipfs-cluster-follow
+make install
 ```
 
 After the dependencies have been downloaded, `ipfs-cluster-service`, `ipfs-cluster-ctl` and `ipfs-cluster-follow` will be installed to your `$GOPATH/bin`.
 
-If you would rather have them built locally, use `go build ./cmd/<binary_name>` instead.
+If you would rather have them built locally, use `make build`.
 
 
 ## Building the docker image

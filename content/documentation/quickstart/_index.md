@@ -25,7 +25,7 @@ Download and uncompress the latest version `ipfs-cluster-ctl` for your platform 
 
 ## 2. Download the `docker-compose.yml` file
 
-[Download the docker-compose.yml](https://raw.githubusercontent.com/ipfs/ipfs-cluster/master/docker-compose.yml) and place it in the same directory as `ipfs-cluster-ctl`.
+[Download the docker-compose.yml](https://raw.githubusercontent.com/ipfs-cluster/ipfs-cluster/master/docker-compose.yml) and place it in the same directory as `ipfs-cluster-ctl`.
 
 ## 3. Start up the cluster
 

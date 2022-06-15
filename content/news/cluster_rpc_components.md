@@ -9,7 +9,7 @@ author = "@hsanjuan"
 
 In this post, I would like to perform a deep dive into one of the architectural features of IPFS Cluster which has turned out to be extremely useful for building a distributed application on top of libp2p: *Components*.
 
-Cluster *Components* are modules that implement different parts of Cluster. For example, the [`restapi` module](https://godoc.org/github.com/ipfs/ipfs-cluster/api/rest) implements the HTTP server that provides the API to interact with a Cluster peer. The [`ipfshttp` module](https://godoc.org/github.com/ipfs/ipfs-cluster/ipfsconn/ipfshttp) implements functionality to interact with the IPFS daemon. In the following diagram, we can see the multiple components that make up an IPFS Cluster peer:
+Cluster *Components* are modules that implement different parts of Cluster. For example, the [`restapi` module](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster/api/rest) implements the HTTP server that provides the API to interact with a Cluster peer. The [`ipfshttp` module](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster/ipfsconn/ipfshttp) implements functionality to interact with the IPFS daemon. In the following diagram, we can see the multiple components that make up an IPFS Cluster peer:
 
 <center><img alt="Components in an IPFS Cluster peer" title="Components in an IPFS Cluster peer" src="/cluster/diagrams/png/peer.png" width="500px" /></center>
 
@@ -22,12 +22,12 @@ When I started developing IPFS Cluster, some things were very clear:
 
 The approach to the first two items in that list is rather obvious and consists in dividing splitting the functionality in modules and giving them the right interfaces, something which the Go language supports very well. The last item however, prompted me to put RPC at the center of the design for every Cluster peer and every module playing a part in it. This meant:
 
-* Creating an internal [RPC API](https://godoc.org/github.com/ipfs/ipfs-cluster#RPCAPI), that every Cluster peer offers, exposing all of the functionality provided by the modules.
-* Defining a base [`Component` interface](https://godoc.org/github.com/ipfs/ipfs-cluster#Component) that every module would need to implement and which makes them RPC-powered (with an RPC client), as I'll explain below.
+* Creating an internal [RPC API](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#RPCAPI), that every Cluster peer offers, exposing all of the functionality provided by the modules.
+* Defining a base [`Component` interface](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#Component) that every module would need to implement and which makes them RPC-powered (with an RPC client), as I'll explain below.
 
 These RPC-enabled modules became what we call *Components* and their particularlity is being **RPC-first: any functionality not belonging to the component itself is accessed via RPC, even if it belongs to the same peer**.
 
-The main Component (called the [`Cluster` component](https://godoc.org/github.com/ipfs/ipfs-cluster#NewCluster)), ties all components together. It is in charge of running the RPC server for the Cluster peer and making an RPC client available to all components.
+The main Component (called the [`Cluster` component](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#NewCluster)), ties all components together. It is in charge of running the RPC server for the Cluster peer and making an RPC client available to all components.
 
 Thus, whenever a component needs to make use of functionality offered by its peer, or by another peer, the approach is the same (pseudocode):
 
@@ -35,13 +35,13 @@ Thus, whenever a component needs to make use of functionality offered by its pee
 rpcClient.Call(<peerID>, <method>, <argument>, <response>)
 ```
 
-This may seem counter intuitive at first. For example, when the `restapi` component receives a [`POST /pins/<cid>`](https://github.com/ipfs/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/api/rest/restapi.go#L590), it doesn't have access to the [`Cluster.Pin()`](https://godoc.org/github.com/ipfs/ipfs-cluster#Cluster.Pin) method offered by the main component directly. Instead, it needs to `rpcClient.Call("<localPeerID>", "Pin", cid, nil)`.
+This may seem counter intuitive at first. For example, when the `restapi` component receives a [`POST /pins/<cid>`](https://github.com/ipfs-cluster/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/api/rest/restapi.go#L590), it doesn't have access to the [`Cluster.Pin()`](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#Cluster.Pin) method offered by the main component directly. Instead, it needs to `rpcClient.Call("<localPeerID>", "Pin", cid, nil)`.
 
 However, it soon became clear that  this becomes really convenient when needing to orchestrate actions on several Cluster peers, as shown by several examples from the code base:
 
-* Broadcasting an action to the whole suddenly becomes extremely natural. For example, the [`Peers()` method (`peers ls`)](https://github.com/ipfs/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/cluster.go#L1089) action is just a parallel call to the `ID()` exposed by every peer via RPC. The response is an array of the individual answers provided by each peer.
-* Redirecting an action to the right actor becomes totally transparent. For example, our `raft` layer (`Consensus` component), needs to redirect all write actions to the Raft Leader. When a peer is performing one of these actions and sees the leader is a different peer, it just uses [RPC to trigger the same method in the right peer](https://github.com/ipfs/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/consensus/raft/consensus.go#L250).
-* There is no cumbersome code overhead when it comes to performing actions anywhere in the Cluster vs. performing them locally. For example, when adding content through Cluster, the peer receiving the upload will chunk the content and then will send the resulting blocks directly to the [`IPFSConnector.BlockPut` method in the peers allocated to receive that content](https://github.com/ipfs/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/adder/util.go#L18).
+* Broadcasting an action to the whole suddenly becomes extremely natural. For example, the [`Peers()` method (`peers ls`)](https://github.com/ipfs-cluster/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/cluster.go#L1089) action is just a parallel call to the `ID()` exposed by every peer via RPC. The response is an array of the individual answers provided by each peer.
+* Redirecting an action to the right actor becomes totally transparent. For example, our `raft` layer (`Consensus` component), needs to redirect all write actions to the Raft Leader. When a peer is performing one of these actions and sees the leader is a different peer, it just uses [RPC to trigger the same method in the right peer](https://github.com/ipfs-cluster/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/consensus/raft/consensus.go#L250).
+* There is no cumbersome code overhead when it comes to performing actions anywhere in the Cluster vs. performing them locally. For example, when adding content through Cluster, the peer receiving the upload will chunk the content and then will send the resulting blocks directly to the [`IPFSConnector.BlockPut` method in the peers allocated to receive that content](https://github.com/ipfs-cluster/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/adder/util.go#L18).
 
 *RPC-first* means that any submodule has full access to all of the Cluster functionality anywhere in the Cluster, for free (or almost, as we'll see below). As such, doing things anywhere in the Cluster is as natural as doing them in the local peer.
 
@@ -61,17 +61,17 @@ Another trick is that `Client` also offers a [`MultiCall` method](https://godoc.
 
 One of the advantages of using RPC for all inter-component communication is that we can very easily isolate the components for testing, by simply creating partial RPC server mocks which implement just the functionality required by the component (or the test).
 
-For example, our `maptracker` module, an implementation of the `PinTracker` component, uses a custom [RPC server implementation](https://github.com/ipfs/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/pintracker/maptracker/maptracker_test.go#L26) which provides the `IPFSPin` method. Depending on what is pinned, this server will simulate that IPFS takes a very long time to pin something, or that the request has been cancelled, or simply that the item gets pinned very quickly. Thus we can correctly test things like cancelling ongoing IPFS Pin requests when, for example, an Unpin request is received.
+For example, our `maptracker` module, an implementation of the `PinTracker` component, uses a custom [RPC server implementation](https://github.com/ipfs-cluster/ipfs-cluster/blob/b9485626d14b0d9bcf76ac5e645269df2f2e4e97/pintracker/maptracker/maptracker_test.go#L26) which provides the `IPFSPin` method. Depending on what is pinned, this server will simulate that IPFS takes a very long time to pin something, or that the request has been cancelled, or simply that the item gets pinned very quickly. Thus we can correctly test things like cancelling ongoing IPFS Pin requests when, for example, an Unpin request is received.
 
-Mocks are always an option when testing, specially when Go code makes correct use of interfaces, but in the case of the RPC we don't need to mock every method of the RPC API (as we would have to do if we were creating a mock implementation to satisfy an interface), but just those which we are going to use. Even so, many tests benefit from a common [dummy RPC server implementation](https://github.com/ipfs/ipfs-cluster/blob/master/test/rpc_api_mock.go#L31).
+Mocks are always an option when testing, specially when Go code makes correct use of interfaces, but in the case of the RPC we don't need to mock every method of the RPC API (as we would have to do if we were creating a mock implementation to satisfy an interface), but just those which we are going to use. Even so, many tests benefit from a common [dummy RPC server implementation](https://github.com/ipfs-cluster/ipfs-cluster/blob/master/test/rpc_api_mock.go#L31).
 
 ### Re-implementing components
 
-The Component architecture has made it easy to provide alternative or replacement implementations for components. One of the examples is the [`PinTracker` component](https://godoc.org/github.com/ipfs/ipfs-cluster#PinTracker), which triggers, cancels and tracks errors from requests to the `IPFSConnector` component as new pins are tracked in the system.
+The Component architecture has made it easy to provide alternative or replacement implementations for components. One of the examples is the [`PinTracker` component](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#PinTracker), which triggers, cancels and tracks errors from requests to the `IPFSConnector` component as new pins are tracked in the system.
 
-This component had a [`maptracker` implementation](https://godoc.org/github.com/ipfs/ipfs-cluster/pintracker/maptracker), which stores all the information in memory. We recently added an [`stateless` implementation](https://godoc.org/github.com/ipfs/ipfs-cluster/pintracker/stateless) which relies on the IPFS daemon pinset as well as the shared state to piece together the PinTracker state, keeping track only of errors, and thus reducing memory usage with really big pinsets.
+This component had a [`maptracker` implementation](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster/pintracker/maptracker), which stores all the information in memory. We recently added an [`stateless` implementation](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster/pintracker/stateless) which relies on the IPFS daemon pinset as well as the shared state to piece together the PinTracker state, keeping track only of errors, and thus reducing memory usage with really big pinsets.
 
-We also re-implemented the [`PeerMonitor` component](https://godoc.org/github.com/ipfs/ipfs-cluster#PeerMonitor), using [Pubsub](https://godoc.org/github.com/ipfs/ipfs-cluster/monitor/pubsubmon) instead of RPC calls to broadcast peer metrics.
+We also re-implemented the [`PeerMonitor` component](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#PeerMonitor), using [Pubsub](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster/monitor/pubsubmon) instead of RPC calls to broadcast peer metrics.
 
 Because components share the same RPC API and must implement the same interfaces, different peers in a Cluster may potentially run with different implementations of the same component. 
 

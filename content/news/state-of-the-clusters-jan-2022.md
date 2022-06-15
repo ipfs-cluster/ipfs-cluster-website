@@ -13,7 +13,7 @@ allocation and replication behind the [NFT.storage](https://nft.storage)
 platform.
 
 We have started 2022 with a
-[new release (v0.14.4)](https://github.com/ipfs/ipfs-cluster/blob/master/CHANGELOG.md). [A few months ago](../0.13.3_nft_storage/),
+[new release (v0.14.4)](https://github.com/ipfs-cluster/ipfs-cluster/blob/master/CHANGELOG.md). [A few months ago](../0.13.3_nft_storage/),
 we were happy to report that we were tracking around 2 million pins.
 
 Today, cluster is tracking over **25 million pins** for NFT.storage in a
