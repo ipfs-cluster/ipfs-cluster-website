@@ -1,16 +1,17 @@
 +++
-title = "Tracing and Monitoring"
+title = "Monitoring and tracing"
 weight = 90
 aliases = [
-    "/documentation/opencensus"
+    "/documentation/opencensus",
+	"/documentation/guides/opencensus/"
 ]
 +++
 
-# Tracing and monitoring
+# Monitoring and tracing
 
-IPFS Cluster supports exposing a Prometheus endpoint for metric-scraping as well as submitting trace information to Jaeger.
+IPFS Cluster can expose a Prometheus endpoint for metric-scraping and can also submit code tracing information to Jaeger.
 
-These are configured in the `observations` section of the configuration and can be enabled from there or by starting a cluster peer with:
+These are configured in the `observations` section of the [configuration](../../reference/configuration/#the-observations-section) and can be enabled from there, or by starting a cluster peer with:
 
 ```sh
 ipfs-cluster-service daemon --stats --tracing

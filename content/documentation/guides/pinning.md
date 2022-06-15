@@ -116,8 +116,22 @@ We **consider a `pin add` operation has been successful when the cluster-pinning
 The process can be summarized as a follows:
 
 1. A pin request arrives including certain options.
-2. Given the options (particularly replication factors), a list of current cluster peers is selected as "allocations" for that pin, based on the allocator configuration and the metrics associated to each peer. i.e. the simplest is to make the list ordered by based on how much free space is available on each peer.
+2. The *allocation process* (see below) chooses which peers should be pinning the content, based on replication factors and metrics.
 3. These and other things result in a pin object which is committed and broadcasted to everyone (the how depends on the [consensus component](/documentation/guides/consensus)).
+
+The ***allocation process*** is in charge of producing the final allocations for a pin (list of cluster peer ids), that are attached to the pin object. It strives to select the best places to pin things. The process takes several inputs:
+
+  * The pin min and max replication factors and user-set allocations.
+  * The [metrics](../metrics) broadcasted by all the peers in the cluster.
+  * The configuration of the allocator (`allocate_by`).
+  * The existing allocations if the pin already existed.
+
+In general, the process consists in building a priority list of which peers should be pinning a CID and selecting up to `replication_factor_max` from it. The order in this list depends on the "allocator" component and the metrics that it is configured to use. In order for a peer in the cluster to be considered as an allocation, all the necessary metrics need to be recent (not expired).
+
+For example, if `allocate_by` is set to `[ "freespace" ]`, the peers are ordered by the value of this metric and the ones with most `freespace` are selected as allocations. If `allocate_by` is set to `[ "tag:region", "freespace" ]`, then we will group peers by their "region" and then sort them by their "freespace", and then sort the regions by their aggregate free-space. The first peer will be the peer with most free-space in the region with most aggregated free-space. The second peer, however, will come from the second region with most free-space and so on. This results in pins being allocated to peers in different regions. In general the process can be seen as putting peers into buckets of different sizes, which have additional buckets inside, the selection process works by selecting peers from as many different buckets as possible.
+
+There are some exceptions to how the allocations are determined: if a pin already exists and has allocations, they are not changed unless those allocated peers have become unavailable causing the `min_replication_factor` limit to be crossed. Similarly, if a pin is already allocated to some peers and we are changing the replication factor, the previously allocated peers are respected. If a user has specified manual allocations when pinning, those peers are given priority regardless of their metric values, as long as they are available (otherwise they are ignored).
+
 
 ### The IPFS-pinning stage
 

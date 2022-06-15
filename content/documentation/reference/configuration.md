@@ -71,6 +71,8 @@ The file looks like:
   },
   "informer": {
     "disk": {...},
+	"tags": {...},
+	"pinqueue": {...},
   },
   "observations": {
     "metrics": {...},
@@ -362,6 +364,15 @@ The `tags` informer issues metrics based on user-provided tags. These "metrics" 
 |`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
 |`tags` | `{"group": "default"}` | A simple "tag_name: tag_value" object to specify the tags associated to this peer. |
 
+#### `pinqueue`
+
+The `pinqueue` informer collects the number of pins in the pintracker's pinning queue. It can be part of the `allocate_by` option in the balanced allocator to deprioritize pinning on peers with big queues. The `weight_bucket_size` option specifies by what amount the actual number of queued items should be divided. i.e If two peers have 53 and 58 items queued and `weight_bucket_size` is 1, then the peer with 58 items queued will be deprioritized by the allocator over the peer with 53 items. However if `weight_bucket_size` is 10, both peers will have the same weight (5), and thus prioritization will depend on other metrics (i.e. freespace).
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`metric_ttl` | `"30s"` | Time-to-Live for metrics provided by this informer. This will trigger a new metric reading at TTL/2 intervals. |
+|`weight_bucket_size` | `100000` | The allocator will use the actual pin queue size divided by this value when comparing `pinqueue` metrics. |
+
 
 #### `numpin`
 
@@ -396,8 +407,8 @@ This can be extended to subgroups: Assuming a cluster made of 6 peers, 2 per
 region (per a "region" tag), and one per availability zone (per an "az" tag),
 configuring the allocator with `["tag:region", "tag:az", "freespace"]` will
 ensure that a pin with replication factor = 3 lands in the 3 different
-regions, in availability zone with most available and in the peer in that zone with
-most available space.
+regions, in availability zone with most available aggregated space and in the
+peer in that zone with most available space.
 
 
 |Key|Default|Description|

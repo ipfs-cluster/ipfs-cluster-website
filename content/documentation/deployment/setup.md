@@ -157,11 +157,17 @@ The [peering](https://github.com/ipfs/go-ipfs/blob/master/docs/config.md#peering
 
 ## IPFS Cluster configuration
 
-The `service.json` configuration file contains a few options which should be tweaked according to your environment, capacity and requirements.
+First, it is important to ensure that the `ipfs-cluster-service` daemon can operate with ample "file descriptor count" limits. This can be done by adding `LimitNOFILE=infinity` to systemd service unit files (in the `[Service]` section), or by ensuring ulimits are correctly set. The number of file descriptors used by the daemon is proportional to:
+
+  * The number of open badger tables and write-ahead log files (badger configuration)
+  * The number of items being pinned in parallel (pintracker configuration)
+  * The number of ongoing add requests.
+
+Additionally, the `service.json` configuration file contains a few options which should be tweaked according to your environment, capacity and requirements.
 
 ### `cluster` section 
 
-When dealing with large amount of pins, you may further increase the `cluster.pin_recover_interval`. This operation will perform checks for every pin in the pinset and will trigger `ipfs pin ls --type=recursive` calls, which may be slow when the number of pinned items is huge. For example, for multimillion pinsets, this should be set to 2+ hours.
+When dealing with large amount of pins, you may further increase the `cluster.pin_recover_interval`. This operation will perform checks for every pin in the pinset and will trigger `ipfs pin ls --type=recursive` calls, which may be slow when the number of pinned items is huge. For example, for multimillion pinsets, this should be set at least to 2+ hours.
 
 Consider increasing the `cluster.monitor_ping_interval` and `monitor.*.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and potentially trigger re-pins if `cluster.disable_repinning` is set to `false`). Re-pinning might be a very expensive in your cluster. Thus, you may want to set this to be long enough. You can use the same value for both. In general, we recommend leaving repinning disabled, although when enabled, `replication_factor_max` and `replication_factor_min` allow some leeway: i.e. a 2/3 will allow one peer to be down without re-allocating the content assigned to it somewhere else.
 
@@ -181,7 +187,7 @@ For very large pinsets, increase `raft.snapshot_interval`. If your cluster pins 
 
 These options only apply when running crdt-based clusters.
 
-Reducing the `crdt.rebroadcast_interval` (default `1m`) to a few seconds should make new peers start downloading the state faster, and badly connected peers should have more options to receive bits of information, at the expense of increased pubsub chatter in the network. It can be reduced to 10 seconds for clusters under 10 peers.
+Reducing the `crdt.rebroadcast_interval` (default `1m`) to a few seconds should make new peers start downloading the state faster, and badly connected peers should have more options to receive bits of information, at the expense of increased pubsub chatter in the network. It can be reduced to 10 seconds for clusters under 10 peers, but in general we recommend to leave it at 1 minute.
 
 Most importantly, the `batching` configuration allows to increase CRDT throughput by orders of magnitude by batching multiple pin updates in a single delta (at the cost of delays). For example, you can let clusters only commit new pins every minute, or when there are 500 in a batch as follows:
 
@@ -203,28 +209,44 @@ The `stateless` pin tracker handles two pinning queues: a priority one and a "no
  "pin_tracker": {
     "stateless": {
       "max_pin_queue_size": 200000000,
-      "concurrent_pins": 25,
+      "concurrent_pins": 10,
       "priority_pin_max_age" : "24h",
       "priority_pin_max_retries" : 3
     }
   },
 ```
 
+The right value for `concurrent_pins` depends on the size of the pins and the performance of IPFS to both fetch and write them to disk. We have observed that values between `10-20` tend to work better than larger ones (which may cause too much contention).
+
 ### `ipfs_connector` section
 
 Pin requests performed by cluster time out based on the last blocked fetched by IPFS (not on the total length of the pin requests). Therefore the `pin_timeout` setting can be set very low: 20 seconds will ask cluster to give up a pin if no block can be fetched for 20 seconds. Lower pin timeouts let cluster churn through pinning queues faster. Pin errors will be retried later.
 
-### `restapi` and `pinsvcapi` sections
+The `ipfs_request_timeout` is set to a conservative `5m` value by default. However, on pinsets with millions of items this might be too low and increasing it is necessary.
 
-Adjust the `api.restapi/pinsvcapi` network timeouts depending on your API usage. This may protect against misuse of the API or DDoS attacks. Note that there are usually client-side timeouts that can be modified too if you control the clients.
+### `api` section
 
-The API can be disabled by removing the configuration section.
+Adjust the `api.restapi/pinsvcapi/ipfsproxy` network timeouts depending on your API usage. This may protect against misuse of the API or DDoS attacks. Note that there are usually client-side timeouts that can be modified too if you control the clients.
 
-### `ipfshttp` section
+Each of the APIs can be disabled by just removing their configuration from the `api` section.
 
-Adjust the `ipfs_connector.ipfshttp` network timeouts if you are using the ipfs proxy in the same fashion as the `restapi`.
+### `informer` section
 
-The Proxy API can be disabled by removing the configuration section.
+On big clusters with many pins/peers/storage size, you can increase the `metric_ttl` for **all informers** to 5 or 10 minutes, as there is no need to have extremely fresh freespace metrics etc. This means that peers will be producing a stable set of allocations for new pins as long as the metrics are not refreshed, which allows the rest of the peers to "rest", giving some space to deal with other tasks like pin recovery.
+
+If you want to geo-distribute your pins, setup the `tags` allocator with a `region` tag and the right value for every peer.
+
+The `pinqueue` allocator should be set with a high `weight_bucket_size` adjusted to how big it is acceptable for a pinning queue to grow before we start pinning somewhere else. The default `weight_bucket_size` is 100k, which is a very high number. This means that all peers under 100k items in the queue are considered equal with regards to this metric, allowing the `freespace` metric to be the deciding factor for pinning allocations (when things are so configured in the `balanced` allocator section).
+
+### `allocator` section
+
+The `balanced` allocator can help distribute pins and load effectively. We recommend to set `allocate_by` to something like:
+
+```
+[ "tag:region", "pinqueue", "freespace" ]
+```
+
+Given a replication factor of 3, and a cluster with peers in 3 regions correctly configured, this will place each pin replica in 1 of the regions, choosing the peer with most free-space in that region among those with the lowest queue weight ("pin queue size / weight_bucket_size"). You can also add additional `tag` metrics (i.e `[ "tag:region", "tag:availability_zone", ...]`). See the [pinning guide](../../guides/pinning) for more information on how pinning process happens.
 
 ### `datastore` section
 
