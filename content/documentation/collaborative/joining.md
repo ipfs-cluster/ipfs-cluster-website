@@ -22,6 +22,9 @@ ipfs-cluster-follow <clusterName> run --init <template-configuration-url>
 
 If you don't have or don't know a URL for your configuration, you can ask for it to whoever runs the trusted peers for that cluster. If you know the right pieces of information (see below), you can build your own configuration, add it to IPFS, and use the gateway URL for it `http://127.0.0.1:8080/ipfs/Qmhash...`. You can also run `ipfs-cluster-follow <clusterName> init` with a random url and then replace the generated `service.json` with your own.
 
+<div class="tipbox tip">You can customize and ovewrite any configuration options set in the [remote] template using environment variables as explained in the <a href="../../reference/configuration/#using-environment-variables-to-overwrite-configuration-values">configuration reference</a>.</div>
+
+
 ## Finding collaborative clusters to join
 
 Visit [collab.ipfscluster.io](https://collab.ipfscluster.io) for a list of collaborative clusters that you can join.
