@@ -135,6 +135,7 @@ The `leave_on_shutdown` option allows a peer to remove itself from the *peerset*
 |`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset and detect if this peer was removed from the cluster (and shut-down). |
 |`mdns_interval` | `"10s"` | Setting it to `"0"` disables mDNS. Setting to a larger value enables mDNS but no longer controls anything. |
 |`enable_relay_hop` | `true` | Let the cluster peer acts as relay for other peers that are not reachable directly. |
+|`pin_only_on_trusted_peers` | `false` | The cluster peer will only allocate pins to trusted peers (as configured) |
 |`disable_repinning` | `true` | Do not automatically re-pin all items allocated to a peer that becomes unhealthy (down). |
 |`follower_mode` | `false` | Peers in follower mode provide useful error messages when trying to perform actions like pinning. |
 |`peer_addresses` | `[]` | Full peer multiadresses for peers to connect to on boot (similar to manually added entries to the `peerstore` file. |
