@@ -21,7 +21,7 @@ For offline cluster pinset management check the [Data, backups and recovery sect
 
 `crdt` is the default implementation of the Cluster's "consensus component" based on an ipfs-powered distributed key-value store. It:
 
-* Publishes updates to the pinset via libp2p-pubsub (GossipSub), locates and exchange data via [ipfs-lite](https://github.com/ipfs/ipfs-lite) (dht+bitswap).
+* Publishes updates to the pinset via libp2p-pubsub (GossipSub), locates and exchange data via [ipfs-lite](https://github.com/hsanjuan/ipfs-lite) (dht+bitswap).
 * Stores all persistent data on a local BadgerDB datastore in the `.ipfs-cluster/badger` folder.
 * Uses Merkle-CRDTs to obtain eventual consistency using [go-ds-crdt](https://github.com/ipfs/go-ds-crdt). These are append-only, immutable Merkle-DAGs. They cannot be compacted on normal conditions and new peers must discover and traverse them from the root, which might be a slow operation if the DAG is very deep.
 * Does not need to perform any peerset management. Every peer for which we received "pings" via pubsub is considered a member of the Cluster until their last metric expires.
