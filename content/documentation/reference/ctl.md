@@ -35,7 +35,7 @@ $ ipfs-cluster-ctl peers ls                                                 # li
 $ ipfs-cluster-ctl peers rm <peerid>                                        # remove a cluster peer
 $ ipfs-cluster-ctl add myfile.txt http://domain.com/file.txt                # adds content to the cluster
 $ ipfs-cluster-ctl pin add Qma4Lid2T1F68E3Xa3CpE6vVJDLwxXLD8RfiB9g1Tmqp58   # pins a CID in the cluster
-$ ipfs-cluster-ctl pin rm Qma4Lid2T1F68E3Xa3CpE6vVJDLwxXLD8RfiB9g1Tmqp58    # unpins a CID from the clustre
+$ ipfs-cluster-ctl pin rm Qma4Lid2T1F68E3Xa3CpE6vVJDLwxXLD8RfiB9g1Tmqp58    # unpins a CID from the cluster
 $ ipfs-cluster-ctl pin ls [CID]                                             # list tracked CIDs (shared state)
 $ ipfs-cluster-ctl status [CID]                                             # list current status of tracked CIDs (local state)
 $ ipfs-cluster-ctl sync Qma4Lid2T1F68E3Xa3CpE6vVJDLwxXLD8RfiB9g1Tmqp58      # re-sync seen status against status reported by the IPFS daemon
