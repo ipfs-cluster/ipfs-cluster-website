@@ -21,6 +21,8 @@ The requests that are intercepted are the following:
 * `/pin/ls`: the proxy lists the pinned items in cluster.
 * `/repo/stat`: the proxy responds with aggregated `/repo/stat` from all connected IPFS daemons.
 * `/repo/gc`: the proxy performs garbage collection on all IPFS daemons and responds with collected CIDs.
+* `/block/put`: the proxy uploads the blocks to the local IPFS daemon but if `?pin=true` is set, then it performs a cluster recursive pin for each of them.
+* `/dag/put`: the proxy uploads the DAG nodes to the local IPFS daemon but if `?pin=true` is set, then it performs a cluster recursive pin for each of them.
 
 Responses from the proxy mimic the IPFS daemon responses, thus allowing to drop-in this endpoint in places where the IPFS API was used before. For example, you can use the `go-ipfs` CLI as follows:
 

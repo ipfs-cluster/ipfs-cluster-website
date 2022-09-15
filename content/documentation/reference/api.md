@@ -25,6 +25,13 @@ As additional resources:
 
 The above should be enough to find out about the existing endpoints, their methods and current supported options.
 
+### Authentication
+
+The REST API supports both Basic and JWT token authentication:
+
+* Basic Authentication credentials are stored in `service.json` configuration file (`basic_auth_credentials`).
+* JWT token authentication works by sending requests with an `Authorization: Bearer <JWT-token>` header. The access token can be obtained by querying the `POST /token` endpoint. In order to obtain an access token, the user needs to be part of `basic_auth_credentials` and have an associated password. The JWT token is tied to the user requesting it and signed using their password. The only way to revoke JWT tokens right now is to change or remove the original Basic Auth credentials, which need an ipfs-cluster-service restart.
+
 ### The `/add/` endpoint
 
 The `/add` endpoint can be use to upload content to IPFS via the Cluster API. The Cluster peer is in charge of building or extracting the IPLD DAG, which is sent **block by block** to the cluster peers where it should be pinned, which in turn perform `block/put` calls to the IPFS daemon they are connected to. At the end of the process, a Cluster-Pin happens and with it the pinning operation arrives to the IPFS daemons which should already have all the needed blocks.
@@ -63,9 +70,10 @@ As a final tip, this table provides a quick summary of methods available.
 |`DELETE`    |`/pins/{ipfs\|ipns\|ipld}/<path>`|Unpin using an IPFS path|
 |`POST`      |`/pins/{cid}/recover` |Recover a CID|
 |`POST`      |`/pins/recover`       |Recover all pins in the receiving Cluster peer|
-|`GET`       |`/monitor/metrics`    |  Get a list of metric types known to the peer |
-|`GET`       |`/monitor/metrics/{metric}`    |  Get a list of current metrics seen by this peer |
-|`GET`       |`/health/alerts`       |  Display a list of alerts (metric expiration events) |
-|`GET`       |`/health/graph`       |  Get connection graph |
-|`GET`       |`/health/alerts`       |  Get connection graph |
-|`POST`      |`/ipfs/gc`            |  Perform GC in the IPFS nodes |
+|`GET`       |`/monitor/metrics`    |Get a list of metric types known to the peer |
+|`GET`       |`/monitor/metrics/{metric}`    |Get a list of current metrics seen by this peer |
+|`GET`       |`/health/alerts`       |Display a list of alerts (metric expiration events) |
+|`GET`       |`/health/graph`        |Get connection graph |
+|`GET`       |`/health/alerts`       |Get connection graph |
+|`POST`      |`/ipfs/gc`             |Perform GC in the IPFS nodes |
+|`POST`      |`/token`               |Generate a new JWT token for current user |

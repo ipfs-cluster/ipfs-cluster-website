@@ -431,6 +431,23 @@ The `metrics` component configures the OpenCensus metrics endpoint for scraping 
 |`prometheus_endpoint` | `/ip4/127.0.0.1/tcp/8888` | Publish collected metrics to endpoint for scraping by Prometheus. |
 |`reporting_interval` | `"2s"` | How often to report on collected metrics. |
 
+The cluster peer exports the following cluster-specific metric, along with standard Go metrics:
+
+|Name|Description|
+|:---|:----------|
+|`pins`| Total number of cluster pins|
+|`pins_pin_queued`|Current number of pins queued for pinning|
+|`pins_pinning`|Current number of pins currently pinning|
+|`pins_pin_error`|Current number of pins in pin_error state|
+|`pins_ipfs_pins`|Current number of pins in the local IPFS daemon|
+|`pins_pin_add`|Total number of pin requests made to IPFS|
+|`pins_pin_add_errors`|Total number of errors in pin requests made to IPFS|
+|`blocks_put`|Total number of block/put requests made to IPFS (i.e. when adding via cluster)|
+|`blocks_added_size`|Total size added to IPFS in bytes (when adding via cluster)|
+|`blocks_added`|Total number of blocks written to IPFS (when adding via cluster)|
+|`blocks_put_errors`|Total number of block/put requests errors|
+|`informer_disk`|The metric value weight issued by the disk informer (usually corresponds to free-space in bytes)|
+
 #### `tracing`
 
 The `tracing` component configures the Jaeger tracing client for use by OpenCensus.
