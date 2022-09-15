@@ -12,6 +12,13 @@ aliases = [
 
 Monaparty maintains Helm templates for cluster deployment at https://github.com/monaparty/helm-ipfs-cluster
 
+## Kubernetes Operator
+
+A Kubernetes [Operator]("https://kubernetes.io/docs/concepts/extend-kubernetes/operator/") written by a partnership
+between Protocol Labs and Red Hat. The project is still in active development and should not be used for production
+use cases. If this is something you would like to try, head over to the [documentation](https://ipfs-operator.readthedocs.io/en/latest/)
+or [github](https://github.com/redhat-et/ipfs-operator)
+
 ## Kustomize
 
 Beware we have not updated the following instructions in a while. They show how to run a simple Cluster on Kubernetes using [Kustomize](https://kustomize.io).
