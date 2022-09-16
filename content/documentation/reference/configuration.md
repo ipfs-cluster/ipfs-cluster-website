@@ -307,7 +307,7 @@ This is the default and only IPFS Connector implementation. It provides a gatewa
 |`listen_multiaddress` | `"/ip4/127.0.0.1/tcp/9095"` | IPFS Proxy listen multiaddress. |
 |`node_multiaddress` | `"/ip4/127.0.0.1/tcp/5001"` | The IPFS daemon HTTP API endpoint. This is the daemon that the peer uses to pin content. |
 |`connect_swarms_delay` | `"30s"` | On start, the Cluster Peer will run `ipfs swarm connect` to the IPFS daemons of others peers. This sets the delay after starting up. |
-|`ipfs_request_timeout` | `"5m0s"` | Specifies a timeout on general requests to the IPFS daemon for requets without a specific timeout option. |
+|`ipfs_request_timeout` | `"5m0s"` | Specifies a timeout on general requests to the IPFS daemon for requests without a specific timeout option. |
 |`repogc_timeout` | `"24h"` | Specifies a timeout on `/repo/gc` operations. |
 |`pin_timeout` | `"2m0s"` | Specifies the timeout for `pin/add` which starts from the last block received for the item being pinned. Thus items which are being pinned slowly will not be cancelled even if they take more than 24h. |
 |`unpin_timeout` | `"3h0m0s"` | Specifies the timeout for `pin/rm` requests to the IPFS daemon. |
@@ -430,6 +430,23 @@ The `metrics` component configures the OpenCensus metrics endpoint for scraping 
 |`enable_stats` | `false` | Whether metrics should be enabled. |
 |`prometheus_endpoint` | `/ip4/127.0.0.1/tcp/8888` | Publish collected metrics to endpoint for scraping by Prometheus. |
 |`reporting_interval` | `"2s"` | How often to report on collected metrics. |
+
+The cluster peer exports the following cluster-specific metric, along with standard Go metrics:
+
+|Name|Description|
+|:---|:----------|
+|`pins`| Total number of cluster pins|
+|`pins_pin_queued`|Current number of pins queued for pinning|
+|`pins_pinning`|Current number of pins currently pinning|
+|`pins_pin_error`|Current number of pins in pin_error state|
+|`pins_ipfs_pins`|Current number of pins in the local IPFS daemon|
+|`pins_pin_add`|Total number of pin requests made to IPFS|
+|`pins_pin_add_errors`|Total number of errors in pin requests made to IPFS|
+|`blocks_put`|Total number of block/put requests made to IPFS (i.e. when adding via cluster)|
+|`blocks_added_size`|Total size added to IPFS in bytes (when adding via cluster)|
+|`blocks_added`|Total number of blocks written to IPFS (when adding via cluster)|
+|`blocks_put_errors`|Total number of block/put requests errors|
+|`informer_disk`|The metric value weight issued by the disk informer (usually corresponds to free-space in bytes)|
 
 #### `tracing`
 

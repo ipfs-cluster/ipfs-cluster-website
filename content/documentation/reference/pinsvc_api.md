@@ -1,0 +1,24 @@
++++
+title = "Pinning Service API"
+weight = 15
+aliases = [
+]
++++
+
+## IPFS Pinning Service API
+
+IPFS Cluster peers include an API component which implements the [IPFS Pinning Service API](https://ipfs.github.io/pinning-services-api-spec/).
+
+This API component is experimental and it attempts to have full compliance with the Spec, but it is important to keep in mind a number of caveats:
+
+* IPFS Cluster does not support tracking the same CID multiple times (i.e. once per user). That means that pinning the same CID multiple times will always result in the same "request ID". In fact, **the request ID is the CID**.
+* IPFS Cluster stores the pinset in an unordered key-value store where the keys are CIDs. That means that pagination and filtering features of this API have partial support: pagination is not supported. Anything else will degrade badly on very large pinsets: for example, filtering by `before` will need to list everything in the pinset and select only the things that match, which can be a very expensive operation.
+* The Pinning Service API specifies that pin lists must be returned as a single JSON-slice. Cluster will build the response in-memory until it can be sent to the user, which can cause large memory bubbles when the list of pins is very large (Pinning Service API does not support streaming as we do it in the REST API).
+
+Other than that, adding, getting and deleting pins should be well-supported operations with little overhead versus the REST API, and with very similar semantics.
+
+### Authentication
+
+Per the Spec, the Pinning Service API must support JWT token authentication. JWT tokens can be generated querying the `POST /token` endpoint. The authorization flow is shared with the [REST API](api). This means that Basic Authentication is supported as well, and that any user using JWT tokens must have an entry and a password associated to it in the `basic_auth_credentials` setting for the `pinsvc` API section.
+
+The JWT token is tied to the user requesting it and signed using their password. The only way to revoke JWT tokens right now is to change or remove the original Basic Auth credentials, which need an ipfs-cluster-service restart.

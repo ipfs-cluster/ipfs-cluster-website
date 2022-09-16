@@ -18,12 +18,19 @@ Running `ipfs-cluster-ctl --enc=json --debug <command>` will print information a
 
 As additional resources:
 
-* All the available API endpoints and their parametres and object formats are supported and documented by the [Go API Client](https://pkg.go.dev/github.com/ipfs-cluster/ipfs-cluster/api/rest/client?tab=doc#Client).
+* All the available API endpoints and their parameters and object formats are supported and documented by the [Go API Client](https://pkg.go.dev/github.com/ipfs-cluster/ipfs-cluster/api/rest/client?tab=doc#Client).
 * The [API source code is here](https://github.com/ipfs-cluster/ipfs-cluster/blob/master/api/rest/restapi.go) (the `routes` method is a good place to start).
 * There are two Javascript client libraries: [js-cluster-client](https://github.com/ipfs-cluster/js-cluster-client) (old) and [NFT.storage's cluster client](https://github.com/nftstorage/ipfs-cluster) (new).
 * The request body for the `/add` endpoint is a bit special, but it works just like the IPFS one. See the section below.
 
 The above should be enough to find out about the existing endpoints, their methods and current supported options.
+
+### Authentication
+
+The REST API supports both Basic and JWT token authentication:
+
+* Basic Authentication credentials are stored in `service.json` configuration file (`basic_auth_credentials`).
+* JWT token authentication works by sending requests with an `Authorization: Bearer <JWT-token>` header. The access token can be obtained by querying the `POST /token` endpoint. In order to obtain an access token, the user needs to be part of `basic_auth_credentials` and have an associated password. The JWT token is tied to the user requesting it and signed using their password. The only way to revoke JWT tokens right now is to change or remove the original Basic Auth credentials, which need an ipfs-cluster-service restart.
 
 ### The `/add/` endpoint
 
@@ -63,9 +70,10 @@ As a final tip, this table provides a quick summary of methods available.
 |`DELETE`    |`/pins/{ipfs\|ipns\|ipld}/<path>`|Unpin using an IPFS path|
 |`POST`      |`/pins/{cid}/recover` |Recover a CID|
 |`POST`      |`/pins/recover`       |Recover all pins in the receiving Cluster peer|
-|`GET`       |`/monitor/metrics`    |  Get a list of metric types known to the peer |
-|`GET`       |`/monitor/metrics/{metric}`    |  Get a list of current metrics seen by this peer |
-|`GET`       |`/health/alerts`       |  Display a list of alerts (metric expiration events) |
-|`GET`       |`/health/graph`       |  Get connection graph |
-|`GET`       |`/health/alerts`       |  Get connection graph |
-|`POST`      |`/ipfs/gc`            |  Perform GC in the IPFS nodes |
+|`GET`       |`/monitor/metrics`    |Get a list of metric types known to the peer |
+|`GET`       |`/monitor/metrics/{metric}`    |Get a list of current metrics seen by this peer |
+|`GET`       |`/health/alerts`       |Display a list of alerts (metric expiration events) |
+|`GET`       |`/health/graph`        |Get connection graph |
+|`GET`       |`/health/alerts`       |Get connection graph |
+|`POST`      |`/ipfs/gc`             |Perform GC in the IPFS nodes |
+|`POST`      |`/token`               |Generate a new JWT token for current user |
