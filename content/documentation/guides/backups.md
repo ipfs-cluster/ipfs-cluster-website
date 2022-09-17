@@ -56,7 +56,7 @@ When using Raft, the `raft` folder will be renamed as `raft.old.X`. Several copi
 
 The only content that IPFS Cluster stores and which is unique to a cluster peer is the pinset. IPFS content is stored by IPFS. Usually, if you are running a cluster, there will be several peers replicating the content and the cluster pinset so that when one or several peers crash, are destroyed, disappear or simply fail, they can be reset to their clean form re-sync from other existing peers.
 
-<div class="tipbox tip">A <b>healthy cluster</b> is that with at least 50% of healthy online peers (<code>raft</code>) or at least one trusted, healthy peer (<code>crdt</code>).</div>
+<div class="tipbox tip">A <b>healthy cluster</b> is one with at least 50% of healthy online peers (<code>raft</code>) or at least one trusted, healthy peer (<code>crdt</code>).</div>
 
 Thus, any peer can be fully [reset](#resetting-a-peer-state-cleanup) and re-join an otherwise *healthy cluster* with the same procedure that you would add a new peer. In `raft`, departed peers should be nevertheless manually removed with `ipfs-cluster-ctl peer rm` if they are never going to re-join again.
 

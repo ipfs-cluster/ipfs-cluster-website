@@ -112,7 +112,7 @@ For local development tracing, it is advised to change the `observations.tracing
 
 Running the cluster peer with the configuration above should provide an endpoint for Prometheus to collect metrics and will push traces to Jaeger.
 
-Once cluster peer has started, go to [http://localhost:9090/targets](http://localhost:9090/targets) to confirm that Prometheus has been able to beginning scraping metrics from IPFS Cluster.
+Once the cluster peer has started, go to [http://localhost:9090/targets](http://localhost:9090/targets) to confirm that Prometheus has been able to begin scraping metrics from IPFS Cluster.
 
 To confirm that tracing is functioning correctly, we will add a file and pin to IPFS Cluster in one step by using the IPFS Cluster `add` command and then search for its trace in Jaeger.
 

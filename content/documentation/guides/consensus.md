@@ -51,7 +51,7 @@ Choose CRDT when:
 Choose Raft when:
 
 * Your cluster peerset is stable (always the same peers, always running) and not updated frequently
-* You need to stay on the safest side (Raft consensus is older, way more tested implementation)
+* You need to stay on the safest side (Raft consensus is an older, far more tested implementation)
 * You cannot tolerate temporary partitions that result in divergent states
 * You don't need any of the things CRDT mode provides
 
