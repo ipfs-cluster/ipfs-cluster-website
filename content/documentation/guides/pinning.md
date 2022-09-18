@@ -5,7 +5,7 @@ weight = 10
 
 # Adding and pinning
 
-Cluster usage mostly consists on adding and removing pins. This is usually performed using the `ipfs-cluster-ctl` utility or talking to one of the Cluster APIs.
+Cluster usage mostly consists of adding and removing pins. This is usually performed by using the `ipfs-cluster-ctl` utility or talking to one of the Cluster APIs.
 
 <div class="tipbox tip">You can get help and usage information for all <code>ipfs-cluster-ctl</code> commands with <code>ipfs-cluster-ctl --help</code> and <code>ipfs-cluster-ctl &lt;command&gt; --help</code></div>
 
@@ -30,7 +30,7 @@ When working with a large number of pins, it is important to keep an eye on the 
 ipfs-cluster-ctl add myfile.txt
 ```
 
-The `ipfs-cluster-ctl add` command is very similar to the `ipfs add` command and share most of the same options (such as those that define chunking, the DAG type or which CID-version to use).
+The `ipfs-cluster-ctl add` command is very similar to the `ipfs add` command and shares most of the same options (such as those that define chunking, the DAG type or which CID-version to use).
 
 However, where the `ipfs add` command only adds to the local IPFS daemon, the `ipfs-cluster-ctl add` command will add to several Cluster peers at the same time. How many it adds depends on the replication factors you set as command flags pin or the defaults in the configuration file.
 
