@@ -167,9 +167,12 @@ Additionally, the `service.json` configuration file contains a few options which
 
 ### `cluster` section 
 
-When dealing with large amount of pins, you may further increase the `cluster.pin_recover_interval`. This operation will perform checks for every pin in the pinset and will trigger `ipfs pin ls --type=recursive` calls, which may be slow when the number of pinned items is huge. For example, for multimillion pinsets, this should be set at least to 2+ hours.
+Cluster regularly performs full-pinset sweeps to make sure, for example, that pins in error state are retried, or that expired pins are unpinned. On very large pinsets, these operations are costly. Thus we recommend increasing the following intervals:
 
-Consider increasing the `cluster.monitor_ping_interval` and `monitor.*.check_interval`. This dictactes how long cluster takes to realize a peer is not responding (and potentially trigger re-pins if `cluster.disable_repinning` is set to `false`). Re-pinning might be a very expensive in your cluster. Thus, you may want to set this to be long enough. You can use the same value for both. In general, we recommend leaving repinning disabled, although when enabled, `replication_factor_max` and `replication_factor_min` allow some leeway: i.e. a 2/3 will allow one peer to be down without re-allocating the content assigned to it somewhere else.
+  * `cluster.pin_recover_interval`: In order to trigger pin recovery operations, this will trigger a `ipfs pin ls --type=recursive` calls and list all items in the cluster pinset. For clusters with multimillion pinsets, this should be set to at least 2+ hours, or as long as you can tolerate.
+  * `cluster.state_sync_interval`: This specifies how often the cluster will check for expired pins and trigger unpin operations, which requires visiting every item in the pinset. For clusters  with multimillion pinsets, this should be set to at least 2+hours, or as long as you can tolerate.
+
+For large clusters, we recommend leaving repinning disabled (`cluster.disable_repinning`). As it is implemented now, repinning can trigger re-allocation of content when no more heartbeats (pings) are received from a node. On multi-million pinsets, this can be an expensive operation (specially if the node can recover afterwards).  When repinning is enabled, `cluster.monitor_ping_interval` and `monitor.*.check_interval` dictacte how long cluster takes to realize a peer is not responding (and potentially trigger re-pins). If you enable repinning, we recommend using `replication_factor_min` and `replication_factor_max` to allow some leeway: i.e. a 2/3 will allow one peer to be down without re-allocating the content assigned to it somewhere else.
 
 ### `raft` section
 
