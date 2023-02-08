@@ -9,7 +9,7 @@ The configurations and data persisted by a running IPFS Cluster peer (with `ipfs
 
 * The list of known peer addresses for future use. Is stored in the `peerstore` file during shutdown.
 * The cluster pinset (the list of objects that are pinned in the cluster along with all the options associated to them (like the name, the allocations or the replication factor) are stored depending on the consensus component chosen:
-  * `crdt` stores everything in a key-value BadgerDB datastore in the `badger` folder.
+  * `crdt` stores everything in the chose key-value datastore backend (`pebble`, `badger3`, `badger`, `leveldb` folders).
   * `raft` stores the-append-only log making up the pinset, along with the list of cluster peers in a BoltDB store frequently snapshotted. All is saved in the `raft` folder.
 * `service.json` and `identity.json` are also persistent data, but normally they are not modified.
 
@@ -50,7 +50,7 @@ ipfs-cluster-service state cleanup
 
 Note that this does not remove or rewrite the configuration, the identity or the peerstore files. Removing the `raft` or `crdt` data folders is to all effects the equivalent of a state cleanup.
 
-When using Raft, the `raft` folder will be renamed as `raft.old.X`. Several copies will be kept depending on the `backups_rotate` configuration value. When using CRDT, the `crdt` related data will be deleted from the badger datastore.
+When using Raft, the `raft` folder will be renamed as `raft.old.X`. Several copies will be kept depending on the `backups_rotate` configuration value. When using CRDT, the crdt-related data will be deleted from the datastore.
 
 ## Disaster recovery
 
@@ -69,7 +69,7 @@ Things change for *unhealthy clusters*:
 
 In such events, it may be easier to simply salvage the state and re-create your cluster following the next procedure:
 
-  1. Locate a peer that still stores the state (`raft` or `badger` folders)
+  1. Locate a peer that still stores the state (`raft` or any of the datastore folders)
   2. Export the pinset with `ipfs-cluster-service state export`
   3. Reset your peer or setup a new peer from scratch
   4. Run `ipfs-cluster-service state import` to import the state copy from step 2

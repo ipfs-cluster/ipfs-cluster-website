@@ -79,7 +79,9 @@ The file looks like:
     "tracing": {...}
   },
   "datastore": {
-    "badger": {...}, // either badger or leveldb
+    "pebble": {...},
+	"badger3": {...},
+    "badger": {...}, // either pebble, badger3, badger or leveldb
     "leveldb": {...},
   }
 }
@@ -461,12 +463,31 @@ The `tracing` component configures the Jaeger tracing client for use by OpenCens
 
 ### The `datastore` section
 
-The `datastore` section contains configuration for the storage backend. It can contain either a `badger` or a `leveldb` section.
+The `datastore` section contains configuration for the storage backend. It can contain either a `pebble`, `badger3`, `badger` or a `leveldb` section.
+
+#### `pebble`
+
+The `pebble` component uses [Pebble from CockroachDB](https://github.com/cockroachdb/pebble) as the backend.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`pebble_options` | `{...}` | Some [Pebble specific options](https://pkg.go.dev/github.com/cockroachdb/pebble#Options) initialized to their defaults. |
+
+#### `badger3`
+
+The `badger3` component configures the [BadgerDB](https://github.com/dgraph-io/badger) backend based on version 3.
+
+|Key|Default|Description|
+|:---|:-------|:-----------|
+|`gc_discard_ratio` | `0.2` | See [RunValueLogGC](https://github.com/dgraph-io/badger/blob/725913b83470967abd97e850331d7ebe4926fa79/db.go#L1290-L1316) documentation. |
+|`gc_interval` | `"15m0s"` | How often to run Badger GC cycles. A cycle is made of several rounds, which repeat until no space can be freed. Setting this to `"0s"` disables GC cycles. |
+|`gc_sleep` | `"10s"` | How long to wait between GC rounds in the same GC cycle. Setting this to `"0s"` causes a single round to be run instead. |
+|`badger3_options` | `{...}` | Some [BadgerDBv3 specific options](https://pkg.go.dev/github.com/dgraph-io/badger/v3#Options) initialized to optimized defaults. |
+
 
 #### `badger`
 
-The `badger` component configures the BadgerDB backend which is used to store things when the CRDT consensus is enabled.
-
+The `badger` component configures the BadgerDB backend based on version 1.6.2. We recommend new setups to use Pebble or Badger3.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
