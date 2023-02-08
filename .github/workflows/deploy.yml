@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ipfs/ipfs-dns-deploy:latest
+      options: --user root
     env:
       DOMAIN: ipfscluster.io
       BUILD_DIR: public
