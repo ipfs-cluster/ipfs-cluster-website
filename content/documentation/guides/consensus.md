@@ -22,14 +22,17 @@ For offline cluster pinset management check the [Data, backups and recovery sect
 `crdt` is the default implementation of the Cluster's "consensus component" based on an ipfs-powered distributed key-value store. It:
 
 * Publishes updates to the pinset via libp2p-pubsub (GossipSub), locates and exchange data via [ipfs-lite](https://github.com/hsanjuan/ipfs-lite) (dht+bitswap).
-* Stores all persistent data on a local BadgerDB datastore in the `.ipfs-cluster/badger` folder.
+* Stores all persistent data on a local datastore in the `.ipfs-cluster/` folder (`pebble`, `badger3`, `badger` or `leveldb` folder, depending on selected option).
 * Uses Merkle-CRDTs to obtain eventual consistency using [go-ds-crdt](https://github.com/ipfs/go-ds-crdt). These are append-only, immutable Merkle-DAGs. They cannot be compacted on normal conditions and new peers must discover and traverse them from the root, which might be a slow operation if the DAG is very deep.
 * Does not need to perform any peerset management. Every peer for which we received "pings" via pubsub is considered a member of the Cluster until their last metric expires.
 * Trusts peers as defined in the `trusted_peers` configuration option: only those peers can modify the pinset in the local peer and can access "trusted" RPC endpoints.
 * Can optionally batch many pin/unpin operations on a single update, thus allowing scaling pin ingestion capabilities.
 
+We successfully use `crdt` on very large clusters and it is regularly maintained and heavily battle-tested.
 
 ## Raft
+
+<div class="tipbox warning">The Raft implementation has not received much attention for a long time and is legacy now. It probably does not behave well with very large pinsets in terms of memory consumption.</div>
 
 `raft` is an implementation of the Cluster's "consensus component" based on Raft consensus. It:
 
@@ -38,6 +41,8 @@ For offline cluster pinset management check the [Data, backups and recovery sect
 * Uses Raft-consensus implementation ([`hashicorp/raft`](https://github.com/hashicorp/raft) with a libp2p network transport) to obtain eventual consistency and protection of network partitions. Peerset views can be outdated in Raft, but they can never diverge in ways that need reconciliation. Raft-clusters elect a leader which is in charge of committing every entry to the log. For it to be valid, more than half of the peers in the cluster must acknowledge each operation. The append-only log can be consolidated and compacted into a snapshot which can be sent to new peers.
 * Performs peerset management by making peerset changes (adding and removing peers) a commit operation in the Raft log, thus subjected to the limitations of them: an elected leader and more than half of the peers online.
 * Trusts all peers. Any peer can request joining a Raft-based cluster and any peer can access RPC endpoints of others (as long as they know the Cluster `secret`).
+
+
 
 ## Choosing a consensus component
 
@@ -50,10 +55,12 @@ Choose CRDT when:
 
 Choose Raft when:
 
+* You think the above warning about Raft consensus being legacy does not apply to you.
 * Your cluster peerset is stable (always the same peers, always running) and not updated frequently
-* You need to stay on the safest side (Raft consensus is an older, far more tested implementation)
 * You cannot tolerate temporary partitions that result in divergent states
 * You don't need any of the things CRDT mode provides
+* Your cluster will be small in terms of pins
+
 
 ## CRDT vs Raft comparison
 
