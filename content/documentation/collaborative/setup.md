@@ -60,7 +60,6 @@ It is however better when you can distribute a configuration template which has 
 
 Follower peers can technically use the same configuration as trusted peers but we recommend considering a couple of modifications. The following apply to a copy of your `service.json` file that you will distribute to your followers:
 
-* If opting for `badger` datastore: set Badger to "file loading mode": If you expect users joining your cluster from low-memory devices (1GB RAM or less), be sure to set `table_loading_mode` and `value_log_loading_mode` to `0` in the `badger` section in the configuration you distribute for those peers.
 * Set `peer_addresses` to the addresses of your trusted peers. These must be reachable whenever any follower peer starts, so ensure there is connectivity to your cluster.
 * Consider removing any configurations in the `api` section (`restapi`, `ipfsproxy`): follower peers should not be told how their peers APIs should look like. Misconfiguring the APIs might open unwanted security holes. `ipfs-cluster-follow` overrides any `api` configuration by creating a secure, local-only endpoint.
 * Reset `connection_manager/high_water` and `low_water` to sensible defaults if you modified them for your trusted peers configuration.
