@@ -1,0 +1,259 @@
+{
+  "cluster": {
+    "peername": "peername",
+    "secret": "2891fbcc1fff63c71c10aa4ed693d20656db589ddc2e2d2506a53ebd0d2bdf62",
+    "leave_on_shutdown": false,
+    "listen_multiaddress": [
+      "/ip4/0.0.0.0/tcp/9096",
+      "/ip4/0.0.0.0/udp/9096/quic"
+    ],
+    "enable_relay_hop": true,
+    "connection_manager": {
+      "high_water": 400,
+      "low_water": 100,
+      "grace_period": "2m0s"
+    },
+    "dial_peer_timeout": "3s",
+    "state_sync_interval": "5m0s",
+    "pin_recover_interval": "12m0s",
+    "replication_factor_min": -1,
+    "replication_factor_max": -1,
+    "monitor_ping_interval": "15s",
+    "peer_watch_interval": "5s",
+    "mdns_interval": "10s",
+    "pin_only_on_trusted_peers": false,
+    "disable_repinning": true,
+    "peer_addresses": []
+  },
+  "consensus": {
+    "crdt": {
+      "cluster_name": "ipfs-cluster",
+      "trusted_peers": [
+        "*"
+      ],
+      "batching": {
+        "max_batch_size": 0,
+        "max_batch_age": "0s"
+      },
+      "repair_interval": "1h0m0s"
+    }
+  },
+  "api": {
+    "ipfsproxy": {
+      "listen_multiaddress": "/ip4/127.0.0.1/tcp/9095",
+      "node_multiaddress": "/ip4/127.0.0.1/tcp/5001",
+      "log_file": "",
+      "read_timeout": "0s",
+      "read_header_timeout": "5s",
+      "write_timeout": "0s",
+      "idle_timeout": "1m0s",
+      "max_header_bytes": 4096
+    },
+    "pinsvcapi": {
+      "http_listen_multiaddress": "/ip4/127.0.0.1/tcp/9097",
+      "read_timeout": "0s",
+      "read_header_timeout": "5s",
+      "write_timeout": "0s",
+      "idle_timeout": "2m0s",
+      "max_header_bytes": 4096,
+      "basic_auth_credentials": null,
+      "http_log_file": "",
+      "headers": {},
+      "cors_allowed_origins": [
+        "*"
+      ],
+      "cors_allowed_methods": [
+        "GET"
+      ],
+      "cors_allowed_headers": [],
+      "cors_exposed_headers": [
+        "Content-Type",
+        "X-Stream-Output",
+        "X-Chunked-Output",
+        "X-Content-Length"
+      ],
+      "cors_allow_credentials": true,
+      "cors_max_age": "0s"
+    },
+    "restapi": {
+      "http_listen_multiaddress": "/ip4/127.0.0.1/tcp/9094",
+      "read_timeout": "0s",
+      "read_header_timeout": "5s",
+      "write_timeout": "0s",
+      "idle_timeout": "2m0s",
+      "max_header_bytes": 4096,
+      "basic_auth_credentials": null,
+      "http_log_file": "",
+      "headers": {},
+      "cors_allowed_origins": [
+        "*"
+      ],
+      "cors_allowed_methods": [
+        "GET"
+      ],
+      "cors_allowed_headers": [],
+      "cors_exposed_headers": [
+        "Content-Type",
+        "X-Stream-Output",
+        "X-Chunked-Output",
+        "X-Content-Length"
+      ],
+      "cors_allow_credentials": true,
+      "cors_max_age": "0s"
+    }
+  },
+  "ipfs_connector": {
+    "ipfshttp": {
+      "node_multiaddress": "/ip4/127.0.0.1/tcp/5001",
+      "connect_swarms_delay": "30s",
+      "ipfs_request_timeout": "5m0s",
+      "pin_timeout": "2m0s",
+      "unpin_timeout": "3h0m0s",
+      "repogc_timeout": "24h0m0s",
+      "informer_trigger_interval": 0
+    }
+  },
+  "pin_tracker": {
+    "stateless": {
+      "concurrent_pins": 10,
+      "priority_pin_max_age": "24h0m0s",
+      "priority_pin_max_retries": 5
+    }
+  },
+  "monitor": {
+    "pubsubmon": {
+      "check_interval": "15s"
+    }
+  },
+  "allocator": {
+    "balanced": {
+      "allocate_by": [
+        "tag:group",
+        "freespace"
+      ]
+    }
+  },
+  "informer": {
+    "disk": {
+      "metric_ttl": "30s",
+      "metric_type": "freespace"
+    },
+    "pinqueue": {
+      "metric_ttl": "30s",
+      "weight_bucket_size": 100000
+    },
+    "tags": {
+      "metric_ttl": "30s",
+      "tags": {
+        "group": "default"
+      }
+    }
+  },
+  "observations": {
+    "metrics": {
+      "enable_stats": false,
+      "prometheus_endpoint": "/ip4/127.0.0.1/tcp/8888",
+      "reporting_interval": "2s"
+    },
+    "tracing": {
+      "enable_tracing": false,
+      "jaeger_agent_endpoint": "/ip4/0.0.0.0/udp/6831",
+      "sampling_prob": 0.3,
+      "service_name": "cluster-daemon"
+    }
+  },
+  "datastore": {
+    "pebble": {
+      "pebble_options": {
+        "cache_size_bytes": 1073741824,
+        "bytes_per_sync": 1048576,
+        "disable_wal": false,
+        "flush_delay_delete_range": 0,
+        "flush_delay_range_key": 0,
+        "flush_split_bytes": 4194304,
+        "format_major_version": 1,
+        "l0_compaction_file_threshold": 750,
+        "l0_compaction_threshold": 4,
+        "l0_stop_writes_threshold": 12,
+        "l_base_max_bytes": 134217728,
+        "levels": [
+          {
+            "block_restart_interval": 16,
+            "block_size": 4096,
+            "block_size_threshold": 90,
+            "compression": 2,
+            "filter_type": 0,
+            "filter_policy": 10,
+            "index_block_size": 4096,
+            "target_file_size": 4194304
+          },
+          {
+            "block_restart_interval": 16,
+            "block_size": 4096,
+            "block_size_threshold": 90,
+            "compression": 2,
+            "filter_type": 0,
+            "filter_policy": 10,
+            "index_block_size": 4096,
+            "target_file_size": 8388608
+          },
+          {
+            "block_restart_interval": 16,
+            "block_size": 4096,
+            "block_size_threshold": 90,
+            "compression": 2,
+            "filter_type": 0,
+            "filter_policy": 10,
+            "index_block_size": 4096,
+            "target_file_size": 16777216
+          },
+          {
+            "block_restart_interval": 16,
+            "block_size": 4096,
+            "block_size_threshold": 90,
+            "compression": 2,
+            "filter_type": 0,
+            "filter_policy": 10,
+            "index_block_size": 4096,
+            "target_file_size": 33554432
+          },
+          {
+            "block_restart_interval": 16,
+            "block_size": 4096,
+            "block_size_threshold": 90,
+            "compression": 2,
+            "filter_type": 0,
+            "filter_policy": 10,
+            "index_block_size": 4096,
+            "target_file_size": 67108864
+          },
+          {
+            "block_restart_interval": 16,
+            "block_size": 4096,
+            "block_size_threshold": 90,
+            "compression": 2,
+            "filter_type": 0,
+            "filter_policy": 10,
+            "index_block_size": 4096,
+            "target_file_size": 134217728
+          },
+          {
+            "block_restart_interval": 16,
+            "block_size": 4096,
+            "block_size_threshold": 90,
+            "compression": 2,
+            "filter_type": 0,
+            "filter_policy": 10,
+            "index_block_size": 4096,
+            "target_file_size": 268435456
+          }
+        ],
+        "max_open_files": 1000,
+        "mem_table_size": 67108864,
+        "mem_table_stop_writes_threshold": 20,
+        "read_only": false,
+        "wal_bytes_per_sync": 0
+      }
+    }
+  }
+}

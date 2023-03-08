@@ -41,7 +41,7 @@ The `service.json` file holds all the configurable options for the cluster peer 
 
 <div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
-As an example, [this is a default `service.json` configuration file](/0.14.2_service.json).
+As an example, [this is a default `service.json` configuration file](/1.0.6_service.json).
 
 The file looks like:
 
@@ -49,8 +49,8 @@ The file looks like:
 {
   "source": "url" // a single source field may appear for remote configurations
   "cluster": {...},
-  "consensus": {
-    "crdt": {...}, // either crdt or raft
+  "consensus": {  // either crdt or raft
+    "crdt": {...},
     "raft": {...},
   },
   "api": {
@@ -78,10 +78,10 @@ The file looks like:
     "metrics": {...},
     "tracing": {...}
   },
-  "datastore": {
+  "datastore": {  // either pebble, badger3, badger or leveldb
     "pebble": {...},
 	"badger3": {...},
-    "badger": {...}, // either pebble, badger3, badger or leveldb
+	"badger": {...},
     "leveldb": {...},
   }
 }
@@ -467,15 +467,15 @@ The `datastore` section contains configuration for the storage backend. It can c
 
 #### `pebble`
 
-The `pebble` component uses [Pebble from CockroachDB](https://github.com/cockroachdb/pebble) as the backend.
+The `pebble` is the default datastore backend. It uses [Pebble from CockroachDB](https://github.com/cockroachdb/pebble). Pebble is best suited to most scenarios due to its conservative memory usage, short ready-time upon restarts and efficient disk footprint.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
-|`pebble_options` | `{...}` | Some [Pebble specific options](https://pkg.go.dev/github.com/cockroachdb/pebble#Options) initialized to their defaults. |
+|`pebble_options` | `{...}` | Some [Pebble specific options](https://pkg.go.dev/github.com/cockroachdb/pebble#Options) initialized to their defaults, including per level configuration. |
 
 #### `badger3`
 
-The `badger3` component configures the [BadgerDB](https://github.com/dgraph-io/badger) backend based on version 3.
+The `badger3` component configures the [BadgerDB](https://github.com/dgraph-io/badger) backend based on version 3. Badger3 can be very fast but configuration tuning is more difficult than Pebble, and very large repositories will need several minutes to be ready on start.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
@@ -487,7 +487,7 @@ The `badger3` component configures the [BadgerDB](https://github.com/dgraph-io/b
 
 #### `badger`
 
-The `badger` component configures the BadgerDB backend based on version 1.6.2. We recommend new setups to use Pebble or Badger3.
+The `badger` component configures the BadgerDB backend based on version 1.6.2. We recommend new setups to use Pebble or Badger3. Badger is old, unmaintained and suffers from a number of issues, including large disk-space footprint.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
@@ -500,7 +500,7 @@ The adjustments performed on top of the default badger options by default can be
 
 #### `leveldb`
 
-The `leveldb` component configures the LevelDB backend which is used to store things when the CRDT consensus is enabled.
+The `leveldb` component configures the LevelDB backend which is used to store things when the CRDT consensus is enabled. We discourage using leveldb.
 
 |Key|Default|Description|
 |:---|:-------|:-----------|
