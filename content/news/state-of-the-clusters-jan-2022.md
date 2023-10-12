@@ -47,7 +47,7 @@ by several releases to get IPFS Cluster up to the task of handling
 multi-million setups:
 
 * The cluster-peer datastore can be setup with LevelDB and Badger, and the latter
-is GC'ed reguarlly so that it does not grow to take too much space per pin.
+is GC'ed regularly so that it does not grow to take too much space per pin.
 * We heavily sped up operations reading the full pinset (`pin ls` or
   `status`). For example, it is now very efficient to check all the pins in
   error or queued states because filtering has been improved. Listing all pins

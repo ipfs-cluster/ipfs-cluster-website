@@ -51,7 +51,7 @@ During the last weeks we've been working hard on making the first "live" deploym
 
 The nodes are distributed, run a vanilla IPFS Cluster docker container mounting a volume with a customized cluster configuration, which uses higher-than-default timeouts and intervals. The injection of the pin-set took a while, but enventually every pin in every node became PINNED. In one occasion, a single IPFS node hanged while pinning. After re-starting the IPFS node in question, all pins in the queue became PIN_ERRORs, but they could easily be fixed with a `recover` operation.
 
-Additionally, the [IPFS IRC Pinbot](https://github.com/ipfs/pinbot-irc) now supports cluster-pinning, by using the IPFS Cluster proxy to ipfs, which intercepts pin requests and performs them in cluster. This allowed us to re-use the `go-ipfs-api` library to interact with cluster.
+Additionally, the [IPFS IRC Pinbot](https://github.com/ipfs/pinbot-irc) now supports cluster-pinning, by using the IPFS Cluster proxy to ipfs, which intercepts pin requests and performs them in cluster. This allowed us to reuse the `go-ipfs-api` library to interact with cluster.
 
 The first live setup has shown nevertheless that some things were missing. For example, we added `--local` flags to Sync, Status and Recover operations (and allowed a local RecoverAll). They are handy when a single node is at fault and you want to fix the pins on that specific node. We will also work on a `go-ipfs-cluster-api` library which provides a REST API client which allows to programmatically interact with cluster more easily.
 
