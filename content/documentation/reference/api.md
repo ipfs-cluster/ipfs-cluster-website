@@ -10,7 +10,7 @@ aliases = [
 
 IPFS Cluster peers include an API component which provides HTTP-based access to the peer's functionality. The API attempts to be REST-ful in form and behaviour. It is enabled by default, but it can be disabled by removing its section from the `service.json` configuration file.
 
-We do not maintain ad-hoc API documentation, as it gets easily out of date or, at worst, is innaccurate or buggy. Instead, we provide an easy way to find how to do what you need to do by using the `ipfs-cluster-ctl` command.
+We do not maintain ad-hoc API documentation, as it gets easily out of date or, at worst, is inaccurate or buggy. Instead, we provide an easy way to find how to do what you need to do by using the `ipfs-cluster-ctl` command.
 
 Running `ipfs-cluster-ctl --enc=json --debug <command>` will print information about the endpoint, the query options, the request body and raw responses for that command. Use it on a [test cluster](/documentation/quickstart/)!
 
@@ -77,3 +77,4 @@ As a final tip, this table provides a quick summary of methods available.
 |`GET`       |`/health/alerts`       |Get connection graph |
 |`POST`      |`/ipfs/gc`             |Perform GC in the IPFS nodes |
 |`POST`      |`/token`               |Generate a new JWT token for current user |
+|`GET`      |`/health`               |Returns 204. Does not require auth. |
