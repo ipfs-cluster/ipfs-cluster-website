@@ -77,3 +77,4 @@ As a final tip, this table provides a quick summary of methods available.
 |`GET`       |`/health/alerts`       |Get connection graph |
 |`POST`      |`/ipfs/gc`             |Perform GC in the IPFS nodes |
 |`POST`      |`/token`               |Generate a new JWT token for current user |
+|`GET`      |`/health`               |Returns 204. Does not require auth. |
