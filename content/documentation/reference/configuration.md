@@ -123,6 +123,8 @@ The `leave_on_shutdown` option allows a peer to remove itself from the *peerset*
 |`secret`|`"<randomly generated>"` | The Cluster secret (must be the same in all peers).|
 |`leave_on_shutdown`| `false` | The peer will remove itself from the cluster peerset on shutdown. |
 |`listen_multiaddress`| `["/ip4/0.0.0.0/tcp/9096",` `"/ip4/0.0.0.0/udp/9096/quic"]` | The peers Cluster-RPC listening endpoints. |
+|`announce_multiaddress`| `[]` | The peer multiaddresses to announce to the network. If empty, the inferred addresses will be used. |
+|`no_announce_multiaddress`| `[]` | The peer multiaddresses not to announce to the network. |
 | `connection_manager {` | | A connection manager configuration object.|
 | &nbsp;&nbsp;&nbsp;&nbsp;`high_water` | `400` | The maximum number of connections this peer will have. If it, connections will be closed until the `low_water` value is reached. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`low_water` | `100` | The libp2p host will try to keep at least this many connections to other peers. |
