@@ -17,5 +17,4 @@ Welcome to IPFS Cluster documentation. The different sections of the documentati
 
 If you need help, head over to the [Support section](/support).
 
-<div class="tipbox tip">Are you an IPFS Cluster user? Let us know about your setup by contributing to the <a href="https://docs.google.com/forms/d/e/1FAIpQLSdWF5aXNXrAK_sCyu1eVv2obTaKVO3Ac5dfgl2r5_IWcizGRg/viewform">IPFS Cluster user registry</a>.</div>
 
