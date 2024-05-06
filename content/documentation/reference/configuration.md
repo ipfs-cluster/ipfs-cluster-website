@@ -41,7 +41,7 @@ The `service.json` file holds all the configurable options for the cluster peer 
 
 <div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
-As an example, [this is a default `service.json` configuration file](/1.0.6_service.json).
+As an example, [this is a default `service.json` configuration file](/1.1.0_service.json).
 
 The file looks like:
 
@@ -129,6 +129,11 @@ The `leave_on_shutdown` option allows a peer to remove itself from the *peerset*
 | &nbsp;&nbsp;&nbsp;&nbsp;`high_water` | `400` | The maximum number of connections this peer will have. If it, connections will be closed until the `low_water` value is reached. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`low_water` | `100` | The libp2p host will try to keep at least this many connections to other peers. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`grace_period` | `"2m0s"` | New connections will not be dropped for at least this period. |
+| `}` |||
+| `resource_manager {` | | A libp2p resource manager configuration object. The limits are scaled based on the given options and connections/streams are dropped when reached. Such events are logged. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`enabled` | `true` | Controls whether resource limitations are enabled or fully disabled. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`memory_limit_bytes` | `0` | Controls the maximum amount of RAM memory that the libp2p host should use. When set to `0`, the amount will be set to a 25% of the machine's memory or a minimum of 1GiB. Note that this affects only the libp2p resources and not the overall memory of the cluster node |
+| &nbsp;&nbsp;&nbsp;&nbsp;`file_descriptors_limit` | `0` | Controls the maximum number of file-descriptors to use. When set to `0`, the limit will be set to 50% of the total amount of file descriptors available to the process. |
 | `}` |||
 |`dial_peer_timeout` | `"3s"` | How long to wait when dialing a cluster peer before giving up. |
 |`state_sync_interval`| `"10m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#Cluster.StateSync). |

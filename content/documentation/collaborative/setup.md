@@ -41,7 +41,7 @@ Review the resulting configuration in your cluster peers:
 * `trusted_peers` should be set to the list of peer IDs in the original cluster that are under your control (or someone's trusted control).
 * You should have generated a cluster `secret`. It will be ok to distribute this secret later.
 * Depending on your Cluster setup, who you plan to join the cluster, and the level of trust on those follower peers, you can set `replication_factor_min/max`. For the general usecase, we recommend leaving at `-1` (everything pinned everywhere). The main usecase of collaborative clusters is to ensure wide distribution and replication of content.
-* You can modify the `crdt/cluster_name` value to your liking, but remember to inform your followers about its value.
+* You can modify the `crdt/cluster_name` value to your liking, but remember to inform your followers about its value in their configuration template. As long as different secrets are used, different clusters will not conflict if they have the same name.
 
 In principle, followers can use exactly the same configuration as your trusted peers, but we recommend tailoring a specific follower configuration as explained in the next section.
 
@@ -62,9 +62,10 @@ Follower peers can technically use the same configuration as trusted peers but w
 
 * Set `peer_addresses` to the addresses of your trusted peers. These must be reachable whenever any follower peer starts, so ensure there is connectivity to your cluster.
 * Consider removing any configurations in the `api` section (`restapi`, `ipfsproxy`): follower peers should not be told how their peers APIs should look like. Misconfiguring the APIs might open unwanted security holes. `ipfs-cluster-follow` overrides any `api` configuration by creating a secure, local-only endpoint.
-* Reset `connection_manager/high_water` and `low_water` to sensible defaults if you modified them for your trusted peers configuration.
+* Reset `connection_manager` and `resource_manager` settings to sensible defaults if you modified them for your trusted peers configuration.
 * Set `follower_mode` to `true`: while non-trusted peers cannot do anything to the cluster pinset, they can still modify their own view of it, which may be very confusing. This setting (which `ipfs-cluster-follow` activates automatically) ensures useful error messages are returned when trying to perform write actions.
 * If you are running multiple collaborative clusters, or expect your users to do so, consider modifying the addresses defined in `listen_multiaddress` by changing the default ports to something else, hopefully unused. You can use `0` as well, so that peers choose a random free port during start, but this will cause that peers change ports on every re-start (how important that is depends on your setup).
+* On clusters with hundreds of peers, pubsub chatter will increase with the number of peers. You can reduce chatter by increasing the `metric_ttl` values in the `informers` configurations and also the `cluster.monitor_ping_interval`, at the cost of getting up-to-date metrics from followers less often.
 
 After all these changes, you will have a `service.json` file that is ready to be distributed to followers. Test it first:
 
