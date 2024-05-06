@@ -41,7 +41,7 @@ The `service.json` file holds all the configurable options for the cluster peer 
 
 <div class="tipbox tip">If present, the `CLUSTER_SECRET` environment value is used when running `ipfs-cluster-service init` to set the cluster `secret` value.</div>
 
-As an example, [this is a default `service.json` configuration file](/1.0.9_service.json).
+As an example, [this is a default `service.json` configuration file](/1.1.0_service.json).
 
 The file looks like:
 
