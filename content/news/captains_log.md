@@ -49,7 +49,7 @@ Finally, it is very important to remark that we recently finished the [Sharding 
 
 During the last weeks we've been working hard on making the first "live" deployment of IPFS Cluster. I am happy to announce that a 10-peer cluster runs on ipfs-gateway nodes, maintaining a >2000-length pinset.
 
-The nodes are distributed, run a vanilla IPFS Cluster docker container mounting a volume with a customized cluster configuration, which uses higher-than-default timeouts and intervals. The injection of the pin-set took a while, but enventually every pin in every node became PINNED. In one occasion, a single IPFS node hanged while pinning. After re-starting the IPFS node in question, all pins in the queue became PIN_ERRORs, but they could easily be fixed with a `recover` operation.
+The nodes are distributed, run a vanilla IPFS Cluster docker container mounting a volume with a customized cluster configuration, which uses higher-than-default timeouts and intervals. The injection of the pin-set took a while, but eventually every pin in every node became PINNED. In one occasion, a single IPFS node hanged while pinning. After re-starting the IPFS node in question, all pins in the queue became PIN_ERRORs, but they could easily be fixed with a `recover` operation.
 
 Additionally, the [IPFS IRC Pinbot](https://github.com/ipfs/pinbot-irc) now supports cluster-pinning, by using the IPFS Cluster proxy to ipfs, which intercepts pin requests and performs them in cluster. This allowed us to reuse the `go-ipfs-api` library to interact with cluster.
 
