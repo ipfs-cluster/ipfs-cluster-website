@@ -74,7 +74,7 @@ As a final tip, this table provides a quick summary of methods available.
 |`GET`       |`/monitor/metrics/{metric}`    |Get a list of current metrics seen by this peer |
 |`GET`       |`/health/alerts`       |Display a list of alerts (metric expiration events) |
 |`GET`       |`/health/graph`        |Get connection graph |
-|`GET`       |`/health/alerts`       |Get connection graph |
+|`GET`       |`/health/bandwidth`    |Get bandwidth statistics for libp2p protocols |
 |`POST`      |`/ipfs/gc`             |Perform GC in the IPFS nodes |
 |`POST`      |`/token`               |Generate a new JWT token for current user |
 |`GET`      |`/health`               |Returns 204. Does not require auth. |
