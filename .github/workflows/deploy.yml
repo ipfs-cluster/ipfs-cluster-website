@@ -34,7 +34,7 @@ jobs:
       CIRCLE_PROJECT_USERNAME: ipfs-cluster
       CIRCLE_PROJECT_REPONAME: ipfs-cluster-website
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: website
           path: /tmp/workspace
