@@ -9,13 +9,13 @@ The configurations and data persisted by a running IPFS Cluster peer (with `ipfs
 
 * The list of known peer addresses for future use. Is stored in the `peerstore` file during shutdown.
 * The cluster pinset (the list of objects that are pinned in the cluster along with all the options associated to them (like the name, the allocations or the replication factor) are stored depending on the consensus component chosen:
-  * `crdt` stores everything in the chose key-value datastore backend (`pebble`, `badger3`, `badger`, `leveldb` folders).
+  * `crdt` stores everything in the chosen key-value datastore backend (`pebble`, `badger3`, `badger`, `leveldb` folders).
   * `raft` stores the-append-only log making up the pinset, along with the list of cluster peers in a BoltDB store frequently snapshotted. All is saved in the `raft` folder.
 * `service.json` and `identity.json` are also persistent data, but normally they are not modified.
 
 ## Offline state: export and import
 
-Since the pinset information is persistend on disk, it can be exported from an offline peer with:
+Since the pinset information is stored on disk, it can be exported from an offline peer with:
 
 ```bash
 ipfs-cluster-service state export
@@ -28,8 +28,6 @@ ipfs-cluster-service state import
 ```
 
 <div class="tipbox warning">Always re-import using the same <code>ipfs-cluster-service</code> version that you exported with.</div>
-
-<div class="tipbox warning">Consider https://github.com/ipfs-cluster/ipfs-cluster/issues/1547 when importing a state to multiple cluster peers.</div>
 
 Note that the **state dump just contains the pinset**. It does not include any bookkeeping information, Raft peerset membership, Raft current term, CRDT Merkle-DAG nodes etc. Thus, when re-importing a pinset it is important to remember that:
 
