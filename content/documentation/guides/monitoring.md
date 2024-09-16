@@ -121,7 +121,7 @@ $ echo 'test tracing file' > test.file
 $ ipfs-cluster-ctl add test.file
 ```
 
-Go to [https://localhost:16686](http://localhost:16686/search?operation=Recv.127.0.0.1%3A9094%3A%2Fadd%3APOST&service=cluster-daemon) and you should see a trace, it may be labelled `<trace-without-root-span>` due to an issue with how Jaeger creates/determines root spans, but all the information is still inside. If there is nothing there, give it sometime to flush the traces to the Jaeger Collector as it isn't instantaneous.
+Go to [https://localhost:16686](http://localhost:16686/search?operation=Recv.127.0.0.1%3A9094%3A%2Fadd%3APOST&service=cluster-daemon) and you should see a trace, it may be labeled `<trace-without-root-span>` due to an issue with how Jaeger creates/determines root spans, but all the information is still inside. If there is nothing there, give it sometime to flush the traces to the Jaeger Collector as it isn't instantaneous.
 
 After having run a few commands to get some traces, it is a good time to go check out the [graph page of Prometheus](http://localhost:9090/graph?g0.range_input=1h&g0.expr=histogram_quantile(0.95%2C%20sum(rate(cluster_gorpc_libp2p_io_server_server_latency_bucket%5B5m%5D))%20by%20(le%2Cgorpc_server_method))&g0.tab=0), which is prefilled with a histogram of the request latencies of the [`gorpc`](https://github.com/libp2p/go-libp2p-gorpc) calls between IPFS Cluster components. There are plenty of other metrics configured for collection and they can be found in the drop-down next to the `Execute` button.
 

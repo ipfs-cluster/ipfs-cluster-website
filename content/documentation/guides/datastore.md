@@ -54,7 +54,7 @@ backend from Cochroachdb, used by default in Cluster:
 [Badger](https://github.com/dgraph-io/badger) is based on the v1.6.2 version of the library:
 
 * Heavily battle tested, it was used for our largest cluster deployments.
-* Bad disk-footprint behaviour: needs regular GC cycles but they don't quite
+* Bad disk-footprint behavior: needs regular GC cycles but they don't quite
   achieve to reduce disk usage as much as it would be possible.
 * Baseline performance and memory usage.
 * Needs configuration tuning for large clusters (see deployment guide).
