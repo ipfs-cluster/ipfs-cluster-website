@@ -141,13 +141,12 @@ The `leave_on_shutdown` option allows a peer to remove itself from the *peerset*
 | &nbsp;&nbsp;&nbsp;&nbsp;`d_factor` | `4` | A factor to multiply default mesh values (Dlo-5, D-6, Dhigh-12, DLazy-6). It generally controls how many peers we are meshed with, and that influences how much it costs us to broadcast a message. Few peers means little bandwidth on this peer, at the expense of other peers having to re-broadcast the message more often to reach full distribution, so more chatter in the end. A higher number means less chatter, but more effort per message. The default of 4 makes D=16. That means we will send every broadcast to 16 peers or so. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`history_gossip` | `2` | How many of our heartbeats should include IHAVE entries for each known message. Increasing makes chatter consume more bandwidth, but can improves message delivery. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`history_length` | `6` | For how many heartbeats are message requests from other peers honored. This means that after 6 heartbeats of receiving a pubsub message, we will not be sending it anymore to anyone that requests it. Increasing it improves message delivery, but also network churn since slow peers might be requesting all messages and we would provide them. |
-| &nbsp;&nbsp;&nbsp;&nbsp;`flood_publish` | `false` | s. |
+| &nbsp;&nbsp;&nbsp;&nbsp;`flood_publish` | `false` | Enabling means that the first pubsub message hop is flooded to all subscribed peers (not just ~D). Improves delivery but might be overkill for peers that are not very well connected or more limited. |
 | `}` |||
 |`dial_peer_timeout` | `"3s"` | How long to wait when dialing a cluster peer before giving up. |
 |`state_sync_interval`| `"10m0s"` | Interval between automatic triggers of [`StateSync`](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#Cluster.StateSync). |
 |`pin_recover_interval`| `"1h0m0s"` | Interval between automatic triggers of [`RecoverAllLocal`](https://godoc.org/github.com/ipfs-cluster/ipfs-cluster#Cluster.RecoverAllLocal). This will automatically re-try pin and unpin operations that failed. |
-|`replication_factor_min` | `-1` | Specifies the default minimum number of peers that should be pinning an item. -1 == all. |
-|`replication_factor_max` | `-1` | Specifies the default maximum number of peers that should be pinning an item. -1 == all. |
+|`replication_factor_min` | `-1` | Specifies the default minimum number of peers that should be pinning an item. -1 == all. ||`replication_factor_max` | `-1` | Specifies the default maximum number of peers that should be pinning an item. -1 == all. |
 |`monitor_ping_interval` | `"15s"` | Interval for sending a `ping` (used to detect downtimes). |
 |`peer_watch_interval`| `"5s"` | Interval for checking the current cluster peerset and detect if this peer was removed from the cluster (and shut-down). |
 |`mdns_interval` | `"10s"` | Setting it to `"0"` disables mDNS. Setting to a larger value enables mDNS but no longer controls anything. |
