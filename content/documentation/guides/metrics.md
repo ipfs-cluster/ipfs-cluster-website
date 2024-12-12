@@ -13,7 +13,7 @@ Cluster peers regularly broadcast (using gossipsub) metrics between each others.
 * In crdt-mode they serve to identify the current cluster peerset (list of peers with non expired metrics).
 * They are used to communicate information such as peer names and free-space, which can be used, for example, to make pin allocation decisions.
 
-The metrics are produced by ["informer" components](../../configuration/#the-informer-section). There are currently several types of metrics:
+The metrics are produced by ["informer" components](../../reference/configuration/#the-informer-section). There are currently several types of metrics:
 
 * `ping`: the lack of pings from a given cluster peer signifies that the peer is down and is used to trigger re-pinnings when enabled. The ping metric includes information about each peer, like its peer name, IPFS daemon ID and addresses etc. which are then re-used to fill-in fields in the pin status objects when requested.
 * `freespace`: this metric informs how much free space IPFS has in its repository and is used to decide whether to allocate new pins to this peer or others.
