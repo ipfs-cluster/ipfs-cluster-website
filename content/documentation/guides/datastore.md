@@ -22,7 +22,7 @@ Configuration settings for each of the backends can be found in the
 ## Pebble
 
 [Pebble](https://github.com/cockroachdb/pebble) is a high performant
-backend from Cochroachdb, used by default in Cluster:
+backend from CockroachDB, used by default in Cluster:
 
 * Proven to work well on very large pinsets.
 * Best disk-usage compared to the rest. No need to trigger GC cycles for space reclaim.

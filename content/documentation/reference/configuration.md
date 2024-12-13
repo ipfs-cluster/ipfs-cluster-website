@@ -132,7 +132,7 @@ The `leave_on_shutdown` option allows a peer to remove itself from the *peerset*
 | `}` |||
 | `resource_manager {` | | A libp2p resource manager configuration object. The limits are scaled based on the given options and connections/streams are dropped when reached. Such events are logged. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`enabled` | `true` | Controls whether resource limitations are enabled or fully disabled. |
-| &nbsp;&nbsp;&nbsp;&nbsp;`memory_limit_bytes` | `0` | Controls the maximum amount of RAM memory that the libp2p host should use. When set to `0`, the amount will be set to a 25% of the machine's memory or a minimum of 1GiB. Note that this affects only the libp2p resources and not the overall memory of the cluster node |
+| &nbsp;&nbsp;&nbsp;&nbsp;`memory_limit_bytes` | `0` | Controls the maximum amount of RAM memory that the libp2p host should use. When set to `0`, the amount will be set to a 25% of the machine's memory or a minimum of 1GiB. Note that this affects only the libp2p resources and not the overall memory of the cluster node. |
 | &nbsp;&nbsp;&nbsp;&nbsp;`file_descriptors_limit` | `0` | Controls the maximum number of file-descriptors to use. When set to `0`, the limit will be set to 50% of the total amount of file descriptors available to the process. |
 | `}` |||
 | `pubsub {` | | A libp2p pubsub configuration object. This allows to configure pubsub internals. Defaults are optimized for ipfs-cluster pubsub usecase, where metrics and CRDT-heads are broadcasted, and it is not generally fatal if a message gets lost. Deviations from pubsub defaults aim to reduce unnecessary chatter in standard clusters as pubsub ends up using a lot of bandwidth. |
