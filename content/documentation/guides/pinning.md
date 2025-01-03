@@ -11,7 +11,7 @@ Cluster usage mostly consists of adding and removing pins. This is usually perfo
 
 When working with a large number of pins, it is important to keep an eye on the state of the pinset, whether every pin is getting correctly pinned an allocated. This section provides in-depth explanations on how pinning works and the different operations that a cluster peer can perform to simplify and maintain the cluster pinsets.
 
-<div class="tipbox tip">For clarity, we use <code>ipfs-cluster-ctl</code> commands, but every one of them is using an HTTP REST API endpoint from the cluster peer, so all commands can be performed directly against the API.</div>
+<div class="tipbox tip">For clarity, we use <code>ipfs-cluster-ctl</code> commands, but every one of them is using an HTTP REST API endpoint from the cluster peer, so all commands can be performed directly against the API. If you add the <code>--debug</code> argument, you can inspect the respective HTTP REST API calls being performed. </div>
 
 * [Adding files](#adding-files)
 * [Pinning CIDs](#pinning-cids)
