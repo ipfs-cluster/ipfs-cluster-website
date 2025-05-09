@@ -27,7 +27,7 @@ A summarized version of the instructions for a single peer with default configur
 $ ipfs-cluster-service init --consensus crdt
 $ ipfs-cluster-service daemon
 # Write down:
-# - The generated cluster secret (will need to be re-used in other peers)
+# - The generated cluster secret (will need to be reused in other peers)
 # - The peer ID (this will be a "trusted peer")
 # - The multiaddress on which it will be reachable by other peers (usually /ip4/public_ip/tcp/9096/p2p/peer_id
 ```

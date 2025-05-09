@@ -52,7 +52,7 @@ Note that unless `--force-http` is passed, using `basic-auth` is only supported 
 
 ### Using the libp2p API endpoint
 
-Since `0.3.5`, IPFS Cluster provides a libp2p endpoint for the HTTP API which provides channel security without the need to configure SSL certificates, by either re-using the peer's libp2p host or by setting up a new one with the given parameters in the API configuration.
+Since `0.3.5`, IPFS Cluster provides a libp2p endpoint for the HTTP API which provides channel security without the need to configure SSL certificates, by either reusing the peer's libp2p host or by setting up a new one with the given parameters in the API configuration.
 
 In order to have `ipfs-cluster-ctl` use a libp2p endpoint, provide the `--host` flag as follows:
 
