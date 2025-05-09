@@ -15,7 +15,7 @@ Cluster peers regularly broadcast (using gossipsub) metrics between each others.
 
 The metrics are produced by ["informer" components](../../reference/configuration/#the-informer-section). There are currently several types of metrics:
 
-* `ping`: the lack of pings from a given cluster peer signifies that the peer is down and is used to trigger re-pinnings when enabled. The ping metric includes information about each peer, like its peer name, IPFS daemon ID and addresses etc. which are then re-used to fill-in fields in the pin status objects when requested.
+* `ping`: the lack of pings from a given cluster peer signifies that the peer is down and is used to trigger re-pinnings when enabled. The ping metric includes information about each peer, like its peer name, IPFS daemon ID and addresses etc. which are then reused to fill-in fields in the pin status objects when requested.
 * `freespace`: this metric informs how much free space IPFS has in its repository and is used to decide whether to allocate new pins to this peer or others.
 * `tag:*`: "tag" metric provide values coming from the tag informer. For example, peer may broadcast a metric `tag:group` with value `server`. The values are used by the balanced allocator to distribute pins across different values of a single tag.
 * `pinqueue`: this metric carries the number of items queued to pin and can also be used to avoid pinning on peers with long pinning queues.
