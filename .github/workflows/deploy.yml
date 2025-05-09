@@ -8,10 +8,10 @@ jobs:
     container:
       image: ipfs/ci-websites
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Build
         run: make build
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: website
           path: public
@@ -34,7 +34,7 @@ jobs:
       CIRCLE_PROJECT_USERNAME: ipfs-cluster
       CIRCLE_PROJECT_REPONAME: ipfs-cluster-website
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: website
           path: /tmp/workspace
